@@ -128,7 +128,9 @@ export const STRIPE_LINKS = {
   'all-access': '',
 }
 
+const RELEASE = 'https://github.com/bret1976/sitepack/releases/download/v1.0.0'
+
 export function packZipPath(id) {
-  if (id === 'all-access') return null // all-access too large for Vercel host; per-pack downloads
-  return `/packs/${id}.zip`
+  if (id === 'all-access') return null // unlock shows per-pack buttons; full bundle stays on build box
+  return `${RELEASE}/${id}.zip`
 }
