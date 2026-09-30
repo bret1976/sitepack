@@ -1,6 +1,10 @@
 [build]
 builder = "NIXPACKS"
 buildCommand = "npm install && npm run build"
+nixpacksVersion = "1.41.0"
 
 [deploy]
 startCommand = "npx serve dist -s -l $PORT"
+
+[variables]
+NIXPACKS_NODE_VERSION = "20"
