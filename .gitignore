@@ -7,3 +7,5 @@ dist
 
 # Pack ZIPs hosted via GitHub Releases (too large for Vercel)
 public/packs/*.zip
+__pycache__/
+scripts/__pycache__/

@@ -1,0 +1,564 @@
+{
+  "capturedAt": "2026-09-30T16:07:42Z",
+  "total": 64,
+  "ok": 54,
+  "fail": 10,
+  "results": [
+    {
+      "slug": "6-frame",
+      "demo": "https://6-frame.vercel.app",
+      "ok": false,
+      "error": "Page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://6-frame.vercel.app/\", waiting until \"domcontentloaded\"\n",
+      "ms": 50204
+    },
+    {
+      "slug": "6-frame-studio-price",
+      "demo": "https://6-frame-studio-price.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 135174,
+      "ms": 18874,
+      "out": "/posters/6-frame-studio-price.jpg"
+    },
+    {
+      "slug": "6frame-media",
+      "demo": "https://6frame-media.vercel.app",
+      "ok": false,
+      "error": "Page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://6frame-media.vercel.app/\", waiting until \"domcontentloaded\"\n",
+      "ms": 48666
+    },
+    {
+      "slug": "6frame-motion-portfolio",
+      "demo": "https://6frame-motion-portfolio.vercel.app",
+      "ok": false,
+      "error": "Page.screenshot: Timeout 30000ms exceeded.\nCall log:\n  - taking page screenshot\n",
+      "ms": 41726
+    },
+    {
+      "slug": "ai-content-system",
+      "demo": "https://ai-content-system-one.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 84176,
+      "ms": 11596,
+      "out": "/posters/ai-content-system.jpg"
+    },
+    {
+      "slug": "architect-pro",
+      "demo": "https://architect-pro.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 59168,
+      "ms": 10498,
+      "out": "/posters/architect-pro.jpg"
+    },
+    {
+      "slug": "archivist",
+      "demo": "https://archivist.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 14632,
+      "ms": 14062,
+      "out": "/posters/archivist.jpg"
+    },
+    {
+      "slug": "bret-jenny-minh-clone",
+      "demo": "https://bret-jenny-minh-clone.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 9926,
+      "ms": 28083,
+      "out": "/posters/bret-jenny-minh-clone.jpg"
+    },
+    {
+      "slug": "cinema-vault",
+      "demo": "https://cinema-vault.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 137539,
+      "ms": 4649,
+      "out": "/posters/cinema-vault.jpg"
+    },
+    {
+      "slug": "cinematic-ai-playbook-interactive",
+      "demo": "https://cinematic-ai-playbook-interactive.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 51892,
+      "ms": 4191,
+      "out": "/posters/cinematic-ai-playbook-interactive.jpg"
+    },
+    {
+      "slug": "clipforge",
+      "demo": "https://clipforge.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 56216,
+      "ms": 31499,
+      "out": "/posters/clipforge.jpg"
+    },
+    {
+      "slug": "cold-shine",
+      "demo": "https://cold-shine.vercel.app",
+      "ok": false,
+      "error": "Page.screenshot: Timeout 30000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n",
+      "ms": 48333
+    },
+    {
+      "slug": "commerce-dispatch-winter-shift",
+      "demo": "https://commerce-dispatch-winter-shift.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 44736,
+      "ms": 46287,
+      "out": "/posters/commerce-dispatch-winter-shift.jpg"
+    },
+    {
+      "slug": "cory-warfield-coaching-site",
+      "demo": "https://cory-warfield-coaching-site.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 92942,
+      "ms": 45357,
+      "out": "/posters/cory-warfield-coaching-site.jpg"
+    },
+    {
+      "slug": "daysole",
+      "demo": "https://daysole.vercel.app",
+      "ok": false,
+      "error": "Page.screenshot: Target crashed \nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n",
+      "ms": 24580
+    },
+    {
+      "slug": "dcrbn",
+      "demo": "https://dcrbn.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 105890,
+      "ms": 51546,
+      "out": "/posters/dcrbn.jpg"
+    },
+    {
+      "slug": "dembrandt-studio",
+      "demo": "https://dembrandt-studio.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 71360,
+      "ms": 19024,
+      "out": "/posters/dembrandt-studio.jpg"
+    },
+    {
+      "slug": "elva-labs-clone",
+      "demo": "https://elva-labs-clone.vercel.app",
+      "ok": false,
+      "error": "Page.screenshot: Target crashed \nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n",
+      "ms": 19541
+    },
+    {
+      "slug": "fable-25",
+      "demo": "https://fable-25.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 88662,
+      "ms": 32251,
+      "out": "/posters/fable-25.jpg"
+    },
+    {
+      "slug": "fooh-kit",
+      "demo": "https://fooh-kit.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 105042,
+      "ms": 16946,
+      "out": "/posters/fooh-kit.jpg"
+    },
+    {
+      "slug": "frames",
+      "demo": "https://frames.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 7598,
+      "ms": 16604,
+      "out": "/posters/frames.jpg"
+    },
+    {
+      "slug": "fusion-layer",
+      "demo": "https://fusion-layer.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 34888,
+      "ms": 19383,
+      "out": "/posters/fusion-layer.jpg"
+    },
+    {
+      "slug": "gemini-casino-v2",
+      "demo": "https://gemini-casino-v2.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 70240,
+      "ms": 13281,
+      "out": "/posters/gemini-casino-v2.jpg"
+    },
+    {
+      "slug": "gemini-xr-full",
+      "demo": "https://gemini-xr-full.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 11353,
+      "ms": 13920,
+      "out": "/posters/gemini-xr-full.jpg"
+    },
+    {
+      "slug": "h3-studio",
+      "demo": "https://h3-studio.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 39164,
+      "ms": 13580,
+      "out": "/posters/h3-studio.jpg"
+    },
+    {
+      "slug": "hewn",
+      "demo": "https://hewn.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 59979,
+      "ms": 50784,
+      "out": "/posters/hewn.jpg"
+    },
+    {
+      "slug": "housebrain",
+      "demo": "https://housebrain.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 88301,
+      "ms": 12105,
+      "out": "/posters/housebrain.jpg"
+    },
+    {
+      "slug": "ian-group-video-intro",
+      "demo": "https://dcrbn.io",
+      "ok": true,
+      "status": 200,
+      "bytes": 105890,
+      "ms": 8369,
+      "out": "/posters/ian-group-video-intro.jpg"
+    },
+    {
+      "slug": "iron-sights",
+      "demo": "https://iron-sights.vercel.app",
+      "ok": true,
+      "status": 503,
+      "bytes": 37733,
+      "ms": 7893,
+      "out": "/posters/iron-sights.jpg"
+    },
+    {
+      "slug": "jmi-entertainment",
+      "demo": "https://jmi-entertainment.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 136767,
+      "ms": 50874,
+      "out": "/posters/jmi-entertainment.jpg"
+    },
+    {
+      "slug": "kabuto-clone",
+      "demo": "https://kabuto-clone.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 162111,
+      "ms": 8782,
+      "out": "/posters/kabuto-clone.jpg"
+    },
+    {
+      "slug": "kanek",
+      "demo": "https://kanek.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 215342,
+      "ms": 8615,
+      "out": "/posters/kanek.jpg"
+    },
+    {
+      "slug": "kanek-ai-host",
+      "demo": "https://kanek-ai-host.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 67681,
+      "ms": 15354,
+      "out": "/posters/kanek-ai-host.jpg"
+    },
+    {
+      "slug": "kanek-frames",
+      "demo": "https://kanek-frames.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 48575,
+      "ms": 52210,
+      "out": "/posters/kanek-frames.jpg"
+    },
+    {
+      "slug": "kanek-horror-house",
+      "demo": "https://kanek-horror-house.vercel.app",
+      "ok": false,
+      "error": "Page.wait_for_timeout: Page crashed",
+      "ms": 14988
+    },
+    {
+      "slug": "lockframe",
+      "demo": "https://lockframe-six.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 122580,
+      "ms": 15242,
+      "out": "/posters/lockframe.jpg"
+    },
+    {
+      "slug": "lumora",
+      "demo": "https://lumora.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 70240,
+      "ms": 14350,
+      "out": "/posters/lumora.jpg"
+    },
+    {
+      "slug": "majid-zafer-astrodither",
+      "demo": "https://majid-zafer-astrodither.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 178350,
+      "ms": 18298,
+      "out": "/posters/majid-zafer-astrodither.jpg"
+    },
+    {
+      "slug": "manifest-neuve",
+      "demo": "https://manifest-neuve.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 36569,
+      "ms": 16455,
+      "out": "/posters/manifest-neuve.jpg"
+    },
+    {
+      "slug": "moment-path",
+      "demo": "https://moment-path.vercel.app",
+      "ok": false,
+      "error": "Page.screenshot: Target crashed \nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n",
+      "ms": 30966
+    },
+    {
+      "slug": "new-web-design",
+      "demo": "https://new-web-design.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 17159,
+      "ms": 15545,
+      "out": "/posters/new-web-design.jpg"
+    },
+    {
+      "slug": "north-and-mercer",
+      "demo": "https://north-and-mercer.vercel.app",
+      "ok": false,
+      "error": "Page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://north-and-mercer.vercel.app/\", waiting until \"domcontentloaded\"\n",
+      "ms": 47848
+    },
+    {
+      "slug": "omniscience-radar",
+      "demo": "https://omniscience-radar.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 23442,
+      "ms": 9106,
+      "out": "/posters/omniscience-radar.jpg"
+    },
+    {
+      "slug": "parallel-cinema",
+      "demo": "https://parallel-cinema.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 48277,
+      "ms": 84254,
+      "out": "/posters/parallel-cinema.jpg"
+    },
+    {
+      "slug": "penguin-inc",
+      "demo": "https://penguin-inc.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 8132,
+      "ms": 23537,
+      "out": "/posters/penguin-inc.jpg"
+    },
+    {
+      "slug": "pryme",
+      "demo": "https://pryme.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 34072,
+      "ms": 35356,
+      "out": "/posters/pryme.jpg"
+    },
+    {
+      "slug": "pryme-website",
+      "demo": "https://pryme-website.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 64626,
+      "ms": 27396,
+      "out": "/posters/pryme-website.jpg"
+    },
+    {
+      "slug": "rolls-royce-las-vegas-luxury-site",
+      "demo": "https://rolls-royce-las-vegas-luxury-site.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 129721,
+      "ms": 14378,
+      "out": "/posters/rolls-royce-las-vegas-luxury-site.jpg"
+    },
+    {
+      "slug": "shot-synth",
+      "demo": "https://shot-synth.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 14744,
+      "ms": 11083,
+      "out": "/posters/shot-synth.jpg"
+    },
+    {
+      "slug": "shotline",
+      "demo": "https://shotline.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 72877,
+      "ms": 15862,
+      "out": "/posters/shotline.jpg"
+    },
+    {
+      "slug": "site-takeover-6frame",
+      "demo": "https://site-takeover-6frame.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 98322,
+      "ms": 7061,
+      "out": "/posters/site-takeover-6frame.jpg"
+    },
+    {
+      "slug": "starchild",
+      "demo": "https://starchild.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 22325,
+      "ms": 4992,
+      "out": "/posters/starchild.jpg"
+    },
+    {
+      "slug": "starling",
+      "demo": "https://starling-production-5190.up.railway.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 133165,
+      "ms": 4340,
+      "out": "/posters/starling.jpg"
+    },
+    {
+      "slug": "still-theory-studio",
+      "demo": "https://still-theory-studio.vercel.app",
+      "ok": false,
+      "error": "Page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://still-theory-studio.vercel.app/\", waiting until \"domcontentloaded\"\n",
+      "ms": 47458
+    },
+    {
+      "slug": "the-bret-akari",
+      "demo": "https://the-bret-akari.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 13320,
+      "ms": 8030,
+      "out": "/posters/the-bret-akari.jpg"
+    },
+    {
+      "slug": "the-website",
+      "demo": "https://the-website.vercel.app",
+      "ok": true,
+      "status": 404,
+      "bytes": 19829,
+      "ms": 21528,
+      "out": "/posters/the-website.jpg"
+    },
+    {
+      "slug": "theshadow",
+      "demo": "https://theshadow.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 142002,
+      "ms": 4829,
+      "out": "/posters/theshadow.jpg"
+    },
+    {
+      "slug": "ultra-mode",
+      "demo": "https://ultra-mode.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 173085,
+      "ms": 22736,
+      "out": "/posters/ultra-mode.jpg"
+    },
+    {
+      "slug": "vence",
+      "demo": "https://vence.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 35653,
+      "ms": 28022,
+      "out": "/posters/vence.jpg"
+    },
+    {
+      "slug": "viberator",
+      "demo": "https://viberator.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 37411,
+      "ms": 21876,
+      "out": "/posters/viberator.jpg"
+    },
+    {
+      "slug": "viberator2",
+      "demo": "https://viberator2.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 36806,
+      "ms": 22571,
+      "out": "/posters/viberator2.jpg"
+    },
+    {
+      "slug": "warview-final-v2",
+      "demo": "https://warview-final-v2.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 49262,
+      "ms": 4831,
+      "out": "/posters/warview-final-v2.jpg"
+    },
+    {
+      "slug": "worldmonitor",
+      "demo": "https://worldmonitor.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 56340,
+      "ms": 3863,
+      "out": "/posters/worldmonitor.jpg"
+    },
+    {
+      "slug": "your-fresh-start-solutions",
+      "demo": "https://your-fresh-start-solutions.vercel.app",
+      "ok": true,
+      "status": 200,
+      "bytes": 146986,
+      "ms": 4830,
+      "out": "/posters/your-fresh-start-solutions.jpg"
+    }
+  ]
+}
