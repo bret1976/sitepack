@@ -4,3 +4,6 @@ dist
 .env
 .env.*
 !.env.example
+
+# Pack ZIPs hosted via GitHub Releases (too large for Vercel)
+public/packs/*.zip

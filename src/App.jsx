@@ -1,6 +1,16 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, Routes, Route, useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { PACKS, ALL_ACCESS, DEMO_UNLOCK_CODE, STRIPE_LINKS, packZipPath } from './packs'
+import {
+  PACKS,
+  PLACEHOLDERS,
+  GALLERY,
+  FILTERS,
+  ALL_ACCESS,
+  PLANS,
+  DEMO_UNLOCK_CODE,
+  STRIPE_LINKS,
+  packZipPath,
+} from './packs'
 
 const UNLOCK_KEY = 'sitepack_unlocked'
 
@@ -19,34 +29,6 @@ function useUnlocked() {
   return [unlocked, save]
 }
 
-function Nav() {
-  return (
-    <header className="nav">
-      <div className="nav-inner">
-        <Link to="/" className="logo">
-          <span className="logo-mark">S</span>
-          SitePack
-        </Link>
-        <nav className="nav-links">
-          <a href="/#gallery">Gallery</a>
-          <Link to="/pricing">All-Access</Link>
-          <Link to="/success">Unlock</Link>
-          <Link to="/pricing" className="nav-cta">Get All-Access — $149</Link>
-        </nav>
-      </div>
-    </header>
-  )
-}
-
-function Footer() {
-  return (
-    <footer className="footer shell">
-      <div>SitePack by 6Frame Studio · Source ZIPs for personal & client work</div>
-      <div>No reselling packs as competing kits · ReadyBatch paused</div>
-    </footer>
-  )
-}
-
 function buyPack(packId, navigate) {
   const link = STRIPE_LINKS[packId]
   if (link) {
@@ -56,58 +38,245 @@ function buyPack(packId, navigate) {
   navigate(`/checkout?pack=${encodeURIComponent(packId)}`)
 }
 
-function PackCard({ pack, wide, onOpen }) {
+function SearchIcon() {
   return (
-    <article className={`card${wide ? ' wide' : ''}`} style={{ '--pack-accent': pack.accent }}>
-      <div className="card-preview">
-        <div className="card-preview-fallback">{pack.title}</div>
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M11 2a9 9 0 0 1 9 9 8.96 8.96 0 0 1-1.968 5.617l3.675 3.676a1 1 0 0 1-1.32 1.497l-.094-.083-3.676-3.675A8.96 8.96 0 0 1 11 20a9 9 0 1 1 0-18zm0 2a7 7 0 1 0 0 14c1.89 0 3.606-.749 4.865-1.967a.73.73 0 0 1 .077-.09l.09-.077C17.251 14.606 18 12.89 18 11a7 7 0 0 0-7-7z" />
+    </svg>
+  )
+}
+
+function UnlockIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-1.8 10H4.8L3 8z" />
+    </svg>
+  )
+}
+
+function CheckIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  )
+}
+
+function ChevronIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  )
+}
+
+function Nav({ onSearch }) {
+  return (
+    <nav className="ms-nav">
+      <Link to="/" className="ms-logo">
+        <span className="ms-logo-badge">S</span>
+        <span>SitePack</span>
+      </Link>
+      <div className="ms-nav-links no-scrollbar">
+        <a href="/#gallery">Gallery</a>
+        <Link to="/pricing">Unlimited</Link>
+        <Link to="/success">Unlock</Link>
       </div>
-      <div className="card-body">
-        <span className="tag">{pack.category}</span>
-        <h3>{pack.title}</h3>
-        <p>{pack.tagline}</p>
-        <div className="card-meta">
-          <div className="price">${pack.price}<span>one-time</span></div>
-          <div className="card-actions">
-            <a className="btn btn-ghost" href={pack.demo} target="_blank" rel="noreferrer">Preview</a>
-            <button className="btn btn-primary" type="button" onClick={() => onOpen(pack)}>Unlock</button>
-          </div>
+      <div className="ms-nav-right">
+        <button type="button" className="ms-icon-btn" aria-label="Search" onClick={onSearch}>
+          <SearchIcon />
+        </button>
+        <Link to="/pricing" className="ms-btn-solid">
+          Go Unlimited
+        </Link>
+      </div>
+      <div className="ms-nav-mobile">
+        <button type="button" className="ms-icon-btn" aria-label="Search" onClick={onSearch}>
+          <SearchIcon />
+        </button>
+        <Link to="/pricing" className="ms-btn-solid">
+          Unlimited
+        </Link>
+      </div>
+    </nav>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className="ms-footer">
+      <span>© SitePack {new Date().getFullYear()}. Source ZIPs for personal & client work.</span>
+      <div className="ms-footer-social">
+        <span style={{ fontSize: 12 }}>No resale as competing packs</span>
+      </div>
+    </footer>
+  )
+}
+
+function SearchOverlay({ open, onClose, onSelect }) {
+  const [q, setQ] = useState('')
+  const results = useMemo(() => {
+    const needle = q.trim().toLowerCase()
+    if (!needle) return GALLERY.slice(0, 8)
+    return GALLERY.filter(
+      (p) =>
+        p.title.toLowerCase().includes(needle) ||
+        p.category.toLowerCase().includes(needle) ||
+        (p.tagline || '').toLowerCase().includes(needle),
+    ).slice(0, 12)
+  }, [q])
+
+  useEffect(() => {
+    if (!open) setQ('')
+  }, [open])
+
+  if (!open) return null
+  return (
+    <div className="ms-search-overlay" onClick={onClose}>
+      <div className="ms-search-box" onClick={(e) => e.stopPropagation()}>
+        <input
+          autoFocus
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search packs…"
+          aria-label="Search packs"
+        />
+        <div className="ms-search-results">
+          {results.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => {
+                onSelect(p)
+                onClose()
+              }}
+            >
+              <span>{p.title}</span>
+              <span className="cat">{p.category}{p.comingSoon ? ' · Soon' : ''}</span>
+            </button>
+          ))}
+          {!results.length && <div style={{ padding: 12, color: 'var(--dim)', fontSize: 14 }}>No matches</div>}
         </div>
+      </div>
+    </div>
+  )
+}
+
+function PackCard({ pack, onOpen }) {
+  const [loaded, setLoaded] = useState(false)
+  return (
+    <article className="ms-card" onClick={() => onOpen(pack)} role="button" tabIndex={0}
+      onKeyDown={(e) => { if (e.key === 'Enter') onOpen(pack) }}>
+      <div className={`ms-card-media${pack.tall ? ' tall' : ''}`}>
+        {!loaded && <div className="shimmer" />}
+        {pack.comingSoon && <span className="ms-card-soon">Coming soon</span>}
+        <img
+          src={pack.poster}
+          alt={pack.title}
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+          style={{ opacity: loaded ? 1 : 0 }}
+        />
+      </div>
+      <div className="ms-card-meta">
+        <div className="min-w-0" style={{ minWidth: 0 }}>
+          <h3>{pack.title}</h3>
+          <span className="cat">{pack.category}</span>
+        </div>
+        <button
+          type="button"
+          className="ms-card-unlock"
+          aria-label={pack.comingSoon ? 'Coming soon' : 'Unlock pack'}
+          onClick={(e) => {
+            e.stopPropagation()
+            onOpen(pack)
+          }}
+        >
+          <UnlockIcon />
+        </button>
       </div>
     </article>
   )
 }
 
+function distributeColumns(items, colCount) {
+  const cols = Array.from({ length: colCount }, () => [])
+  items.forEach((item, i) => {
+    cols[i % colCount].push(item)
+  })
+  return cols
+}
+
 function PackModal({ pack, onClose }) {
   const navigate = useNavigate()
+  const [showLive, setShowLive] = useState(false)
+  useEffect(() => {
+    if (!pack) return
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [pack, onClose])
   if (!pack) return null
+
+  const isPlaceholder = !!pack.comingSoon
+
   return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-top">
-          <div className="modal-iframe-wrap">
-            <button className="modal-close" type="button" onClick={onClose} aria-label="Close">×</button>
+    <div className="ms-modal-backdrop" onClick={onClose}>
+      <div className="ms-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
+        <div className="ms-modal-preview">
+          <button className="ms-modal-close" type="button" onClick={onClose} aria-label="Close">×</button>
+          {showLive && pack.demo && !isPlaceholder ? (
             <iframe title={`${pack.title} preview`} src={pack.demo} loading="lazy" sandbox="allow-scripts allow-same-origin" />
-          </div>
-          <div className="modal-info">
-            <span className="tag" style={{ '--pack-accent': pack.accent }}>{pack.category}</span>
-            <h2>{pack.title}</h2>
-            <p className="lead">{pack.tagline}</p>
-            <div className="stack-note">
+          ) : (
+            <img src={pack.poster} alt={pack.title} />
+          )}
+        </div>
+        <div className="ms-modal-body">
+          <span className="cat">{pack.category}{isPlaceholder ? ' · Coming soon' : ''}</span>
+          <h2>{pack.title}</h2>
+          <p className="lead">{pack.tagline}</p>
+          {!isPlaceholder && (
+            <div className="ms-modal-stack">
               <strong>Stack:</strong> {pack.stack}<br />
               <strong>Source:</strong> {pack.source}
             </div>
-            <strong>What’s included</strong>
-            <ul className="included">
-              {pack.included.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-            <div style={{ display: 'grid', gap: 10 }}>
-              <button className="btn btn-primary btn-block" type="button" onClick={() => buyPack(pack.id, navigate)}>
-                Buy — ${pack.price}
-              </button>
-              <a className="btn btn-ghost btn-block" href={pack.demo} target="_blank" rel="noreferrer">Open live demo</a>
-              <Link className="btn btn-ghost btn-block" to={`/p/${pack.slug}`} onClick={onClose}>Open pack page</Link>
-            </div>
+          )}
+          {!isPlaceholder && pack.included && (
+            <>
+              <strong style={{ fontSize: 13 }}>What’s included</strong>
+              <ul>
+                {pack.included.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </>
+          )}
+          {isPlaceholder && (
+            <p className="lead" style={{ color: 'var(--dim)' }}>
+              Placeholder card so the gallery stays Motionsites-dense. Real ZIP packs will replace these.
+            </p>
+          )}
+          <div className="ms-price-tag">{isPlaceholder ? 'Not for sale yet' : `$${pack.price} one-time · source ZIP`}</div>
+          <div className="ms-modal-actions">
+            {!isPlaceholder ? (
+              <>
+                <button className="ms-btn-block ms-btn-primary" type="button" onClick={() => buyPack(pack.id, navigate)}>
+                  Unlock — ${pack.price}
+                </button>
+                {pack.demo && (
+                  <button className="ms-btn-block ms-btn-ghost" type="button" onClick={() => setShowLive((v) => !v)}>
+                    {showLive ? 'Show poster' : 'Live preview'}
+                  </button>
+                )}
+                {pack.demo && (
+                  <a className="ms-btn-block ms-btn-ghost" href={pack.demo} target="_blank" rel="noreferrer">
+                    Open live site ↗
+                  </a>
+                )}
+              </>
+            ) : (
+              <Link className="ms-btn-block ms-btn-primary" to="/pricing" onClick={onClose}>
+                Go Unlimited instead
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -115,56 +284,82 @@ function PackModal({ pack, onClose }) {
   )
 }
 
-function Home() {
-  const [selected, setSelected] = useState(null)
+function Home({ selected, setSelected }) {
+  const [filter, setFilter] = useState('All')
+  const [cols, setCols] = useState(4)
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth
+      if (w < 640) setCols(1)
+      else if (w < 900) setCols(2)
+      else if (w < 1200) setCols(3)
+      else setCols(4)
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
+  const filtered = useMemo(() => {
+    if (filter === 'All') return GALLERY
+    return GALLERY.filter((p) => (p.filters || [p.category]).includes(filter) || p.category === filter)
+  }, [filter])
+
+  const columns = useMemo(() => distributeColumns(filtered, cols), [filtered, cols])
+
   return (
     <>
-      <section className="hero shell">
-        <div className="hero-kicker"><span>NEW</span> Motionsites-shaped UX · real source ZIPs, not prompts</div>
-        <h1>Browse the demo.<br /><em>Unlock the code.</em></h1>
-        <p className="hero-sub">
-          SitePack sells downloadable website source for Bret’s live sites.
-          Preview → buy once → download the ZIP. Remix for personal projects and client work.
+      <header className="ms-hero">
+        <span className="ms-grad-pill"><span>Fresh source drops</span></span>
+        <h1>
+          Unlock <em>your</em><br />
+          Site <span className="ms-grad-text" data-text="Source">Source</span>
+        </h1>
+        <p>
+          Browse live website demos. Buy once. Download the ZIP — remix for personal projects and client work.
         </p>
-        <div className="hero-actions">
-          <a className="btn btn-primary" href="#gallery">Browse packs</a>
-          <Link className="btn btn-ghost" to="/pricing">All-Access $149 <s style={{ opacity: 0.5, marginLeft: 6 }}>$343</s></Link>
-        </div>
-      </section>
+        <Link to="/pricing" className="ms-hero-cta">
+          Go Unlimited →
+        </Link>
+      </header>
 
-      <section className="shell" id="gallery">
-        <div className="section-head">
-          <h2>The gallery</h2>
-          <p>7 sellable sites · $49 each</p>
+      <div className="ms-toolbar" id="gallery">
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div className="ms-chips no-scrollbar">
+            {FILTERS.map((f) => (
+              <button
+                key={f}
+                type="button"
+                className={`ms-chip${filter === f ? ' active' : ''}`}
+                onClick={() => setFilter(f)}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="grid">
-          {PACKS.map((pack, i) => (
-            <PackCard key={pack.id} pack={pack} wide={i < 2} onOpen={setSelected} />
+        <Link to="/pricing" className="ms-sort-btn">
+          <span>Pricing</span>
+          <ChevronIcon />
+        </Link>
+      </div>
+
+      <div className="ms-gallery-wrap">
+        <div className="ms-masonry">
+          {columns.map((col, ci) => (
+            <div className="ms-col" key={ci}>
+              {col.map((pack) => (
+                <PackCard key={pack.id} pack={pack} onOpen={setSelected} />
+              ))}
+            </div>
           ))}
         </div>
-      </section>
+        {!filtered.length && (
+          <p style={{ textAlign: 'center', color: 'var(--dim)', padding: 40 }}>No packs in this filter yet.</p>
+        )}
+      </div>
 
-      <section className="shell faq">
-        <h2>FAQ</h2>
-        <details open>
-          <summary>Can I use packs for client work?</summary>
-          <p>Yes. Personal projects and client work are both OK. Rebrand before shipping.</p>
-        </details>
-        <details>
-          <summary>Can I resell the pack?</summary>
-          <p>No. Don’t redistribute or list the ZIP (or a near-identical kit) as a competing source pack or template product.</p>
-        </details>
-        <details>
-          <summary>What’s different from Motionsites?</summary>
-          <p>Motionsites sells AI prompts. SitePack sells actual website source ZIPs you can run and remix.</p>
-        </details>
-        <details>
-          <summary>Secrets & keys?</summary>
-          <p>Packs are sanitized — .env, private keys, and live Stripe/API secrets stripped or placeholdered. Drop in your own credentials.</p>
-        </details>
-      </section>
-
-      {selected && <PackModal pack={selected} onClose={() => setSelected(null)} />}
     </>
   )
 }
@@ -172,70 +367,89 @@ function Home() {
 function PackPage() {
   const { slug } = useParams()
   const navigate = useNavigate()
-  const pack = PACKS.find((p) => p.slug === slug)
+  const pack = [...PACKS, ...PLACEHOLDERS].find((p) => p.slug === slug)
   if (!pack) {
     return (
-      <div className="shell success">
+      <div className="ms-page">
         <h1>Pack not found</h1>
         <Link to="/">← Back to gallery</Link>
       </div>
     )
   }
-  return (
-    <div className="shell" style={{ paddingTop: 40 }}>
-      <div className="modal" style={{ maxWidth: 980, margin: '0 auto' }}>
-        <div className="modal-top">
-          <div className="modal-iframe-wrap">
-            <iframe title={pack.title} src={pack.demo} loading="lazy" sandbox="allow-scripts allow-same-origin" />
-          </div>
-          <div className="modal-info">
-            <span className="tag" style={{ '--pack-accent': pack.accent }}>{pack.category}</span>
-            <h2>{pack.title}</h2>
-            <p className="lead">{pack.tagline}</p>
-            <div className="stack-note">
-              <strong>Stack:</strong> {pack.stack}<br />
-              <strong>Source:</strong> {pack.source}
-            </div>
-            <ul className="included">
-              {pack.included.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-            <button className="btn btn-primary btn-block" type="button" onClick={() => buyPack(pack.id, navigate)}>
-              Buy — ${pack.price}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+  return <PackModal pack={pack} onClose={() => navigate('/')} />
 }
 
 function Pricing() {
   const navigate = useNavigate()
   return (
-    <div className="shell">
-      <div className="pricing-hero">
-        <h1>All-Access</h1>
-        <p style={{ color: 'var(--muted)', maxWidth: 480, margin: '0 auto' }}>
-          Unlock every SitePack — all 7 sources — for one payment. Built for freelancers and studios who ship client sites weekly.
-        </p>
+    <div className="ms-pricing">
+      <div className="ms-pricing-hero">
+        <span className="ms-grad-pill"><span>All-Access</span></span>
+        <h1>
+          Unlimited packs,<br />
+          <span className="ms-grad-text" data-text="Unlimited Access">Unlimited Access</span>
+        </h1>
+        <p>Pick the plan that fits your workflow. Yearly or save with lifetime All-Access.</p>
       </div>
-      <div className="pricing-card">
-        <div className="tag" style={{ margin: '0 auto 12px' }}>Best value</div>
-        <div className="big">${ALL_ACCESS.price}<span className="compare">${ALL_ACCESS.compareAt}</span></div>
-        <p style={{ color: 'var(--muted)' }}>One-time · all 7 packs · personal + client OK</p>
-        <button className="btn btn-primary btn-block" style={{ marginTop: 18 }} type="button" onClick={() => buyPack('all-access', navigate)}>
-          Unlock All-Access
-        </button>
+
+      <div className="ms-plan-grid">
+        {PLANS.map((plan) => (
+          <div key={plan.id} className={`ms-plan${plan.popular ? ' popular' : ''}`}>
+            {plan.popular && <span className="ms-plan-badge">Most Popular</span>}
+            <h3>{plan.name}</h3>
+            <p className="sub">{plan.subtitle}</p>
+            <div className="amount">
+              {plan.compareAt && <s>${plan.compareAt}</s>}
+              ${plan.price}
+            </div>
+            <div className="period">{plan.period}</div>
+            <button
+              className="ms-btn-block ms-btn-primary"
+              type="button"
+              onClick={() => buyPack(plan.packId, navigate)}
+            >
+              {plan.cta}
+            </button>
+            <ul>
+              {plan.features.map((f) => (
+                <li key={f}><CheckIcon /><span>{f}</span></li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-      <div className="faq">
-        <h2>License</h2>
+
+      <div className="ms-pack-offer">
+        <div>
+          <h3>Single packs</h3>
+          <p>One-off website builds when you don’t need All-Access. ${PACKS[0]?.price || 49} each.</p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div className="price">${PACKS[0]?.price || 49}</div>
+          <a className="ms-btn-solid" href="/#gallery">Browse gallery</a>
+        </div>
+      </div>
+
+      <div className="ms-faq">
         <details open>
-          <summary>Personal & client work</summary>
-          <p>Allowed. Build and customize for yourself or paying clients.</p>
+          <summary>What do I get? <ChevronIcon /></summary>
+          <p>Downloadable website source ZIPs (HTML/CSS/JS or full repos) — not AI prompts. Preview live demos, unlock, download, remix.</p>
         </details>
         <details>
-          <summary>No competing resale</summary>
-          <p>Don’t sell the packs themselves (or near-identical ZIPs) as a template/source marketplace product.</p>
+          <summary>Can I use packs for client work? <ChevronIcon /></summary>
+          <p>Yes. Personal projects and client work are both OK. Rebrand before shipping.</p>
+        </details>
+        <details>
+          <summary>Can I resell the pack? <ChevronIcon /></summary>
+          <p>No. Don’t redistribute or list the ZIP (or a near-identical kit) as a competing source pack or template product.</p>
+        </details>
+        <details>
+          <summary>What’s different from Motionsites? <ChevronIcon /></summary>
+          <p>Motionsites sells AI prompts. SitePack sells actual website source ZIPs you can run and remix.</p>
+        </details>
+        <details>
+          <summary>What currency? <ChevronIcon /></summary>
+          <p>USD.</p>
         </details>
       </div>
     </div>
@@ -250,19 +464,18 @@ function Checkout() {
   const pack = packId === 'all-access' ? ALL_ACCESS : PACKS.find((p) => p.id === packId)
 
   return (
-    <div className="shell success">
+    <div className="ms-page">
       <h1>Checkout</h1>
-      <p style={{ color: 'var(--muted)' }}>
-        Stripe Payment Links are not wired yet (Stripe MCP gateway unavailable in this build).
-        Use the demo unlock path so you can test downloads end-to-end.
+      <p>
+        Stripe Payment Links are not wired yet. Use the demo unlock path so you can test downloads end-to-end.
       </p>
-      <div className="unlock-box">
+      <div className="ms-box">
         <strong>{pack?.title || packId}</strong>
-        <div style={{ color: 'var(--muted)', marginTop: 6 }}>
-          ${pack?.price || '—'} one-time · when Stripe is live, Buy will open a Payment Link with success → /success?session_id=…
+        <div style={{ color: 'var(--dim)', marginTop: 6 }}>
+          ${pack?.price || '—'} one-time · when Stripe is live, Buy opens a Payment Link → /success
         </div>
         <button
-          className="btn btn-primary btn-block"
+          className="ms-btn-block ms-btn-primary"
           style={{ marginTop: 16 }}
           type="button"
           onClick={() => {
@@ -278,8 +491,8 @@ function Checkout() {
           Simulate purchase (demo unlock)
         </button>
       </div>
-      <p className="stub-note">
-        Real path when Stripe recovers: Payment Link → /success?session_id=&#123;CHECKOUT_SESSION_ID&#125; → verify session → show downloads.
+      <p className="ms-note">
+        Real path when Stripe recovers: Payment Link → /success?session_id=&#123;CHECKOUT_SESSION_ID&#125; → verify → downloads.
       </p>
     </div>
   )
@@ -328,47 +541,45 @@ function Success() {
   }
 
   return (
-    <div className="shell success">
+    <div className="ms-page">
       <h1>{active ? 'You’re in.' : 'Unlock your packs'}</h1>
-      <p style={{ color: 'var(--muted)' }}>
+      <p>
         {sessionId
-          ? `Checkout session received: ${sessionId} (session verify stub — Stripe API gateway was unavailable at build time).`
+          ? `Checkout session received: ${sessionId} (verify stub — Stripe gateway unavailable at build time).`
           : active
             ? 'Download your SitePack ZIP(s) below.'
             : 'Enter your unlock code after purchase, or use the demo code to test.'}
       </p>
 
       {!active && (
-        <form className="unlock-box" onSubmit={tryCode}>
+        <form className="ms-box" onSubmit={tryCode}>
           <label htmlFor="code">Unlock code</label>
           <input id="code" value={code} onChange={(e) => setCode(e.target.value)} placeholder="SITEPACK-…" autoComplete="off" />
           {error && <div style={{ color: 'var(--danger)', marginBottom: 8 }}>{error}</div>}
-          <button className="btn btn-primary" type="submit">Unlock downloads</button>
-          <p className="stub-note">Demo unlock code for Bret: <code>{DEMO_UNLOCK_CODE}</code></p>
+          <button className="ms-btn-block ms-btn-primary" type="submit">Unlock downloads</button>
+          <p className="ms-note" style={{ marginTop: 12 }}>
+            Demo unlock code: <code>{DEMO_UNLOCK_CODE}</code>
+          </p>
         </form>
       )}
 
       {active && (
-        <div className="download-list">
+        <div className="ms-download-list">
           {downloads.map((d) => (
-            <div className="download-row" key={d.id}>
+            <div className="ms-download-row" key={d.id}>
               <div>
                 <strong>{d.title}</strong>
                 <div style={{ color: 'var(--dim)', fontSize: 13 }}>{d.id}.zip</div>
               </div>
               {d.href ? (
-                <a className="btn btn-primary" href={d.href} download>
-                  Download
-                </a>
+                <a className="ms-btn-solid" href={d.href} download>Download</a>
               ) : (
                 <span style={{ color: 'var(--dim)', fontSize: 13 }}>Hosted per-pack</span>
               )}
             </div>
           ))}
-          <p className="stub-note">
-            Note: still-theory on this host is the lite pack (film scrub MP4s omitted for deploy size).
-            Full 406MB archive lives on the build box at /workspace/sitepack/packs/still-theory-studio.zip.
-            All-Access serves all 7 hosted zips (not a single 454MB bundle on Vercel).
+          <p className="ms-note">
+            still-theory on release host is the lite pack. Full 406MB archive: /workspace/sitepack/packs/still-theory-studio.zip
           </p>
         </div>
       )}
@@ -377,17 +588,29 @@ function Success() {
 }
 
 export default function App() {
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [selected, setSelected] = useState(null)
+
   return (
     <>
-      <Nav />
+      <Nav onSearch={() => setSearchOpen(true)} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home selected={selected} setSelected={setSelected} />} />
         <Route path="/p/:slug" element={<PackPage />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/unlimited" element={<Pricing />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/success" element={<Success />} />
       </Routes>
       <Footer />
+      <SearchOverlay
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        onSelect={setSelected}
+      />
+      {selected && (
+        <PackModal pack={selected} onClose={() => setSelected(null)} />
+      )}
     </>
   )
 }

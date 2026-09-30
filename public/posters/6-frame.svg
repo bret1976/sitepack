@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111"/>
+      <stop offset="100%" stop-color="#ff7a59"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="#0a0a0a"/>
+  <rect x="40" y="40" width="720" height="520" rx="28" fill="url(#g)" opacity="0.35"/>
+  <text x="80" y="300" fill="#f5f5f5" font-family="Inter,system-ui,sans-serif" font-size="42" font-weight="700">6Frame Studio</text>
+  <text x="80" y="350" fill="#a3a3a3" font-family="Inter,system-ui,sans-serif" font-size="20">SitePack source</text>
+</svg>
