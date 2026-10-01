@@ -167,7 +167,7 @@ function PackCard({ pack, onOpen }) {
   return (
     <article className="ms-card" onClick={() => onOpen(pack)} role="button" tabIndex={0}
       onKeyDown={(e) => { if (e.key === 'Enter') onOpen(pack) }}>
-      <div className={`ms-card-media${pack.tall ? ' tall' : ''}`}>
+      <div className="ms-card-media">
         {!loaded && <div className="shimmer" />}
         {pack.comingSoon && <span className="ms-card-soon">Coming soon</span>}
         <img
@@ -197,14 +197,6 @@ function PackCard({ pack, onOpen }) {
       </div>
     </article>
   )
-}
-
-function distributeColumns(items, colCount) {
-  const cols = Array.from({ length: colCount }, () => [])
-  items.forEach((item, i) => {
-    cols[i % colCount].push(item)
-  })
-  return cols
 }
 
 function PackModal({ pack, onClose }) {
@@ -286,27 +278,11 @@ function PackModal({ pack, onClose }) {
 
 function Home({ selected, setSelected }) {
   const [filter, setFilter] = useState('All')
-  const [cols, setCols] = useState(4)
-
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth
-      if (w < 640) setCols(1)
-      else if (w < 900) setCols(2)
-      else if (w < 1200) setCols(3)
-      else setCols(4)
-    }
-    update()
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
-  }, [])
 
   const filtered = useMemo(() => {
     if (filter === 'All') return GALLERY
     return GALLERY.filter((p) => (p.filters || [p.category]).includes(filter) || p.category === filter)
   }, [filter])
-
-  const columns = useMemo(() => distributeColumns(filtered, cols), [filtered, cols])
 
   return (
     <>
@@ -346,13 +322,9 @@ function Home({ selected, setSelected }) {
       </div>
 
       <div className="ms-gallery-wrap">
-        <div className="ms-masonry">
-          {columns.map((col, ci) => (
-            <div className="ms-col" key={ci}>
-              {col.map((pack) => (
-                <PackCard key={pack.id} pack={pack} onOpen={setSelected} />
-              ))}
-            </div>
+        <div className="ms-gallery">
+          {filtered.map((pack) => (
+            <PackCard key={pack.id} pack={pack} onOpen={setSelected} />
           ))}
         </div>
         {!filtered.length && (

@@ -4,17 +4,19 @@
   --bg-elev: #141414;
   --bg-card: #121212;
   --bg-chip: #202020;
-  --border: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.12);
   --border-chip: #2a2a2a;
   --border-chip-top: #3b3b3b;
   --text: #fafafa;
-  --muted: rgba(255, 255, 255, 0.72);
-  --dim: rgba(255, 255, 255, 0.45);
+  --muted: rgba(255, 255, 255, 0.78);
+  --dim: rgba(255, 255, 255, 0.5);
   --foreground: #fafafa;
   --background-ink: #0a0a0a;
   --danger: #fb7185;
-  --radius-card: 24px;
-  --radius-media: 12px;
+  --accent-glow: rgba(208, 178, 255, 0.35);
+  --accent-line: rgba(232, 64, 13, 0.7);
+  --radius-card: 22px;
+  --radius-media: 14px;
   --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   --gradient: radial-gradient(80.17% 109.2% at 44.373% 35.1526%, rgb(208, 178, 255) 0%, rgb(255, 238, 216) 42.83%, rgb(232, 64, 13) 88.38%);
   color-scheme: dark;
@@ -47,8 +49,9 @@ img { max-width: 100%; display: block; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(10, 10, 10, 0.85);
-  backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.78);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .ms-logo {
   display: flex;
@@ -151,11 +154,11 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
 }
 .ms-grad-pill > span {
-  padding: 3px 8px;
-  font-size: 10px;
+  padding: 4px 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   line-height: 1;
   background-image: var(--gradient);
   background-clip: text;
@@ -200,54 +203,73 @@ img { max-width: 100%; display: block; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 48px 16px 40px;
+  padding: 56px 16px 48px;
   text-align: center;
+  position: relative;
+}
+.ms-hero::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: min(180px, 40%);
+  height: 2px;
+  border-radius: 999px;
+  background: var(--gradient);
+  opacity: 0.55;
+  pointer-events: none;
 }
 @media (min-width: 640px) {
-  .ms-hero { padding-top: 64px; }
+  .ms-hero { padding: 72px 24px 56px; }
 }
 .ms-hero h1 {
-  margin: 0 0 12px;
-  font-size: 38px;
+  margin: 0 0 14px;
+  font-size: 42px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 34px;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
   color: var(--text);
+  text-shadow: 0 0 40px rgba(208, 178, 255, 0.12);
 }
 @media (min-width: 640px) {
   .ms-hero h1 {
-    font-size: 48px;
-    line-height: 46px;
+    font-size: 54px;
   }
 }
 @media (min-width: 768px) {
   .ms-hero h1 {
-    font-size: 56px;
+    font-size: 64px;
   }
 }
 .ms-hero h1 em { font-style: italic; font-weight: 900; }
 .ms-hero p {
-  margin: 0 0 24px;
-  max-width: 28rem;
+  margin: 0 0 28px;
+  max-width: 32rem;
   color: var(--muted);
   font-weight: 500;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.55;
 }
 .ms-hero-cta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 22px;
+  padding: 12px 26px;
   background: var(--text);
   color: var(--bg);
   font-size: 14px;
-  font-weight: 500;
-  border-radius: 8px;
-  transition: opacity 0.15s;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.15s;
+  box-shadow: 0 0 0 0 transparent;
 }
-.ms-hero-cta:hover { opacity: 0.9; }
+.ms-hero-cta:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(208, 178, 255, 0.22);
+}
 
 /* ——— Filter chips ——— */
 .ms-toolbar {
@@ -312,77 +334,123 @@ img { max-width: 100%; display: block; }
 }
 .ms-sort-btn svg { width: 12px; height: 12px; opacity: 0.72; }
 
-/* ——— Masonry gallery ——— */
+/* ——— Equal-size gallery grid (bigger posters) ——— */
 .ms-gallery-wrap {
   width: 100%;
-  padding: 0 16px 48px;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 16px 64px;
 }
 @media (min-width: 640px) {
-  .ms-gallery-wrap { padding: 0 24px 64px; }
+  .ms-gallery-wrap { padding: 0 28px 80px; }
 }
-.ms-masonry {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+.ms-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px 18px;
+  align-items: stretch;
 }
-.ms-col {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+@media (min-width: 640px) {
+  .ms-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 22px;
+  }
 }
-@media (max-width: 640px) {
-  .ms-masonry { flex-direction: column; }
-  .ms-col { width: 100%; }
+@media (min-width: 1024px) {
+  .ms-gallery {
+    /* Fewer, larger cards — posters pop more than a dense 4-col masonry */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px 26px;
+  }
+}
+@media (min-width: 1440px) {
+  .ms-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 36px 28px;
+  }
 }
 
-/* PromptCard analog */
+/* PromptCard analog — equal fixed poster boxes */
 .ms-card {
   border-radius: var(--radius-card);
   overflow: visible;
   display: flex;
   flex-direction: column;
+  height: 100%;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.25s ease;
 }
-.ms-card:hover { transform: translateY(-2px); }
+.ms-card:hover { transform: translateY(-4px); }
 .ms-card-media {
   position: relative;
   width: 100%;
   flex-shrink: 0;
   border-radius: var(--radius-media);
   overflow: hidden;
-  margin-bottom: 12px;
-  background: #1a1a1a;
-  aspect-ratio: 4 / 3;
+  margin-bottom: 14px;
+  background: #151515;
+  /* Fixed equal size for every card — uneven screenshots clipped via cover */
+  aspect-ratio: 16 / 10;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 12px 32px rgba(0, 0, 0, 0.35);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
+.ms-card-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 65%
+  );
+  background-size: 220% 100%;
+  background-position: 140% 0;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-position 0.7s ease;
+  z-index: 1;
+}
+.ms-card:hover .ms-card-media {
+  border-color: rgba(208, 178, 255, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(208, 178, 255, 0.18) inset,
+    0 0 28px rgba(208, 178, 255, 0.22),
+    0 18px 40px rgba(0, 0, 0, 0.45);
+}
+.ms-card:hover .ms-card-media::after {
+  opacity: 1;
+  background-position: -40% 0;
+}
+/* Legacy tall flag ignored — all posters stay equal */
 .ms-card-media.tall {
-  aspect-ratio: auto;
-  min-height: 280px;
+  aspect-ratio: 16 / 10;
+  min-height: 0;
 }
-.ms-card-media.tall img {
-  position: relative;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: top;
-}
+.ms-card-media.tall img,
 .ms-card-media img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
-  transition: opacity 0.3s, transform 0.4s ease;
+  object-position: top center;
+  transition: opacity 0.3s, transform 0.45s ease;
 }
-.ms-card:hover .ms-card-media img { transform: scale(1.03); }
+.ms-card:hover .ms-card-media img { transform: scale(1.05); }
 .ms-card-media .shimmer {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
   animation: shimmer 1.4s infinite;
+  z-index: 1;
 }
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
@@ -390,50 +458,58 @@ img { max-width: 100%; display: block; }
 }
 .ms-card-soon {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 12px;
+  left: 12px;
   z-index: 2;
-  padding: 4px 10px;
+  padding: 5px 11px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   border-radius: 999px;
-  background: rgba(0,0,0,0.65);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: var(--muted);
-  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.72);
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #fff;
+  backdrop-filter: blur(8px);
 }
 .ms-card-meta {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  padding: 8px 2px 12px;
+  padding: 4px 2px 4px;
+  min-height: 52px;
 }
 .ms-card-meta h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .ms-card-meta .cat {
   display: block;
-  margin-top: 2px;
+  margin-top: 3px;
   font-size: 12px;
+  font-weight: 500;
   color: var(--dim);
+  letter-spacing: 0.01em;
 }
 .ms-card-unlock {
   flex-shrink: 0;
   color: var(--dim);
-  padding: 2px;
-  transition: color 0.15s;
+  padding: 4px;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s, box-shadow 0.2s;
 }
-.ms-card:hover .ms-card-unlock { color: var(--text); }
+.ms-card:hover .ms-card-unlock {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 12px rgba(208, 178, 255, 0.15);
+}
 .ms-card-unlock svg { width: 20px; height: 20px; fill: currentColor; }
 
 /* ——— Detail modal ——— */
@@ -567,9 +643,11 @@ img { max-width: 100%; display: block; }
 }
 .ms-btn-ghost:hover { border-color: rgba(255,255,255,0.28); }
 .ms-price-tag {
-  font-size: 13px;
-  color: var(--dim);
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 238, 216, 0.92);
   margin-top: -4px;
+  letter-spacing: 0.01em;
 }
 
 /* ——— Pricing / Unlimited ——— */
