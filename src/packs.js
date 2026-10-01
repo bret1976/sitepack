@@ -1,5 +1,5 @@
 /** SitePack catalog — Motionsites-shaped gallery, ZIP source packs
- *  Catalog trim 2026-09-30 PT. Packaged: 34 · Excluded: 6framerates + ManySides + Bret remove-list
+ *  Catalog trim 2026-10-01 PT. Packaged: 28 · Excluded: 6framerates + ManySides + Bret remove-list (2026-09-30 + 2026-10-01)
  */
 
 export const FILTERS = [
@@ -31,23 +31,6 @@ export const PACKS = [
     source: "repo:bret1976/dcrbn-io",
     included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
     accent: "#fb923c",
-    featured: true,
-    tall: true,
-  },
-  {
-    id: "hewn",
-    slug: "hewn",
-    title: "Hewn",
-    category: "Landing",
-    filters: ["Landing", "Creative"],
-    tagline: "Hewn brand landing",
-    demo: "https://hewn.vercel.app",
-    poster: "/posters/hewn.jpg",
-    price: 49,
-    stack: "Static HTML",
-    source: "repo:VegasCryptoAgent/hewn",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#e8b4ff",
     featured: true,
     tall: true,
   },
@@ -137,36 +120,6 @@ export const PACKS = [
     tall: true,
   },
   {
-    id: "ai-content-system",
-    slug: "ai-content-system",
-    title: "AI Content System",
-    category: "Landing",
-    filters: ["Landing", "Creative"],
-    tagline: "AI Content System offer landing (static)",
-    demo: "https://ai-content-system-one.vercel.app",
-    poster: "/posters/ai-content-system.jpg",
-    price: 49,
-    stack: "npm / Node",
-    source: "repo:bret1976/ai-content-system",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#86efac",
-  },
-  {
-    id: "architect-pro",
-    slug: "architect-pro",
-    title: "Architect Pro",
-    category: "Landing",
-    filters: ["Landing", "Creative"],
-    tagline: "Architect Pro Hollywood image creator",
-    demo: "https://architect-pro.vercel.app",
-    poster: "/posters/architect-pro.jpg",
-    price: 49,
-    stack: "npm / Node",
-    source: "repo:VegasCryptoAgent/Architect-Pro",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#f9a8d4",
-  },
-  {
     id: "the-bret-akari",
     slug: "the-bret-akari",
     title: "Bret Akari",
@@ -195,21 +148,6 @@ export const PACKS = [
     source: "static-capture (no public GitHub)",
     included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
     accent: "#f9a8d4",
-  },
-  {
-    id: "cinema-vault",
-    slug: "cinema-vault",
-    title: "Cinema Vault",
-    category: "Film",
-    filters: ["Landing", "Film", "Creative"],
-    tagline: "Cinema Vault portfolio/product",
-    demo: "https://cinema-vault.vercel.app",
-    poster: "/posters/cinema-vault.jpg",
-    price: 49,
-    stack: "Static HTML capture",
-    source: "static-capture (no public GitHub)",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#fb7185",
   },
   {
     id: "cold-shine",
@@ -301,21 +239,6 @@ export const PACKS = [
     source: "static-capture (no public GitHub)",
     included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
     accent: "#67e8f9",
-  },
-  {
-    id: "ian-group-video-intro",
-    slug: "ian-group-video-intro",
-    title: "IAN Group / DCRBN Intro",
-    category: "Film",
-    filters: ["Landing", "Creative"],
-    tagline: "IAN Group / DCRBN cinematic intro site (dcrbn.io)",
-    demo: "https://dcrbn.io",
-    poster: "/posters/ian-group-video-intro.jpg",
-    price: 49,
-    stack: "npm / Node",
-    source: "repo:VegasCryptoAgent/ian-group-video-intro",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#94a3b8",
   },
   {
     id: "kabuto-clone",
@@ -484,22 +407,6 @@ export const PACKS = [
     accent: "#94a3b8",
   },
   {
-    id: "starling",
-    slug: "starling",
-    title: "Starling",
-    category: "SaaS",
-    filters: ["Landing", "Creative"],
-    tagline: "Starling — source pack",
-    demo: "https://starling-production-5190.up.railway.app",
-    poster: "/posters/starling.jpg",
-    price: 49,
-    stack: "Project source",
-    source: "repo:bret1976/starling",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#e8ff6b",
-    tall: true,
-  },
-  {
     id: "theshadow",
     slug: "theshadow",
     title: "The Shadow",
@@ -545,132 +452,3 @@ export const PACKS = [
     accent: "#7dd3fc",
   },
 ]
-
-/** Keep a few coming-soon tiles for density; real packs dominate. */
-export const PLACEHOLDERS = [
-]
-
-export const GALLERY = [...PACKS, ...PLACEHOLDERS]
-
-export const ALL_ACCESS = {
-  id: 'all-access',
-  slug: 'all-access',
-  title: 'All-Access',
-  price: 149,
-  compareAt: 3136,
-  tagline: 'Unlock all SitePack sources in one purchase.',
-}
-
-export const PLANS = [
-  {
-    id: 'yearly',
-    name: 'Yearly Access',
-    subtitle: 'All packs + updates for a year',
-    price: 99,
-    period: 'Per year, cancel anytime',
-    cta: 'Subscribe Yearly',
-    packId: 'all-access',
-    features: ['All current SitePack ZIPs','New packs added during the year','Personal & client work','Priority support'],
-  },
-  {
-    id: 'lifetime',
-    name: 'Lifetime Access',
-    subtitle: 'All packs, forever',
-    price: 149,
-    compareAt: 3136,
-    period: 'One-time payment',
-    cta: 'Pay once, unlock forever',
-    popular: true,
-    packId: 'all-access',
-    features: ['All current SitePack ZIPs','Lifetime updates to the library','Personal & client work','Priority support','Early access to new drops'],
-  },
-]
-
-export const DEMO_UNLOCK_CODE = 'SITEPACK-DEMO-2026'
-
-export const STRIPE_LINKS = {
-  'dcrbn': '',
-  'hewn': '',
-  'jmi-entertainment': '',
-  'kanek-frames': '',
-  'north-and-mercer': '',
-  'parallel-cinema': '',
-  'still-theory-studio': '',
-  '6frame-media': '',
-  '6frame-motion-portfolio': '',
-  '6-frame': '',
-  '6-frame-studio-price': '',
-  'ai-content-system': '',
-  'architect-pro': '',
-  'archivist': '',
-  'the-bret-akari': '',
-  'bret-jenny-minh-clone': '',
-  'cinema-vault': '',
-  'cinematic-ai-playbook-interactive': '',
-  'clipforge': '',
-  'cold-shine': '',
-  'commerce-dispatch-winter-shift': '',
-  'cory-warfield-coaching-site': '',
-  'daysole': '',
-  'dembrandt-studio': '',
-  'elva-labs-clone': '',
-  'fable-25': '',
-  'fooh-kit': '',
-  'frames': '',
-  'fusion-layer': '',
-  'gemini-casino-v2': '',
-  'gemini-xr-full': '',
-  'h3-studio': '',
-  'housebrain': '',
-  'ian-group-video-intro': '',
-  'iron-sights': '',
-  'kabuto-clone': '',
-  'kanek': '',
-  'kanek-ai-host': '',
-  'kanek-horror-house': '',
-  'lockframe': '',
-  'lumora': '',
-  'majid-zafer-astrodither': '',
-  'manifest-neuve': '',
-  'moment-path': '',
-  'new-web-design': '',
-  'omniscience-radar': '',
-  'penguin-inc': '',
-  'pryme': '',
-  'pryme-website': '',
-  'rolls-royce-las-vegas-luxury-site': '',
-  'shot-synth': '',
-  'shotline': '',
-  'site-takeover-6frame': '',
-  'starchild': '',
-  'starling': '',
-  'theshadow': '',
-  'the-website': '',
-  'ultra-mode': '',
-  'vence': '',
-  'viberator': '',
-  'viberator2': '',
-  'warview-final-v2': '',
-  'worldmonitor': '',
-  'your-fresh-start-solutions': '',
-  'all-access': '',
-}
-
-/** Prefer GitHub Release assets when available; otherwise /packs/<id>.zip (local/dev). */
-const RELEASE = 'https://github.com/bret1976/sitepack/releases/download/v1.0.0'
-const RELEASE_IDS = new Set([
-  'still-theory-studio',
-  'jmi-entertainment',
-  'starling',
-  'cory-warfield-coaching-site',
-  'your-fresh-start-solutions',
-  'north-and-mercer',
-  '6frame-rate-website',
-])
-
-export function packZipPath(id) {
-  if (id === 'all-access') return null
-  if (RELEASE_IDS.has(id)) return `${RELEASE}/${id}.zip`
-  return `/packs/${id}.zip`
-}
-
