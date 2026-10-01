@@ -452,3 +452,132 @@ export const PACKS = [
     accent: "#7dd3fc",
   },
 ]
+
+/** Keep a few coming-soon tiles for density; real packs dominate. */
+export const PLACEHOLDERS = [
+]
+
+export const GALLERY = [...PACKS, ...PLACEHOLDERS]
+
+export const ALL_ACCESS = {
+  id: 'all-access',
+  slug: 'all-access',
+  title: 'All-Access',
+  price: 149,
+  compareAt: 3136,
+  tagline: 'Unlock all SitePack sources in one purchase.',
+}
+
+export const PLANS = [
+  {
+    id: 'yearly',
+    name: 'Yearly Access',
+    subtitle: 'All packs + updates for a year',
+    price: 99,
+    period: 'Per year, cancel anytime',
+    cta: 'Subscribe Yearly',
+    packId: 'all-access',
+    features: ['All current SitePack ZIPs','New packs added during the year','Personal & client work','Priority support'],
+  },
+  {
+    id: 'lifetime',
+    name: 'Lifetime Access',
+    subtitle: 'All packs, forever',
+    price: 149,
+    compareAt: 3136,
+    period: 'One-time payment',
+    cta: 'Pay once, unlock forever',
+    popular: true,
+    packId: 'all-access',
+    features: ['All current SitePack ZIPs','Lifetime updates to the library','Personal & client work','Priority support','Early access to new drops'],
+  },
+]
+
+export const DEMO_UNLOCK_CODE = 'SITEPACK-DEMO-2026'
+
+export const STRIPE_LINKS = {
+  'dcrbn': '',
+  'hewn': '',
+  'jmi-entertainment': '',
+  'kanek-frames': '',
+  'north-and-mercer': '',
+  'parallel-cinema': '',
+  'still-theory-studio': '',
+  '6frame-media': '',
+  '6frame-motion-portfolio': '',
+  '6-frame': '',
+  '6-frame-studio-price': '',
+  'ai-content-system': '',
+  'architect-pro': '',
+  'archivist': '',
+  'the-bret-akari': '',
+  'bret-jenny-minh-clone': '',
+  'cinema-vault': '',
+  'cinematic-ai-playbook-interactive': '',
+  'clipforge': '',
+  'cold-shine': '',
+  'commerce-dispatch-winter-shift': '',
+  'cory-warfield-coaching-site': '',
+  'daysole': '',
+  'dembrandt-studio': '',
+  'elva-labs-clone': '',
+  'fable-25': '',
+  'fooh-kit': '',
+  'frames': '',
+  'fusion-layer': '',
+  'gemini-casino-v2': '',
+  'gemini-xr-full': '',
+  'h3-studio': '',
+  'housebrain': '',
+  'ian-group-video-intro': '',
+  'iron-sights': '',
+  'kabuto-clone': '',
+  'kanek': '',
+  'kanek-ai-host': '',
+  'kanek-horror-house': '',
+  'lockframe': '',
+  'lumora': '',
+  'majid-zafer-astrodither': '',
+  'manifest-neuve': '',
+  'moment-path': '',
+  'new-web-design': '',
+  'omniscience-radar': '',
+  'penguin-inc': '',
+  'pryme': '',
+  'pryme-website': '',
+  'rolls-royce-las-vegas-luxury-site': '',
+  'shot-synth': '',
+  'shotline': '',
+  'site-takeover-6frame': '',
+  'starchild': '',
+  'starling': '',
+  'theshadow': '',
+  'the-website': '',
+  'ultra-mode': '',
+  'vence': '',
+  'viberator': '',
+  'viberator2': '',
+  'warview-final-v2': '',
+  'worldmonitor': '',
+  'your-fresh-start-solutions': '',
+  'all-access': '',
+}
+
+/** Prefer GitHub Release assets when available; otherwise /packs/<id>.zip (local/dev). */
+const RELEASE = 'https://github.com/bret1976/sitepack/releases/download/v1.0.0'
+const RELEASE_IDS = new Set([
+  'still-theory-studio',
+  'jmi-entertainment',
+  'starling',
+  'cory-warfield-coaching-site',
+  'your-fresh-start-solutions',
+  'north-and-mercer',
+  '6frame-rate-website',
+])
+
+export function packZipPath(id) {
+  if (id === 'all-access') return null
+  if (RELEASE_IDS.has(id)) return `${RELEASE}/${id}.zip`
+  return `/packs/${id}.zip`
+}
+
