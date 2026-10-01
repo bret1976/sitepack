@@ -1,0 +1,487 @@
+{
+  "packaged": [],
+  "posters": [
+    {
+      "slug": "fable-brut",
+      "demo": "https://fable-25-ruby.vercel.app/03-brut/",
+      "ok": true,
+      "status": 200,
+      "bytes": 80121,
+      "ms": 3408
+    },
+    {
+      "slug": "fable-aurora",
+      "demo": "https://fable-25-ruby.vercel.app/01-aurora/",
+      "ok": true,
+      "status": 200,
+      "bytes": 58400,
+      "ms": 4532
+    },
+    {
+      "slug": "fable-monolith",
+      "demo": "https://fable-25-ruby.vercel.app/02-monolith/",
+      "ok": true,
+      "status": 200,
+      "bytes": 78100,
+      "ms": 6416
+    },
+    {
+      "slug": "fable-helvetia",
+      "demo": "https://fable-25-ruby.vercel.app/04-helvetia/",
+      "ok": true,
+      "status": 200,
+      "bytes": 48944,
+      "ms": 3475
+    },
+    {
+      "slug": "fable-verse",
+      "demo": "https://fable-25-ruby.vercel.app/05-verse/",
+      "ok": true,
+      "status": 200,
+      "bytes": 23402,
+      "ms": 3358
+    },
+    {
+      "slug": "fable-stellar",
+      "demo": "https://fable-25-ruby.vercel.app/06-stellar/",
+      "ok": true,
+      "status": 200,
+      "bytes": 45076,
+      "ms": 3366
+    },
+    {
+      "slug": "fable-terminal",
+      "demo": "https://fable-25-ruby.vercel.app/07-terminal/",
+      "ok": true,
+      "status": 200,
+      "bytes": 66615,
+      "ms": 3119
+    },
+    {
+      "slug": "fable-ma",
+      "demo": "https://fable-25-ruby.vercel.app/08-ma/",
+      "ok": true,
+      "status": 200,
+      "bytes": 22433,
+      "ms": 3503
+    },
+    {
+      "slug": "fable-gatsby",
+      "demo": "https://fable-25-ruby.vercel.app/09-gatsby/",
+      "ok": true,
+      "status": 200,
+      "bytes": 81790,
+      "ms": 3437
+    },
+    {
+      "slug": "fable-bauhaus",
+      "demo": "https://fable-25-ruby.vercel.app/10-bauhaus/",
+      "ok": true,
+      "status": 200,
+      "bytes": 76042,
+      "ms": 3445
+    },
+    {
+      "slug": "fable-lumen",
+      "demo": "https://fable-25-ruby.vercel.app/11-lumen/",
+      "ok": true,
+      "status": 200,
+      "bytes": 62707,
+      "ms": 3584
+    },
+    {
+      "slug": "fable-gazette",
+      "demo": "https://fable-25-ruby.vercel.app/12-gazette/",
+      "ok": true,
+      "status": 200,
+      "bytes": 175356,
+      "ms": 3074
+    },
+    {
+      "slug": "fable-neon-district",
+      "demo": "https://fable-25-ruby.vercel.app/13-neon-district/",
+      "ok": true,
+      "status": 200,
+      "bytes": 58111,
+      "ms": 3287
+    },
+    {
+      "slug": "fable-storybook",
+      "demo": "https://fable-25-ruby.vercel.app/14-storybook/",
+      "ok": true,
+      "status": 200,
+      "bytes": 32530,
+      "ms": 3397
+    },
+    {
+      "slug": "fable-atelier",
+      "demo": "https://fable-25-ruby.vercel.app/15-atelier/",
+      "ok": true,
+      "status": 200,
+      "bytes": 27188,
+      "ms": 3387
+    },
+    {
+      "slug": "fable-pulse",
+      "demo": "https://fable-25-ruby.vercel.app/16-pulse/",
+      "ok": true,
+      "status": 200,
+      "bytes": 71263,
+      "ms": 3405
+    },
+    {
+      "slug": "fable-daydream",
+      "demo": "https://fable-25-ruby.vercel.app/17-daydream/",
+      "ok": true,
+      "status": 200,
+      "bytes": 94510,
+      "ms": 3161
+    },
+    {
+      "slug": "fable-radiola",
+      "demo": "https://fable-25-ruby.vercel.app/18-radiola/",
+      "ok": true,
+      "status": 200,
+      "bytes": 56520,
+      "ms": 3287
+    },
+    {
+      "slug": "fable-odyssey",
+      "demo": "https://fable-25-ruby.vercel.app/19-odyssey/",
+      "ok": true,
+      "status": 200,
+      "bytes": 37512,
+      "ms": 3275
+    },
+    {
+      "slug": "fable-ascii",
+      "demo": "https://fable-25-ruby.vercel.app/20-ascii/",
+      "ok": true,
+      "status": 200,
+      "bytes": 149319,
+      "ms": 3309
+    },
+    {
+      "slug": "fable-herbarium",
+      "demo": "https://fable-25-ruby.vercel.app/21-herbarium/",
+      "ok": true,
+      "status": 200,
+      "bytes": 60348,
+      "ms": 3401
+    },
+    {
+      "slug": "fable-synth",
+      "demo": "https://fable-25-ruby.vercel.app/22-synth/",
+      "ok": true,
+      "status": 200,
+      "bytes": 51711,
+      "ms": 3304
+    },
+    {
+      "slug": "fable-flux",
+      "demo": "https://fable-25-ruby.vercel.app/23-flux/",
+      "ok": true,
+      "status": 200,
+      "bytes": 131614,
+      "ms": 3364
+    },
+    {
+      "slug": "fable-codex",
+      "demo": "https://fable-25-ruby.vercel.app/24-codex/",
+      "ok": true,
+      "status": 200,
+      "bytes": 96979,
+      "ms": 3398
+    },
+    {
+      "slug": "fable-chrome",
+      "demo": "https://fable-25-ruby.vercel.app/25-chrome/",
+      "ok": true,
+      "status": 200,
+      "bytes": 66384,
+      "ms": 3560
+    },
+    {
+      "slug": "fable-axiom",
+      "demo": "https://fable-25-ruby.vercel.app/26-axiom/",
+      "ok": true,
+      "status": 200,
+      "bytes": 74271,
+      "ms": 3526
+    },
+    {
+      "slug": "fable-chronos",
+      "demo": "https://fable-25-ruby.vercel.app/27-chronos/",
+      "ok": true,
+      "status": 200,
+      "bytes": 36066,
+      "ms": 3405
+    },
+    {
+      "slug": "fable-vanta",
+      "demo": "https://fable-25-ruby.vercel.app/28-vanta/",
+      "ok": true,
+      "status": 200,
+      "bytes": 80740,
+      "ms": 3556
+    },
+    {
+      "slug": "fable-kine",
+      "demo": "https://fable-25-ruby.vercel.app/29-kine/",
+      "ok": true,
+      "status": 200,
+      "bytes": 82270,
+      "ms": 3395
+    },
+    {
+      "slug": "fable-ascent",
+      "demo": "https://fable-25-ruby.vercel.app/30-ascent/",
+      "ok": true,
+      "status": 200,
+      "bytes": 73486,
+      "ms": 3473
+    },
+    {
+      "slug": "fable-orbital",
+      "demo": "https://fable-25-ruby.vercel.app/31-orbital/",
+      "ok": true,
+      "status": 200,
+      "bytes": 134402,
+      "ms": 3485
+    },
+    {
+      "slug": "fable-eidolon",
+      "demo": "https://fable-25-ruby.vercel.app/32-eidolon/",
+      "ok": true,
+      "status": 200,
+      "bytes": 155842,
+      "ms": 3471
+    },
+    {
+      "slug": "fable-ember",
+      "demo": "https://fable-25-ruby.vercel.app/33-ember/",
+      "ok": true,
+      "status": 200,
+      "bytes": 78705,
+      "ms": 3879
+    },
+    {
+      "slug": "fable-casa",
+      "demo": "https://fable-25-ruby.vercel.app/34-casa/",
+      "ok": true,
+      "status": 200,
+      "bytes": 129795,
+      "ms": 3413
+    },
+    {
+      "slug": "fable-nocturne",
+      "demo": "https://fable-25-ruby.vercel.app/35-nocturne/",
+      "ok": true,
+      "status": 200,
+      "bytes": 142246,
+      "ms": 3626
+    },
+    {
+      "slug": "lumora-omega",
+      "demo": "https://lumora-omega-sooty.vercel.app/",
+      "ok": true,
+      "status": 200,
+      "bytes": 134911,
+      "ms": 3361
+    },
+    {
+      "slug": "hewn-six",
+      "demo": "https://hewn-six.vercel.app/",
+      "ok": true,
+      "status": 200,
+      "bytes": 23979,
+      "ms": 7797
+    },
+    {
+      "slug": "vence-jewelry",
+      "demo": "https://vence-jewelry.vercel.app/",
+      "ok": true,
+      "status": 200,
+      "bytes": 9376,
+      "ms": 20738
+    },
+    {
+      "slug": "penguin-inc",
+      "demo": "https://penguin-inc.vercel.app/",
+      "ok": true,
+      "status": 200,
+      "bytes": 8077,
+      "ms": 15868
+    },
+    {
+      "slug": "moment-path",
+      "demo": "https://moment-path.vercel.app/",
+      "ok": true,
+      "status": 200,
+      "bytes": 38355,
+      "ms": 14651
+    }
+  ],
+  "errors": [
+    {
+      "slug": "fable-aurora",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-monolith",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-brut",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-helvetia",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-verse",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-stellar",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-terminal",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-ma",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-gatsby",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-bauhaus",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-lumen",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-gazette",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-neon-district",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-storybook",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-atelier",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-pulse",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-daydream",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-radiola",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-odyssey",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-ascii",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-herbarium",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-synth",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-flux",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-codex",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-chrome",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-axiom",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-chronos",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-vanta",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-kine",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-ascent",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-orbital",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-eidolon",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-ember",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-casa",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "fable-nocturne",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "vence-jewelry",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "hewn-six",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "lumora-omega",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "penguin-inc",
+      "error": "spawnSync zip ENOENT"
+    },
+    {
+      "slug": "moment-path",
+      "error": "spawnSync zip ENOENT"
+    }
+  ]
+}
