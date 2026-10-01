@@ -1,6 +1,7 @@
 /** SitePack catalog — Motionsites-shaped gallery, ZIP source packs
- *  Catalog update 2026-10-01 PT. Packaged: 66 · Added Fable×25 (+encore/cinema) + vence-jewelry + hewn-six + lumora-omega
- *  Excluded: 6framerates + ManySides + Bret remove-list (2026-09-30 + 2026-10-01); hewn-six explicitly re-added (distinct from hewn)
+ *  Catalog trim 2026-10-01 PT (Bret remove pass 2). Packaged: 60
+ *  Removed: fable-25 hub, lumora, lumora-omega, omniscience-radar, theshadow, the-website
+ *  Kept: individual fable-* demo packs; prior exclusions unchanged
  */
 
 export const FILTERS = [
@@ -212,21 +213,6 @@ export const PACKS = [
     accent: "#fb923c",
   },
   {
-    id: "fable-25",
-    slug: "fable-25",
-    title: "Fable 25",
-    category: "Landing",
-    filters: ["Landing", "Creative"],
-    tagline: "Fable 25 brand/product landing",
-    demo: "https://fable-25-ruby.vercel.app/",
-    poster: "/posters/fable-25.jpg",
-    price: 49,
-    stack: "Static HTML capture",
-    source: "static-capture (no public GitHub)",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#94a3b8",
-  },
-  {
     id: "fooh-kit",
     slug: "fooh-kit",
     title: "FOOH Kit",
@@ -270,22 +256,6 @@ export const PACKS = [
     source: "static-capture (no public GitHub)",
     included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
     accent: "#86efac",
-  },
-  {
-    id: "lumora",
-    slug: "lumora",
-    title: "Lumora",
-    category: "Landing",
-    filters: ["Landing", "Creative"],
-    tagline: "Lumora brand landing",
-    demo: "https://lumora.vercel.app",
-    poster: "/posters/lumora.jpg",
-    price: 49,
-    stack: "Static HTML capture",
-    source: "static-capture (no public GitHub)",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#f9a8d4",
-    tall: true,
   },
   {
     id: "majid-zafer-astrodither",
@@ -348,21 +318,6 @@ export const PACKS = [
     accent: "#93c5fd",
   },
   {
-    id: "omniscience-radar",
-    slug: "omniscience-radar",
-    title: "Omniscience Radar",
-    category: "SaaS",
-    filters: ["SaaS", "Creative", "Landing"],
-    tagline: "Omniscience Radar cosmic dashboard",
-    demo: "https://omniscience-radar.vercel.app",
-    poster: "/posters/omniscience-radar.jpg",
-    price: 49,
-    stack: "npm / Node",
-    source: "repo:VegasCryptoAgent/Omniscience-Radar",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#93c5fd",
-  },
-  {
     id: "penguin-inc",
     slug: "penguin-inc",
     title: "Penguin Inc",
@@ -406,36 +361,6 @@ export const PACKS = [
     source: "static-capture (no public GitHub)",
     included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
     accent: "#94a3b8",
-  },
-  {
-    id: "theshadow",
-    slug: "theshadow",
-    title: "The Shadow",
-    category: "Landing",
-    filters: ["Landing", "Creative"],
-    tagline: "The Shadow site",
-    demo: "https://theshadow.vercel.app",
-    poster: "/posters/theshadow.jpg",
-    price: 49,
-    stack: "Static HTML capture",
-    source: "static-capture (empty repo VegasCryptoAgent/Shadows)",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#ff7a59",
-  },
-  {
-    id: "the-website",
-    slug: "the-website",
-    title: "The Website",
-    category: "Landing",
-    filters: ["Landing", "Creative"],
-    tagline: "Generic 'the website' 6Frame/client site",
-    demo: "https://the-website.vercel.app",
-    poster: "/posters/the-website.jpg",
-    price: 49,
-    stack: "npm / Node",
-    source: "repo:VegasCryptoAgent/the-website",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#e8ff6b",
   },
   {
     id: "ultra-mode",
@@ -1015,21 +940,6 @@ export const PACKS = [
     featured: true,
     tall: true,
   },
-  {
-    id: "lumora-omega",
-    slug: "lumora-omega",
-    title: "Lumora Omega",
-    category: "Landing",
-    filters: ["Landing", "Creative"],
-    tagline: "Lumora Omega (sooty) brand landing",
-    demo: "https://lumora-omega-sooty.vercel.app/",
-    poster: "/posters/lumora-omega.jpg",
-    price: 49,
-    stack: "Static HTML capture",
-    source: "static-capture (no public GitHub)",
-    included: ["Sanitized source ZIP (no live secrets)", "SITEPACK_README + LICENSE", "Personal & client work OK"],
-    accent: "#f9a8d4",
-  },
 ]
 
 /** Keep a few coming-soon tiles for density; real packs dominate. */
@@ -1100,7 +1010,6 @@ export const STRIPE_LINKS = {
   'daysole': '',
   'dembrandt-studio': '',
   'elva-labs-clone': '',
-  'fable-25': '',
   'fooh-kit': '',
   'frames': '',
   'fusion-layer': '',
@@ -1115,12 +1024,10 @@ export const STRIPE_LINKS = {
   'kanek-ai-host': '',
   'kanek-horror-house': '',
   'lockframe': '',
-  'lumora': '',
   'majid-zafer-astrodither': '',
   'manifest-neuve': '',
   'moment-path': '',
   'new-web-design': '',
-  'omniscience-radar': '',
   'penguin-inc': '',
   'pryme': '',
   'pryme-website': '',
@@ -1130,8 +1037,6 @@ export const STRIPE_LINKS = {
   'site-takeover-6frame': '',
   'starchild': '',
   'starling': '',
-  'theshadow': '',
-  'the-website': '',
   'ultra-mode': '',
   'vence': '',
   'viberator': '',
@@ -1176,7 +1081,6 @@ export const STRIPE_LINKS = {
   'fable-nocturne': '',
   'vence-jewelry': '',
   'hewn-six': '',
-  'lumora-omega': '',
   'all-access': '',
 }
 
@@ -1227,7 +1131,6 @@ const RELEASE_IDS = new Set([
   'fable-nocturne',
   'vence-jewelry',
   'hewn-six',
-  'lumora-omega',
   'penguin-inc',
   'moment-path',
 ])
