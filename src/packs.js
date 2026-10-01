@@ -380,7 +380,7 @@ export const PACKS = [
   {
     id: "fable-aurora",
     slug: "fable-aurora",
-    title: "Fable · Auroré",
+    title: "Auroré",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "WebGL aurora shader · luxury fragrance (Fable × 25 #01)",
@@ -396,7 +396,7 @@ export const PACKS = [
   {
     id: "fable-monolith",
     slug: "fable-monolith",
-    title: "Fable · Monolith",
+    title: "Monolith",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Three.js refractive crystal · museum of one (Fable × 25 #02)",
@@ -412,7 +412,7 @@ export const PACKS = [
   {
     id: "fable-brut",
     slug: "fable-brut",
-    title: "Fable · BRUT*",
+    title: "BRUT*",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Brutalist type · design collective (Fable × 25 #03)",
@@ -428,7 +428,7 @@ export const PACKS = [
   {
     id: "fable-helvetia",
     slug: "fable-helvetia",
-    title: "Fable · Studio Helvetia",
+    title: "Studio Helvetia",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Swiss grid · International Style (Fable × 25 #04)",
@@ -444,7 +444,7 @@ export const PACKS = [
   {
     id: "fable-verse",
     slug: "fable-verse",
-    title: "Fable · Verse",
+    title: "Verse",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Kinetic typography · a poem you scroll (Fable × 25 #05)",
@@ -460,7 +460,7 @@ export const PACKS = [
   {
     id: "fable-stellar",
     slug: "fable-stellar",
-    title: "Fable · Stellar Cartography",
+    title: "Stellar Cartography",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "1,400 living particles · invented constellations (Fable × 25 #06)",
@@ -475,7 +475,7 @@ export const PACKS = [
   {
     id: "fable-terminal",
     slug: "fable-terminal",
-    title: "Fable · OBSOLETE.SYS",
+    title: "OBSOLETE.SYS",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Working CRT terminal · museum of dead machines (Fable × 25 #07)",
@@ -490,7 +490,7 @@ export const PACKS = [
   {
     id: "fable-ma",
     slug: "fable-ma",
-    title: "Fable · 間 — Ma",
+    title: "間 — Ma",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Japanese negative space · four seasons (Fable × 25 #08)",
@@ -505,7 +505,7 @@ export const PACKS = [
   {
     id: "fable-gatsby",
     slug: "fable-gatsby",
-    title: "Fable · The Meridian",
+    title: "The Meridian",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Art Deco grand hotel · gilded SVG (Fable × 25 #09)",
@@ -520,7 +520,7 @@ export const PACKS = [
   {
     id: "fable-bauhaus",
     slug: "fable-bauhaus",
-    title: "Fable · Spielplatz",
+    title: "Spielplatz",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Bauhaus playground · draggable physics (Fable × 25 #10)",
@@ -535,7 +535,7 @@ export const PACKS = [
   {
     id: "fable-lumen",
     slug: "fable-lumen",
-    title: "Fable · Lumen",
+    title: "Lumen",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Organic gradient blobs · soft SaaS (Fable × 25 #11)",
@@ -550,7 +550,7 @@ export const PACKS = [
   {
     id: "fable-gazette",
     slug: "fable-gazette",
-    title: "Fable · The Evening Gazette",
+    title: "The Evening Gazette",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "1890s broadsheet · pure letterpress (Fable × 25 #12)",
@@ -565,7 +565,7 @@ export const PACKS = [
   {
     id: "fable-neon-district",
     slug: "fable-neon-district",
-    title: "Fable · Neon District",
+    title: "Neon District",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Cyberpunk glitch · techwear lookbook (Fable × 25 #13)",
@@ -580,7 +580,7 @@ export const PACKS = [
   {
     id: "fable-storybook",
     slug: "fable-storybook",
-    title: "Fable · The Snail Who Mailed Herself",
+    title: "The Snail Who Mailed Herself",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Watercolor storybook · SVG illustration (Fable × 25 #14)",
@@ -595,7 +595,7 @@ export const PACKS = [
   {
     id: "fable-atelier",
     slug: "fable-atelier",
-    title: "Fable · Atelier Grau",
+    title: "Atelier Grau",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Monochrome architecture · layered parallax (Fable × 25 #15)",
@@ -610,7 +610,7 @@ export const PACKS = [
   {
     id: "fable-pulse",
     slug: "fable-pulse",
-    title: "Fable · Pulse//Metropolis",
+    title: "Pulse//Metropolis",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Six living charts · data as ornament (Fable × 25 #16)",
@@ -625,7 +625,7 @@ export const PACKS = [
   {
     id: "fable-daydream",
     slug: "fable-daydream",
-    title: "Fable · Daydream Plaza™",
+    title: "Daydream Plaza™",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Vaporwave mall · open 3–4 a.m. only (Fable × 25 #17)",
@@ -640,7 +640,7 @@ export const PACKS = [
   {
     id: "fable-radiola",
     slug: "fable-radiola",
-    title: "Fable · Radiola 7",
+    title: "Radiola 7",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Skeuomorphic radio · real Web Audio synthesis (Fable × 25 #18)",
@@ -655,7 +655,7 @@ export const PACKS = [
   {
     id: "fable-odyssey",
     slug: "fable-odyssey",
-    title: "Fable · Odyssey",
+    title: "Odyssey",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Solar system scrollytelling · canvas planets (Fable × 25 #19)",
@@ -670,7 +670,7 @@ export const PACKS = [
   {
     id: "fable-ascii",
     slug: "fable-ascii",
-    title: "Fable · Glyphwerk",
+    title: "Glyphwerk",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Real-time ASCII engine · 3D in characters (Fable × 25 #20)",
@@ -685,7 +685,7 @@ export const PACKS = [
   {
     id: "fable-herbarium",
     slug: "fable-herbarium",
-    title: "Fable · Herbarium Perdita",
+    title: "Herbarium Perdita",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Engraved botany · plants that never were (Fable × 25 #21)",
@@ -700,7 +700,7 @@ export const PACKS = [
   {
     id: "fable-synth",
     slug: "fable-synth",
-    title: "Fable · Polyphon",
+    title: "Polyphon",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Playable synthesizer · reactive visuals (Fable × 25 #22)",
@@ -715,7 +715,7 @@ export const PACKS = [
   {
     id: "fable-flux",
     slug: "fable-flux",
-    title: "Fable · Flux",
+    title: "Flux",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Seeded generative gallery · eight algorithms (Fable × 25 #23)",
@@ -730,7 +730,7 @@ export const PACKS = [
   {
     id: "fable-codex",
     slug: "fable-codex",
-    title: "Fable · Codex Luminis",
+    title: "Codex Luminis",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Illuminated manuscript · gold leaf in CSS (Fable × 25 #24)",
@@ -745,7 +745,7 @@ export const PACKS = [
   {
     id: "fable-chrome",
     slug: "fable-chrome",
-    title: "Fable · Chrome2000",
+    title: "Chrome2000",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Y2K liquid metal · per-pixel metaballs (Fable × 25 #25)",
@@ -760,7 +760,7 @@ export const PACKS = [
   {
     id: "fable-axiom",
     slug: "fable-axiom",
-    title: "Fable · Axiom",
+    title: "Axiom",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "AI SaaS platform · cursor spotlight, pinned feature theater (Fable × 25 #26)",
@@ -775,7 +775,7 @@ export const PACKS = [
   {
     id: "fable-chronos",
     slug: "fable-chronos",
-    title: "Fable · Chronos Atelier",
+    title: "Chronos Atelier",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Haute horlogerie · scroll-assembled watch, horizontal rail (Fable × 25 #27)",
@@ -790,7 +790,7 @@ export const PACKS = [
   {
     id: "fable-vanta",
     slug: "fable-vanta",
-    title: "Fable · Vanta",
+    title: "Vanta",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Fintech infrastructure · Three.js particle Earth, live rails (Fable × 25 #28)",
@@ -805,7 +805,7 @@ export const PACKS = [
   {
     id: "fable-kine",
     slug: "fable-kine",
-    title: "Fable · KINE®",
+    title: "KINE®",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Motion studio · velocity-reactive type, cursor previews (Fable × 25 #29)",
@@ -820,7 +820,7 @@ export const PACKS = [
   {
     id: "fable-ascent",
     slug: "fable-ascent",
-    title: "Fable · Ascent Equipment",
+    title: "Ascent Equipment",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Expedition apparel · parallax range, altitude scrollytelling (Fable × 25 #30)",
@@ -835,7 +835,7 @@ export const PACKS = [
   {
     id: "fable-orbital",
     slug: "fable-orbital",
-    title: "Fable · Orbital",
+    title: "Orbital",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Space hotel · scroll-driven NASA film, statement type (Fable × 25 #31)",
@@ -850,7 +850,7 @@ export const PACKS = [
   {
     id: "fable-eidolon",
     slug: "fable-eidolon",
-    title: "Fable · Eidolon",
+    title: "Eidolon",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Dreamworld atelier · JWST worlds, glass reels (Fable × 25 #32)",
@@ -865,7 +865,7 @@ export const PACKS = [
   {
     id: "fable-ember",
     slug: "fable-ember",
-    title: "Fable · Ember Elite",
+    title: "Ember Elite",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Product theater · live 3D basketball, drag to spin (Fable × 25 #33)",
@@ -880,7 +880,7 @@ export const PACKS = [
   {
     id: "fable-casa",
     slug: "fable-casa",
-    title: "Fable · Casa.",
+    title: "Casa.",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Architecture journal · Muralla Roja, sticky study (Fable × 25 #34)",
@@ -895,7 +895,7 @@ export const PACKS = [
   {
     id: "fable-nocturne",
     slug: "fable-nocturne",
-    title: "Fable · Nocturne",
+    title: "Nocturne",
     category: "Creative",
     filters: ["Landing", "Creative"],
     tagline: "Night film house · full-screen scene wipes (Fable × 25 #35)",
