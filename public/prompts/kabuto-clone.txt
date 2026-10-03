@@ -8,6 +8,9 @@ Live reference (structure only, do not hotlink private assets): https://kabuto-c
 Stack: Static HTML
 Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
 
+## Pages
+Homepage plus the real Menu, About, and Reservation documents. They share `styles.css`. The hero videos/images under `./assets/framer/` are binary and are not pasted; the `<video>` and `<img>` paths in the HTML are the real ones.
+
 ## FILE: index.html
 ```
 <!doctype html>
@@ -598,4 +601,156 @@ h2 {
   .page-hero h1,
   .image-card h1 { font-size: 56px; }
 }
+```
+
+## FILE: menu/index.html
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Menu - Kabuto</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="page">
+    <section class="page-hero">
+      <video src="../assets/framer/sushi-video.mp4" autoplay muted loop playsinline></video>
+      <div class="shade"></div>
+      <header class="nav-bar">
+        <button class="menu-icon" aria-label="Open menu"><span></span><span></span><span></span></button>
+        <a class="logo" href="../">Kabuto</a>
+        <nav>
+          <a href="../menu/">Menu</a>
+          <a href="../about/">About</a>
+          <a class="nav-cta" href="https://www.kabutolv.com/reserve">Book a Table</a>
+        </nav>
+      </header>
+      <h1>Menu</h1>
+    </section>
+
+    <section class="content-panel">
+      <div class="content-narrow">
+        <div class="ornament"><h2>Our Menu</h2></div>
+        <p class="body-copy menu-copy">
+          Our Edomae style sushi is something very exceptional. Many of our fish is imported from Japan and our sushi chef carefully selects the best by many different factors such as quality and seasonality. To have the best moment while you are eating the sushi, we also spend time on selecting the right sake that perfectly matches with the sushi, served with glasses imported from Japan which gives an extra smooth aftertaste.Though our sushi menu is different every day, please take a look at some of our sushi and hope you can get a feeling of it.
+          <br /><a class="download" href="https://www.kabutolv.com/s/kabuto-menu2026.pdf">Download Menu PDF</a>
+        </p>
+        <div class="course-list">
+          <div class="course-row" data-name="Kabuto Course"><span></span><strong>~$185 pp</strong><p>Seasonal Edomae sushi selected and prepared by the chef.</p></div>
+          <div class="course-row" data-name="Yoroi Course"><span></span><strong>~$130 pp</strong><p>A focused course built around daily fish quality and seasonality.</p></div>
+          <div class="course-row" data-name="Sake Pairing"><span></span><strong>Available</strong><p>Selected sake pairing available to complement the sushi.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer"><span>© Kabuto</span><i></i><a href="../reservation/">Reservations</a><i></i><a href="../about/">Our Story</a></footer>
+  </body>
+</html>
+```
+
+## FILE: about/index.html
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About - Kabuto</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="page">
+    <main class="about-layout">
+      <section class="image-card">
+        <img src="../assets/framer/about-card.webp" alt="" />
+        <div class="shade"></div>
+        <header class="nav-bar">
+          <button class="menu-icon" aria-label="Open menu"><span></span><span></span><span></span></button>
+          <a class="logo" href="../">Kabuto</a>
+          <nav>
+            <a href="../menu/">Menu</a>
+            <a href="../about/">About</a>
+            <a class="nav-cta" href="https://www.kabutolv.com/reserve">Book a Table</a>
+          </nav>
+        </header>
+        <h1>About</h1>
+      </section>
+
+      <section class="about-right">
+        <article class="panel story-intro">
+          <h2>Edomae Sushi</h2>
+          <p class="body-copy">The sushi master’s energy and warmth coalesce with the perfect Shari and Neta resulting in a single perfect bite.</p>
+        </article>
+        <article class="panel mini-img"><img src="../assets/framer/reservation-card.webp" alt="" /></article>
+        <article class="panel award"><div><p class="stars">★★★★★</p><h3>Tokyo<br />Tradition</h3><p>Nigiri Sushi</p></div></article>
+        <article class="panel award"><div><p class="stars">★★★★★</p><h3>Hinoki<br />Counter</h3><p>10 Seats</p></div></article>
+        <article class="panel award"><div><p class="stars">★★★★★</p><h3>Seasonal<br />Fish</h3><p>Japan Imports</p></div></article>
+        <article class="panel chef-img"><img src="../assets/framer/menu-card.webp" alt="" /></article>
+        <article class="panel story-card">
+          <div class="ornament"><h2>Our Story</h2></div>
+          <p class="body-copy">
+            The sushi prepared traditionally in Tokyo area, originating as street food, nearly 200 years ago. Utilizing the fresh catch from the local Tokyo Bay. Small pieces of raw or marinated fish applied to bite size pieces of vinegar rice known as nigiri sushi. Quickly prepared and quickly consumed an ideal roadside bite.As the preparation became popular and evolved the setting soon became more formal and ritualized. The result, one of the most intimate chef to guest experiences available in the world today. From the chef’s hands, to be consumed only moments later. The sushi master’s energy and warmth coalesce with the perfect Shari and Neta resulting in a single perfect bite.
+          </p>
+        </article>
+        <footer class="footer"><span>© Kabuto</span><i></i><a href="../menu/">Menu</a><i></i><a href="../reservation/">Reservations</a></footer>
+      </section>
+    </main>
+  </body>
+</html>
+```
+
+## FILE: reservation/index.html
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reservation - Kabuto</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="page">
+    <main class="reservation-layout">
+      <section class="image-card">
+        <img src="../assets/framer/reservation-hero.webp" alt="" />
+        <div class="shade"></div>
+        <header class="nav-bar">
+          <button class="menu-icon" aria-label="Open menu"><span></span><span></span><span></span></button>
+          <a class="logo" href="../">Kabuto</a>
+          <nav>
+            <a href="../menu/">Menu</a>
+            <a href="../about/">About</a>
+            <a class="nav-cta" href="https://www.kabutolv.com/reserve">Book a Table</a>
+          </nav>
+        </header>
+      </section>
+
+      <section>
+        <article class="panel reservation-panel">
+          <div class="ornament"><h2>Reservations</h2></div>
+          <ul class="policies">
+            <li>Reservations are accepted up to 30 days in advance by Resy.</li>
+            <li>Reservations via email and voicemail are not accepted.</li>
+            <li>A three-day notice is required for parties of 5 or more.</li>
+            <li>Group reservation calls are accepted between 3:00pm and 5:00pm.</li>
+            <li>Kabuto does not accept restaurant buyouts.We offer two seatings nightly: 5:30 PM and 7:30 PM.</li>
+            <li>The dining experience lasts approximately 2 hours and consists of the finest raw fish expertly prepared.</li>
+            <li>No substitutions — each person (including children) must order a course meal.Credit Card Policy: A credit card authorization is required for all reservations.</li>
+            <li>Cancellation Policy: Please cancel at least one business day in advance to avoid a 100% fee.</li>
+          </ul>
+          <a class="resy-button" href="https://www.kabutolv.com/reserve">Book on Resy</a>
+          <div class="contact-strip">
+            <address>5040 W. Spring Mountain Rd, #4<br />Las Vegas, Nevada 89146</address>
+            <p>Monday – Sunday<br />5:30 PM – 9:00 PM</p>
+            <p><a href="tel:+17026761044">(702) 676-1044</a></p>
+          </div>
+        </article>
+        <footer class="footer"><span>© Kabuto</span><i></i><a href="../menu/">Menu</a><i></i><a href="../about/">Our Story</a></footer>
+      </section>
+    </main>
+  </body>
+</html>
 ```

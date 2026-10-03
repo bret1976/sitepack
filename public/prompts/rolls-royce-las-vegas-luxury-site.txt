@@ -10,6 +10,9 @@ Output working files using the same filenames. Keep every headline and section t
 
 Distinctive line that must appear verbatim: Rolls-Royce Motor Cars Las Vegas
 
+## Pages
+Homepage plus the real Motor Cars, Bespoke, Service, and Contact documents. Shared styling is in each file's own `<style>` / linked CSS already on the homepage capture.
+
 ## FILE: index.html
 ```
 <!doctype html>
@@ -1348,6 +1351,1112 @@ Distinctive line that must appear verbatim: Rolls-Royce Motor Cars Las Vegas
       }
     })();
   </script>
+</body>
+</html>
+```
+
+## FILE: motor-cars.html
+```
+<!doctype html>
+<!--
+  Rolls-Royce Motor Cars Las Vegas | Motor Cars
+  Inventory content was pulled from the official Rolls-Royce Las Vegas showroom
+  feed on July 5, 2026. Replace the VEHICLES array or connect it to your own
+  inventory API in production.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motor Cars | Rolls-Royce Motor Cars Las Vegas</title>
+  <meta name="description" content="Current new arrivals and Provenance motor cars at Rolls-Royce Motor Cars Las Vegas." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #d7a856;
+      --cream: #fff3dd;
+      --champagne: #f1dfc6;
+      --line: rgba(245, 218, 176, .34);
+      --progress: 0;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: #080604; }
+    body {
+      margin: 0;
+      min-height: 100%;
+      overflow-x: hidden;
+      color: var(--cream);
+      font-family: Inter, Avenir Next, Helvetica Neue, Arial, sans-serif;
+      background: #080604;
+    }
+
+    .site-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background: #080604;
+    }
+
+    .background-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: scale(calc(1.035 + var(--progress) * .055));
+    }
+
+    .page-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, .58), rgba(0, 0, 0, .18) 45%, rgba(0, 0, 0, .62)),
+        linear-gradient(180deg, rgba(0, 0, 0, .68), rgba(0, 0, 0, .36) 48%, rgba(0, 0, 0, .82));
+    }
+
+    main {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+    }
+
+    .lux-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      padding: clamp(1rem, 2.2vw, 2.2rem) clamp(1rem, 3vw, 3rem);
+      background: linear-gradient(180deg, rgba(8, 6, 4, .64), rgba(8, 6, 4, 0));
+      backdrop-filter: blur(12px);
+    }
+
+    .mark {
+      width: clamp(3rem, 4vw, 4.5rem);
+      aspect-ratio: 1 / 1.3;
+      border: 1.5px solid rgba(240, 186, 93, .92);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: var(--champagne);
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-size: clamp(1.85rem, 2.5vw, 2.9rem);
+      text-decoration: none;
+      box-shadow: inset 0 0 0 1px rgba(255, 235, 193, .17), 0 18px 42px rgba(0, 0, 0, .28);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: clamp(2rem, 5vw, 5.2rem);
+      text-transform: uppercase;
+      letter-spacing: .38em;
+      font-size: .75rem;
+      font-weight: 700;
+      color: rgba(255, 241, 220, .78);
+    }
+
+    .nav-links a {
+      position: relative;
+      color: inherit;
+      text-decoration: none;
+      transition: color .25s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -1.05rem;
+      width: 1rem;
+      height: 1px;
+      transform: translateX(-50%) scaleX(0);
+      background: var(--gold);
+      transition: transform .25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: #ffddb1; }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { transform: translateX(-50%) scaleX(1); }
+
+    .nav-pill {
+      height: 2.75rem;
+      min-width: 9.5rem;
+      padding: 0 .82rem 0 1.1rem;
+      border: 1px solid rgba(255, 231, 195, .4);
+      border-radius: 999px;
+      background: rgba(10, 8, 7, .25);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      color: rgba(255, 241, 220, .9);
+    }
+
+    .hamburger {
+      width: 1.22rem;
+      height: .78rem;
+      display: grid;
+      align-content: space-between;
+    }
+
+    .hamburger span {
+      height: 2px;
+      border-radius: 999px;
+      background: var(--gold);
+    }
+
+    .hero {
+      min-height: 72vh;
+      padding: clamp(5rem, 9vh, 8rem) clamp(1.2rem, 5.6vw, 6rem) 4rem;
+      display: grid;
+      align-items: end;
+    }
+
+    .hero-inner {
+      width: min(86rem, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(19rem, .42fr);
+      gap: clamp(2rem, 6vw, 6rem);
+      align-items: end;
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin-bottom: 1.2rem;
+      color: rgba(255, 222, 170, .88);
+      text-transform: uppercase;
+      letter-spacing: .28em;
+      font-size: .72rem;
+      font-weight: 800;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 2.7rem;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), rgba(215, 168, 86, .08));
+    }
+
+    .page-title {
+      margin: 0;
+      max-width: 63rem;
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-size: clamp(4.5rem, 9vw, 10rem);
+      font-weight: 500;
+      line-height: .82;
+      letter-spacing: .045em;
+      text-transform: uppercase;
+      color: rgba(255, 238, 211, .94);
+      text-shadow: 0 22px 64px rgba(0, 0, 0, .56);
+    }
+
+    .hero p {
+      max-width: 37rem;
+      margin: 1.5rem 0 0;
+      color: rgba(255, 244, 229, .78);
+      line-height: 1.72;
+      font-size: 1rem;
+    }
+
+    .summary-panel,
+    .vehicle-card {
+      border: 1px solid rgba(255, 229, 195, .34);
+      background:
+        linear-gradient(145deg, rgba(255, 223, 178, .12), rgba(255, 255, 255, .025)),
+        rgba(30, 20, 15, .44);
+      backdrop-filter: blur(22px) saturate(126%);
+      box-shadow: 0 26px 76px rgba(0, 0, 0, .42), inset 0 1px 0 rgba(255, 255, 255, .12);
+    }
+
+    .summary-panel {
+      border-radius: 1.1rem;
+      padding: 1.35rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-top: 1px solid rgba(255, 230, 198, .18);
+    }
+
+    .summary-row:first-child { border-top: 0; padding-top: 0; }
+    .summary-row:last-child { padding-bottom: 0; }
+
+    .summary-row span {
+      color: rgba(255, 244, 229, .68);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .68rem;
+      font-weight: 800;
+    }
+
+    .summary-row strong {
+      color: #ffe0aa;
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-size: 2.05rem;
+      line-height: .9;
+    }
+
+    .inventory {
+      padding: 1rem clamp(1.2rem, 5.6vw, 6rem) 6rem;
+    }
+
+    .inventory-inner {
+      width: min(86rem, 100%);
+      margin: 0 auto;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 230, 198, .2);
+    }
+
+    .toolbar h2 {
+      margin: 0;
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-size: clamp(2.4rem, 4.2vw, 4.6rem);
+      font-weight: 400;
+      line-height: .95;
+    }
+
+    .filters {
+      display: flex;
+      gap: .65rem;
+      padding: .35rem;
+      border: 1px solid rgba(255, 229, 195, .28);
+      border-radius: 999px;
+      background: rgba(12, 8, 6, .28);
+      backdrop-filter: blur(16px);
+    }
+
+    .filter-btn {
+      height: 2.45rem;
+      padding: 0 1rem;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(255, 244, 229, .7);
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-size: .68rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: color .25s ease, background .25s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      color: #ffe8bf;
+      background: rgba(215, 168, 86, .15);
+    }
+
+    .vehicle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.05rem;
+    }
+
+    .vehicle-card {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      border-radius: 1rem;
+      transition: transform .28s ease, border-color .28s ease, background .28s ease;
+    }
+
+    .vehicle-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 220, 154, .62);
+      background:
+        linear-gradient(145deg, rgba(255, 223, 178, .16), rgba(255, 255, 255, .035)),
+        rgba(35, 22, 15, .52);
+    }
+
+    .vehicle-image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+      background: rgba(0, 0, 0, .28);
+      filter: saturate(1.04) contrast(1.02);
+    }
+
+    .badge {
+      position: absolute;
+      top: .85rem;
+      left: .85rem;
+      padding: .42rem .62rem;
+      border: 1px solid rgba(255, 229, 195, .38);
+      border-radius: 999px;
+      background: rgba(12, 8, 6, .5);
+      backdrop-filter: blur(12px);
+      color: rgba(255, 232, 194, .86);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .58rem;
+      font-weight: 800;
+    }
+
+    .vehicle-body {
+      padding: 1.1rem 1.1rem 1rem;
+    }
+
+    .vehicle-title {
+      margin: 0;
+      min-height: 4.3rem;
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-size: 1.78rem;
+      font-weight: 500;
+      line-height: 1.02;
+      color: rgba(255, 244, 226, .96);
+    }
+
+    .vehicle-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .7rem;
+      margin: 1rem 0;
+    }
+
+    .meta {
+      padding-top: .65rem;
+      border-top: 1px solid rgba(255, 230, 198, .18);
+    }
+
+    .meta span {
+      display: block;
+      margin-bottom: .22rem;
+      color: rgba(255, 232, 194, .58);
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-size: .58rem;
+      font-weight: 800;
+    }
+
+    .meta strong {
+      display: block;
+      color: rgba(255, 244, 229, .84);
+      font-size: .78rem;
+      line-height: 1.3;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      min-height: 4.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .features span {
+      padding: .38rem .5rem;
+      border: 1px solid rgba(255, 230, 198, .16);
+      border-radius: 999px;
+      color: rgba(255, 244, 229, .66);
+      font-size: .64rem;
+      line-height: 1;
+    }
+
+    .vehicle-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding-top: .95rem;
+      border-top: 1px solid rgba(255, 230, 198, .2);
+    }
+
+    .price {
+      color: #ffe0aa;
+      font-family: Cormorant Garamond, Georgia, serif;
+      font-size: 1.55rem;
+      line-height: .95;
+      white-space: nowrap;
+    }
+
+    .details-link {
+      color: rgba(255, 244, 229, .86);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .64rem;
+      font-weight: 800;
+    }
+
+    .source-note {
+      margin-top: 1.2rem;
+      color: rgba(255, 244, 229, .56);
+      font-size: .78rem;
+      line-height: 1.6;
+    }
+
+    .source-note a {
+      color: #ffdca6;
+      text-decoration: none;
+    }
+
+    @media (max-width: 1100px) {
+      .vehicle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-inner { grid-template-columns: 1fr; }
+      .summary-panel { max-width: 28rem; }
+    }
+
+    @media (max-width: 840px) {
+      .nav-links { display: none; }
+      .lux-nav { grid-template-columns: auto 1fr; }
+      .nav-pill { justify-self: end; min-width: 7rem; }
+      .hero { min-height: auto; padding-top: 4rem; }
+      .toolbar { align-items: flex-start; flex-direction: column; }
+      .filters { width: 100%; overflow-x: auto; border-radius: .8rem; }
+      .vehicle-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      h1 { font-size: clamp(3.4rem, 17vw, 5rem); }
+      .vehicle-title { min-height: auto; }
+      .vehicle-footer { align-items: flex-start; flex-direction: column; }
+      .filter-btn { flex: 1 0 auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-backdrop" aria-hidden="true">
+    <canvas class="background-canvas" width="1920" height="1056"></canvas>
+    <div class="page-vignette"></div>
+  </div>
+
+  <main>
+    <nav class="lux-nav" aria-label="Primary navigation">
+      <a class="mark" href="index.html" aria-label="Rolls-Royce Motor Cars Las Vegas home"><span>A</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a class="active" href="motor-cars.html">Motor Cars</a>
+        <a href="bespoke.html">Bespoke</a>
+        <a href="service.html">Service</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <button class="nav-pill" type="button" aria-label="Open menu">
+        <span>EN</span>
+        <span class="hamburger" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">Current Inventory</div>
+          <h1 class="page-title">Motor Cars</h1>
+          <p>Explore the current showroom collection at Rolls-Royce Motor Cars Las Vegas, including new arrivals and Provenance motor cars with the enduring presence of Goodwood craftsmanship.</p>
+        </div>
+        <aside class="summary-panel" aria-label="Inventory summary">
+          <div class="summary-row"><span>New Arrivals</span><strong id="newCount">4</strong></div>
+          <div class="summary-row"><span>Provenance</span><strong id="provenanceCount">8</strong></div>
+          <div class="summary-row"><span>Total</span><strong id="totalCount">12</strong></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="inventory" aria-label="Vehicle inventory">
+      <div class="inventory-inner">
+        <div class="toolbar">
+          <h2>Showroom Selection</h2>
+          <div class="filters" role="tablist" aria-label="Inventory filters">
+            <button class="filter-btn active" type="button" data-filter="all">All</button>
+            <button class="filter-btn" type="button" data-filter="New Arrival">New Arrivals</button>
+            <button class="filter-btn" type="button" data-filter="Provenance">Provenance</button>
+          </div>
+        </div>
+        <div class="vehicle-grid" id="vehicleGrid"></div>
+        <p class="source-note">
+          Inventory details reflect the official Rolls-Royce Motor Cars Las Vegas showroom feed retrieved July 5, 2026. Availability and pricing may change. View the official showroom at
+          <a href="https://www.rolls-roycemotorcars.com/lasvegas/en_US/showroom.html" target="_blank" rel="noreferrer">rolls-roycemotorcars.com</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const VEHICLES = [
+      {
+        category: 'New Arrival',
+        title: '2025 Rolls-Royce Black Badge Spectre',
+        exterior: 'Arctic White',
+        interior: 'Arctic White',
+        veneer: 'Black Badge Technical Fibre',
+        mileage: '1,345 mi',
+        price: 576300,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Black-Badge-Spectre/2025/SCATK4C08SU230009/hrudume29pidlgtrn2zl.webp',
+        url: 'https://showroom.rolls-roycemotorcars.com/en_us/vdp/25383224-',
+        features: ['Illuminated Grille', 'Shooting Star Headliner', 'Starlight Doors']
+      },
+      {
+        category: 'New Arrival',
+        title: '2026 Rolls-Royce Cullinan',
+        exterior: 'Silver',
+        interior: 'Arctic White',
+        veneer: 'Royal Walnut',
+        mileage: '9 mi',
+        price: 488350,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Cullinan/2026/SLA13HA04TU233151/cqyg9iujfitywgfuerph.webp',
+        url: 'https://showroom.rolls-roycemotorcars.com/en_us/vdp/25388991-',
+        features: ['Lounge Seating', 'Illuminated Grille', 'Parking Assistant Plus']
+      },
+      {
+        category: 'New Arrival',
+        title: '2026 Rolls-Royce Cullinan',
+        exterior: 'English White',
+        interior: 'Grace White',
+        veneer: 'Royal Walnut, Chevron Wood',
+        mileage: '31 mi',
+        price: 520150,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Cullinan/2026/SLA13HA08TU235775/zdbhk2kz8ibnivrfrq30.webp',
+        url: 'https://showroom.rolls-roycemotorcars.com/en_us/vdp/25400379-',
+        features: ['Massage Seating', 'Shooting Star Headliner', 'Driver Assistance']
+      },
+      {
+        category: 'New Arrival',
+        title: '2026 Rolls-Royce Phantom Extended',
+        exterior: 'Diamond Black',
+        interior: 'Arctic White',
+        veneer: 'Piano Black',
+        mileage: '44 mi',
+        price: 715350,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Phantom-Extended/2026/SCA33HE09TU234444/wlwrgi5f6ptyervu0qnt.webp',
+        url: 'https://showroom.rolls-roycemotorcars.com/en_us/vdp/25401094-',
+        features: ['Rear Theatre', 'Cascade Steel Gallery', 'Individual Rear Seating']
+      },
+      {
+        category: 'Provenance',
+        title: '2022 Rolls-Royce Black Badge Cullinan',
+        exterior: 'Diamond Black',
+        interior: 'Phoenix Red',
+        veneer: 'Black Badge Technical Fibre',
+        mileage: '14,501 mi',
+        price: 311522,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Black-Badge-Cullinan/2022/SLATV8C08NU212970/epimevypwljoq5vfzpge.webp',
+        url: 'https://pre-owned.rolls-roycemotorcars.com/en_us/vdp/25397491-',
+        features: ['Rear Picnic Tables', 'Shooting Star Headliner', 'Lounge Seating']
+      },
+      {
+        category: 'Provenance',
+        title: '2021 Rolls-Royce Wraith',
+        exterior: 'Anthracite',
+        interior: 'Black',
+        veneer: 'Piano Black',
+        mileage: '9,011 mi',
+        price: 278577,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Wraith/2021/SCAXZ0C07MU206471/piaesu1lulblrytgirs1.webp',
+        url: 'https://pre-owned.rolls-roycemotorcars.com/en_us/vdp/25397493-',
+        features: ['Massage Seating', 'Ventilated Seating', 'Shooting Star Headliner']
+      },
+      {
+        category: 'Provenance',
+        title: '2025 Rolls-Royce Black Badge Cullinan',
+        exterior: 'Diamond Black',
+        interior: 'Black',
+        veneer: 'Black Badge Technical Fibre',
+        mileage: '9,929 mi',
+        price: 479888,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Black-Badge-Cullinan/2025/SLA43HA04SU229628/y9byfxgu59gpycdhwnyk.webp',
+        url: 'https://pre-owned.rolls-roycemotorcars.com/en_us/vdp/25405029-',
+        features: ['Illuminated Grille', 'Lounge Seating', 'Parking Assistant Plus']
+      },
+      {
+        category: 'Provenance',
+        title: '2012 Rolls-Royce Ghost',
+        exterior: 'English White',
+        interior: 'Black',
+        veneer: 'Painted, Piano Black',
+        mileage: '49,319 mi',
+        price: 79777,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Ghost/2012/SCA664S53CUX50974/am4uqwbhpoh6rxtgbbi2.webp',
+        url: 'https://pre-owned.rolls-roycemotorcars.com/en_us/vdp/25406327-',
+        features: ['Rear Theatre', 'Rear Seat Entertainment', 'Driver Assistance']
+      },
+      {
+        category: 'Provenance',
+        title: '2025 Rolls-Royce Ghost',
+        exterior: 'Diamond Black',
+        interior: 'Black',
+        veneer: 'Grey Stained Ash',
+        mileage: '4,996 mi',
+        price: 376379,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Ghost/2025/SCA13GZ04SU229727/vvlal16t1huewg6wvhdq.webp',
+        url: 'https://pre-owned.rolls-roycemotorcars.com/en_us/vdp/25400380-',
+        features: ['Illuminated Grille', 'Shooting Star Headliner', 'Ventilated Seating']
+      },
+      {
+        category: 'Provenance',
+        title: '2016 Rolls-Royce Wraith',
+        exterior: 'Midnight Sapphire',
+        interior: 'Seashell',
+        veneer: 'Painted',
+        mileage: '27,942 mi',
+        price: 139577,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Wraith/2016/SCA665C5XGUX86106/vtuh3lgoojgvso8axqca.webp',
+        url: 'https://pre-owned.rolls-roycemotorcars.com/en_us/vdp/25390606-',
+        features: ['Fixed Glass Roof', 'Canadel Panelling', 'Ventilated Seating']
+      },
+      {
+        category: 'Provenance',
+        title: '2025 Rolls-Royce Black Badge Cullinan',
+        exterior: 'Adriatic Blue',
+        interior: 'Black',
+        veneer: 'Black Badge Technical Fibre',
+        mileage: '1,871 mi',
+        price: 483777,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Black-Badge-Cullinan/2025/SLA43HA04SU227314/foytks6a3bf7hextx1lx.webp',
+        url: 'https://pre-owned.rolls-roycemotorcars.com/en_us/vdp/25392457-',
+        features: ['Special Order Paint', 'Rear Theatre', 'Shooting Star Headliner']
+      },
+      {
+        category: 'Provenance',
+        title: '2026 Rolls-Royce Black Badge Cullinan',
+        exterior: 'Bespoke Exterior Colour',
+        interior: 'Black',
+        veneer: 'Black Badge Technical Fibre',
+        mileage: '215 mi',
+        price: 649999,
+        image: 'https://res.cloudinary.com/motortrak/t_base_vehicle_transformation/ims2/vehicle-media/rolls-royce/Black-Badge-Cullinan/2026/SLA43HA0XTU234947/aemfwbgfiuol2zfkifti.webp',
+        url: 'https://pre-owned.rolls-roycemotorcars.com/en_us/vdp/25403313-',
+        features: ['Special Paint Finish', 'Illuminated Grille', 'Rear Theatre']
+      }
+    ];
+
+    const grid = document.getElementById('vehicleGrid');
+    const formatPrice = (value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+
+    function renderVehicles(filter = 'all') {
+      const vehicles = filter === 'all' ? VEHICLES : VEHICLES.filter((vehicle) => vehicle.category === filter);
+      grid.innerHTML = vehicles.map((vehicle) => `
+        <article class="vehicle-card">
+          <img class="vehicle-image" src="${vehicle.image}" alt="${vehicle.title} in ${vehicle.exterior}" loading="lazy">
+          <span class="badge">${vehicle.category}</span>
+          <div class="vehicle-body">
+            <h3 class="vehicle-title">${vehicle.title}</h3>
+            <div class="vehicle-meta">
+              <div class="meta"><span>Exterior</span><strong>${vehicle.exterior}</strong></div>
+              <div class="meta"><span>Interior</span><strong>${vehicle.interior}</strong></div>
+              <div class="meta"><span>Veneer</span><strong>${vehicle.veneer}</strong></div>
+              <div class="meta"><span>Mileage</span><strong>${vehicle.mileage}</strong></div>
+            </div>
+            <div class="features">${vehicle.features.map((feature) => `<span>${feature}</span>`).join('')}</div>
+            <div class="vehicle-footer">
+              <span class="price">${formatPrice(vehicle.price)}</span>
+              <a class="details-link" href="${vehicle.url}" target="_blank" rel="noreferrer">View Details →</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    document.querySelectorAll('.filter-btn').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        renderVehicles(button.dataset.filter);
+      });
+    });
+
+    (() => {
+      const root = document.documentElement;
+      const canvas = document.querySelector('.background-canvas');
+      const context = canvas.getContext('2d');
+      const frameCount = 241;
+      const frames = new Array(frameCount + 1);
+      let activeFrame = 1;
+      let targetFrame = 1;
+      const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+      const frameSrc = (index) => `hero-frames/frame-${String(index).padStart(3, '0')}.jpg`;
+
+      function drawCover(image) {
+        const ratio = window.devicePixelRatio || 1;
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        if (canvas.width !== Math.round(width * ratio) || canvas.height !== Math.round(height * ratio)) {
+          canvas.width = Math.round(width * ratio);
+          canvas.height = Math.round(height * ratio);
+        }
+        const canvasRatio = canvas.width / canvas.height;
+        const imageRatio = image.naturalWidth / image.naturalHeight;
+        let sw = image.naturalWidth;
+        let sh = image.naturalHeight;
+        let sx = 0;
+        let sy = 0;
+        if (imageRatio > canvasRatio) {
+          sw = image.naturalHeight * canvasRatio;
+          sx = (image.naturalWidth - sw) / 2;
+        } else {
+          sh = image.naturalWidth / canvasRatio;
+          sy = (image.naturalHeight - sh) / 2;
+        }
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(image, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+      }
+
+      function nearestLoadedFrame(index) {
+        if (frames[index]?.complete) return frames[index];
+        for (let offset = 1; offset < frameCount; offset += 1) {
+          const lower = index - offset;
+          const upper = index + offset;
+          if (lower >= 1 && frames[lower]?.complete) return frames[lower];
+          if (upper <= frameCount && frames[upper]?.complete) return frames[upper];
+        }
+        return null;
+      }
+
+      function renderTargetFrame() {
+        const image = nearestLoadedFrame(targetFrame);
+        if (!image) return;
+        drawCover(image);
+        activeFrame = targetFrame;
+      }
+
+      function loadFrame(index, highPriority = false) {
+        if (frames[index]) return frames[index];
+        const image = new Image();
+        image.decoding = 'async';
+        if (highPriority) image.fetchPriority = 'high';
+        image.onload = () => {
+          if (Math.abs(index - targetFrame) <= 1 || index === 1) renderTargetFrame();
+        };
+        image.src = frameSrc(index);
+        frames[index] = image;
+        return image;
+      }
+
+      function preloadAround(index) {
+        for (let offset = -8; offset <= 8; offset += 1) {
+          const candidate = index + offset;
+          if (candidate >= 1 && candidate <= frameCount) loadFrame(candidate, Math.abs(offset) <= 2);
+        }
+      }
+
+      function setProgress() {
+        const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const progress = clamp(window.scrollY / maxScroll, 0, 1);
+        root.style.setProperty('--progress', progress.toFixed(4));
+        targetFrame = Math.round(1 + progress * (frameCount - 1));
+        if (targetFrame !== activeFrame) {
+          loadFrame(targetFrame, true);
+          preloadAround(targetFrame);
+          renderTargetFrame();
+        }
+      }
+
+      renderVehicles();
+      loadFrame(1, true);
+      preloadAround(1);
+      setProgress();
+      window.addEventListener('scroll', setProgress, { passive: true });
+      window.addEventListener('resize', () => {
+        renderTargetFrame();
+        setProgress();
+      });
+    })();
+  </script>
+</body>
+</html>
+```
+
+## FILE: bespoke.html
+```
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bespoke | Rolls-Royce Motor Cars Las Vegas</title>
+  <meta name="description" content="Bespoke commissioning at Rolls-Royce Motor Cars Las Vegas." />
+  <link rel="stylesheet" href="rrlv-pages.css" />
+</head>
+<body>
+  <div class="site-backdrop" aria-hidden="true">
+    <canvas class="background-canvas" width="1920" height="1056"></canvas>
+    <div class="page-vignette"></div>
+  </div>
+
+  <main>
+    <nav class="lux-nav" aria-label="Primary navigation">
+      <a class="mark" href="index.html" aria-label="Rolls-Royce Motor Cars Las Vegas home"><span>A</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="motor-cars.html">Motor Cars</a>
+        <a class="active" href="bespoke.html">Bespoke</a>
+        <a href="service.html">Service</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <button class="nav-pill" type="button" aria-label="Open menu"><span>EN</span><span class="hamburger" aria-hidden="true"><span></span><span></span></span></button>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">Bespoke Commissioning</div>
+          <h1 class="page-title">Your Vision, Realised</h1>
+          <p>Commission a Rolls-Royce motor car shaped around your taste, your rituals, and your sense of arrival. Every material, finish, stitch, and illuminated detail can become part of a deeply personal expression.</p>
+        </div>
+        <aside class="glass-panel" aria-label="Bespoke process summary">
+          <div class="panel-row"><span>Palette</span><strong>Exterior & Coachline</strong></div>
+          <div class="panel-row"><span>Cabin</span><strong>Leather, Veneer, Starlight</strong></div>
+          <div class="panel-row"><span>Review</span><strong>Goodwood Liaison</strong></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-heading">Commissioning Pathways</h2>
+        <div class="card-grid">
+          <article class="content-card">
+            <h3>Exterior Expression</h3>
+            <p>Explore paint finishes, contrast detailing, hand-applied coachlines, wheel selections, and presence-defining touches that make the first impression unmistakably yours.</p>
+            <ul>
+              <li>Bespoke exterior colour consultation</li>
+              <li>Coachline and motif direction</li>
+              <li>Black Badge and contemporary finish guidance</li>
+            </ul>
+          </article>
+          <article class="content-card">
+            <h3>Interior Composition</h3>
+            <p>Shape the cabin through leather, embroidery, veneer, lambswool, metal inlays, and commissioned details that transform travel into ceremony.</p>
+            <ul>
+              <li>Leather and contrast stitching selections</li>
+              <li>Veneer, fascia, and Gallery concepts</li>
+              <li>Starlight Headliner and illuminated features</li>
+            </ul>
+          </article>
+          <article class="content-card">
+            <h3>Final Specification</h3>
+            <p>The Las Vegas team coordinates your commission with the discipline and discretion expected of Rolls-Royce, from initial concept through final handover.</p>
+            <ul>
+              <li>Private studio appointment</li>
+              <li>Specification review and refinement</li>
+              <li>Delivery planning and ownership introduction</li>
+            </ul>
+          </article>
+        </div>
+        <div class="button-row">
+          <a class="lux-button" href="contact.html">Begin A Commission →</a>
+          <a class="lux-button" href="motor-cars.html">Explore Motor Cars →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="rrlv-background.js"></script>
+</body>
+</html>
+```
+
+## FILE: service.html
+```
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Service | Rolls-Royce Motor Cars Las Vegas</title>
+  <meta name="description" content="Factory-authorized ownership services at Rolls-Royce Motor Cars Las Vegas." />
+  <link rel="stylesheet" href="rrlv-pages.css" />
+</head>
+<body>
+  <div class="site-backdrop" aria-hidden="true">
+    <canvas class="background-canvas" width="1920" height="1056"></canvas>
+    <div class="page-vignette"></div>
+  </div>
+
+  <main>
+    <nav class="lux-nav" aria-label="Primary navigation">
+      <a class="mark" href="index.html" aria-label="Rolls-Royce Motor Cars Las Vegas home"><span>A</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="motor-cars.html">Motor Cars</a>
+        <a href="bespoke.html">Bespoke</a>
+        <a class="active" href="service.html">Service</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <button class="nav-pill" type="button" aria-label="Open menu"><span>EN</span><span class="hamburger" aria-hidden="true"><span></span><span></span></span></button>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">Ownership Services</div>
+          <h1 class="page-title">Care, Precisely Arranged</h1>
+          <p>Rolls-Royce Motor Cars Las Vegas provides an ownership experience in line with the marque: discreet, exacting, and shaped around the motor car and the client.</p>
+        </div>
+        <aside class="glass-panel" aria-label="Service summary">
+          <div class="panel-row"><span>Service Manager</span><strong>Mr Steve Nelson</strong></div>
+          <div class="panel-row"><span>Telephone</span><strong>+1 702 932 7100</strong></div>
+          <div class="panel-row"><span>Service Hours</span><strong>Mon-Fri, 8 AM-4 PM</strong></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-heading">Factory-Authorized Support</h2>
+        <div class="card-grid">
+          <article class="content-card">
+            <h3>Scheduled Care</h3>
+            <p>Routine service, inspections, and maintenance coordination for Rolls-Royce motor cars, handled with the quiet precision expected by owners.</p>
+            <ul>
+              <li>Scheduled maintenance appointments</li>
+              <li>Vehicle health checks and diagnostics</li>
+              <li>Factory-authorized service consultation</li>
+            </ul>
+          </article>
+          <article class="content-card">
+            <h3>Ownership Concierge</h3>
+            <p>Service should be as effortless as the drive itself. Coordinate appointments, transport, and timing around your calendar.</p>
+            <ul>
+              <li>Appointment planning</li>
+              <li>Collection and delivery coordination</li>
+              <li>Travel-aware service scheduling</li>
+            </ul>
+          </article>
+          <article class="content-card">
+            <h3>Preservation</h3>
+            <p>Protect the presence of your motor car through expert attention to materials, details, and the standards of Rolls-Royce ownership.</p>
+            <ul>
+              <li>Genuine Rolls-Royce parts guidance</li>
+              <li>Exterior and interior care consultation</li>
+              <li>Provenance readiness and ownership support</li>
+            </ul>
+          </article>
+        </div>
+        <div class="button-row">
+          <a class="lux-button" href="tel:+17029327100">Call Service →</a>
+          <a class="lux-button" href="contact.html">Request Assistance →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="rrlv-background.js"></script>
+</body>
+</html>
+```
+
+## FILE: contact.html
+```
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact | Rolls-Royce Motor Cars Las Vegas</title>
+  <meta name="description" content="Contact Rolls-Royce Motor Cars Las Vegas." />
+  <link rel="stylesheet" href="rrlv-pages.css" />
+</head>
+<body>
+  <div class="site-backdrop" aria-hidden="true">
+    <canvas class="background-canvas" width="1920" height="1056"></canvas>
+    <div class="page-vignette"></div>
+  </div>
+
+  <main>
+    <nav class="lux-nav" aria-label="Primary navigation">
+      <a class="mark" href="index.html" aria-label="Rolls-Royce Motor Cars Las Vegas home"><span>A</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="motor-cars.html">Motor Cars</a>
+        <a href="bespoke.html">Bespoke</a>
+        <a href="service.html">Service</a>
+        <a class="active" href="contact.html">Contact</a>
+      </div>
+      <button class="nav-pill" type="button" aria-label="Open menu"><span>EN</span><span class="hamburger" aria-hidden="true"><span></span><span></span></span></button>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">Contact</div>
+          <h1 class="page-title">Arrange Your Visit</h1>
+          <p>Connect with Rolls-Royce Motor Cars Las Vegas for showroom appointments, bespoke commissioning, Provenance enquiries, and ownership services.</p>
+        </div>
+        <aside class="glass-panel" aria-label="Contact summary">
+          <div class="panel-row"><span>Address</span><strong>5550 West Sahara Avenue</strong></div>
+          <div class="panel-row"><span>Telephone</span><strong>+1 702 932 7100</strong></div>
+          <div class="panel-row"><span>Showroom</span><strong>Mon-Sat, 9 AM-7 PM</strong></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-heading">Rolls-Royce Motor Cars Las Vegas</h2>
+        <div class="card-grid two">
+          <article class="content-card">
+            <h3>Find Us</h3>
+            <ul class="contact-list">
+              <li>5550 West Sahara Avenue, Las Vegas, Nevada, 89146</li>
+              <li><a href="tel:+17029327100">+1 702 932 7100</a></li>
+              <li><a href="https://www.facebook.com/rollsroycelasvegas/" target="_blank" rel="noreferrer">Facebook</a> · <a href="https://www.instagram.com/rollsroycelasvegas/?hl=en" target="_blank" rel="noreferrer">Instagram</a></li>
+            </ul>
+            <div class="button-row">
+              <a class="lux-button" href="tel:+17029327100">Call Now →</a>
+              <a class="lux-button" href="https://www.google.com/maps/search/?api=1&query=5550%20West%20Sahara%20Avenue%2C%20Las%20Vegas%2C%20Nevada%2089146" target="_blank" rel="noreferrer">Directions →</a>
+            </div>
+          </article>
+          <article class="content-card">
+            <h3>Opening Times</h3>
+            <ul>
+              <li>Showroom: Monday-Saturday, 9:00 AM - 7:00 PM</li>
+              <li>Showroom: Sunday, Closed</li>
+              <li>Service: Monday-Friday, 8:00 AM - 4:00 PM</li>
+              <li>Service: Saturday-Sunday, Closed</li>
+            </ul>
+          </article>
+        </div>
+
+        <h2 class="section-heading" style="margin-top:3rem;">Send An Enquiry</h2>
+        <article class="content-card">
+          <form class="form-grid">
+            <label>First Name<input type="text" name="firstName" autocomplete="given-name"></label>
+            <label>Last Name<input type="text" name="lastName" autocomplete="family-name"></label>
+            <label>Email<input type="email" name="email" autocomplete="email"></label>
+            <label>Phone<input type="tel" name="phone" autocomplete="tel"></label>
+            <label class="full">Interest
+              <select name="interest">
+                <option>Bespoke Commissioning</option>
+                <option>Motor Cars</option>
+                <option>Provenance</option>
+                <option>Service</option>
+              </select>
+            </label>
+            <label class="full">Message<textarea name="message"></textarea></label>
+            <div class="full button-row">
+              <button class="lux-button" type="button">Submit Enquiry →</button>
+            </div>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="rrlv-background.js"></script>
 </body>
 </html>
 ```
