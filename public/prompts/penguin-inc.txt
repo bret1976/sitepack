@@ -10,6 +10,33 @@ Output working files using the same filenames. Keep every headline and section t
 ## Libraries and binaries
 The library source the live site runs is pasted in FILE blocks below (same versions as the production bundle). Binary assets are included as base64 data URIs in their own FILE blocks, keyed by the path the site requests.
 
+## Accompanying files
+These binaries do not fit in one clipboard write. The Copy prompt button on the SitePack page also downloads the zip file(s) named below from the same site (same-origin /prompt-files/). Unzip them at the project root before building. Every path inside a zip is the site path this prompt refers to. Use the files from the zip at those paths. Do not hotlink them and do not omit them.
+
+- penguin-inc-extra.zip
+
+## ZIP INDEX
+path	bytes
+assets/images/scroll-datatexture.ktx2	1286436
+assets/images/igloo/igloo_exploded_color.ktx2	842242
+assets/images/floor_color.ktx2	629652
+assets/geometries/blurrytext.drc	1187
+assets/geometries/blurrytext_cylinder.drc	5571
+assets/geometries/ceilingsmoke.drc	13717
+assets/geometries/cubes/background_shapes.drc	669
+assets/geometries/floor.drc	40738
+assets/geometries/ground.drc	18861
+assets/geometries/igloo.drc	222834
+assets/geometries/igloo/igloo_cage.drc	5732
+assets/geometries/igloo/igloo_outline.drc	20334
+assets/geometries/igloo/patch.drc	240
+assets/geometries/intro_particles.drc	2069
+assets/geometries/mountain.drc	11846
+assets/geometries/shattered_ring.drc	40703
+assets/geometries/shattered_ring2.drc	43550
+assets/geometries/shattered_ring_smoke.drc	10263
+assets/geometries/smoke_trail.drc	4126
+
 ## FILE: assets/index-2eb69c09.js
 ```
 (function(){const n=document.createElement("link").relList;if(n&&n.supports&&n.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))o(r);new MutationObserver(r=>{for(const i of r)if(i.type==="childList")for(const c of i.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&o(c)}).observe(document,{childList:!0,subtree:!0});function e(r){const i={};return r.integrity&&(i.integrity=r.integrity),r.referrerPolicy&&(i.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?i.credentials="include":r.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function o(r){if(r.ep)return;r.ep=!0;const i=e(r);fetch(r.href,i)}})();const dt="modulepreload",ht=function(t){return"/"+t},T={},mt=function(n,e,o){if(!e||e.length===0)return n();const r=document.getElementsByTagName("link");return Promise.all(e.map(i=>{if(i=ht(i),i in T)return;T[i]=!0;const c=i.endsWith(".css"),f=c?'[rel="stylesheet"]':"";if(!!o)for(let l=r.length-1;l>=0;l--){const a=r[l];if(a.href===i&&(!c||a.rel==="stylesheet"))return}else if(document.querySelector(`link[href="${i}"]${f}`))return;const s=document.createElement("link");if(s.rel=c?"stylesheet":dt,c||(s.as="script",s.crossOrigin=""),s.href=i,document.head.appendChild(s),c)return new Promise((l,a)=>{s.addEventListener("load",l),s.addEventListener("error",()=>a(new Error(`Unable to preload CSS for ${i}`)))})})).then(()=>n()).catch(i=>{const c=new Event("vite:preloadError",{cancelable:!0});if(c.payload=i,window.dispatchEvent(c),!c.defaultPrevented)throw i})},pt=`html{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}html,html body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background-color:var(--bgColor);touch-action:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}html body .click{cursor:pointer}html body #app{display:block;position:absolute;top:0;left:0;width:100%;height:100%;margin:0;padding:0;overflow:hidden}body .tp-dfwv{max-height:calc(100vh - 16px)}body .tp-dfwv::-webkit-scrollbar{width:5px}body .tp-dfwv::-webkit-scrollbar-track{background-color:#4c4f53}body .tp-dfwv::-webkit-scrollbar-thumb{background-color:#777c81}@font-face{font-family:IBMPlexMono-Medium;src:url(/assets/IBMPlexMono-Medium-897c8c30.woff2) format("woff2"),url(/assets/IBMPlexMono-Medium-1e253194.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:IBMPlexMono-Regular;src:url(/assets/IBMPlexMono-Regular-d3034935.woff2) format("woff2"),url(/assets/IBMPlexMono-Regular-419d45f6.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}html{--default-font: sans-serif;--bgColor: #A0A5B1}

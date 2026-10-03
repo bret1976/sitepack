@@ -74,6 +74,32 @@ function CopyIcon() {
   )
 }
 
+const PROMPT_ZIPS = {
+  'cold-shine': ['/prompt-files/cold-shine-extra.zip'],
+  'penguin-inc': ['/prompt-files/penguin-inc-extra.zip'],
+  'north-and-mercer': ['/prompt-files/north-and-mercer-extra.zip'],
+  'moment-path': ['/prompt-files/moment-path-extra.zip'],
+  'commerce-dispatch-winter-shift': [
+    '/prompt-files/commerce-dispatch-winter-shift-extra-1.zip',
+    '/prompt-files/commerce-dispatch-winter-shift-extra-2.zip',
+    '/prompt-files/commerce-dispatch-winter-shift-extra-3.zip',
+    '/prompt-files/commerce-dispatch-winter-shift-extra-4.zip',
+  ],
+}
+
+function downloadPromptZips(packId) {
+  const hrefs = PROMPT_ZIPS[packId]
+  if (!hrefs) return
+  for (const href of hrefs) {
+    const a = document.createElement('a')
+    a.href = href
+    a.download = href.split('/').pop()
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+  }
+}
+
 function CopyPromptButton({ packId, variant = 'card' }) {
   const [state, setState] = useState('idle')
   const copy = async (e) => {
@@ -81,6 +107,7 @@ function CopyPromptButton({ packId, variant = 'card' }) {
     e.preventDefault()
     if (state === 'copying') return
     setState('copying')
+    downloadPromptZips(packId)
     try {
       const res = await fetch(`/prompts/${packId}.txt`)
       if (!res.ok) throw new Error('missing')

@@ -11,6 +11,15 @@ Distinctive line that must appear verbatim: If you listen, Beauty will stumble t
 ## Libraries and binaries
 The library source the live site runs is pasted in FILE blocks below (same versions as the production bundle). Binary assets are included as base64 data URIs in their own FILE blocks, keyed by the path the site requests.
 
+## Accompanying files
+These binaries do not fit in one clipboard write. The Copy prompt button on the SitePack page also downloads the zip file(s) named below from the same site (same-origin /prompt-files/). Unzip them at the project root before building. Every path inside a zip is the site path this prompt refers to. Use the files from the zip at those paths. Do not hotlink them and do not omit them.
+
+- cold-shine-extra.zip
+
+## ZIP INDEX
+path	bytes
+audio/bg.mp3	1714410
+
 ## FILE: index.html
 ```
 <!DOCTYPE html>
