@@ -1,0 +1,600 @@
+# Exact recreation prompt — Ascent Equipment
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-ascent
+Brand: Ascent Equipment
+Category: Creative
+Tagline (catalog): Expedition apparel · parallax range, altitude scrollytelling (Fable × 25 #30)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/30-ascent/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: BUILT FOR THE LAST 800 METERS
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASCENT EQUIPMENT — Built for the Last 800 Meters</title>
+<meta name="description" content="Expedition apparel. Scroll to climb from basecamp to summit. Fictional brand designed by Fable.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100..125,100..900&family=JetBrains+Mono:wght@300;400;500&display=swap');
+  :root {
+    --night:#0b1220;
+    --dawn1:#1c2a45;
+    --dawn2:#4a4668;
+    --peach:#e8a87c;
+    --snow:#eef2f8;
+    --ice:#a8c8e8;
+    --org:#ff5a1f;
+    --line:rgba(238,242,248,0.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--night);
+    color:var(--snow);
+    font-family:'Archivo', sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection { background:var(--org); color:#fff; }
+  a { color:inherit; }
+
+  /* ---------- altitude HUD ---------- */
+  .alt-hud {
+    position:fixed; right:2rem; top:50%; transform:translateY(-50%);
+    z-index:80; text-align:right;
+    font-family:'JetBrains Mono', monospace;
+    pointer-events:none;
+  }
+  .alt-hud .alt-val { font-size:1.5rem; font-weight:500; font-variant-numeric:tabular-nums; letter-spacing:-0.02em; }
+  .alt-hud .alt-val i { font-style:normal; font-size:0.7rem; color:var(--ice); margin-left:0.3rem; }
+  .alt-hud .alt-lbl { font-size:0.56rem; letter-spacing:0.3em; text-transform:uppercase; color:rgba(238,242,248,0.5); margin-top:0.3rem; }
+  .alt-hud .alt-rail { margin:1rem 0 0 auto; width:2px; height:26vh; background:var(--line); position:relative; }
+  .alt-hud .alt-rail i { position:absolute; left:-3px; width:8px; height:8px; border-radius:50%; background:var(--org); box-shadow:0 0 12px var(--org); top:100%; }
+  @media (max-width:820px){ .alt-hud { display:none; } }
+
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:90;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.5rem 2.5rem;
+  }
+  .brand { display:flex; align-items:center; gap:0.8rem; font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:900; letter-spacing:0.06em; font-size:1rem; }
+  .brand svg { width:22px; }
+  nav .links { display:flex; gap:2rem; font-size:0.78rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; }
+  nav .links a { text-decoration:none; opacity:0.75; transition:opacity 0.25s; }
+  nav .links a:hover { opacity:1; }
+  nav .cart {
+    font-family:'JetBrains Mono'; font-size:0.7rem;
+    border:1px solid var(--line); border-radius:100px;
+    padding:0.55rem 1.2rem; text-decoration:none;
+    background:rgba(11,18,32,0.5); backdrop-filter:blur(10px);
+  }
+  @media (max-width:820px){ nav .links { display:none; } }
+
+  /* ---------- hero: parallax range ---------- */
+  .hero {
+    height:108vh;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(#0b1220 0%, #1c2a45 34%, #4a4668 62%, #b06a52 86%, #e8a87c 100%);
+  }
+  .layer { position:absolute; inset:0; will-change:transform; }
+  .layer svg { position:absolute; bottom:-2px; left:0; width:100%; height:auto; min-width:900px; }
+  #snowCv { position:absolute; inset:0; z-index:6; pointer-events:none; }
+  .hero-type {
+    position:absolute; z-index:5; left:0; right:0; top:16vh;
+    text-align:center;
+    padding:0 4vw;
+  }
+  .hero-type .kick {
+    font-family:'JetBrains Mono'; font-size:0.64rem; letter-spacing:0.5em; text-indent:0.5em; text-transform:uppercase;
+    color:var(--ice);
+    opacity:0; animation:rise 1.3s 0.2s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  h1 {
+    margin-top:1.6rem;
+    font-family:'Archivo', sans-serif; font-stretch:125%;
+    font-weight:900;
+    font-size:clamp(2.8rem, 9.8vw, 8.6rem);
+    line-height:0.92;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+  }
+  h1 .row { display:block; overflow:hidden; }
+  h1 .row span { display:inline-block; transform:translateY(108%); animation:rup 1.15s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay:var(--d); }
+  @keyframes rup { to { transform:none; } }
+  h1 .thin { font-weight:300; }
+  .hero-type .sub {
+    margin-top:2rem; font-weight:300; font-size:clamp(0.9rem, 1.8vw, 1.05rem);
+    color:rgba(238,242,248,0.8); letter-spacing:0.04em;
+    opacity:0; animation:rise 1.3s 1s forwards;
+  }
+  @keyframes rise { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:none; } }
+  .hero-cta {
+    display:inline-flex; align-items:center; gap:0.8rem;
+    margin-top:2.6rem;
+    font-weight:600; font-size:0.85rem; letter-spacing:0.12em; text-transform:uppercase;
+    text-decoration:none; color:#fff;
+    background:var(--org);
+    padding:1.1rem 2.4rem; border-radius:100px;
+    box-shadow:0 14px 40px rgba(255,90,31,0.4);
+    opacity:0; animation:rise 1.3s 1.2s forwards;
+    transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+  }
+  .hero-cta:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 20px 54px rgba(255,90,31,0.55); }
+
+  /* ---------- stats bar ---------- */
+  .statbar {
+    display:flex; justify-content:center; gap:1px;
+    background:var(--line);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .statbar .s {
+    flex:1; max-width:320px;
+    background:var(--night);
+    text-align:center; padding:2.4rem 1rem;
+  }
+  .statbar .s .v { font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:700; font-size:clamp(1.5rem, 3.2vw, 2.4rem); }
+  .statbar .s .v i { font-style:normal; color:var(--org); }
+  .statbar .s .k { margin-top:0.5rem; font-family:'JetBrains Mono'; font-size:0.6rem; letter-spacing:0.24em; text-transform:uppercase; color:rgba(238,242,248,0.5); }
+
+  /* ---------- gear ---------- */
+  section.gear { padding:11vh 5vw 8vh; max-width:1380px; margin:0 auto; }
+  .sec-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4.5rem; flex-wrap:wrap; gap:1rem; }
+  .sec-head h2 { font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:900; text-transform:uppercase; font-size:clamp(1.9rem, 4.6vw, 3.6rem); letter-spacing:-0.01em; }
+  .sec-head h2 i { font-style:normal; color:var(--org); }
+  .sec-head .note { font-family:'JetBrains Mono'; font-size:0.64rem; letter-spacing:0.24em; text-transform:uppercase; color:rgba(238,242,248,0.45); }
+  .gear-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; perspective:1300px; }
+  .gcard {
+    background:linear-gradient(170deg, #131d31, #0d1524);
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+    will-change:transform;
+    transition:border-color 0.4s, box-shadow 0.4s;
+  }
+  .gcard:hover { border-color:rgba(255,90,31,0.5); box-shadow:0 30px 70px rgba(0,0,0,0.5); }
+  .gcard .gviz { height:230px; position:relative; overflow:hidden; }
+  .gcard .gviz svg { position:absolute; inset:0; width:100%; height:100%; transition:transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+  .gcard:hover .gviz svg { transform:scale(1.08) rotate(-2deg); }
+  .gcard .gtag {
+    position:absolute; top:1rem; left:1rem;
+    font-family:'JetBrains Mono'; font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase;
+    background:rgba(11,18,32,0.75); backdrop-filter:blur(8px);
+    border:1px solid var(--line);
+    padding:0.4rem 0.8rem; border-radius:100px;
+    color:var(--ice);
+  }
+  .gcard .ginfo { padding:1.6rem 1.6rem 1.8rem; }
+  .gcard h3 { font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:700; font-size:1.05rem; text-transform:uppercase; }
+  .gcard .gd { margin-top:0.6rem; font-weight:300; font-size:0.84rem; line-height:1.75; color:rgba(238,242,248,0.6); }
+  .gcard .grow { margin-top:1.3rem; display:flex; justify-content:space-between; align-items:center; }
+  .gcard .price { font-family:'JetBrains Mono'; font-size:0.95rem; color:var(--org); }
+  .gcard .add {
+    font-size:0.72rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none;
+    border:1px solid var(--line); border-radius:100px; padding:0.6rem 1.2rem;
+    transition:background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .gcard .add:hover { background:var(--snow); color:var(--night); border-color:var(--snow); }
+  @media (max-width:960px){ .gear-grid { grid-template-columns:1fr; } }
+
+  /* ---------- expedition log: pinned ---------- */
+  .exped { position:relative; }
+  .exped-track { height:380vh; }
+  .exped-stage {
+    position:sticky; top:0; height:100vh; overflow:hidden;
+    display:flex; align-items:center;
+    background:linear-gradient(180deg, var(--night), #16233c);
+  }
+  #expedCv { position:absolute; inset:0; }
+  .exped-copy { position:relative; z-index:4; padding:0 8vw; max-width:640px; }
+  .log-entry { position:absolute; top:50%; transform:translateY(-40%); opacity:0; transition:opacity 0.6s, transform 0.6s cubic-bezier(0.22,1,0.36,1); max-width:480px; pointer-events:none; }
+  .log-entry.on { opacity:1; transform:translateY(-50%); }
+  .log-entry .lt { font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--org); }
+  .log-entry h3 { margin-top:1rem; font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:900; text-transform:uppercase; font-size:clamp(1.7rem, 4vw, 3rem); line-height:1; }
+  .log-entry p { margin-top:1.2rem; font-weight:300; font-size:0.95rem; line-height:1.95; color:rgba(238,242,248,0.72); }
+  .exped-alt {
+    position:absolute; right:8vw; bottom:10vh; z-index:4;
+    font-family:'JetBrains Mono'; text-align:right;
+  }
+  .exped-alt .big { font-size:clamp(2rem, 5vw, 3.6rem); font-weight:500; font-variant-numeric:tabular-nums; }
+  .exped-alt .sm { font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:rgba(238,242,248,0.5); }
+
+  /* ---------- promise / finale ---------- */
+  .promise {
+    background:var(--snow); color:var(--night);
+    padding:16vh 8vw;
+    text-align:center;
+  }
+  .promise h2 {
+    font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:900; text-transform:uppercase;
+    font-size:clamp(2.1rem, 6vw, 5rem); line-height:0.98; letter-spacing:-0.01em;
+  }
+  .promise h2 i { font-style:normal; color:var(--org); }
+  .promise p { margin:2.4rem auto 0; max-width:54ch; font-weight:400; font-size:1rem; line-height:1.95; color:rgba(11,18,32,0.68); }
+  .promise .row { margin-top:3.2rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+  .promise .b1 {
+    text-decoration:none; font-weight:600; font-size:0.85rem; letter-spacing:0.12em; text-transform:uppercase;
+    background:var(--night); color:var(--snow);
+    padding:1.1rem 2.4rem; border-radius:100px;
+    transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .promise .b1:hover { transform:translateY(-3px); }
+  .promise .b2 {
+    text-decoration:none; font-weight:600; font-size:0.85rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--night); border:2px solid var(--night);
+    padding:1.05rem 2.4rem; border-radius:100px;
+    transition:background 0.3s, color 0.3s;
+  }
+  .promise .b2:hover { background:var(--night); color:var(--snow); }
+
+  footer {
+    padding:3.2rem 5vw;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase;
+    color:rgba(238,242,248,0.45);
+    border-top:1px solid var(--line);
+  }
+
+  .reveal { opacity:0; transform:translateY(44px); transition:opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<div class="alt-hud">
+  <div class="alt-val"><span id="altVal">1,204</span><i>M</i></div>
+  <div class="alt-lbl">Altitude</div>
+  <div class="alt-rail"><i id="altDot"></i></div>
+</div>
+
+<nav>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M2 20 L9 6 L13 13 L16 8 L22 20 Z" fill="#ff5a1f"/></svg>
+    ASCENT
+  </div>
+  <div class="links">
+    <a href="#gear">Gear</a>
+    <a href="#expedition">Expedition 47</a>
+    <a href="#promise">The Promise</a>
+  </div>
+  <a href="#" class="cart">CART — 0</a>
+</nav>
+
+<header class="hero" id="heroTop">
+  <div class="layer" data-p="0.12" aria-hidden="true">
+    <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 620 L0 350 L220 180 L400 330 L560 120 L760 340 L940 90 L1120 300 L1300 170 L1440 320 L1440 620 Z" fill="#2a2f4e"/>
+      <path d="M540 148 L560 120 L586 152 L570 146 L556 158 Z" fill="#dfe8f5" opacity="0.9"/>
+      <path d="M916 122 L940 90 L968 128 L950 118 L934 132 Z" fill="#dfe8f5" opacity="0.9"/>
+    </svg>
+  </div>
+  <div class="layer" data-p="0.3" aria-hidden="true">
+    <svg viewBox="0 0 1440 560" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 560 L0 400 L180 240 L340 380 L520 180 L720 400 L900 210 L1080 380 L1260 260 L1440 400 L1440 560 Z" fill="#1c2340"/>
+      <path d="M496 210 L520 180 L548 214 L530 206 L514 220 Z" fill="#cfdcee" opacity="0.85"/>
+    </svg>
+  </div>
+  <div class="layer" data-p="0.52" aria-hidden="true">
+    <svg viewBox="0 0 1440 480" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 480 L0 360 L240 200 L430 340 L640 160 L860 360 L1060 200 L1260 330 L1440 240 L1440 480 Z" fill="#111830"/>
+    </svg>
+  </div>
+  <div class="layer" data-p="0.78" aria-hidden="true">
+    <svg viewBox="0 0 1440 380" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 380 L0 300 L200 190 L400 300 L620 150 L900 320 L1150 190 L1440 310 L1440 380 Z" fill="#0a0f1e"/>
+      <g fill="#0e1526">
+        <polygon points="640,171 620,215 660,215"/>
+        <polygon points="900,320 870,268 930,268" opacity="0"/>
+      </g>
+    </svg>
+  </div>
+  <canvas id="snowCv"></canvas>
+
+  <div class="hero-type">
+    <div class="kick">Expedition-grade apparel · Est. 4,808 m</div>
+    <h1>
+      <span class="row"><span style="--d:0.25s">BUILT FOR THE</span></span>
+      <span class="row"><span class="thin" style="--d:0.42s">LAST 800</span></span>
+      <span class="row"><span style="--d:0.58s">METERS</span></span>
+    </h1>
+    <p class="sub">Every ASCENT piece is tested where the helicopter can't come — because that is precisely where your jacket stops being clothing and starts being equipment.</p>
+    <a href="#gear" class="hero-cta">Explore the system ↓</a>
+  </div>
+</header>
+
+<div class="statbar">
+  <div class="s reveal"><div class="v">−58<i>°C</i></div><div class="k">Coldest field test</div></div>
+  <div class="s reveal"><div class="v">14<i> yrs</i></div><div class="k">Warranty — repairs free forever</div></div>
+  <div class="s reveal"><div class="v">31<i>g</i></div><div class="k">Weight shaved this year</div></div>
+  <div class="s reveal"><div class="v">0<i></i></div><div class="k">Ads featuring people smiling</div></div>
+</div>
+
+<section class="gear" id="gear">
+  <div class="sec-head">
+    <h2 class="reveal">The Summit <i>System</i></h2>
+    <span class="note reveal">Three layers · Zero excuses</span>
+  </div>
+  <div class="gear-grid">
+    <div class="gcard reveal tilt">
+      <div class="gviz">
+        <svg viewBox="0 0 400 230" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="230" fill="#101a2e"/>
+          <path d="M200 34 L156 60 L146 200 L254 200 L244 60 Z" fill="#22334f"/>
+          <path d="M200 34 L156 60 L166 200 L200 200 Z" fill="#2a3f61"/>
+          <path d="M156 60 L110 96 L128 148 L152 128 Z" fill="#22334f"/>
+          <path d="M244 60 L290 96 L272 148 L248 128 Z" fill="#22334f"/>
+          <path d="M200 34 L188 26 Q200 16 212 26 Z" fill="#ff5a1f"/>
+          <line x1="200" y1="62" x2="200" y2="196" stroke="#ff5a1f" stroke-width="3"/>
+          <g stroke="#3a5378" stroke-width="1.4">
+            <path d="M158 92 Q200 100 242 92"/><path d="M154 126 Q200 136 246 126"/><path d="M152 160 Q200 170 248 160"/>
+          </g>
+        </svg>
+        <span class="gtag">Layer 03 — Shell</span>
+      </div>
+      <div class="ginfo">
+        <h3>Nimbus Shell</h3>
+        <p class="gd">Three-layer membrane, 28,000mm head, seams welded not stitched. It has summited K2 twice; both times it came back bored.</p>
+        <div class="grow"><span class="price">$890</span><a href="#" class="add">Add to kit</a></div>
+      </div>
+    </div>
+    <div class="gcard reveal tilt">
+      <div class="gviz">
+        <svg viewBox="0 0 400 230" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="230" fill="#101a2e"/>
+          <path d="M200 40 L162 64 L154 196 L246 196 L238 64 Z" fill="#31241c"/>
+          <g fill="none" stroke="#4a382a" stroke-width="7" stroke-linecap="round">
+            <path d="M164 86 Q200 96 236 86"/><path d="M160 116 Q200 128 240 116"/>
+            <path d="M158 146 Q200 158 242 146"/><path d="M157 174 Q200 186 243 174"/>
+          </g>
+          <circle cx="200" cy="70" r="4" fill="#ff5a1f"/>
+        </svg>
+        <span class="gtag">Layer 02 — Loft</span>
+      </div>
+      <div class="ginfo">
+        <h3>Ember Down</h3>
+        <p class="gd">900-fill traceable down in welded chambers that cannot migrate, cannot clump, and cannot be persuaded to let heat leave.</p>
+        <div class="grow"><span class="price">$540</span><a href="#" class="add">Add to kit</a></div>
+      </div>
+    </div>
+    <div class="gcard reveal tilt">
+      <div class="gviz">
+        <svg viewBox="0 0 400 230" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="230" fill="#101a2e"/>
+          <path d="M200 42 L168 62 L162 194 L238 194 L232 62 Z" fill="#1e3a35"/>
+          <g stroke="#2e574f" stroke-width="1.2">
+            <path d="M170 76 H230 M168 92 H232 M166 108 H234 M165 124 H235 M164 140 H236 M163 156 H237 M163 172 H237"/>
+            <path d="M180 66 V190 M195 64 V192 M210 64 V192 M225 66 V190"/>
+          </g>
+          <circle cx="200" cy="70" r="4" fill="#ff5a1f"/>
+        </svg>
+        <span class="gtag">Layer 01 — Base</span>
+      </div>
+      <div class="ginfo">
+        <h3>Core Merino 200</h3>
+        <p class="gd">Waffle-knit merino that moves sweat like it has somewhere to be. Worn eleven days straight by our test team; friendships survived.</p>
+        <div class="grow"><span class="price">$120</span><a href="#" class="add">Add to kit</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPEDITION LOG ============ -->
+<section class="exped" id="expedition">
+  <div class="exped-track" id="expedTrack">
+    <div class="exped-stage">
+      <canvas id="expedCv"></canvas>
+      <div class="exped-copy">
+        <div class="log-entry on" data-i="0">
+          <div class="lt">Expedition 47 — Day 1 · 03:40</div>
+          <h3>Basecamp,<br>−31°C</h3>
+          <p>Fourteen loads, nine yaks, one broken stove. The Nimbus prototypes are sewn with tags that just say DON'T DIE. Marketing wasn't consulted.</p>
+        </div>
+        <div class="log-entry" data-i="1">
+          <div class="lt">Day 9 · Camp II</div>
+          <h3>The wind<br>files a complaint</h3>
+          <p>Gusts to 110 km/h. Tent poles at angles poles shouldn't know. The welded chambers hold loft; the stitched control jacket from a competitor is now technically a scarf.</p>
+        </div>
+        <div class="log-entry" data-i="2">
+          <div class="lt">Day 16 · The Shoulder</div>
+          <h3>7,900 m —<br>the last 800 begin</h3>
+          <p>Above here, every gram is a decision and every zipper is a negotiation with mittens. This is the altitude our pull-tabs were redesigned for, four times.</p>
+        </div>
+        <div class="log-entry" data-i="3">
+          <div class="lt">Day 17 · 09:12</div>
+          <h3>Summit.<br>Nobody smiled.</h3>
+          <p>Too cold to smile. Too tired to speak. The photos are terrible and we will never use them in an ad — see stat, homepage. The gear worked. That's the whole review.</p>
+        </div>
+      </div>
+      <div class="exped-alt">
+        <div class="big" id="expAlt">5,364</div>
+        <div class="sm">Meters · Expedition 47</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="promise" id="promise">
+  <h2 class="reveal">If it fails you up there,<br><i>we failed.</i> Full stop.</h2>
+  <p class="reveal">Every ASCENT piece carries a fourteen-year warranty and a lifetime of free repairs. Send us the jacket with the crampon tear and the story; you'll get both back better than new. Gear should retire with you, not before you.</p>
+  <div class="row reveal">
+    <a href="#gear" class="b1">Build your kit</a>
+    <a href="#" class="b2">Read the repair log</a>
+  </div>
+</section>
+
+<footer>
+  <span>ASCENT EQUIPMENT — A FICTIONAL BRAND DESIGNED BY FABLE</span>
+  <span>TESTED ABOVE 8,000 M · SEWN BELOW SEA LEVEL</span>
+  <span>№ 30 — FABLE ENCORE</span>
+</footer>
+
+<script>
+const clamp01 = v => Math.max(0, Math.min(1, v));
+
+/* ---------- hero parallax ---------- */
+const layers = [...document.querySelectorAll('.hero .layer')];
+addEventListener('scroll', () => {
+  const y = scrollY;
+  layers.forEach(l => l.style.transform = `translateY(${y * l.dataset.p}px)`);
+  const type = document.querySelector('.hero-type');
+  type.style.transform = `translateY(${y*0.32}px)`;
+  type.style.opacity = 1 - clamp01(y/(innerHeight*0.75));
+}, { passive:true });
+
+/* ---------- snow ---------- */
+{
+  const cv = document.getElementById('snowCv');
+  const g = cv.getContext('2d');
+  let W,H;
+  const rs = () => { W = cv.width = innerWidth; H = cv.height = innerHeight*1.1; };
+  addEventListener('resize', rs); rs();
+  const flakes = Array.from({length:120}, () => ({
+    x:Math.random(), y:Math.random(), s:0.4+Math.random()*1.2, ph:Math.random()*7
+  }));
+  (function snow(now){
+    const t = now/1000;
+    g.clearRect(0,0,W,H);
+    g.fillStyle = 'rgba(238,242,248,0.75)';
+    for (const f of flakes){
+      const x = ((f.x + Math.sin(t*0.4 + f.ph)*0.03 + t*0.008*f.s) % 1) * W;
+      const y = ((f.y + t*0.05*f.s) % 1) * H;
+      g.globalAlpha = 0.25 + f.s*0.4;
+      g.beginPath(); g.arc(x, y, f.s*1.6, 0, 7); g.fill();
+    }
+    g.globalAlpha = 1;
+    requestAnimationFrame(snow);
+  })(0);
+}
+
+/* ---------- altitude HUD ---------- */
+{
+  const val = document.getElementById('altVal');
+  const dot = document.getElementById('altDot');
+  addEventListener('scroll', () => {
+    const p = clamp01(scrollY / (document.body.scrollHeight - innerHeight));
+    const alt = Math.round(1204 + p * (8848 - 1204));
+    val.textContent = alt.toLocaleString('en-US');
+    dot.style.top = (100 - p*100) + '%';
+  }, { passive:true });
+}
+
+/* ---------- gear card tilt ---------- */
+document.querySelectorAll('.tilt').forEach(card => {
+  card.addEventListener('pointermove', e => {
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX-r.left)/r.width, py = (e.clientY-r.top)/r.height;
+    card.style.transform = `rotateY(${(px-0.5)*8}deg) rotateX(${(0.5-py)*7}deg) translateY(-4px)`;
+  });
+  card.addEventListener('pointerleave', () => card.style.transform = '');
+});
+
+/* ---------- expedition pinned log + climbing line ---------- */
+{
+  const track = document.getElementById('expedTrack');
+  const entries = [...document.querySelectorAll('.log-entry')];
+  const altEl = document.getElementById('expAlt');
+  const ALTS = [5364, 6750, 7900, 8848];
+
+  const cv = document.getElementById('expedCv');
+  const g = cv.getContext('2d');
+  let W,H,DPR;
+  const rs = () => {
+    DPR = Math.min(devicePixelRatio, 2);
+    W = cv.width = innerWidth*DPR; H = cv.height = innerHeight*DPR;
+    cv.style.width = innerWidth+'px'; cv.style.height = innerHeight+'px';
+  };
+  addEventListener('resize', rs); rs();
+
+  // route: jagged ridge from bottom-left to top-right
+  const route = [];
+  {
+    let x = 0.06, y = 0.86;
+    route.push([x,y]);
+    const steps = 26;
+    for (let i=1;i<=steps;i++){
+      x = 0.06 + (i/steps)*0.85;
+      y = 0.86 - (i/steps)*0.66 + Math.sin(i*2.7)*0.045 + (i%3===0 ? 0.03 : -0.012);
+      route.push([x, y]);
+    }
+  }
+
+  let prog = 0;
+  function update(){
+    const r = track.getBoundingClientRect();
+    const total = r.height - innerHeight;
+    prog = clamp01(-r.top/total);
+    const idx = Math.min(3, Math.floor(prog*4));
+    entries.forEach(e => e.classList.toggle('on', +e.dataset.i === idx));
+    const localAlt = ALTS[Math.max(0,idx-1)] || 5364;
+    const nextAlt = ALTS[idx];
+    const local = clamp01(prog*4 - idx);
+    altEl.textContent = Math.round(localAlt + (nextAlt-localAlt)*local).toLocaleString('en-US');
+  }
+  addEventListener('scroll', update, { passive:true }); update();
+
+  (function draw(now){
+    const t = now/1000;
+    g.clearRect(0,0,W,H);
+
+    // faint mountain silhouette behind
+    g.beginPath();
+    g.moveTo(0, H);
+    route.forEach(([x,y]) => g.lineTo(x*W, y*H));
+    g.lineTo(W, H); g.closePath();
+    g.fillStyle = 'rgba(17,24,48,0.55)';
+    g.fill();
+
+    // route drawn to progress
+    const n = Math.max(2, Math.floor(prog * route.length * 1.06));
+    g.beginPath();
+    route.slice(0, n).forEach(([x,y],i) => i?g.lineTo(x*W,y*H):g.moveTo(x*W,y*H));
+    g.strokeStyle = '#ff5a1f';
+    g.lineWidth = 2.4*DPR;
+    g.setLineDash([9*DPR, 7*DPR]);
+    g.lineDashOffset = -t*30*DPR;
+    g.stroke();
+    g.setLineDash([]);
+
+    // camp markers
+    [[0.06,0.86,'BC'],[0.3,0.69,'C1'],[0.52,0.5,'C2'],[0.74,0.35,'C3'],[0.91,0.2,'☀']].forEach(([x,y,l], i) => {
+      const reached = (n/route.length) > (i*0.24);
+      g.fillStyle = reached ? '#ff5a1f' : 'rgba(238,242,248,0.25)';
+      g.beginPath(); g.arc(x*W, y*H, 5*DPR, 0, 7); g.fill();
+      if (reached){
+        g.shadowColor = '#ff5a1f'; g.shadowBlur = 14*DPR;
+        g.beginPath(); g.arc(x*W, y*H, 5*DPR, 0, 7); g.fill();
+        g.shadowBlur = 0;
+      }
+      g.fillStyle = reached ? '#eef2f8' : 'rgba(238,242,248,0.35)';
+      g.font = `${9*DPR}px JetBrains Mono`;
+      g.textAlign = 'center';
+      g.fillText(l, x*W, y*H - 12*DPR);
+    });
+
+    // climber dot at head of route
+    if (n > 1 && n < route.length){
+      const [hx, hy] = route[n-1];
+      g.fillStyle = '#fff';
+      g.shadowColor = '#fff'; g.shadowBlur = 10*DPR;
+      g.beginPath(); g.arc(hx*W, hy*H, 4*DPR, 0, 7); g.fill();
+      g.shadowBlur = 0;
+    }
+    requestAnimationFrame(draw);
+  })(0);
+}
+
+/* ---------- reveals ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.15 });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%4)*0.09+'s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
+```

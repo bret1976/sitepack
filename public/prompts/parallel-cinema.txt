@@ -1,0 +1,643 @@
+# Exact recreation prompt — Parallel Cinema
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: parallel-cinema
+Brand: Parallel Cinema
+Category: Film
+Tagline (catalog): Parallel Cinema interactive landing
+Live reference (structure only, do not hotlink private assets): https://parallel-cinema.vercel.app
+Stack: Static HTML
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Parallel Cinema
+
+## FILE: en/index.html
+```
+<!DOCTYPE html>
+<html lang="uk" style="margin-top:0!important;">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="preload" href="../wp-content/themes/e-parallel-smooth/assets/fonts/Bounded-Variable.ttf" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="../wp-content/themes/e-parallel-smooth/assets/fonts/Haval-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<title>Parallel Cinema</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='https://code.jquery.com/' />
+<style id='wp-img-auto-sizes-contain-inline-css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='contact-form-7-css' href='../wp-content/plugins/contact-form-7/includes/css/styles.css' media='all' />
+<link rel='stylesheet' id='trp-language-switcher-style-css' href='../wp-content/plugins/translatepress-multilingual/assets/css/trp-language-switcher.css' media='all' />
+<link rel='stylesheet' id='style-css-css' href='../wp-content/themes/e-parallel-smooth/style.css' media='all' />
+<link rel='stylesheet' id='font-style-css' href='../wp-content/themes/e-parallel-smooth/assets/fonts/style.css' media='all' />
+<link rel='stylesheet' id='font2-style-css' href='../wp-content/themes/e-parallel-smooth/assets/fonts/fonts.css' media='all' />
+<link rel='stylesheet' id='plugins-css-css' href='../wp-content/themes/e-parallel-smooth/assets/css/plugins.css' media='all' />
+<link rel='stylesheet' id='fancy-css-css' href='../wp-content/themes/e-parallel-smooth/assets/css/fancybox.css' media='all' />
+<link rel='stylesheet' id='lenis-css-css' href='../wp-content/themes/e-parallel-smooth/assets/css/lenis.css' media='all' />
+<link rel='stylesheet' id='main-css-css' href='../wp-content/themes/e-parallel-smooth/assets/css/style.css' media='all' />
+<link rel='stylesheet' id='media-css-css' href='../wp-content/themes/e-parallel-smooth/assets/css/media.css' media='all' />
+<script src="../wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
+<script src="../wp-includes/js/jquery/jquery-migrate.min.js" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="https://paralleluniverse.com.ua/en/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://paralleluniverse.com.ua/en/wp-json/wp/v2/pages/9" /><link rel="canonical" href="index.html" />
+<link rel="alternate" hreflang="uk" href="https://paralleluniverse.com.ua/"/>
+<link rel="alternate" hreflang="en-GB" href="index.html"/>
+<link rel="alternate" hreflang="en" href="index.html"/>
+<link rel="icon" href="../wp-content/uploads/2026/05/cropped-favicon-128x128-1-32x32.png" sizes="32x32" />
+<link rel="icon" href="../wp-content/uploads/2026/05/cropped-favicon-128x128-1-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://paralleluniverse.com.ua/wp-content/uploads/2026/05/cropped-favicon-128x128-1-180x180.png" />
+<meta name="msapplication-TileImage" content="https://paralleluniverse.com.ua/wp-content/uploads/2026/05/cropped-favicon-128x128-1-270x270.png" />
+	
+<style id="pc-ui-hide">
+/* Hide top navigation bar only */
+header.header {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+}
+/* Hide works / art images gallery section only */
+section.main-cases {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+}
+/* No leftover top gap from fixed header */
+body.home .wrapper { padding-top: 0 !important; }
+.main-hero { margin-top: 0 !important; }
+</style>
+</head>
+						<body  class="home wp-singular page-template page-template-front-page page-template-front-page-php page page-id-9 wp-theme-e-parallel-smooth vh translatepress-en_GB" > 
+		<div class="wrapper">
+						<div class="preload">
+				<div class="gears d-flex align-items-end justify-content-center">
+					<div class="gear">
+						<div class="gear-middle gear-2">
+							<img src="../wp-content/themes/e-parallel-smooth/images/gear2.png" alt="" class="gear2">
+						</div>
+						<div class="gear-3">
+							<img src="../wp-content/themes/e-parallel-smooth/images/gear3.png" alt="" class="gear3">
+						</div>
+					</div>
+					<div class="gear-big">
+						<button type="button" class="load-line">
+							<svg viewbox="0 0 466 466" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M233 1C361.13 1 465 104.87 465 233C465 361.13 361.13 465 233 465C104.87 465 1 361.13 1 233C1 105.537 103.791 2.08262 231 1.00844L232 1" stroke="#E1D9C1"/>
+							</svg>
+							<div class="pre-button">enter the cinema</div>
+						</button>
+						<img src="../wp-content/themes/e-parallel-smooth/images/gear1.png" alt="" class="gear1">
+					</div>
+					<div class="gear">
+						<div class="gear-middle gear-4">
+							<img src="../wp-content/themes/e-parallel-smooth/images/gear2.png" alt="" class="gear4">
+						</div>
+						<div class="gear-5">
+							<img src="../wp-content/themes/e-parallel-smooth/images/gear3.png" alt="" class="gear5">
+						</div>
+					</div>
+				</div>
+			</div>
+						<header class="header">
+				<div class="container-fluid">
+					<div class="header-container d-flex align-items-center justify-content-between">
+						<a href="index.html" class="logo">
+																						<img src="../wp-content/uploads/2025/06/logo.svg" alt="" />
+													</a>
+						<nav class="header-menu">
+							<div class="header-langs d-inline-block d-xl-none">
+																	<button type="button" class="lng-button d-flex align-items-center justify-content-center"><span class="value"><span data-no-translation><span class="trp-ls-language-name">EN</span></span></span></button>
+																	<div class="lng-dropdown">
+																			<a href="https://paralleluniverse.com.ua/" class="value"><span data-no-translation><span class="trp-ls-language-name">UK</span></span></a>
+																			
+								</div>
+							</div>
+							<ul class="nav justify-content-between">
+																	<li>
+										<a href="index.html" class="">About the cinema</a>
+									</li>
+																		<li>
+										<a href="https://paralleluniverse.com.ua/en/cases/" class="">Author&#039;s works</a>
+									</li>
+																		<li>
+										<a href="https://paralleluniverse.com.ua/en/about/" class="">About the author</a>
+									</li>
+																		<li>
+										<a href="https://paralleluniverse.com.ua/en/events/" class="">Events</a>
+									</li>
+																	</ul>
+																																										<a href="https://paralleluniverse.com.ua/en/contacts/" class="header-link d-inline-block d-xl-none">Contacts</a>
+																							<div class="menu-contacts d-block d-xl-none">
+								<a href="tel: 380970008848" class="phone d-flex align-items-center justify-content-center">
+									<div class="icon d-flex align-items-center justify-content-center">
+										<span class="ic icon-phone"></span>
+									</div>
+									<span class="value">+38(097) 000 88 48</span>
+								</a>
+								<div class="adres d-inline-flex align-items-center">
+									<div class="icon d-flex align-items-center justify-content-center">
+										<span class="ic icon-pin"></span>
+									</div>
+									<span class="value">Mini Art Gallery <br />Lviv, Teatralna St. 12</span>
+								</div>
+								<div class="socials">
+																		<a href="https://www.instagram.com/parallel.art.universe?igsh=MTh4enVhanN4NmsyZg%3D%3D&utm_source=qr" class="item" target="_blank">Instagram</a>
+																											<a href="https://www.facebook.com/share/1AjUjf9v1Y/?mibextid=wwXIfr" class="item" target="_blank">facebook</a>
+																	</div>
+							</div>
+						</nav>
+						<div class="header-right d-flex align-items-center justify-content-end">
+																														<a href="https://paralleluniverse.com.ua/en/contacts/" class="header-link d-none d-xl-block">Contacts</a>
+																					<button class="menu-button d-block d-xl-none">
+								<div class="button-icon  d-flex align-items-center justify-content-center">
+									<span class="but-icon"></span>
+								</div>
+							</button>
+							<div class="header-langs d-none d-xl-block">
+																	<button type="button" class="lng-button d-flex align-items-center justify-content-center"><span class="value"><span data-no-translation><span class="trp-ls-language-name">EN</span></span></span></button>
+																	<div class="lng-dropdown">
+																			<a href="https://paralleluniverse.com.ua/" class="value"><span data-no-translation><span class="trp-ls-language-name">UK</span></span></a>
+																			
+								</div>
+							</div>
+																					<button type="button" class="sound-switcher d-flex align-items-center justify-content-center">
+								<div class="icon d-flex align-items-center">
+									<div class="waves align-items-center">
+										<span class="wave"><span class="ic icon-sound"></span></span>
+
+									</div>
+								</div>
+							</button>
+							<audio loop="loop" class="audio d-none" id="divAudio">
+								 <source src="../wp-content/uploads/2025/06/sound.mp3"  type="audio/mpeg">
+							</audio>
+													</div>
+					</div>
+				</div>
+			</header>
+			<main class="content">
+
+
+	<section class="main-hero margin-bottom">
+	<div class="hero-info">
+		<div class="container-fluid h-100 d-flex flex-column justify-content-center">
+			<div class="info-container d-flex flex-column justify-content-between">
+				<h1 class="notranslate">Parallel <span>Cinema</span></h1>
+				<div class="info-title">Bret Jenny</div>
+			</div>
+		</div>
+	</div>
+	<div class="hero-media">
+		<div class="hero-video">
+			<video autoplay loop muted playsinline>
+				<source src="../wp-content/themes/e-parallel-smooth/images/video1.mp4">
+			</video>
+		</div>
+		<div class="hero-image">
+			<div class="image-container h-100">
+				<img src="../wp-content/themes/e-parallel-smooth/images/main1.png" alt="">
+			</div>
+			<div class="image-lines">
+				<img src="../wp-content/themes/e-parallel-smooth/images/lines.png" alt="">
+			</div>
+			<div class="image-portal">
+				<img src="../wp-content/themes/e-parallel-smooth/images/portal.png" alt="">
+			</div>
+			<div class="video-portal">
+				<video autoplay loop muted playsinline>
+					<source src="../wp-content/themes/e-parallel-smooth/images/video2.mp4">
+				</video>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="planet-section margin-bottom">
+	<div class="container-fluid">
+		<h2>an original art project in the cinematic genre, combining generative AI and narrative filmmaking</h2>
+		<div class="section-anons anim-text">I created unique AI films, each of which is a philosophical dialogue about the flow of time, the nature of reality, human choice, and the dissolving boundary between the real and the synthetic.</div>
+		<div class="planet-video">
+			<div class="video-container">
+				<video autoplay loop muted playsinline>
+					<source src="../wp-content/themes/e-parallel-smooth/images/video3.mp4">
+				</video>
+			</div>
+			<div class="planet-lines">
+				<img src="../wp-content/themes/e-parallel-smooth/images/lines2.png" alt="">
+			</div>
+			<div class="planet-title-1">
+				<h3>This is not just cinema</h3>
+			</div>
+			<div class="planet-title-2">
+				<h3>This is a mirror of yourself.</h3>
+			</div>
+		</div>
+		<div class="planet-items d-flex align-items-start justify-content-between">
+			<div class="anim-lines">
+				<svg width="1244" height="398" viewbox="0 0 1244 398" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path opacity="0.1" d="M598 0.5C598 86 515.5 298.4 375.5 332" stroke="#CAC5BD"/>
+					<path opacity="0.1" d="M597.5 0.5C679.5 92.1667 830.9 303.4 768.5 397" stroke="#CAC5BD"/>
+					<path opacity="0.1" d="M597.5 0.5C943 207.5 1000 254.5 1243 265.5" stroke="#CAC5BD"/>
+					<path opacity="0.1" d="M598 0.5C433.167 28.6667 320 107 0.5 295" stroke="#CAC5BD"/>
+				</svg>
+			</div>
+			<div class="planet planet-1 op">
+				<img src="../wp-content/themes/e-parallel-smooth/images/planet1.png" alt="">
+			</div>
+			<div class="planet planet-2 op">
+				<img src="../wp-content/themes/e-parallel-smooth/images/planet2.png" alt="">
+			</div>
+			<div class="planet planet-3 op">
+				<img src="../wp-content/themes/e-parallel-smooth/images/planet3.png" alt="">
+			</div>
+			<div class="planet planet-4 op">
+				<img src="../wp-content/themes/e-parallel-smooth/images/planet4.png" alt="">
+			</div>
+		</div>
+	</div>
+</section>
+<section class="main-cases margin-bottom">
+	<div class="container-fluid">
+		<div class="cases-container">
+			<div class="cases-video s-item d-flex align-items-center justify-content-center">
+				<div class="video-container">
+					<video autoplay loop muted playsinline>
+						<source src="../wp-content/themes/e-parallel-smooth/images/video4.mp4">
+					</video>
+				</div>
+			</div>
+			<div class="cases-titles s-item text-center d-flex flex-column align-items-center justify-content-center">
+				<h2>I found my Parallel Cinema</h2>
+				<h3>and ready to share the story of my search with you</h3>
+			</div>
+						<div class="cases-list  s-item">
+				<div class="row align-items-start justify-content-between">
+										<a href="https://paralleluniverse.com.ua/en/cases/razom-together/" class="item op">
+						<div class="item-image">
+							<div class="image-container">
+								<img width="1200" height="1115" src="../wp-content/uploads/2021/03/e1.jpg" class="attachment-full size-full wp-post-image" alt="" decoding="async" fetchpriority="high" srcset="../wp-content/uploads/2021/03/e1.jpg 1200w, ../wp-content/uploads/2021/03/e1-300x279.jpg 300w, ../wp-content/uploads/2021/03/e1-1024x951.jpg 1024w, ../wp-content/uploads/2021/03/e1-768x714.jpg 768w, ../wp-content/uploads/2021/03/e1-13x12.jpg 13w" sizes="(max-width: 1200px) 100vw, 1200px" />							</div>
+						</div>
+						<div class="d-md-flex align-items-start justify-content-between">
+							<div class="item-name d-flex align-items-start">
+								<div class="number">[01]</div>
+								<div class="name">TOGETHER</div>
+							</div>
+							<div class="date">// 23.03.2021</div>
+						</div>
+					</a>
+																						<a href="https://paralleluniverse.com.ua/en/cases/everest-everest/" class="item op">
+						<div class="item-image">
+							<div class="image-container">
+								<img width="1200" height="900" src="../wp-content/uploads/2024/02/rsh-24408.jpg" class="attachment-full size-full wp-post-image" alt="" decoding="async" srcset="../wp-content/uploads/2024/02/rsh-24408.jpg 1200w, ../wp-content/uploads/2024/02/rsh-24408-300x225.jpg 300w, ../wp-content/uploads/2024/02/rsh-24408-1024x768.jpg 1024w, ../wp-content/uploads/2024/02/rsh-24408-768x576.jpg 768w, ../wp-content/uploads/2024/02/rsh-24408-16x12.jpg 16w" sizes="(max-width: 1200px) 100vw, 1200px" />							</div>
+						</div>
+						<div class="d-md-flex align-items-start justify-content-between">
+							<div class="item-name d-flex align-items-start">
+								<div class="number">[02]</div>
+								<div class="name">EVEREST</div>
+							</div>
+							<div class="date">// 04.02.2024</div>
+						</div>
+					</a>
+											</div>
+						<div class="row align-items-start justify-content-between">
+																							<a href="https://paralleluniverse.com.ua/en/cases/blakytna-bezodnya-blue-hole/" class="item op  small">
+						<div class="item-image">
+							<div class="image-container">
+								<img width="1200" height="900" src="../wp-content/uploads/2024/02/rsh-24247.jpg" class="attachment-full size-full wp-post-image" alt="" decoding="async" srcset="../wp-content/uploads/2024/02/rsh-24247.jpg 1200w, ../wp-content/uploads/2024/02/rsh-24247-300x225.jpg 300w, ../wp-content/uploads/2024/02/rsh-24247-1024x768.jpg 1024w, ../wp-content/uploads/2024/02/rsh-24247-768x576.jpg 768w, ../wp-content/uploads/2024/02/rsh-24247-16x12.jpg 16w" sizes="(max-width: 1200px) 100vw, 1200px" />							</div>
+						</div>
+						<div class="d-md-flex align-items-start justify-content-between">
+							<div class="item-name d-flex align-items-start">
+								<div class="number">[03]</div>
+								<div class="name">BLUE HOLE</div>
+							</div>
+							<div class="date">// 10.02.2024</div>
+						</div>
+					</a>
+																						<a href="https://paralleluniverse.com.ua/en/cases/chas-plyve-time-flies/" class="item op  small">
+						<div class="item-image">
+							<div class="image-container">
+								<img width="1200" height="900" src="../wp-content/uploads/2024/02/rsh-24470.jpg" class="attachment-full size-full wp-post-image" alt="" decoding="async" srcset="../wp-content/uploads/2024/02/rsh-24470.jpg 1200w, ../wp-content/uploads/2024/02/rsh-24470-300x225.jpg 300w, ../wp-content/uploads/2024/02/rsh-24470-1024x768.jpg 1024w, ../wp-content/uploads/2024/02/rsh-24470-768x576.jpg 768w, ../wp-content/uploads/2024/02/rsh-24470-16x12.jpg 16w" sizes="(max-width: 1200px) 100vw, 1200px" />							</div>
+						</div>
+						<div class="d-md-flex align-items-start justify-content-between">
+							<div class="item-name d-flex align-items-start">
+								<div class="number">[04]</div>
+								<div class="name">TIME FLIES</div>
+							</div>
+							<div class="date">// 24.02.2024</div>
+						</div>
+					</a>
+																						<a href="https://paralleluniverse.com.ua/en/cases/bdzhola-ta-muha-bee-vs-fly/" class="item op  small">
+						<div class="item-image">
+							<div class="image-container">
+								<img width="1200" height="900" src="../wp-content/uploads/2024/03/rsh-24501.jpg" class="attachment-full size-full wp-post-image" alt="" decoding="async" srcset="../wp-content/uploads/2024/03/rsh-24501.jpg 1200w, ../wp-content/uploads/2024/03/rsh-24501-300x225.jpg 300w, ../wp-content/uploads/2024/03/rsh-24501-1024x768.jpg 1024w, ../wp-content/uploads/2024/03/rsh-24501-768x576.jpg 768w, ../wp-content/uploads/2024/03/rsh-24501-16x12.jpg 16w" sizes="(max-width: 1200px) 100vw, 1200px" />							</div>
+						</div>
+						<div class="d-md-flex align-items-start justify-content-between">
+							<div class="item-name d-flex align-items-start">
+								<div class="number">[05]</div>
+								<div class="name">BEE VS FLY</div>
+							</div>
+							<div class="date">// 12.03.2024</div>
+						</div>
+					</a>
+																		</div>
+							<div class="row align-items-start justify-content-between">
+																	<a href="https://paralleluniverse.com.ua/en/cases/faraony-pharaohs/" class="item op">
+						<div class="item-image">
+							<div class="image-container">
+								<img width="1200" height="900" src="../wp-content/uploads/2024/03/rsh-24361.jpg" class="attachment-full size-full wp-post-image" alt="" decoding="async" srcset="../wp-content/uploads/2024/03/rsh-24361.jpg 1200w, ../wp-content/uploads/2024/03/rsh-24361-300x225.jpg 300w, ../wp-content/uploads/2024/03/rsh-24361-1024x768.jpg 1024w, ../wp-content/uploads/2024/03/rsh-24361-768x576.jpg 768w, ../wp-content/uploads/2024/03/rsh-24361-16x12.jpg 16w" sizes="(max-width: 1200px) 100vw, 1200px" />							</div>
+						</div>
+						<div class="d-md-flex align-items-start justify-content-between">
+							<div class="item-name d-flex align-items-start">
+								<div class="number">[06]</div>
+								<div class="name">PHARAOHS</div>
+							</div>
+							<div class="date">// 31.03.2024</div>
+						</div>
+					</a>
+																						<a href="https://paralleluniverse.com.ua/en/cases/vybir-sizifa-sisyphus-choise/" class="item op">
+						<div class="item-image">
+							<div class="image-container">
+								<img width="1200" height="900" src="../wp-content/uploads/2024/04/rsh-24488.jpg" class="attachment-full size-full wp-post-image" alt="" decoding="async" srcset="../wp-content/uploads/2024/04/rsh-24488.jpg 1200w, ../wp-content/uploads/2024/04/rsh-24488-300x225.jpg 300w, ../wp-content/uploads/2024/04/rsh-24488-1024x768.jpg 1024w, ../wp-content/uploads/2024/04/rsh-24488-768x576.jpg 768w, ../wp-content/uploads/2024/04/rsh-24488-16x12.jpg 16w" sizes="(max-width: 1200px) 100vw, 1200px" />							</div>
+						</div>
+						<div class="d-md-flex align-items-start justify-content-between">
+							<div class="item-name d-flex align-items-start">
+								<div class="number">[07]</div>
+								<div class="name">SISYPHUS CHOICE</div>
+							</div>
+							<div class="date">// 14.04.2024</div>
+						</div>
+					</a>
+											</div>
+						<div class="row align-items-start justify-content-between">
+																						</div>
+							<div class="more-container text-center">
+					<a href="https://paralleluniverse.com.ua/en/cases/" class="link-default" >
+						<span data-attr="всі роботи автора"><span>all films of the author</span></span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="mount-section">
+	<div class="mount-titles">
+		<div class="container-fluid">
+			<h2>Between the algorithm and the abyss: the birth of inspiration</h2>
+			<div class="section-anons anim-text">I started creating after the moment generative AI opened entirely new dimensions of vision — when pure imagination could finally become living cinema, and the films that lived only in my mind could be made real.</div>
+		</div>
+	</div>
+	<div class="mount-animate" data-parallax-layers>
+			<div class="mount-bg" data-parallax-layer="1">
+				<img src="../wp-content/themes/e-parallel-smooth/images/mount1.png" alt="">
+			</div>
+			<div class="mount-parallax"  data-parallax-layer="2">
+				<img src="../wp-content/themes/e-parallel-smooth/images/mount2.png" alt="">
+			</div>
+		</div>
+</section>
+<section class="main-about margin-bottom">
+	<div class="container-fluid">
+						<div class="about-images d-flex align-items-start justify-content-between">
+						<div class="image image-1 op">
+				<img src="../wp-content/uploads/2025/06/w1.jpg" alt="">
+			</div>
+						<div class="image image-2 op">
+				<img src="../wp-content/uploads/2025/06/w2.jpg" alt="">
+			</div>
+						<div class="image image-3 op">
+				<img src="../wp-content/uploads/2025/06/w3.jpg" alt="">
+			</div>
+					</div>
+				<div class="about-info">
+			<div class="d-lg-flex align-items-start justify-content-between op">
+				<h2>Impressions that turned into cinema</h2>
+				<div class="anons op">It was then that the world opened up before me in completely new dimensions and meanings, and I felt a desire to share these visions with others. Each of my films is a part of this story, like a single frame in the construction of a new cinematic universe.</div>
+			</div>
+			<a href="https://paralleluniverse.com.ua/en/about/" class="link-default" >
+				<span data-attr="детальніше про автора"><span>more about the author</span></span>
+			</a>
+		</div>
+		<div class="about-bg op">
+			<img src="../wp-content/themes/e-parallel-smooth/images/circle1.svg" alt="" class="bg-1">
+			<img src="../wp-content/themes/e-parallel-smooth/images/circle2.svg" alt="" class="bg-2">
+		</div>
+	</div>
+</section>
+			</main>
+			<footer class="footer"> 
+				<div class="container-fluid">
+					<div class="footer-form">
+						<h2>These are not just films</h2>
+						<h3>these are portals to alternate realities</h3>
+						<div class="anons anim-text">Stay up to date with the latest news and upcoming exhibitions</div>
+						<div class="subscribe-form op">
+							
+<div class="wpcf7 no-js" id="wpcf7-f22-o1" lang="uk" dir="ltr" data-wpcf7-id="22">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="index.html" method="post" class="wpcf7-form init" aria-label="Контактна форма" novalidate="novalidate" data-status="init" data-no-translation-aria-label="" data-trp-original-action="/en/#wpcf7-f22-o1">
+<fieldset class="hidden-fields-container"><input type="hidden" name="_wpcf7" value="22" /><input type="hidden" name="_wpcf7_version" value="6.1.6" /><input type="hidden" name="_wpcf7_locale" value="uk" /><input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f22-o1" /><input type="hidden" name="_wpcf7_container_post" value="0" /><input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+</fieldset>
+<div class="input-container">
+<span class="wpcf7-form-control-wrap" data-name="your-email"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required input" autocomplete="off" aria-required="true" aria-invalid="false" placeholder="enter your email" value="" type="text" name="your-email" /></span>
+								<input type="submit" value="subscribe" class="submit">
+							</div><div class="wpcf7-response-output" aria-hidden="true"></div>
+<input type="hidden" name="trp-form-language" value="en"/></form>
+</div>
+						</div>
+					</div>
+					<div class="d-lg-flex align-items-start justify-content-between">
+						<div class="footer-left op">
+							<a href="index.html" class="logo">
+																									<img src="../wp-content/uploads/2025/06/logo.svg" alt="" />
+															</a>
+							<div class="footer-nav op">
+								<ul class="nav flex-column">
+																
+									<li>
+										<a href="https://paralleluniverse.com.ua/en/cases/" class="">Author&#039;s works</a>
+									</li>
+																	
+									<li>
+										<a href="https://paralleluniverse.com.ua/en/about/" class="">About the author</a>
+									</li>
+																	
+									<li>
+										<a href="https://paralleluniverse.com.ua/en/events/" class="">Events</a>
+									</li>
+																	
+									<li>
+										<a href="https://paralleluniverse.com.ua/en/contacts/" class="">Contacts</a>
+									</li>
+																	
+									<li>
+										<a href="index.html#/" class="">Merch</a>
+									</li>
+																	</ul>
+							</div>
+						</div>
+						<div class="footer-right">
+							<a href="tel: 380970008848" class="phone op d-flex align-items-center">
+								<div class="icon d-flex align-items-center justify-content-center">
+									<span class="ic icon-phone"></span>
+								</div>
+								<span class="value">+38(097) 000 88 48</span>
+							</a>
+							<div class="adres d-inline-flex align-items-center op">
+								<div class="icon d-flex align-items-center justify-content-center">
+									<span class="ic icon-pin"></span>
+								</div>
+								<span class="value">Mini Art Gallery <br />Lviv, Teatralna St. 12</span>
+							</div>
+							<div class="socials op">
+																<a href="https://www.instagram.com/parallel.art.universe?igsh=MTh4enVhanN4NmsyZg%3D%3D&utm_source=qr" class="item" target="_blank">Instagram</a>
+																								<a href="https://www.facebook.com/share/1AjUjf9v1Y/?mibextid=wwXIfr" class="item" target="_blank">facebook</a>
+															</div>
+						</div>
+					</div>
+					<div class="footer-bottom">
+						<div class="row align-items-center justify-content-between">
+							<div class="copy col">© 2026 parallel cinema by bret jenny</div>
+														<div class="links col text-center">
+																<a href="https://paralleluniverse.com.ua/en/privacy-policy/">Privacy Policy</a>
+															</div>
+														<div class="dev col text-lg-right">
+								<span class="data">Website by</span>
+								<a rel="nofollow" href="https://esfirum.com" class="value" target="_blank">esfirum agency</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-bg">
+					<img src="../wp-content/themes/e-parallel-smooth/images/footer2.png" alt="">
+					<div class="footer-video">
+						<video autoplay loop muted playsinline>
+							<source src="../wp-content/themes/e-parallel-smooth/images/video2.mp4">
+						</video>
+					</div>
+				</div>
+			</footer>
+		</div>
+				<div class="modal fade" id="cost" tabindex="-1" aria-labelledby="costLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content h-100">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ic icon-close"></span></button>
+			<div class="modal-container">
+				<div class="modal-form global-form">
+					<div class="modal-title">Interested in collaboration or screening rights?</div>
+					
+<div class="wpcf7 no-js" id="wpcf7-f122-o2" lang="uk" dir="ltr" data-wpcf7-id="122">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="index.html" method="post" class="wpcf7-form init" aria-label="Контактна форма" novalidate="novalidate" data-status="init" data-no-translation-aria-label="" data-trp-original-action="/en/#wpcf7-f122-o2">
+<fieldset class="hidden-fields-container"><input type="hidden" name="_wpcf7" value="122" /><input type="hidden" name="_wpcf7_version" value="6.1.6" /><input type="hidden" name="_wpcf7_locale" value="uk" /><input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f122-o2" /><input type="hidden" name="_wpcf7_container_post" value="0" /><input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+</fieldset>
+<div class="input-container">
+ <span class="wpcf7-form-control-wrap" data-name="your-name"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text input" autocomplete="off" aria-invalid="false" placeholder="your name" value="" type="text" name="your-name" /></span>
+					</div>
+					<div class="input-container">
+ <span class="wpcf7-form-control-wrap" data-name="your-phone"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required input phone" autocomplete="off" aria-required="true" aria-invalid="false" placeholder="Phone number" value="" type="text" name="your-phone" /></span>
+					</div>
+					<div class="input-container">
+ <span class="wpcf7-form-control-wrap" data-name="your-email"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required input" autocomplete="off" aria-required="true" aria-invalid="false" placeholder="email" value="" type="text" name="your-email" /></span>
+					</div>
+					<input type="submit" class="submit w-100 text-center" value="send a request"><div class="wpcf7-response-output" aria-hidden="true"></div>
+<input type="hidden" name="trp-form-language" value="en"/></form>
+</div>
+					<div class="modal-phone d-md-flex align-items-center justify-content-center">
+						<div class="data">Call us:</div>
+						<a href="tel: 380970008848" class="value d-flex align-items-center">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="ic icon-phone"></span>
+							</div>
+							<span class="val">+38(097) 000 88 48</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>		<template id="tp-language" data-tp-language="en_GB"></template><script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/en/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/e-parallel-smooth/*","/en/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+		<style>
+			:root {
+				-webkit-user-select: none;
+				-webkit-touch-callout: none;
+				-ms-user-select: none;
+				-moz-user-select: none;
+				user-select: none;
+			}
+		</style>
+		<script type="text/javascript">
+			/*<![CDATA[*/
+			document.oncontextmenu = function(event) {
+				if (event.target.tagName != 'INPUT' && event.target.tagName != 'TEXTAREA') {
+					event.preventDefault();
+				}
+			};
+			document.ondragstart = function() {
+				if (event.target.tagName != 'INPUT' && event.target.tagName != 'TEXTAREA') {
+					event.preventDefault();
+				}
+			};
+			/*]]>*/
+		</script>
+		<script id="trp-dynamic-translator-js-extra">
+var trp_data = {"trp_custom_ajax_url":"https://paralleluniverse.com.ua/wp-content/plugins/translatepress-multilingual/includes/trp-ajax.php","trp_wp_ajax_url":"https://paralleluniverse.com.ua/wp-admin/admin-ajax.php","trp_language_to_query":"en_GB","trp_original_language":"uk","trp_current_language":"en_GB","trp_skip_selectors":["[data-no-translation]","[data-no-dynamic-translation]","[data-trp-translate-id-innertext]","script","style","head","trp-span","translate-press","[data-trp-translate-id]","[data-trpgettextoriginal]","[data-trp-post-slug]"],"trp_base_selectors":["data-trp-translate-id","data-trpgettextoriginal","data-trp-post-slug"],"trp_attributes_selectors":{"text":{"accessor":"outertext","attribute":false},"block":{"accessor":"innertext","attribute":false},"image_src":{"selector":"img[src]","accessor":"src","attribute":true},"submit":{"selector":"input[type='submit'],input[type='button'], input[type='reset']","accessor":"value","attribute":true},"placeholder":{"selector":"input[placeholder],textarea[placeholder]","accessor":"placeholder","attribute":true},"title":{"selector":"[title]","accessor":"title","attribute":true},"a_href":{"selector":"a[href]","accessor":"href","attribute":true},"button":{"accessor":"outertext","attribute":false},"option":{"accessor":"innertext","attribute":false},"aria_label":{"selector":"[aria-label]","accessor":"aria-label","attribute":true},"image_alt":{"selector":"img[alt]","accessor":"alt","attribute":true},"meta_desc":{"selector":"meta[name=\"description\"],meta[property=\"og:title\"],meta[property=\"og:description\"],meta[property=\"og:site_name\"],meta[property=\"og:image:alt\"],meta[name=\"twitter:title\"],meta[name=\"twitter:description\"],meta[name=\"twitter:image:alt\"],meta[name=\"DC.Title\"],meta[name=\"DC.Description\"],meta[property=\"article:section\"],meta[property=\"article:tag\"]","accessor":"content","attribute":true},"page_title":{"selector":"title","accessor":"innertext","attribute":false},"meta_desc_img":{"selector":"meta[property=\"og:image\"],meta[property=\"og:image:secure_url\"],meta[name=\"twitter:image\"]","accessor":"content","attribute":true}},"trp_attributes_accessors":["outertext","innertext","src","value","placeholder","title","href","aria-label","alt","content"],"gettranslationsnonceregular":"b1dafda1d1","showdynamiccontentbeforetranslation":"","skip_strings_from_dynamic_translation":[],"skip_strings_from_dynamic_translation_for_substrings":{"href":["amazon-adsystem","googleads","g.doubleclick"]},"duplicate_detections_allowed":"100","trp_translate_numerals_opt":"no","trp_no_auto_translation_selectors":["[data-no-auto-translation]"]};
+//# sourceURL=trp-dynamic-translator-js-extra
+</script>
+<script src="../wp-content/plugins/translatepress-multilingual/assets/js/trp-translate-dom-changes.js" id="trp-dynamic-translator-js"></script>
+<script src="../wp-includes/js/dist/hooks.min.js" id="wp-hooks-js"></script>
+<script src="../wp-includes/js/dist/i18n.min.js" id="wp-i18n-js"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script src="../wp-content/plugins/contact-form-7/includes/swv/js/index.js" id="swv-js"></script>
+<script id="contact-form-7-js-translations">
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2026-05-05 18:32:38+0000","generator":"GlotPress\/4.0.3","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=2; plural=n != 1;","lang":"en_GB"},"This contact form is placed in the wrong place.":["This contact form is placed in the wrong place."],"Error:":["Error:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+//# sourceURL=contact-form-7-js-translations
+</script>
+<script id="contact-form-7-js-before">
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/paralleluniverse.com.ua\/en\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+//# sourceURL=contact-form-7-js-before
+</script>
+<script src="../wp-content/plugins/contact-form-7/includes/js/index.js" id="contact-form-7-js"></script>
+<script src="../jquery-3.5.1.min.js" id="jQuery-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/plugins.js" id="plugins-js-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/simpleParallax.min.js" id="simpleParallax-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/fancybox.js" id="fancy-scripts-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/gsap3/TweenMax.min.js" id="gsap1-scripts-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/gsap3/ScrollTrigger.min.js" id="gsap2-scripts-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/gsap3/drawsvg.js" id="gsap3-scripts-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/gsap3/splittext.js" id="gsap4-scripts-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/gsap3/gsap.min.js" id="gsap5-scripts-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/lenis.min.js" id="lenis-js"></script>
+<script src="../wp-content/themes/e-parallel-smooth/assets/js/scripts.js" id="media-scripts-js"></script>
+	</body>
+</html>
+```

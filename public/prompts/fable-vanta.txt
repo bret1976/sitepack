@@ -1,0 +1,672 @@
+# Exact recreation prompt — Vanta
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-vanta
+Brand: Vanta
+Category: Creative
+Tagline (catalog): Fintech infrastructure · Three.js particle Earth, live rails (Fable × 25 #28)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/28-vanta/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Money that moves like information.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VANTA — Move Money at the Speed of Light</title>
+<meta name="description" content="Global settlement infrastructure. A particle Earth, live rails, and glass. Fictional fintech by Fable.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500&display=swap');
+  :root {
+    --bg:#020409;
+    --tx:#e8eef8;
+    --dim:#66748c;
+    --line:rgba(232,238,248,0.08);
+    --grn:#2ee6a8;
+    --blu:#3d7bff;
+    --glass:rgba(14,20,34,0.55);
+    --glass-line:rgba(232,238,248,0.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--bg);
+    color:var(--tx);
+    font-family:'Geist', sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection { background:var(--grn); color:#020409; }
+  a { color:inherit; }
+
+  #globe { position:fixed; inset:0; z-index:0; }
+  .vign { position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(2,4,9,0.85) 100%); }
+
+  main, nav, footer, .ticker { position:relative; z-index:2; }
+
+  /* ---------- ticker ---------- */
+  .ticker {
+    position:fixed; bottom:0; left:0; right:0; z-index:50;
+    background:rgba(4,8,16,0.8);
+    backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);
+    overflow:hidden;
+    padding:0.55rem 0;
+    font-family:'Geist Mono', monospace; font-size:0.68rem;
+  }
+  .ticker-in { display:flex; width:max-content; animation:tick 30s linear infinite; }
+  .ticker-in span { margin-right:3.2rem; color:var(--dim); white-space:nowrap; }
+  .ticker-in b { color:var(--tx); font-weight:500; }
+  .ticker-in .up { color:var(--grn); }
+  .ticker-in .dn { color:#ff5c7a; }
+  @keyframes tick { to { transform:translateX(-50%); } }
+
+  /* ---------- nav ---------- */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:60;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.3rem 3rem;
+    background:linear-gradient(rgba(2,4,9,0.75), transparent);
+  }
+  .brand { display:flex; align-items:center; gap:0.7rem; font-weight:700; letter-spacing:0.12em; font-size:0.95rem; }
+  .brand .bmark {
+    width:20px; height:20px;
+    background:conic-gradient(from 90deg, var(--grn), var(--blu), var(--grn));
+    clip-path:polygon(50% 0, 100% 100%, 0 100%);
+  }
+  nav .links { display:flex; gap:2rem; font-size:0.82rem; color:var(--dim); }
+  nav .links a { text-decoration:none; transition:color 0.25s; }
+  nav .links a:hover { color:var(--tx); }
+  .nav-cta {
+    font-size:0.8rem; font-weight:600; text-decoration:none;
+    color:#020409; background:var(--grn);
+    padding:0.6rem 1.4rem; border-radius:8px;
+    box-shadow:0 0 24px rgba(46,230,168,0.35);
+    transition:transform 0.25s, box-shadow 0.25s;
+  }
+  .nav-cta:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(46,230,168,0.55); }
+  @media (max-width:820px){
+    nav .links { display:none; }
+    nav { padding:1.1rem 1.4rem; }
+    .hero .status { white-space:normal; letter-spacing:0.08em; line-height:1.7; max-width:88vw; }
+    body { overflow-x:hidden; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:10rem 6vw 6rem;
+    max-width:1340px; margin:0 auto;
+  }
+  .hero .status {
+    display:inline-flex; align-items:center; gap:0.8rem; width:max-content;
+    font-family:'Geist Mono'; font-size:0.66rem; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--grn);
+    border:1px solid rgba(46,230,168,0.3);
+    background:rgba(46,230,168,0.06);
+    padding:0.5rem 1.1rem; border-radius:6px;
+    margin-bottom:2.4rem;
+  }
+  .hero .status i { width:7px; height:7px; border-radius:50%; background:var(--grn); box-shadow:0 0 12px var(--grn); animation:pulse 1.8s ease-in-out infinite; font-style:normal; }
+  @keyframes pulse { 50% { opacity:0.3; } }
+  h1 {
+    font-size:clamp(2.8rem, 7.2vw, 6.4rem);
+    font-weight:600; letter-spacing:-0.045em; line-height:1.0;
+    max-width:17ch;
+  }
+  h1 .grad {
+    background:linear-gradient(100deg, var(--grn), var(--blu));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  h1 .lineup { display:block; overflow:hidden; }
+  h1 .lineup span { display:block; transform:translateY(105%); animation:lup 1s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay:var(--d); }
+  @keyframes lup { to { transform:none; } }
+  .hero p.sub {
+    margin-top:2.2rem; max-width:50ch;
+    font-size:1.02rem; font-weight:300; line-height:1.9; color:var(--dim);
+    opacity:0; animation:fadein 1.2s 0.8s forwards;
+  }
+  .hero p.sub b { color:var(--tx); font-weight:500; }
+  @keyframes fadein { to { opacity:1; } }
+  .hero-ctas { display:flex; gap:1rem; margin-top:2.8rem; flex-wrap:wrap; opacity:0; animation:fadein 1s 1s forwards; }
+  .btn {
+    font-size:0.92rem; font-weight:600; text-decoration:none;
+    padding:1rem 2rem; border-radius:10px;
+    display:inline-flex; align-items:center; gap:0.6rem;
+  }
+  .btn.solid { background:var(--tx); color:#020409; transition:transform 0.25s, box-shadow 0.25s; }
+  .btn.solid:hover { transform:translateY(-2px); box-shadow:0 12px 34px rgba(232,238,248,0.2); }
+  .btn.line { border:1px solid var(--glass-line); background:var(--glass); backdrop-filter:blur(10px); transition:border-color 0.25s; }
+  .btn.line:hover { border-color:rgba(232,238,248,0.35); }
+  .btn .mono { font-family:'Geist Mono'; font-size:0.78rem; color:var(--dim); }
+
+  /* live stats strip under hero */
+  .live-strip {
+    display:flex; gap:1px; margin-top:5rem;
+    background:var(--line); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; width:max-content; max-width:100%;
+    opacity:0; animation:fadein 1.2s 1.25s forwards;
+  }
+  .live-cell { background:rgba(4,8,16,0.75); backdrop-filter:blur(12px); padding:1.3rem 2rem; min-width:180px; }
+  .live-cell .k { font-family:'Geist Mono'; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--dim); }
+  .live-cell .v { margin-top:0.5rem; font-family:'Geist Mono'; font-size:1.35rem; font-weight:500; font-variant-numeric:tabular-nums; }
+  .live-cell .v i { font-style:normal; color:var(--grn); font-size:0.8rem; margin-left:0.4rem; }
+  @media (max-width:820px){ .live-strip { flex-wrap:wrap; } .live-cell { flex:1; min-width:140px; } }
+
+  /* ---------- sections ---------- */
+  section.blk { padding:9rem 6vw; max-width:1340px; margin:0 auto; }
+  .kick { font-family:'Geist Mono'; font-size:0.64rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--grn); display:block; margin-bottom:1.3rem; }
+  h2.sec { font-size:clamp(1.9rem, 4.4vw, 3.4rem); font-weight:600; letter-spacing:-0.04em; line-height:1.08; max-width:24ch; }
+  h2.sec .grad { background:linear-gradient(100deg, var(--grn), var(--blu)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  /* rails cards */
+  .rails { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; margin-top:4rem; }
+  .rail-card {
+    position:relative;
+    background:var(--glass);
+    border:1px solid var(--glass-line);
+    border-radius:18px;
+    padding:2.2rem 2rem;
+    backdrop-filter:blur(16px);
+    overflow:hidden;
+    transition:transform 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.4s;
+  }
+  .rail-card:hover { transform:translateY(-7px); border-color:rgba(46,230,168,0.4); }
+  .rail-card::before {
+    content:''; position:absolute; top:0; left:10%; right:10%; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(46,230,168,0.7), transparent);
+    opacity:0; transition:opacity 0.4s;
+  }
+  .rail-card:hover::before { opacity:1; }
+  .rail-card .rc-icon {
+    width:42px; height:42px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(46,230,168,0.1);
+    border:1px solid rgba(46,230,168,0.25);
+    margin-bottom:1.6rem;
+    font-family:'Geist Mono'; color:var(--grn); font-size:1.05rem;
+  }
+  .rail-card h3 { font-size:1.15rem; font-weight:600; letter-spacing:-0.01em; margin-bottom:0.8rem; }
+  .rail-card p { font-size:0.87rem; font-weight:300; line-height:1.8; color:var(--dim); }
+  .rail-card .lat { margin-top:1.6rem; font-family:'Geist Mono'; font-size:0.68rem; color:var(--grn); }
+  @media (max-width:900px){ .rails { grid-template-columns:1fr; } }
+
+  /* ---------- dashboard showcase ---------- */
+  .dash-wrap { margin-top:4rem; perspective:1500px; }
+  .dash {
+    background:linear-gradient(165deg, rgba(14,22,40,0.9), rgba(4,8,16,0.95));
+    border:1px solid var(--glass-line);
+    border-radius:20px;
+    box-shadow:0 60px 130px rgba(0,0,0,0.65), 0 0 70px rgba(61,123,255,0.08);
+    overflow:hidden;
+    will-change:transform;
+  }
+  .dash-head {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.1rem 1.6rem; border-bottom:1px solid var(--line);
+    font-family:'Geist Mono'; font-size:0.68rem; color:var(--dim);
+  }
+  .dash-head .tag { color:var(--grn); }
+  .dash-grid { display:grid; grid-template-columns:1.6fr 1fr; }
+  .dash-cell { padding:1.6rem; border-right:1px solid var(--line); }
+  .dash-cell:last-child { border-right:none; }
+  .dash-cell .lbl { font-family:'Geist Mono'; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--dim); margin-bottom:1rem; }
+  .dash-cell canvas { width:100%; display:block; }
+  .flow-rows { display:flex; flex-direction:column; gap:0.7rem; }
+  .flow-row {
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Geist Mono'; font-size:0.72rem;
+    background:rgba(232,238,248,0.03);
+    border:1px solid var(--line);
+    border-radius:9px; padding:0.75rem 1rem;
+  }
+  .flow-row .route { color:var(--tx); }
+  .flow-row .amt { color:var(--grn); }
+  .flow-row .st { font-size:0.62rem; color:var(--dim); }
+  @media (max-width:820px){ .dash-grid { grid-template-columns:1fr; } .dash-cell { border-right:none; border-bottom:1px solid var(--line); } }
+
+  /* ---------- security band ---------- */
+  .band {
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:rgba(4,8,16,0.5); backdrop-filter:blur(8px);
+  }
+  .band-in {
+    max-width:1340px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(4,1fr);
+    padding:0 6vw;
+  }
+  .band-cell {
+    padding:2.6rem 1.6rem;
+    border-right:1px solid var(--line);
+    font-size:0.82rem; color:var(--dim); line-height:1.75;
+  }
+  .band-cell:last-child { border-right:none; }
+  .band-cell b { display:block; color:var(--tx); font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; }
+  @media (max-width:900px){ .band-in { grid-template-columns:repeat(2,1fr); } .band-cell:nth-child(2){ border-right:none; } }
+
+  /* ---------- finale ---------- */
+  .finale { text-align:center; padding:13rem 6vw 12rem; }
+  .finale h2 { font-size:clamp(2.4rem, 6.4vw, 5.2rem); font-weight:600; letter-spacing:-0.045em; line-height:1.04; }
+  .finale h2 .grad { background:linear-gradient(100deg, var(--grn), var(--blu)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .finale .btn { margin-top:3rem; }
+  .finale p.small { margin-top:1.6rem; font-family:'Geist Mono'; font-size:0.68rem; color:var(--dim); }
+
+  footer {
+    border-top:1px solid var(--line);
+    padding:3.4rem 6vw 5.5rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1.2rem;
+    font-size:0.75rem; color:var(--dim);
+  }
+
+  .reveal { opacity:0; transform:translateY(46px); transition:opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<canvas id="globe"></canvas>
+<div class="vign"></div>
+
+<nav>
+  <div class="brand"><span class="bmark"></span>VANTA</div>
+  <div class="links">
+    <a href="#rails">Rails</a>
+    <a href="#terminal">Terminal</a>
+    <a href="#trust">Trust</a>
+  </div>
+  <a href="#" class="nav-cta">Open an account</a>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="status"><i></i>All rails operational — 42ms global median</div>
+    <h1>
+      <span class="lineup"><span style="--d:0.15s">Money that moves</span></span>
+      <span class="lineup"><span style="--d:0.3s">like <span class="grad">information.</span></span></span>
+    </h1>
+    <p class="sub">Vanta is settlement infrastructure for the internet era: <b>184 currencies</b>, one API, and finality in seconds — not business days. The bank holiday is finally over.</p>
+    <div class="hero-ctas">
+      <a href="#terminal" class="btn solid">Start building →</a>
+      <a href="#rails" class="btn line"><span class="mono">$</span> npm i @vanta/rails</a>
+    </div>
+    <div class="live-strip">
+      <div class="live-cell"><div class="k">Settled today</div><div class="v">$<span id="lv1">4,218,332,908</span></div></div>
+      <div class="live-cell"><div class="k">Live corridors</div><div class="v"><span id="lv2">2,841</span></div></div>
+      <div class="live-cell"><div class="k">Median finality</div><div class="v">3.8s<i>▼ 0.4</i></div></div>
+    </div>
+  </header>
+
+  <!-- rails -->
+  <section class="blk" id="rails">
+    <span class="kick reveal">The rails</span>
+    <h2 class="sec reveal">Three ways to move value.<br><span class="grad">Zero ways to lose it.</span></h2>
+    <div class="rails">
+      <div class="rail-card reveal">
+        <div class="rc-icon">⚡</div>
+        <h3>Instant Corridors</h3>
+        <p>Direct bilateral rails between 61 countries. A payout to Manila settles before your API response finishes parsing.</p>
+        <div class="lat">MEDIAN 1.2s · P99 4.1s</div>
+      </div>
+      <div class="rail-card reveal">
+        <div class="rc-icon">◈</div>
+        <h3>Programmable Treasury</h3>
+        <p>Balances that rebalance themselves. Set policies in code — sweep, hedge, ladder — and audit every decision the engine makes.</p>
+        <div class="lat">POLICIES RUN EVERY 500ms</div>
+      </div>
+      <div class="rail-card reveal">
+        <div class="rc-icon">∞</div>
+        <h3>Always-On FX</h3>
+        <p>Mid-market rates streamed continuously, locked for 90 seconds with one call. Weekends are a legacy-banking concept.</p>
+        <div class="lat">184 CURRENCIES · 24/7/365</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- dashboard -->
+  <section class="blk" id="terminal">
+    <span class="kick reveal">The terminal</span>
+    <h2 class="sec reveal">Your money, <span class="grad">in motion, on screen.</span></h2>
+    <div class="dash-wrap reveal">
+      <div class="dash" id="dash">
+        <div class="dash-head">
+          <span>VANTA TERMINAL — TREASURY/GLOBAL</span>
+          <span class="tag">● LIVE</span>
+        </div>
+        <div class="dash-grid">
+          <div class="dash-cell">
+            <div class="lbl">Net flow — last 24h, all corridors</div>
+            <canvas id="flowChart" height="190"></canvas>
+          </div>
+          <div class="dash-cell">
+            <div class="lbl">Settling now</div>
+            <div class="flow-rows" id="flowRows"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- trust band -->
+  <div class="band" id="trust">
+    <div class="band-in">
+      <div class="band-cell reveal"><b>Licensed in 38 jurisdictions</b>Regulated where you operate, not where it's convenient. Full register available.</div>
+      <div class="band-cell reveal"><b>SOC 2 · ISO 27001</b>Audited continuously. Reports in the dashboard, not behind a sales call.</div>
+      <div class="band-cell reveal"><b>1:1 reserves, attested</b>Client funds in segregated accounts, attested monthly by a Big Four firm.</div>
+      <div class="band-cell reveal"><b>99.99% uptime</b>Four nines across 36 months. The status page has been boring for three years.</div>
+    </div>
+  </div>
+
+  <section class="finale">
+    <h2 class="reveal">The speed of light is<br>the only <span class="grad">acceptable delay.</span></h2>
+    <a href="#" class="btn solid reveal">Open an account →</a>
+    <p class="small reveal">SANDBOX KEYS IN 90 SECONDS · NO SALES CALL REQUIRED</p>
+  </section>
+</main>
+
+<footer>
+  <span>VANTA — settlement infrastructure · a fictional company designed by Fable</span>
+  <span>№ 28 — Fable Twenty-Five, Encore</span>
+</footer>
+
+<div class="ticker">
+  <div class="ticker-in" id="tickerIn"></div>
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+/* ============ particle globe with settlement arcs ============ */
+const canvas = document.getElementById('globe');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0, 0.4, 7);
+
+const globeGroup = new THREE.Group();
+scene.add(globeGroup);
+// offset globe to the right on wide screens
+function placeGlobe(){
+  globeGroup.position.x = innerWidth > 900 ? 1.9 : 0;
+  globeGroup.position.y = innerWidth > 900 ? 0 : 1.2;
+  globeGroup.scale.setScalar(innerWidth > 900 ? 1 : 0.72);
+}
+placeGlobe();
+
+/* dots on sphere via fibonacci lattice */
+const R = 2.3;
+const COUNT = 2600;
+const pos = new Float32Array(COUNT*3);
+const shade = new Float32Array(COUNT);
+for (let i=0;i<COUNT;i++){
+  const t = i/COUNT;
+  const ga = i * 2.39996323;
+  const lat = Math.acos(1 - 2*t);
+  const x = Math.sin(lat)*Math.cos(ga), y = Math.cos(lat), z = Math.sin(lat)*Math.sin(ga);
+  // fake continents: keep dots where layered sines say "land"
+  const landish = Math.sin(3.1*x + 1.3) * Math.cos(2.4*y - 0.8) + Math.sin(2.2*z + 4.1) * 0.7
+                + Math.sin(5.3*x*y) * 0.35;
+  shade[i] = landish > 0.15 ? 1 : 0.22;
+  pos[i*3] = x*R; pos[i*3+1] = y*R; pos[i*3+2] = z*R;
+}
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+geo.setAttribute('aShade', new THREE.BufferAttribute(shade, 1));
+const mat = new THREE.ShaderMaterial({
+  transparent:true,
+  depthWrite:false,
+  uniforms:{ uTime:{value:0} },
+  vertexShader:`
+    attribute float aShade;
+    varying float vShade;
+    varying vec3 vPos;
+    void main(){
+      vShade = aShade;
+      vPos = position;
+      vec4 mv = modelViewMatrix * vec4(position, 1.0);
+      gl_PointSize = (aShade > 0.5 ? 2.6 : 1.6) * (300.0 / -mv.z) * 0.02;
+      gl_Position = projectionMatrix * mv;
+    }`,
+  fragmentShader:`
+    varying float vShade;
+    varying vec3 vPos;
+    uniform float uTime;
+    void main(){
+      float d = length(gl_PointCoord - 0.5);
+      if (d > 0.5) discard;
+      float tw = 0.75 + 0.25*sin(uTime*1.5 + vPos.x*8.0 + vPos.y*6.0);
+      vec3 land = vec3(0.35, 0.75, 0.65);
+      vec3 sea  = vec3(0.18, 0.3, 0.5);
+      vec3 col = mix(sea, land, step(0.5, vShade));
+      gl_FragColor = vec4(col, vShade * tw * (1.0 - d*1.4));
+    }`
+});
+globeGroup.add(new THREE.Points(geo, mat));
+
+/* atmosphere rim */
+const rim = new THREE.Mesh(
+  new THREE.SphereGeometry(R*1.02, 48, 48),
+  new THREE.ShaderMaterial({
+    transparent:true, side:THREE.BackSide, depthWrite:false,
+    vertexShader:`varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+    fragmentShader:`varying vec3 vN; void main(){
+      float glow = pow(0.72 - dot(vN, vec3(0,0,-1.0)), 3.0);
+      gl_FragColor = vec4(0.24, 0.5, 1.0, glow*0.55);
+    }`
+  })
+);
+globeGroup.add(rim);
+
+/* settlement arcs */
+const arcs = [];
+function randPointOnSphere(){
+  const u = Math.random(), v = Math.random();
+  const th = 2*Math.PI*u, ph = Math.acos(2*v-1);
+  return new THREE.Vector3(
+    R*Math.sin(ph)*Math.cos(th), R*Math.cos(ph), R*Math.sin(ph)*Math.sin(th));
+}
+function spawnArc(){
+  const a = randPointOnSphere(), b = randPointOnSphere();
+  if (a.distanceTo(b) < 1.6) return;
+  const mid = a.clone().add(b).multiplyScalar(0.5).normalize().multiplyScalar(R * (1.25 + Math.random()*0.35));
+  const curve = new THREE.QuadraticBezierCurve3(a, mid, b);
+  const pts = curve.getPoints(48);
+  const g = new THREE.BufferGeometry().setFromPoints(pts);
+  const m = new THREE.LineBasicMaterial({
+    color: Math.random() < 0.5 ? 0x2ee6a8 : 0x3d7bff,
+    transparent:true, opacity:0
+  });
+  const line = new THREE.Line(g, m);
+  line.userData = { born: performance.now(), life: 3200 + Math.random()*1800, max: 48 };
+  g.setDrawRange(0, 0);
+  globeGroup.add(line);
+  arcs.push(line);
+  // endpoint pulse
+  const pulse = new THREE.Mesh(
+    new THREE.SphereGeometry(0.03, 8, 8),
+    new THREE.MeshBasicMaterial({ color: m.color, transparent:true })
+  );
+  pulse.position.copy(b);
+  pulse.userData = { born: performance.now(), life: 2000 };
+  globeGroup.add(pulse);
+  arcs.push(pulse);
+}
+setInterval(spawnArc, 420);
+
+let scrollN = 0;
+addEventListener('scroll', () => { scrollN = scrollY / innerHeight; }, { passive:true });
+
+const clock = new THREE.Clock();
+function animate(){
+  const t = clock.getElapsedTime();
+  mat.uniforms.uTime.value = t;
+  globeGroup.rotation.y = t*0.06 + scrollN*0.35;
+  globeGroup.rotation.x = 0.25 + Math.sin(t*0.1)*0.04;
+  // globe recedes as you scroll
+  const fade = Math.max(0, 1 - scrollN*0.45);
+  globeGroup.position.z = -scrollN * 1.2;
+  canvas.style.opacity = 0.25 + fade*0.75;
+
+  const now = performance.now();
+  for (let i=arcs.length-1;i>=0;i--){
+    const o = arcs[i];
+    const age = now - o.userData.born;
+    const p = age / o.userData.life;
+    if (p >= 1){ globeGroup.remove(o); arcs.splice(i,1); continue; }
+    if (o.isLine){
+      const draw = p < 0.4 ? (p/0.4) : 1;
+      o.geometry.setDrawRange(0, Math.floor(draw * o.userData.max));
+      o.material.opacity = p < 0.4 ? 0.9 : 0.9 * (1 - (p-0.4)/0.6);
+    } else {
+      o.material.opacity = 1 - p;
+      o.scale.setScalar(1 + p*2.4);
+    }
+  }
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+animate();
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  placeGlobe();
+});
+</script>
+
+<script>
+/* ============ ticker ============ */
+{
+  const PAIRS = [
+    ['USD/EUR','0.9142','up'],['USD/JPY','151.20','dn'],['GBP/USD','1.2860','up'],
+    ['USD/BRL','5.4410','up'],['USD/INR','83.905','dn'],['USD/NGN','1,512.4','up'],
+    ['USD/PHP','57.820','dn'],['EUR/CHF','0.9738','up'],['USD/MXN','18.114','up'],
+  ];
+  const t = document.getElementById('tickerIn');
+  let html = '';
+  PAIRS.forEach(([p,v,d]) => {
+    html += `<span><b>${p}</b> ${v} <span class="${d}">${d==='up'?'▲':'▼'}</span></span>`;
+  });
+  html += `<span><b>VANTA VOLUME 24H</b> <span class="up">$4.2B ▲</span></span>`;
+  t.innerHTML = html + html;
+}
+
+/* ============ live counters ============ */
+{
+  let base = 4218332908;
+  const el = document.getElementById('lv1');
+  setInterval(() => {
+    base += Math.floor(Math.random()*40000 + 8000);
+    el.textContent = base.toLocaleString('en-US');
+  }, 900);
+  let corr = 2841;
+  const el2 = document.getElementById('lv2');
+  setInterval(() => {
+    corr += Math.random() < 0.5 ? 1 : -1;
+    el2.textContent = corr.toLocaleString('en-US');
+  }, 3200);
+}
+
+/* ============ dashboard chart ============ */
+{
+  const cv = document.getElementById('flowChart');
+  const g = cv.getContext('2d');
+  let W, H;
+  function size(){
+    const r = cv.getBoundingClientRect();
+    W = cv.width = r.width * devicePixelRatio;
+    H = cv.height = 190 * devicePixelRatio;
+    cv.style.height = '190px';
+  }
+  addEventListener('resize', size);
+  setTimeout(size, 80);
+  function draw(now){
+    if (!W){ requestAnimationFrame(draw); return; }
+    const t = now/1000;
+    g.clearRect(0,0,W,H);
+    // grid
+    g.strokeStyle = 'rgba(232,238,248,0.06)';
+    g.lineWidth = 1;
+    for (let i=1;i<4;i++){ g.beginPath(); g.moveTo(0,H*i/4); g.lineTo(W,H*i/4); g.stroke(); }
+    // area line
+    const pts = [];
+    for (let x=0;x<=W;x+=4){
+      const u = x/W;
+      const y = H*0.62
+        - Math.sin(u*5 + t*0.4)*H*0.1
+        - Math.sin(u*11 - t*0.25)*H*0.06
+        - Math.exp(-Math.pow((u-0.72)*5,2))*H*0.2
+        - u*H*0.08;
+      pts.push([x,y]);
+    }
+    g.beginPath();
+    pts.forEach(([x,y],i) => i?g.lineTo(x,y):g.moveTo(x,y));
+    g.strokeStyle = '#2ee6a8'; g.lineWidth = 2*devicePixelRatio;
+    g.stroke();
+    g.lineTo(W,H); g.lineTo(0,H); g.closePath();
+    const gr = g.createLinearGradient(0,0,0,H);
+    gr.addColorStop(0,'rgba(46,230,168,0.25)'); gr.addColorStop(1,'rgba(46,230,168,0)');
+    g.fillStyle = gr; g.fill();
+    // scan dot
+    const su = (t*0.12)%1;
+    const sp = pts[Math.floor(su*(pts.length-1))];
+    g.fillStyle = '#fff';
+    g.shadowColor = '#2ee6a8'; g.shadowBlur = 12*devicePixelRatio;
+    g.beginPath(); g.arc(sp[0], sp[1], 3.4*devicePixelRatio, 0, 7); g.fill();
+    g.shadowBlur = 0;
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+}
+
+/* ============ settling-now rows ============ */
+{
+  const CITIES = ['SGP→LON','NYC→MNL','BER→LAG','SFO→BLR','TYO→SYD','DXB→NBO','AMS→GRU','SEL→HAN'];
+  const rows = document.getElementById('flowRows');
+  function makeRow(){
+    const r = document.createElement('div');
+    r.className = 'flow-row';
+    const amt = (Math.random()*840000 + 1200).toLocaleString('en-US', {maximumFractionDigits:0});
+    r.innerHTML = `<span class="route">${CITIES[Math.floor(Math.random()*CITIES.length)]}</span>
+      <span class="amt">$${amt}</span><span class="st">settling…</span>`;
+    rows.prepend(r);
+    r.style.opacity = 0; r.style.transform = 'translateY(-8px)';
+    r.style.transition = 'opacity 0.5s, transform 0.5s';
+    requestAnimationFrame(() => { r.style.opacity = 1; r.style.transform = 'none'; });
+    setTimeout(() => { r.querySelector('.st').textContent = '✓ final'; r.querySelector('.st').style.color = '#2ee6a8'; }, 1400 + Math.random()*2400);
+    while (rows.children.length > 5) rows.lastChild.remove();
+  }
+  for (let i=0;i<5;i++) makeRow();
+  setInterval(makeRow, 2600);
+}
+
+/* ============ dashboard scroll tilt ============ */
+addEventListener('scroll', () => {
+  const d = document.getElementById('dash');
+  const r = d.getBoundingClientRect();
+  const p = Math.max(-1, Math.min(1, (r.top + r.height/2 - innerHeight/2) / innerHeight));
+  d.style.transform = `rotateX(${p*7}deg)`;
+}, { passive:true });
+
+/* ============ reveals ============ */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.16 });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%3)*0.1+'s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
+```

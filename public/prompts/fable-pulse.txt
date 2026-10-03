@@ -1,0 +1,408 @@
+# Exact recreation prompt — Pulse//Metropolis
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-pulse
+Brand: Pulse//Metropolis
+Category: Creative
+Tagline (catalog): Six living charts · data as ornament (Fable × 25 #16)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/16-pulse/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: PULSE//METROPOLIS
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PULSE — The City, Measured in Light</title>
+<meta name="description" content="A living dashboard of an imaginary city. Data as art.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400;500&family=Unbounded:wght@300;500;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0b0e14;
+    --panel:#10141d;
+    --line:#1e2433;
+    --tx:#dfe6f2;
+    --mute:#5d6678;
+    --coral:#ff6b6b; --mint:#4ecdc4; --gold:#ffd166; --violet:#a78bfa;
+  }
+  body {
+    background:var(--bg);
+    color:var(--tx);
+    font-family:'Azeret Mono', monospace;
+    padding:2.5rem clamp(1rem, 4vw, 4rem) 4rem;
+  }
+  header {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:1.5rem;
+    margin-bottom:2.5rem;
+  }
+  body { overflow-x:hidden; }
+  h1 {
+    font-family:'Unbounded', sans-serif;
+    font-weight:700; font-size:clamp(1.35rem, 4.5vw, 3.4rem);
+    letter-spacing:-0.02em;
+    overflow-wrap:anywhere;
+  }
+  h1 span { color:var(--mint); }
+  .head-meta {
+    text-align:right; font-size:0.68rem; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--mute); line-height:2;
+  }
+  .head-meta .live {
+    color:var(--coral);
+  }
+  .head-meta .live::before {
+    content:'●'; margin-right:0.5em;
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity:0.25; } }
+
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(12, 1fr);
+    gap:1.1rem;
+  }
+  .card {
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:1.5rem;
+    position:relative;
+    overflow:hidden;
+    transition:border-color 0.4s, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  }
+  .card:hover { border-color:#2e3995; transform:translateY(-3px); }
+  .card h2 {
+    font-family:'Azeret Mono';
+    font-weight:500; font-size:0.7rem;
+    letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--mute);
+    margin-bottom:0.4rem;
+  }
+  .card .big {
+    font-family:'Unbounded'; font-weight:500;
+    font-size:1.9rem; letter-spacing:-0.02em;
+    margin-bottom:0.8rem;
+  }
+  .card canvas { display:block; width:100%; }
+  .s4 { grid-column:span 4; }
+  .s5 { grid-column:span 5; }
+  .s3 { grid-column:span 3; }
+  .s6 { grid-column:span 6; }
+  .s7 { grid-column:span 7; }
+  .s8 { grid-column:span 8; }
+  .s12 { grid-column:span 12; }
+  @media (max-width:1000px){ .s3,.s4,.s5,.s6,.s7,.s8 { grid-column:span 6; } }
+  @media (max-width:640px){ .s3,.s4,.s5,.s6,.s7,.s8,.s12 { grid-column:span 12; } }
+
+  footer {
+    margin-top:3rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--mute);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PULSE<span>//</span>METROPOLIS</h1>
+  <div class="head-meta">
+    <div class="live">Live — all numbers invented, all beauty real</div>
+    <div>City of Meridian · Pop. 2,147,483 · № 16</div>
+  </div>
+</header>
+
+<div class="grid">
+  <div class="card s8">
+    <h2>City Heartbeat — foot traffic, 24h</h2>
+    <div class="big" id="heartVal">—</div>
+    <canvas id="heart" height="180"></canvas>
+  </div>
+  <div class="card s4">
+    <h2>Mood Ring — district sentiment</h2>
+    <canvas id="radial" height="260"></canvas>
+  </div>
+  <div class="card s4">
+    <h2>Transit Flow — river of trains</h2>
+    <canvas id="stream" height="220"></canvas>
+  </div>
+  <div class="card s5">
+    <h2>Night Sky Index — visible stars vs. light pollution</h2>
+    <canvas id="scatter" height="220"></canvas>
+  </div>
+  <div class="card s3">
+    <h2>Coffee Reserve</h2>
+    <div class="big" style="color:var(--gold)" id="coffeeVal">—</div>
+    <canvas id="coffee" height="150"></canvas>
+  </div>
+  <div class="card s12">
+    <h2>The Long Hum — a year of the city, one bar per day</h2>
+    <canvas id="year" height="140"></canvas>
+  </div>
+</div>
+
+<footer>
+  <span>PULSE — civic telemetry as ornament</span>
+  <span>№ 16 — Fable Twenty-Five</span>
+</footer>
+
+<script>
+const CORAL='#ff6b6b', MINT='#4ecdc4', GOLD='#ffd166', VIOLET='#a78bfa', MUTE='#5d6678';
+
+function setup(id){
+  const c = document.getElementById(id);
+  const dpr = Math.min(devicePixelRatio, 2);
+  const w = c.clientWidth, h = c.getAttribute('height')*1;
+  c.width = w*dpr; c.height = h*dpr;
+  c.style.height = h+'px';
+  const x = c.getContext('2d');
+  x.scale(dpr, dpr);
+  return { x, w, h };
+}
+
+let charts = [];
+function register(fn){ charts.push(fn); }
+
+// ---- 1. heartbeat line ----
+{
+  let env;
+  const heartVal = document.getElementById('heartVal');
+  register(t => {
+    if (!env) env = setup('heart');
+    const {x,w,h} = env;
+    x.clearRect(0,0,w,h);
+    // grid
+    x.strokeStyle = 'rgba(94,102,120,0.15)';
+    x.lineWidth = 1;
+    for (let i=1;i<4;i++){ x.beginPath(); x.moveTo(0,h*i/4); x.lineTo(w,h*i/4); x.stroke(); }
+    // two waves: today vs yesterday
+    const wave = (off, amp, col, fill) => {
+      x.beginPath();
+      for (let px=0; px<=w; px+=3){
+        const u = px/w;
+        // double-hump day curve + noise + traveling pulse
+        const day = Math.exp(-Math.pow((u-0.35)*4.2,2))*0.7 + Math.exp(-Math.pow((u-0.74)*5,2))*0.95;
+        const noise = Math.sin(u*40+t*2+off)*0.03 + Math.sin(u*13-t+off)*0.04;
+        const pulse = Math.exp(-Math.pow(((u - (t*0.08+off)%1.2)*14),2))*0.22;
+        const v = (day+noise+pulse)*amp;
+        const py = h - 14 - v*(h-40);
+        px===0 ? x.moveTo(px,py) : x.lineTo(px,py);
+      }
+      if (fill){
+        x.save();
+        x.lineTo(w,h); x.lineTo(0,h); x.closePath();
+        const g = x.createLinearGradient(0,0,0,h);
+        g.addColorStop(0,'rgba(78,205,196,0.28)'); g.addColorStop(1,'rgba(78,205,196,0)');
+        x.fillStyle = g; x.fill();
+        x.restore();
+        x.beginPath();
+        for (let px=0; px<=w; px+=3){
+          const u = px/w;
+          const day = Math.exp(-Math.pow((u-0.35)*4.2,2))*0.7 + Math.exp(-Math.pow((u-0.74)*5,2))*0.95;
+          const noise = Math.sin(u*40+t*2+off)*0.03 + Math.sin(u*13-t+off)*0.04;
+          const pulse = Math.exp(-Math.pow(((u-(t*0.08+off)%1.2)*14),2))*0.22;
+          const v = (day+noise+pulse)*amp;
+          const py = h-14 - v*(h-40);
+          px===0 ? x.moveTo(px,py) : x.lineTo(px,py);
+        }
+      }
+      x.strokeStyle = col; x.lineWidth = fill?2.2:1.2;
+      x.setLineDash(fill?[]:[4,5]);
+      x.stroke(); x.setLineDash([]);
+    };
+    wave(0.5, 0.82, 'rgba(94,102,120,0.7)', false);
+    wave(0, 1, MINT, true);
+    heartVal.textContent = (412 + Math.round(Math.sin(t*1.3)*24 + Math.sin(t*4.7)*9)).toLocaleString() + ' /min';
+  });
+}
+
+// ---- 2. radial mood ----
+{
+  let env;
+  const DISTRICTS = ['Harbor','Old Town','Foundry','Heights','Marsh','Glass Qtr','Terminus','Gardens'];
+  register(t => {
+    if (!env) env = setup('radial');
+    const {x,w,h} = env;
+    x.clearRect(0,0,w,h);
+    const cx = w/2, cy = h/2 + 6, R = Math.min(w,h)/2 - 34;
+    // rings
+    x.strokeStyle = 'rgba(94,102,120,0.18)';
+    for (let r=1;r<=3;r++){ x.beginPath(); x.arc(cx,cy,R*r/3,0,7); x.stroke(); }
+    const n = DISTRICTS.length;
+    x.beginPath();
+    const pts = [];
+    for (let i=0;i<=n;i++){
+      const a = (i%n)/n*Math.PI*2 - Math.PI/2;
+      const v = 0.55 + 0.38*Math.sin(t*0.7 + i*1.8) * Math.sin(t*0.31+i);
+      const r = R*(0.35+Math.abs(v)*0.65);
+      const px = cx+Math.cos(a)*r, py = cy+Math.sin(a)*r;
+      pts.push([px,py]);
+      i===0 ? x.moveTo(px,py) : x.lineTo(px,py);
+    }
+    x.closePath();
+    const g = x.createRadialGradient(cx,cy,0,cx,cy,R);
+    g.addColorStop(0,'rgba(167,139,250,0.4)'); g.addColorStop(1,'rgba(167,139,250,0.06)');
+    x.fillStyle = g; x.fill();
+    x.strokeStyle = VIOLET; x.lineWidth = 1.6; x.stroke();
+    // labels + node dots
+    x.font = '9px Azeret Mono';
+    x.fillStyle = MUTE;
+    x.textAlign = 'center';
+    DISTRICTS.forEach((d,i) => {
+      const a = i/n*Math.PI*2 - Math.PI/2;
+      x.fillText(d.toUpperCase(), cx+Math.cos(a)*(R+20), cy+Math.sin(a)*(R+20)+3);
+    });
+    pts.slice(0,n).forEach(p => {
+      x.fillStyle = VIOLET;
+      x.beginPath(); x.arc(p[0],p[1],2.5,0,7); x.fill();
+    });
+  });
+}
+
+// ---- 3. streamgraph ----
+{
+  let env;
+  register(t => {
+    if (!env) env = setup('stream');
+    const {x,w,h} = env;
+    x.clearRect(0,0,w,h);
+    const COLS = [CORAL, MINT, GOLD, VIOLET];
+    const bands = 4;
+    const base = h/2;
+    // build stacked symmetric stream
+    for (let b=bands-1;b>=0;b--){
+      x.beginPath();
+      const amp = 12 + b*9;
+      for (let px=0;px<=w;px+=4){
+        const u = px/w;
+        const y = base - (Math.sin(u*4+t*0.8+b*1.4)*amp*0.5 + Math.sin(u*9-t*0.5+b)*amp*0.32 + amp*0.9);
+        px===0 ? x.moveTo(px,y) : x.lineTo(px,y);
+      }
+      for (let px=w;px>=0;px-=4){
+        const u = px/w;
+        const y = base + (Math.sin(u*4+t*0.8+b*1.4)*amp*0.5 + Math.sin(u*9-t*0.5+b)*amp*0.32 + amp*0.9);
+        x.lineTo(px,y);
+      }
+      x.closePath();
+      x.fillStyle = COLS[b] + '2e';
+      x.fill();
+      x.strokeStyle = COLS[b] + '88';
+      x.lineWidth = 1;
+      x.stroke();
+    }
+  });
+}
+
+// ---- 4. scatter: stars vs glow ----
+{
+  let env, stars;
+  register(t => {
+    if (!env){
+      env = setup('scatter');
+      stars = Array.from({length:64}, (_,i) => ({
+        u: Math.random(), v: Math.random(), s: Math.random(), ph: Math.random()*7
+      }));
+    }
+    const {x,w,h} = env;
+    x.clearRect(0,0,w,h);
+    // diagonal "pollution frontier"
+    x.strokeStyle = 'rgba(255,107,107,0.5)';
+    x.setLineDash([5,6]);
+    x.beginPath(); x.moveTo(0,h-16); x.lineTo(w,12); x.stroke();
+    x.setLineDash([]);
+    stars.forEach(st => {
+      const px = st.u*(w-24)+12;
+      const py = st.v*(h-30)+10;
+      const above = (py < h - 16 - (px/w)*(h-28));
+      const tw = 0.5+0.5*Math.sin(t*2+st.ph*8);
+      x.fillStyle = above ? `rgba(255,209,102,${0.35+0.6*tw})` : `rgba(94,102,120,${0.3+0.3*tw})`;
+      x.beginPath();
+      x.arc(px, py, above ? 1.6+st.s*2.4 : 1+st.s*1.4, 0, 7);
+      x.fill();
+    });
+    x.font = '9px Azeret Mono'; x.fillStyle = MUTE; x.textAlign='left';
+    x.fillText('← DARKER SKIES', 10, h-6);
+    x.textAlign='right';
+    x.fillText('MORE NEON →', w-10, 12);
+  });
+}
+
+// ---- 5. coffee gauge ----
+{
+  let env;
+  const cv = document.getElementById('coffeeVal');
+  register(t => {
+    if (!env) env = setup('coffee');
+    const {x,w,h} = env;
+    x.clearRect(0,0,w,h);
+    const lvl = 0.62 + Math.sin(t*0.4)*0.1 + Math.sin(t*1.7)*0.03;
+    cv.textContent = Math.round(lvl*100) + '%';
+    // cup: liquid wave in rounded container
+    const pad = 14, cw = w-pad*2, ch = h-pad*2;
+    x.save();
+    x.beginPath();
+    x.roundRect(pad, pad, cw, ch, 12);
+    x.clip();
+    x.fillStyle = 'rgba(255,209,102,0.08)';
+    x.fillRect(pad,pad,cw,ch);
+    const top = pad + ch*(1-lvl);
+    x.beginPath();
+    x.moveTo(pad, top);
+    for (let px=0;px<=cw;px+=4){
+      x.lineTo(pad+px, top + Math.sin(px*0.05+t*2.4)*3.5 + Math.sin(px*0.02-t*1.1)*2.5);
+    }
+    x.lineTo(pad+cw, pad+ch); x.lineTo(pad, pad+ch);
+    x.closePath();
+    const g = x.createLinearGradient(0,top,0,pad+ch);
+    g.addColorStop(0,'rgba(255,209,102,0.85)');
+    g.addColorStop(1,'rgba(255,140,80,0.55)');
+    x.fillStyle = g; x.fill();
+    x.restore();
+    x.strokeStyle = 'rgba(255,209,102,0.4)';
+    x.beginPath(); x.roundRect(pad,pad,cw,ch,12); x.stroke();
+  });
+}
+
+// ---- 6. year bars ----
+{
+  let env, seed;
+  register(t => {
+    if (!env){
+      env = setup('year');
+      seed = Array.from({length:120}, (_,i) => Math.abs(Math.sin(i*12.9898)*43758.5453)%1);
+    }
+    const {x,w,h} = env;
+    x.clearRect(0,0,w,h);
+    const n = seed.length;
+    const bw = w/n;
+    for (let i=0;i<n;i++){
+      const season = Math.sin(i/n*Math.PI*2 - 1.2)*0.3+0.55;
+      const v = season + seed[i]*0.28 + Math.sin(t*1.5+i*0.4)*0.05;
+      const bh = v*(h-24);
+      const hot = v > 0.82;
+      x.fillStyle = hot ? CORAL : (v > 0.6 ? GOLD+'cc' : MINT+'99');
+      x.fillRect(i*bw+0.5, h-12-bh, Math.max(1,bw-2), bh);
+    }
+    x.font='9px Azeret Mono'; x.fillStyle=MUTE; x.textAlign='left';
+    x.fillText('JAN', 2, h-2); x.textAlign='center'; x.fillText('JUL', w/2, h-2);
+    x.textAlign='right'; x.fillText('DEC', w-2, h-2);
+  });
+}
+
+// main loop
+function loop(now){
+  const t = now/1000;
+  charts.forEach(f => f(t));
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+addEventListener('resize', () => location.reload());
+</script>
+</body>
+</html>
+```

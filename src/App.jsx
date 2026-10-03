@@ -38,6 +38,83 @@ function buyPack(packId, navigate) {
   navigate(`/checkout?pack=${encodeURIComponent(packId)}`)
 }
 
+
+async function writeClipboard(text) {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text)
+      return true
+    }
+  } catch {
+    /* fall through */
+  }
+  try {
+    const el = document.createElement('textarea')
+    el.value = text
+    el.setAttribute('readonly', '')
+    el.style.cssText = 'position:fixed;left:0;top:0;width:1px;height:1px;opacity:0'
+    document.body.appendChild(el)
+    el.focus()
+    el.select()
+    el.setSelectionRange(0, text.length)
+    const ok = document.execCommand('copy')
+    document.body.removeChild(el)
+    return ok
+  } catch {
+    return false
+  }
+}
+
+function CopyIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+    </svg>
+  )
+}
+
+function CopyPromptButton({ packId, variant = 'card' }) {
+  const [state, setState] = useState('idle')
+  const copy = async (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (state === 'copying') return
+    setState('copying')
+    try {
+      const res = await fetch(`/prompts/${packId}.txt`)
+      if (!res.ok) throw new Error('missing')
+      const text = await res.text()
+      if (!text.trim()) throw new Error('empty')
+      const ok = await writeClipboard(text)
+      if (!ok) throw new Error('clipboard')
+      setState('copied')
+    } catch {
+      setState('error')
+    }
+    window.setTimeout(() => setState('idle'), 2000)
+  }
+  if (variant === 'modal') {
+    const label = state === 'copying' ? 'Copying…' : state === 'copied' ? 'Copied' : state === 'error' ? 'Copy failed' : 'Copy prompt'
+    return (
+      <button type="button" className="ms-btn-block ms-btn-ghost" onClick={copy} aria-live="polite">
+        {label}
+      </button>
+    )
+  }
+  const label = state === 'copied' ? 'Copied' : state === 'error' ? 'Copy failed' : 'Copy prompt'
+  return (
+    <button
+      type="button"
+      className={`ms-card-copy${state === 'copied' ? ' is-copied' : ''}${state === 'error' ? ' is-error' : ''}`}
+      aria-label={label}
+      onClick={copy}
+    >
+      {state === 'copied' ? <CheckIcon /> : <CopyIcon />}
+    </button>
+  )
+}
+
 function SearchIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -183,17 +260,20 @@ function PackCard({ pack, onOpen }) {
           <h3>{pack.title}</h3>
           <span className="cat">{pack.category}</span>
         </div>
-        <button
-          type="button"
-          className="ms-card-unlock"
-          aria-label={pack.comingSoon ? 'Coming soon' : 'Unlock pack'}
-          onClick={(e) => {
-            e.stopPropagation()
-            onOpen(pack)
-          }}
-        >
-          <UnlockIcon />
-        </button>
+        <div className="ms-card-actions">
+          {!pack.comingSoon && <CopyPromptButton packId={pack.id} />}
+          <button
+            type="button"
+            className="ms-card-unlock"
+            aria-label={pack.comingSoon ? 'Coming soon' : 'Unlock pack'}
+            onClick={(e) => {
+              e.stopPropagation()
+              onOpen(pack)
+            }}
+          >
+            <UnlockIcon />
+          </button>
+        </div>
       </div>
     </article>
   )
@@ -250,6 +330,7 @@ function PackModal({ pack, onClose }) {
           <div className="ms-modal-actions">
             {!isPlaceholder ? (
               <>
+                <CopyPromptButton packId={pack.id} variant="modal" />
                 <button className="ms-btn-block ms-btn-primary" type="button" onClick={() => buyPack(pack.id, navigate)}>
                   Unlock — ${pack.price}
                 </button>

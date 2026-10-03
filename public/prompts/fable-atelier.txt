@@ -1,0 +1,334 @@
+# Exact recreation prompt — Atelier Grau
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-atelier
+Brand: Atelier Grau
+Category: Creative
+Tagline (catalog): Monochrome architecture · layered parallax (Fable × 25 #15)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/15-atelier/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: We build with two materials: concrete, and the light that falls on it.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATELIER GRAU — Architecture in Greyscale</title>
+<meta name="description" content="An architecture practice. Concrete, light, and nothing else.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --c0:#0f0f0f; --c1:#2b2b2b; --c2:#555; --c3:#9b9b9b; --c4:#d6d4d0; --c5:#f1efec;
+  }
+  body {
+    background:var(--c5);
+    color:var(--c0);
+    font-family:'Instrument Sans', sans-serif;
+    overflow-x:hidden;
+  }
+
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:40;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.8rem 3rem;
+    mix-blend-mode:difference; color:#fff;
+  }
+  nav .brand { font-weight:600; letter-spacing:0.32em; font-size:0.85rem; text-transform:uppercase; }
+  nav .idx { font-size:0.72rem; letter-spacing:0.2em; }
+
+  /* ---- hero: layered building elevation in parallax ---- */
+  .hero {
+    height:120vh;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(#e8e6e2, var(--c4));
+  }
+  .layer { position:absolute; inset:0; will-change:transform; }
+  .layer svg { width:100%; height:100%; display:block; }
+  .hero-title {
+    position:absolute; top:36vh; left:0; right:0;
+    text-align:center; z-index:10;
+    mix-blend-mode:difference; color:#fff;
+  }
+  .hero-title h1 {
+    font-family:'Instrument Serif', serif;
+    font-weight:400;
+    font-size:clamp(3.4rem, 12vw, 11rem);
+    letter-spacing:0.04em;
+    line-height:0.95;
+  }
+  .hero-title .sub {
+    margin-top:1.6rem;
+    font-size:0.75rem; letter-spacing:0.55em; text-indent:0.55em; text-transform:uppercase;
+  }
+  .hero-fog {
+    position:absolute; bottom:0; left:0; right:0; height:32vh; z-index:9;
+    background:linear-gradient(transparent, var(--c5));
+  }
+
+  section { padding:10rem 8vw; max-width:1360px; margin:0 auto; }
+
+  .intro { display:grid; grid-template-columns:1fr 1.2fr; gap:6vw; align-items:start; }
+  .intro .kick {
+    font-size:0.72rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--c2);
+  }
+  .intro h2 {
+    font-family:'Instrument Serif', serif; font-weight:400;
+    font-size:clamp(2rem, 4.4vw, 3.6rem); line-height:1.18;
+    letter-spacing:-0.01em;
+  }
+  .intro h2 em { font-style:italic; }
+  .intro p { font-size:1rem; line-height:2; color:var(--c1); max-width:52ch; }
+  .intro p + p { margin-top:1.4rem; }
+
+  /* ---- projects: elevation drawings ---- */
+  .proj {
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:4vw;
+    margin-top:2rem;
+  }
+  .pcard { position:relative; cursor:pointer; }
+  .pcard:nth-child(even) { transform:translateY(5.5rem); }
+  .pcard .draw {
+    aspect-ratio:4/3;
+    background:var(--c4);
+    overflow:hidden;
+    position:relative;
+  }
+  .pcard .draw svg { width:100%; height:100%; transition:transform 1.2s cubic-bezier(0.22,1,0.36,1); }
+  .pcard:hover .draw svg { transform:scale(1.06); }
+  .pcard .pmeta {
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding-top:1.1rem;
+    border-top:1px solid var(--c0);
+    margin-top:1.2rem;
+  }
+  .pcard .pmeta h3 { font-family:'Instrument Serif', serif; font-weight:400; font-size:1.5rem; }
+  .pcard .pmeta span { font-size:0.72rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--c2); }
+
+  /* ---- philosophy strip ---- */
+  .strip {
+    background:var(--c0); color:var(--c5);
+    padding:9rem 8vw;
+  }
+  .strip-in { max-width:1360px; margin:0 auto; }
+  .strip .big {
+    font-family:'Instrument Serif', serif;
+    font-size:clamp(1.9rem, 4.6vw, 4rem);
+    line-height:1.3;
+    max-width:24ch;
+  }
+  .strip .big em { font-style:italic; color:var(--c3); }
+  .strip .cols {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:3rem;
+    margin-top:5.5rem;
+  }
+  .strip .col h4 {
+    font-size:0.7rem; letter-spacing:0.35em; text-transform:uppercase;
+    color:var(--c3); margin-bottom:1.2rem;
+  }
+  .strip .col p { font-size:0.9rem; line-height:1.95; color:#c9c7c3; }
+
+  footer {
+    padding:5rem 8vw;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1.5rem;
+    font-size:0.75rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--c2);
+  }
+
+  .reveal { opacity:0; transform:translateY(48px); transition:opacity 1.2s cubic-bezier(0.22,1,0.36,1), transform 1.2s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+
+  @media (max-width:900px){
+    .intro { grid-template-columns:1fr; gap:2rem; }
+    .proj { grid-template-columns:1fr; }
+    .pcard:nth-child(even) { transform:none; }
+    .strip .cols { grid-template-columns:1fr; }
+    nav { padding:1.4rem 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Atelier Grau</span>
+  <span class="idx">№ 15 — Fable Twenty-Five</span>
+</nav>
+
+<header class="hero" id="hero">
+  <!-- back skyline -->
+  <div class="layer" data-speed="0.12">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+      <g fill="#c4c2be">
+        <rect x="40" y="380" width="150" height="520"/>
+        <rect x="230" y="300" width="110" height="600"/>
+        <rect x="390" y="420" width="180" height="480"/>
+        <rect x="620" y="260" width="120" height="640"/>
+        <rect x="790" y="390" width="160" height="510"/>
+        <rect x="1000" y="330" width="130" height="570"/>
+        <rect x="1180" y="430" width="200" height="470"/>
+      </g>
+    </svg>
+  </div>
+  <!-- mid buildings -->
+  <div class="layer" data-speed="0.3">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+      <g fill="#8f8d89">
+        <rect x="-40" y="480" width="260" height="420"/>
+        <rect x="300" y="540" width="220" height="360"/>
+        <rect x="640" y="470" width="170" height="430"/>
+        <rect x="900" y="560" width="260" height="340"/>
+        <rect x="1240" y="500" width="240" height="400"/>
+      </g>
+      <g fill="#7c7a76">
+        <rect x="-40" y="480" width="260" height="16"/>
+        <rect x="300" y="540" width="220" height="16"/>
+        <rect x="640" y="470" width="170" height="16"/>
+        <rect x="900" y="560" width="260" height="16"/>
+        <rect x="1240" y="500" width="240" height="16"/>
+      </g>
+    </svg>
+  </div>
+  <!-- front building with window grid -->
+  <div class="layer" data-speed="0.55">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+      <rect x="480" y="620" width="480" height="280" fill="#3a3a3a"/>
+      <g fill="#2b2b2b" id="windows"></g>
+      <rect x="150" y="700" width="220" height="200" fill="#4a4a48"/>
+      <rect x="1070" y="680" width="260" height="220" fill="#464644"/>
+    </svg>
+  </div>
+  <div class="hero-title">
+    <h1>GRAU</h1>
+    <div class="sub">Architecture in Greyscale — Est. 2011</div>
+  </div>
+  <div class="hero-fog"></div>
+</header>
+
+<section class="intro">
+  <div>
+    <div class="kick reveal">The Practice</div>
+  </div>
+  <div>
+    <h2 class="reveal">We build with two materials: <em>concrete</em>, and the light that falls on it.</h2>
+    <p class="reveal" style="margin-top:2.4rem">Atelier Grau is an architecture practice of eleven people who share one conviction — that color is a decision you should be forced to defend. Our buildings are studies in shadow: how it moves across a wall between morning and noon, how it pools in a stairwell, how it makes a room feel inevitable.</p>
+    <p class="reveal">We have built museums, chapels, libraries, and one lighthouse. All of them are grey. None of them are boring. The difference between those two statements is our entire portfolio.</p>
+  </div>
+</section>
+
+<section>
+  <div class="proj">
+    <div class="pcard reveal">
+      <div class="draw">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#dbd9d5"/>
+          <rect x="60" y="90" width="280" height="150" fill="#6e6c68"/>
+          <rect x="60" y="90" width="280" height="150" fill="none" stroke="#2b2b2b" stroke-width="2"/>
+          <rect x="90" y="120" width="70" height="120" fill="#2b2b2b"/>
+          <rect x="200" y="60" width="90" height="180" fill="#8f8d89"/>
+          <rect x="200" y="60" width="90" height="180" fill="none" stroke="#2b2b2b" stroke-width="2"/>
+          <line x1="0" y1="240" x2="400" y2="240" stroke="#2b2b2b" stroke-width="3"/>
+          <rect x="216" y="80" width="58" height="6" fill="#2b2b2b"/>
+          <rect x="216" y="100" width="58" height="6" fill="#2b2b2b"/>
+          <rect x="216" y="120" width="58" height="6" fill="#2b2b2b"/>
+        </svg>
+      </div>
+      <div class="pmeta"><h3>Kapelle im Nebel</h3><span>Chapel — 2024</span></div>
+    </div>
+    <div class="pcard reveal">
+      <div class="draw">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#d2d0cc"/>
+          <polygon points="80,240 200,80 320,240" fill="#55534f"/>
+          <polygon points="80,240 200,80 320,240" fill="none" stroke="#1f1f1f" stroke-width="2"/>
+          <rect x="186" y="170" width="28" height="70" fill="#1f1f1f"/>
+          <line x1="0" y1="240" x2="400" y2="240" stroke="#1f1f1f" stroke-width="3"/>
+          <circle cx="330" cy="70" r="26" fill="#efedea"/>
+        </svg>
+      </div>
+      <div class="pmeta"><h3>Haus Meridian</h3><span>Residence — 2023</span></div>
+    </div>
+    <div class="pcard reveal">
+      <div class="draw">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#d9d7d3"/>
+          <rect x="40" y="130" width="320" height="110" fill="#7c7a76"/>
+          <rect x="40" y="130" width="320" height="110" fill="none" stroke="#2b2b2b" stroke-width="2"/>
+          <g fill="#2b2b2b">
+            <rect x="60" y="150" width="20" height="90"/><rect x="100" y="150" width="20" height="90"/>
+            <rect x="140" y="150" width="20" height="90"/><rect x="180" y="150" width="20" height="90"/>
+            <rect x="220" y="150" width="20" height="90"/><rect x="260" y="150" width="20" height="90"/>
+            <rect x="300" y="150" width="20" height="90"/>
+          </g>
+          <line x1="0" y1="240" x2="400" y2="240" stroke="#2b2b2b" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="pmeta"><h3>Bibliothek Süd</h3><span>Library — 2021</span></div>
+    </div>
+    <div class="pcard reveal">
+      <div class="draw">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#d5d3cf"/>
+          <rect x="180" y="40" width="40" height="200" fill="#5e5c58"/>
+          <rect x="180" y="40" width="40" height="200" fill="none" stroke="#1f1f1f" stroke-width="2"/>
+          <rect x="170" y="30" width="60" height="24" fill="#1f1f1f"/>
+          <line x1="0" y1="240" x2="400" y2="240" stroke="#1f1f1f" stroke-width="3"/>
+          <path d="M220 60 L340 20 L340 100 Z" fill="#efedea" opacity="0.85"/>
+        </svg>
+      </div>
+      <div class="pmeta"><h3>Leuchtturm N-1</h3><span>Lighthouse — 2019</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-in">
+    <p class="big reveal">"A grey building is a mirror with the vanity removed. <em>The sky finishes it differently every hour.</em>"</p>
+    <div class="cols">
+      <div class="col reveal"><h4>On Concrete</h4><p>We pour it slowly, in narrow lifts, so the formwork leaves its grain like a signature. Board-marked, never polished. A wall should admit it was made.</p></div>
+      <div class="col reveal"><h4>On Light</h4><p>Every project begins with a shadow study: 365 days, simulated hourly. We move windows by centimeters until December mornings land on the reading chair.</p></div>
+      <div class="col reveal"><h4>On Restraint</h4><p>The client asks for more. We ask for less, twice. What survives both conversations is the building — and it is always the one everybody meant.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>Atelier Grau — Berlin</span>
+  <span>büro@grau.example</span>
+  <span>№ 15 — Fable Twenty-Five</span>
+</footer>
+
+<script>
+// window grid on front building
+const wins = document.getElementById('windows');
+let wsvg = '';
+for (let r = 0; r < 6; r++)
+  for (let c = 0; c < 10; c++)
+    wsvg += `<rect x="${500 + c*46}" y="${640 + r*42}" width="28" height="26"/>`;
+wins.innerHTML = wsvg;
+
+// parallax layers
+const layers = [...document.querySelectorAll('.layer')];
+function para(){
+  const y = scrollY;
+  layers.forEach(l => {
+    l.style.transform = `translateY(${y * l.dataset.speed}px)`;
+  });
+  requestAnimationFrame(para);
+}
+requestAnimationFrame(para);
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.15 });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%3)*0.1 + 's';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
+```

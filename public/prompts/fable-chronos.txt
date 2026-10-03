@@ -1,0 +1,630 @@
+# Exact recreation prompt — Chronos Atelier
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-chronos
+Brand: Chronos Atelier
+Category: Creative
+Tagline (catalog): Haute horlogerie · scroll-assembled watch, horizontal rail (Fable × 25 #27)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/27-chronos/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: The movement
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHRONOS ATELIER — Haute Horlogerie, Assembled Before Your Eyes</title>
+<meta name="description" content="A luxury watchmaker. Scroll to assemble the Calibre 7 — every component drawn in code.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap');
+  :root {
+    --cream:#f4f0e8;
+    --ink:#17150f;
+    --gold:#a8853b;
+    --gold2:#d4b06a;
+    --line-l:rgba(23,21,15,0.14);
+    --line-d:rgba(244,240,232,0.14);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Outfit', sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection { background:var(--gold); color:#fff; }
+
+  /* ---------- progress hairline ---------- */
+  .progress { position:fixed; top:0; left:0; right:0; height:2px; z-index:100; background:transparent; }
+  .progress i { display:block; height:100%; width:0; background:linear-gradient(90deg, var(--gold), var(--gold2)); }
+
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:90;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.7rem 3.4rem;
+    mix-blend-mode:difference; color:#fff;
+  }
+  .wordmark { font-family:'Cormorant Garamond', serif; font-size:1.25rem; letter-spacing:0.5em; text-indent:0.5em; font-weight:500; }
+  nav .right { display:flex; gap:2.4rem; font-size:0.72rem; letter-spacing:0.28em; text-transform:uppercase; }
+  nav .right a { color:#fff; text-decoration:none; position:relative; padding-bottom:3px; }
+  nav .right a::after { content:''; position:absolute; left:0; bottom:0; width:100%; height:1px; background:#fff; transform:scaleX(0); transform-origin:right; transition:transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+  nav .right a:hover::after { transform:scaleX(1); transform-origin:left; }
+  @media (max-width:760px){ nav .right { display:none; } nav { padding:1.4rem 1.6rem; } }
+
+  /* ---------- hero ---------- */
+  .hero {
+    height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; position:relative;
+  }
+  .hero .est {
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.66rem; letter-spacing:0.55em; text-indent:0.55em; text-transform:uppercase;
+    color:var(--gold);
+    opacity:0; animation:up 1.4s 0.2s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .hero h1 {
+    margin-top:1.6rem;
+    font-family:'Cormorant Garamond', serif;
+    font-weight:300;
+    font-size:clamp(3.4rem, 11vw, 9.4rem);
+    letter-spacing:0.14em; text-indent:0.14em;
+    line-height:1;
+  }
+  .hero h1 .ch { display:inline-block; opacity:0; transform:translateY(60px) rotate(4deg); animation:chup 1.3s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay:var(--d); }
+  @keyframes chup { to { opacity:1; transform:none; } }
+  .hero .sub {
+    margin-top:2rem; font-weight:200; font-size:clamp(0.95rem, 2vw, 1.2rem);
+    letter-spacing:0.22em; text-transform:uppercase; color:rgba(23,21,15,0.55);
+    opacity:0; animation:up 1.4s 1s forwards;
+  }
+  @keyframes up { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:none; } }
+  .hero .scrolldown {
+    position:absolute; bottom:3.4rem; left:50%; transform:translateX(-50%);
+    font-family:'JetBrains Mono'; font-size:0.6rem; letter-spacing:0.4em; text-transform:uppercase;
+    color:rgba(23,21,15,0.45);
+    display:flex; flex-direction:column; align-items:center; gap:1rem;
+    opacity:0; animation:up 1.4s 1.5s forwards;
+  }
+  .hero .scrolldown .ln { width:1px; height:52px; background:linear-gradient(var(--ink), transparent); animation:drip 2.2s ease-in-out infinite; transform-origin:top; }
+  @keyframes drip { 0%{transform:scaleY(0)} 55%{transform:scaleY(1)} 100%{transform:scaleY(1); opacity:0} }
+  .hero .ghost-dial {
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    z-index:-1; opacity:0.1;
+  }
+  .ghost-dial svg { width:min(88vmin, 780px); animation:slowspin 90s linear infinite; }
+  @keyframes slowspin { to { transform:rotate(360deg); } }
+
+  /* ---------- assembly scrollytelling ---------- */
+  .assembly { position:relative; background:var(--ink); color:var(--cream); }
+  .asm-track { height:460vh; position:relative; }
+  .asm-stage { position:sticky; top:0; height:100vh; overflow:hidden; }
+  .asm-canvas-wrap { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  #watch { width:min(86vmin, 680px); height:min(86vmin, 680px); }
+  .asm-copy {
+    position:absolute; z-index:5;
+    max-width:300px;
+  }
+  .asm-copy .stepnum { font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.4em; color:var(--gold2); }
+  .asm-copy h3 { font-family:'Cormorant Garamond', serif; font-weight:400; font-size:1.9rem; margin:0.9rem 0 0.8rem; }
+  .asm-copy p { font-weight:200; font-size:0.86rem; line-height:1.9; color:rgba(244,240,232,0.62); }
+  .asm-copy { opacity:0; transform:translateY(30px); transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+  .asm-copy.on { opacity:1; transform:none; }
+  .asm-copy.p1 { top:16vh; left:8vw; }
+  .asm-copy.p2 { bottom:15vh; right:8vw; text-align:right; }
+  .asm-copy.p3 { top:16vh; right:8vw; text-align:right; }
+  .asm-copy.p4 { bottom:15vh; left:8vw; }
+  .asm-title {
+    position:absolute; top:7vh; left:0; right:0; text-align:center; z-index:5;
+    font-family:'JetBrains Mono'; font-size:0.64rem; letter-spacing:0.5em; text-transform:uppercase;
+    color:rgba(244,240,232,0.4);
+  }
+  @media (max-width:760px){
+    .asm-copy { max-width:220px; }
+    .asm-copy h3 { font-size:1.4rem; }
+  }
+
+  /* ---------- philosophy interlude ---------- */
+  .interlude {
+    background:var(--ink); color:var(--cream);
+    padding:32vh 8vw;
+    text-align:center;
+  }
+  .interlude blockquote {
+    font-family:'Cormorant Garamond', serif;
+    font-weight:300; font-style:italic;
+    font-size:clamp(1.9rem, 4.8vw, 3.9rem);
+    line-height:1.35;
+    max-width:24ch; margin:0 auto;
+  }
+  .interlude blockquote .wq { display:inline-block; opacity:0.12; transition:opacity 0.5s; }
+  .interlude blockquote .wq.lit { opacity:1; }
+  .interlude cite {
+    display:block; margin-top:3rem; font-style:normal;
+    font-family:'JetBrains Mono'; font-size:0.64rem; letter-spacing:0.4em; text-transform:uppercase;
+    color:var(--gold2);
+  }
+
+  /* ---------- collection: horizontal scroll ---------- */
+  .collection { background:var(--cream); position:relative; }
+  .col-track { height:340vh; position:relative; }
+  .col-stage { position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:center; overflow:hidden; }
+  .col-head { padding:0 8vw 3.4rem; display:flex; justify-content:space-between; align-items:baseline; }
+  .col-head h2 { font-family:'Cormorant Garamond', serif; font-weight:400; font-size:clamp(2.2rem, 5vw, 4rem); }
+  .col-head h2 em { font-style:italic; color:var(--gold); }
+  .col-head .hint { font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase; color:rgba(23,21,15,0.4); }
+  .col-rail { display:flex; gap:3vw; padding:0 8vw; will-change:transform; width:max-content; }
+  .watch-card {
+    flex:none; width:min(420px, 74vw);
+    background:#fff;
+    border:1px solid var(--line-l);
+    padding:3rem 2.6rem 2.4rem;
+    box-shadow:0 30px 70px rgba(23,21,15,0.09);
+    transition:box-shadow 0.5s;
+  }
+  .watch-card:hover { box-shadow:0 44px 90px rgba(23,21,15,0.16); }
+  .watch-card svg { width:100%; height:auto; display:block; }
+  .wc-meta { margin-top:2rem; display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--line-l); padding-top:1.4rem; }
+  .wc-meta h3 { font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.5rem; letter-spacing:0.06em; }
+  .wc-meta .price { font-family:'JetBrains Mono'; font-size:0.8rem; color:var(--gold); }
+  .wc-desc { margin-top:0.7rem; font-weight:300; font-size:0.83rem; line-height:1.8; color:rgba(23,21,15,0.6); }
+
+  /* ---------- specs ---------- */
+  .specs { background:var(--cream); padding:9rem 8vw 10rem; max-width:1200px; margin:0 auto; }
+  .specs h2 { font-family:'Cormorant Garamond', serif; font-weight:400; font-size:clamp(2rem, 4.4vw, 3.4rem); margin-bottom:4rem; }
+  .specs h2 em { font-style:italic; color:var(--gold); }
+  .spec-grid { display:grid; grid-template-columns:repeat(2, 1fr); }
+  .spec-row {
+    display:flex; justify-content:space-between; align-items:baseline; gap:2rem;
+    padding:1.5rem 2rem 1.5rem 0;
+    border-bottom:1px solid var(--line-l);
+  }
+  .spec-row .k { font-family:'JetBrains Mono'; font-size:0.66rem; letter-spacing:0.24em; text-transform:uppercase; color:rgba(23,21,15,0.45); }
+  .spec-row .v { font-family:'Cormorant Garamond', serif; font-size:1.3rem; text-align:right; }
+  @media (max-width:760px){ .spec-grid { grid-template-columns:1fr; } }
+
+  /* ---------- finale ---------- */
+  .finale {
+    background:var(--ink); color:var(--cream);
+    text-align:center; padding:16vh 8vw 14vh;
+    position:relative; overflow:hidden;
+  }
+  .finale h2 {
+    font-family:'Cormorant Garamond', serif; font-weight:300;
+    font-size:clamp(2.4rem, 6.5vw, 5.5rem); line-height:1.12;
+  }
+  .finale h2 em { font-style:italic;
+    background:linear-gradient(110deg, #8a6a25, var(--gold2), #f0d9a0, var(--gold2), #8a6a25);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:goldsweep 5s ease-in-out infinite;
+  }
+  @keyframes goldsweep { 0%,100%{background-position:0% 0} 50%{background-position:100% 0} }
+  .btn-appointment {
+    display:inline-block; margin-top:3.4rem;
+    font-size:0.78rem; letter-spacing:0.3em; text-transform:uppercase; text-decoration:none;
+    color:var(--cream);
+    border:1px solid rgba(244,240,232,0.35);
+    padding:1.3rem 3.2rem; border-radius:100px;
+    position:relative; overflow:hidden;
+    transition:color 0.45s;
+    will-change:transform;
+  }
+  .btn-appointment::before {
+    content:''; position:absolute; inset:0;
+    background:var(--cream);
+    transform:translateY(101%); border-radius:100px;
+    transition:transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    z-index:-1;
+  }
+  .btn-appointment:hover { color:var(--ink); }
+  .btn-appointment:hover::before { transform:none; }
+
+  footer {
+    background:var(--ink); color:rgba(244,240,232,0.4);
+    border-top:1px solid var(--line-d);
+    padding:3rem 8vw;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.24em; text-transform:uppercase;
+  }
+
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity 1.1s cubic-bezier(0.22,1,0.36,1), transform 1.1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<div class="progress"><i id="prog"></i></div>
+
+<nav>
+  <div class="wordmark">CHRONOS</div>
+  <div class="right">
+    <a href="#calibre">The Calibre</a>
+    <a href="#collection">Collection</a>
+    <a href="#atelier">Atelier</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="ghost-dial" aria-hidden="true">
+    <svg viewBox="0 0 200 200" id="ghostDial"></svg>
+  </div>
+  <div class="est">Atelier fondé 1893 · Vallée de Joux</div>
+  <h1 id="heroTitle">CHRONOS</h1>
+  <div class="sub">Time, taken apart — and put back beautifully</div>
+  <div class="scrolldown"><span>Scroll to assemble</span><span class="ln"></span></div>
+</header>
+
+<!-- ============ ASSEMBLY ============ -->
+<section class="assembly" id="calibre">
+  <div class="asm-track" id="asmTrack">
+    <div class="asm-stage">
+      <div class="asm-title">CALIBRE 7 — LIVE ASSEMBLY · 214 COMPONENTS, 4 SHOWN AT SCALE</div>
+      <div class="asm-canvas-wrap">
+        <svg id="watch" viewBox="0 0 400 400" aria-label="Exploded watch assembling as you scroll"></svg>
+      </div>
+      <div class="asm-copy p1" data-step="0">
+        <div class="stepnum">I — LE MOUVEMENT</div>
+        <h3>The movement</h3>
+        <p>Forty-one jewels, a silicon escapement, and a power reserve of ninety hours. It begins as a naked engine — everything else exists to protect and pronounce it.</p>
+      </div>
+      <div class="asm-copy p2" data-step="1">
+        <div class="stepnum">II — LE CADRAN</div>
+        <h3>The dial</h3>
+        <p>Grand feu enamel, fired eleven times at 830°C. The minute track is printed with a single hair-width pad; a misplaced breath scraps the plate.</p>
+      </div>
+      <div class="asm-copy p3" data-step="2">
+        <div class="stepnum">III — LES AIGUILLES</div>
+        <h3>The hands</h3>
+        <p>Flame-blued by eye, one at a time, over an open burner. The moment the steel turns cornflower, the watchmaker has two seconds to pull it from the heat.</p>
+      </div>
+      <div class="asm-copy p4" data-step="3">
+        <div class="stepnum">IV — LE BOÎTIER</div>
+        <h3>The case &amp; crystal</h3>
+        <p>Nine parts of rose gold close over the movement like a reliquary. The sapphire is domed so light pools at the center of the dial at noon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTERLUDE ============ -->
+<section class="interlude" id="atelier">
+  <blockquote id="quote">A watch is the only machine you will ever own whose entire job is to make you look up from it.</blockquote>
+  <cite>— The founder's notebook, 1911</cite>
+</section>
+
+<!-- ============ COLLECTION ============ -->
+<section class="collection" id="collection">
+  <div class="col-track" id="colTrack">
+    <div class="col-stage">
+      <div class="col-head">
+        <h2>The <em>Collection</em></h2>
+        <span class="hint">Keep scrolling — the rail moves</span>
+      </div>
+      <div class="col-rail" id="colRail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPECS ============ -->
+<section class="specs">
+  <h2 class="reveal">Calibre 7 — <em>the particulars</em></h2>
+  <div class="spec-grid">
+    <div class="spec-row reveal"><span class="k">Movement</span><span class="v">Manual, 41 jewels</span></div>
+    <div class="spec-row reveal"><span class="k">Power reserve</span><span class="v">90 hours</span></div>
+    <div class="spec-row reveal"><span class="k">Frequency</span><span class="v">28,800 vph</span></div>
+    <div class="spec-row reveal"><span class="k">Case</span><span class="v">Rose gold, 38.5 mm</span></div>
+    <div class="spec-row reveal"><span class="k">Dial</span><span class="v">Grand feu enamel</span></div>
+    <div class="spec-row reveal"><span class="k">Crystal</span><span class="v">Domed sapphire</span></div>
+    <div class="spec-row reveal"><span class="k">Water resistance</span><span class="v">Enough for rain, not regret</span></div>
+    <div class="spec-row reveal"><span class="k">Production</span><span class="v">88 pieces / year</span></div>
+  </div>
+</section>
+
+<!-- ============ FINALE ============ -->
+<section class="finale">
+  <h2 class="reveal">Some heirlooms<br>are <em>born ticking.</em></h2>
+  <a href="#" class="btn-appointment reveal">Request a private viewing</a>
+</section>
+
+<footer>
+  <span>CHRONOS ATELIER — VALLÉE DE JOUX</span>
+  <span>A FICTIONAL MAISON, DRAWN ENTIRELY IN CODE</span>
+  <span>№ 27 — FABLE ENCORE</span>
+</footer>
+
+<script>
+/* ---------- hero title split ---------- */
+{
+  const h = document.getElementById('heroTitle');
+  const txt = h.textContent; h.textContent = '';
+  [...txt].forEach((c, i) => {
+    const s = document.createElement('span');
+    s.className = 'ch'; s.textContent = c;
+    s.style.setProperty('--d', (0.35 + i*0.07)+'s');
+    h.appendChild(s);
+  });
+}
+
+/* ---------- ghost dial build ---------- */
+{
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.getElementById('ghostDial');
+  for (let i=0;i<60;i++){
+    const a = i/60*Math.PI*2;
+    const l = document.createElementNS(NS,'line');
+    const r1 = i%5===0 ? 82 : 88, r2 = 94;
+    l.setAttribute('x1', 100+Math.cos(a)*r1); l.setAttribute('y1', 100+Math.sin(a)*r1);
+    l.setAttribute('x2', 100+Math.cos(a)*r2); l.setAttribute('y2', 100+Math.sin(a)*r2);
+    l.setAttribute('stroke', '#17150f'); l.setAttribute('stroke-width', i%5===0?1.6:0.6);
+    svg.appendChild(l);
+  }
+  const c = document.createElementNS(NS,'circle');
+  c.setAttribute('cx',100); c.setAttribute('cy',100); c.setAttribute('r',97);
+  c.setAttribute('fill','none'); c.setAttribute('stroke','#17150f'); c.setAttribute('stroke-width',0.8);
+  svg.appendChild(c);
+}
+
+/* ---------- progress bar ---------- */
+addEventListener('scroll', () => {
+  document.getElementById('prog').style.width =
+    (scrollY/(document.body.scrollHeight-innerHeight)*100)+'%';
+}, { passive:true });
+
+/* ---------- THE WATCH: layered SVG, assembled by scroll ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+const watch = document.getElementById('watch');
+
+function el(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  (parent || watch).appendChild(e);
+  return e;
+}
+
+/* defs */
+{
+  const defs = el('defs', {});
+  const gold = el('linearGradient', {id:'wgold', x1:0,y1:0,x2:1,y2:1}, defs);
+  el('stop',{offset:0,'stop-color':'#e8cf96'},gold);
+  el('stop',{offset:0.5,'stop-color':'#a8853b'},gold);
+  el('stop',{offset:1,'stop-color':'#d4b06a'},gold);
+  const enam = el('radialGradient', {id:'wenamel', cx:0.4, cy:0.35, r:0.9}, defs);
+  el('stop',{offset:0,'stop-color':'#fffdf6'},enam);
+  el('stop',{offset:1,'stop-color':'#ece5d2'},enam);
+  const glass = el('radialGradient', {id:'wglass', cx:0.38, cy:0.3, r:0.8}, defs);
+  el('stop',{offset:0,'stop-color':'rgba(255,255,255,0.5)'},glass);
+  el('stop',{offset:0.45,'stop-color':'rgba(255,255,255,0.08)'},glass);
+  el('stop',{offset:1,'stop-color':'rgba(255,255,255,0.02)'},glass);
+}
+
+/* layers (groups) — start exploded, scroll assembles */
+const gMove = el('g', {id:'gMove'});
+const gDial = el('g', {id:'gDial'});
+const gHands = el('g', {id:'gHands'});
+const gCase = el('g', {id:'gCase'});
+
+/* movement: barrel, gears, balance */
+{
+  el('circle', {cx:200, cy:200, r:118, fill:'#221e14', stroke:'#3a3320','stroke-width':2}, gMove);
+  // plate screws
+  for (let i=0;i<6;i++){
+    const a = i/6*Math.PI*2 + 0.4;
+    el('circle', {cx:200+Math.cos(a)*100, cy:200+Math.sin(a)*100, r:4, fill:'#4a4028'}, gMove);
+  }
+  // gears
+  const gearSpecs = [
+    {x:160, y:170, r:36, teeth:18, cls:'g1'},
+    {x:228, y:206, r:26, teeth:14, cls:'g2'},
+    {x:196, y:250, r:18, teeth:10, cls:'g3'},
+  ];
+  gearSpecs.forEach(gs => {
+    const grp = el('g', {class:'gear', 'data-x':gs.x, 'data-y':gs.y});
+    let d = '';
+    for (let t=0;t<gs.teeth;t++){
+      const a1 = t/gs.teeth*Math.PI*2, a2 = (t+0.5)/gs.teeth*Math.PI*2;
+      const rOut = gs.r, rIn = gs.r*0.82;
+      d += `${t?'L':'M'}${gs.x+Math.cos(a1)*rOut},${gs.y+Math.sin(a1)*rOut} L${gs.x+Math.cos(a2)*rIn},${gs.y+Math.sin(a2)*rIn} `;
+    }
+    el('path', {d:d+'Z', fill:'url(#wgold)', stroke:'#7a6228','stroke-width':0.8}, grp);
+    el('circle', {cx:gs.x, cy:gs.y, r:gs.r*0.32, fill:'#221e14', stroke:'#7a6228','stroke-width':1}, grp);
+    gMove.appendChild(grp);
+  });
+  // balance wheel
+  const bal = el('g', {id:'balance'});
+  el('circle', {cx:252, cy:158, r:24, fill:'none', stroke:'url(#wgold)','stroke-width':3.4}, bal);
+  el('line', {x1:230, y1:158, x2:274, y2:158, stroke:'url(#wgold)','stroke-width':2.6}, bal);
+  el('circle', {cx:252, cy:158, r:3.4, fill:'#c9302e'}, bal);
+  gMove.appendChild(bal);
+  // ruby jewels
+  [[160,170],[228,206],[196,250]].forEach(([x,y]) => el('circle',{cx:x,cy:y,r:2.6,fill:'#c9302e'},gMove));
+}
+
+/* dial */
+{
+  el('circle', {cx:200, cy:200, r:124, fill:'url(#wenamel)', stroke:'#d8cfb8','stroke-width':1}, gDial);
+  for (let i=0;i<60;i++){
+    const a = i/60*Math.PI*2 - Math.PI/2;
+    const r1 = i%5===0 ? 105 : 112, r2 = 117;
+    el('line', {
+      x1:200+Math.cos(a)*r1, y1:200+Math.sin(a)*r1,
+      x2:200+Math.cos(a)*r2, y2:200+Math.sin(a)*r2,
+      stroke:'#17150f','stroke-width': i%5===0?2:0.7
+    }, gDial);
+  }
+  // numerals at 12,3,6,9
+  [['XII',200,105],['III',295,208],['VI',200,312],['IX',105,208]].forEach(([n,x,y]) => {
+    el('text', {x, y, 'text-anchor':'middle', 'font-family':'Cormorant Garamond, serif', 'font-size':23, fill:'#17150f'}, gDial).textContent = n;
+  });
+  el('text', {x:200, y:155, 'text-anchor':'middle', 'font-family':'Cormorant Garamond, serif', 'font-size':13, 'letter-spacing':4, fill:'#8a7a50'}, gDial).textContent = 'CHRONOS';
+  // small seconds subdial
+  el('circle', {cx:200, cy:252, r:26, fill:'none', stroke:'#b8ad90','stroke-width':0.8}, gDial);
+}
+
+/* hands */
+{
+  const hour = el('g', {id:'handH'}, gHands);
+  el('path', {d:'M200 200 L196 202 L198 138 Q200 130 202 138 L204 202 Z', fill:'#2a4a8a'}, hour);
+  const min = el('g', {id:'handM'}, gHands);
+  el('path', {d:'M200 200 L197 202 L198.6 104 Q200 96 201.4 104 L203 202 Z', fill:'#2a4a8a'}, min);
+  const sec = el('g', {id:'handS'}, gHands);
+  el('line', {x1:200, y1:252, x2:200, y2:232, stroke:'#c9302e','stroke-width':1.4}, sec);
+  el('circle', {cx:200, cy:200, r:5.5, fill:'#2a4a8a'}, gHands);
+}
+
+/* case + crystal */
+{
+  el('circle', {cx:200, cy:200, r:148, fill:'none', stroke:'url(#wgold)','stroke-width':17}, gCase);
+  el('circle', {cx:200, cy:200, r:139, fill:'none', stroke:'#7a6228','stroke-width':1.2}, gCase);
+  el('circle', {cx:200, cy:200, r:157, fill:'none', stroke:'#8a6f30','stroke-width':1.2}, gCase);
+  // crown
+  el('rect', {x:352, y:191, width:16, height:18, rx:4, fill:'url(#wgold)', stroke:'#7a6228','stroke-width':1}, gCase);
+  for (let i=0;i<4;i++) el('line',{x1:356+i*3, y1:191, x2:356+i*3, y2:209, stroke:'#7a6228','stroke-width':0.7}, gCase);
+  // lugs
+  [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sy]) => {
+    el('path', {
+      d:`M${200+sx*96} ${200+sy*138} Q${200+sx*126} ${200+sy*172} ${200+sx*112} ${200+sy*196} L${200+sx*88} ${200+sy*182} Z`,
+      fill:'url(#wgold)', stroke:'#7a6228','stroke-width':0.8
+    }, gCase);
+  });
+  // crystal
+  el('circle', {cx:200, cy:200, r:132, fill:'url(#wglass)'}, gCase);
+  el('ellipse', {cx:158, cy:150, rx:52, ry:30, fill:'rgba(255,255,255,0.28)', transform:'rotate(-24 158 150)'}, gCase);
+}
+
+/* ---------- assembly scroll choreography ---------- */
+const asmTrack = document.getElementById('asmTrack');
+const copies = [...document.querySelectorAll('.asm-copy')];
+const easeIO = t => t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+const clamp01 = v => Math.max(0, Math.min(1, v));
+
+function asmUpdate(){
+  const r = asmTrack.getBoundingClientRect();
+  const total = r.height - innerHeight;
+  const p = clamp01(-r.top / total);
+
+  // 4 phases, each 22% with gaps
+  const ph = i => easeIO(clamp01((p - i*0.24) / 0.2));
+  const pMove = ph(0), pDial = ph(1), pHands = ph(2), pCase = ph(3);
+
+  // movement flies in from deep below + scales
+  gMove.setAttribute('transform',
+    `translate(0 ${ (1-pMove)*520 }) scale(${0.6+0.4*pMove})`);
+  gMove.setAttribute('transform-origin','200 200');
+  gMove.style.opacity = pMove;
+
+  gDial.setAttribute('transform', `translate(${(1-pDial)*-460} ${(1-pDial)*-160}) rotate(${(1-pDial)*-40} 200 200)`);
+  gDial.style.opacity = pDial;
+
+  gHands.setAttribute('transform', `translate(${(1-pHands)*430} ${(1-pHands)*-240}) rotate(${(1-pHands)*70} 200 200)`);
+  gHands.style.opacity = pHands;
+
+  gCase.setAttribute('transform', `scale(${1 + (1-pCase)*0.55})`);
+  gCase.setAttribute('transform-origin','200 200');
+  gCase.style.opacity = pCase;
+
+  // copy visibility
+  const idx = Math.min(3, Math.floor(p/0.24));
+  copies.forEach(c => c.classList.toggle('on', +c.dataset.step === idx));
+}
+addEventListener('scroll', asmUpdate, { passive:true }); asmUpdate();
+
+/* watch runs in real time once assembled */
+(function tickWatch(){
+  const now = new Date();
+  const s = now.getSeconds() + now.getMilliseconds()/1000;
+  const m = now.getMinutes() + s/60;
+  const h = (now.getHours()%12) + m/60;
+  document.getElementById('handS').setAttribute('transform', `rotate(${s*6} 200 252)`);
+  document.getElementById('handM').setAttribute('transform', `rotate(${m*6} 200 200)`);
+  document.getElementById('handH').setAttribute('transform', `rotate(${h*30} 200 200)`);
+  // balance oscillates
+  document.getElementById('balance').setAttribute('transform',
+    `rotate(${Math.sin(performance.now()/1000 * Math.PI*4)*22} 252 158)`);
+  // gears turn
+  document.querySelectorAll('.gear').forEach((g,i) => {
+    const x = g.dataset.x, y = g.dataset.y;
+    g.setAttribute('transform', `rotate(${performance.now()/1000 * (i%2? -14:10)} ${x} ${y})`);
+  });
+  requestAnimationFrame(tickWatch);
+})();
+
+/* ---------- interlude: word-by-word illumination ---------- */
+{
+  const q = document.getElementById('quote');
+  const words = q.textContent.split(' ');
+  q.innerHTML = words.map(w => `<span class="wq">${w}</span>`).join(' ');
+  const spans = [...q.querySelectorAll('.wq')];
+  addEventListener('scroll', () => {
+    const r = q.getBoundingClientRect();
+    const p = clamp01((innerHeight*0.75 - r.top) / (innerHeight*0.9));
+    const lit = Math.floor(p * spans.length * 1.15);
+    spans.forEach((s,i) => s.classList.toggle('lit', i < lit));
+  }, { passive:true });
+}
+
+/* ---------- collection: horizontal rail ---------- */
+{
+  const WATCHES = [
+    { name:'Calibre 7 — Émail', price:'CHF 46,000', dial:'#f6f0e0', accent:'#2a4a8a',
+      desc:'The manifesto piece. Grand feu enamel, blued hands, rose gold. The one assembled above your scrollbar.' },
+    { name:'Calibre 7 — Nuit', price:'CHF 49,500', dial:'#141821', accent:'#d4b06a',
+      desc:'Aventurine dial fired with real copper crystals — a night sky that took eleven kilns to get wrong correctly.' },
+    { name:'Calibre 7 — Forêt', price:'CHF 47,200', dial:'#1d3326', accent:'#e8cf96',
+      desc:'British-racing enamel under a domed crystal. Made for people who check the time in the woods, slowly.' },
+    { name:'Calibre 7 — Sable', price:'CHF 45,800', dial:'#e3d3b4', accent:'#8a4a2a',
+      desc:'Salmon-sand dial with oxidized copper numerals. The prototype the founder’s granddaughter refused to sell.' },
+    { name:'Calibre 7 — Glacier', price:'CHF 52,000', dial:'#dfe8ec', accent:'#3a6a8a',
+      desc:'Ice-blue guilloché, engine-turned on a 1904 rose lathe that is, itself, older than most maisons.' },
+  ];
+  const rail = document.getElementById('colRail');
+  WATCHES.forEach(w => {
+    const card = document.createElement('div');
+    card.className = 'watch-card';
+    card.innerHTML = `
+      <svg viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="74" fill="none" stroke="url(#wgold)" stroke-width="9"/>
+        <circle cx="100" cy="100" r="66" fill="${w.dial}"/>
+        ${Array.from({length:12}, (_,i) => {
+          const a = i/12*Math.PI*2;
+          return `<line x1="${100+Math.cos(a)*56}" y1="${100+Math.sin(a)*56}" x2="${100+Math.cos(a)*61}" y2="${100+Math.sin(a)*61}" stroke="${w.accent}" stroke-width="${i%3===0?2:1}"/>`;
+        }).join('')}
+        <path d="M100 100 L98.5 101 L99.4 62 Q100 58 100.6 62 L101.5 101 Z" fill="${w.accent}" transform="rotate(305 100 100)"/>
+        <path d="M100 100 L99 101 L99.6 46 Q100 42 100.4 46 L101 101 Z" fill="${w.accent}" transform="rotate(60 100 100)"/>
+        <circle cx="100" cy="100" r="3" fill="${w.accent}"/>
+        <rect x="182" y="95" width="8" height="10" rx="2.5" fill="url(#wgold)"/>
+      </svg>
+      <div class="wc-meta"><h3>${w.name}</h3><span class="price">${w.price}</span></div>
+      <p class="wc-desc">${w.desc}</p>`;
+    rail.appendChild(card);
+  });
+
+  const track = document.getElementById('colTrack');
+  function railUpdate(){
+    const r = track.getBoundingClientRect();
+    const total = r.height - innerHeight;
+    const p = clamp01(-r.top / total);
+    const maxShift = rail.scrollWidth - innerWidth + innerWidth*0.16;
+    rail.style.transform = `translateX(${-p * maxShift}px)`;
+  }
+  addEventListener('scroll', railUpdate, { passive:true });
+  addEventListener('resize', railUpdate);
+  railUpdate();
+}
+
+/* ---------- reveals ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.16 });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%4)*0.09+'s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
+```

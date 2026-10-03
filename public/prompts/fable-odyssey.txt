@@ -1,0 +1,369 @@
+# Exact recreation prompt — Odyssey
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-odyssey
+Brand: Odyssey
+Category: Creative
+Tagline (catalog): Solar system scrollytelling · canvas planets (Fable × 25 #19)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/19-odyssey/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Past here, the Sun is justthe brightest star.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ODYSSEY — A Scroll Through the Solar System</title>
+<meta name="description" content="From the Sun to the edge, at one scroll-wheel per million kilometres.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;600;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#010208;
+    color:#e6ecf7;
+    font-family:'Manrope', sans-serif;
+    overflow-x:hidden;
+  }
+  #space { position:fixed; inset:0; z-index:0; }
+
+  .hud {
+    position:fixed; z-index:20;
+    font-size:0.66rem; letter-spacing:0.32em; text-transform:uppercase;
+    color:rgba(230,236,247,0.45);
+  }
+  .hud.tl { top:2rem; left:2.2rem; }
+  .hud.tr { top:2rem; right:2.2rem; text-align:right; }
+  .hud .dist {
+    display:block; margin-top:0.5rem;
+    font-size:1rem; font-weight:600; letter-spacing:0.08em;
+    color:#e6ecf7; font-variant-numeric:tabular-nums;
+  }
+
+  /* progress rail with planet stops */
+  .rail {
+    position:fixed; right:2.2rem; top:50%; transform:translateY(-50%);
+    z-index:20; display:flex; flex-direction:column; align-items:center; gap:0;
+  }
+  .rail .track { width:1px; height:46vh; background:rgba(230,236,247,0.18); position:relative; }
+  .rail .fill { position:absolute; top:0; left:0; width:1px; background:#7fb4ff; height:0; box-shadow:0 0 8px rgba(127,180,255,0.8); }
+
+  section {
+    min-height:130vh;
+    position:relative; z-index:10;
+    display:flex; align-items:center;
+    padding:0 8vw;
+    pointer-events:none;
+  }
+  .card {
+    max-width:430px;
+    background:rgba(4,8,20,0.72);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(230,236,247,0.12);
+    border-radius:18px;
+    padding:2.6rem 2.5rem;
+    pointer-events:auto;
+    opacity:0; transform:translateY(50px);
+    transition:opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1);
+  }
+  section.right { justify-content:flex-end; }
+  .card.in { opacity:1; transform:none; }
+  .card .idx {
+    font-size:0.62rem; letter-spacing:0.42em; text-transform:uppercase;
+    color:#7fb4ff; margin-bottom:1.2rem; display:block;
+  }
+  .card h2 {
+    font-weight:800; font-size:clamp(1.9rem, 4.2vw, 3rem);
+    letter-spacing:-0.03em; margin-bottom:1.2rem;
+  }
+  .card p { font-weight:300; font-size:0.95rem; line-height:1.95; color:rgba(230,236,247,0.72); }
+  .card .stat {
+    margin-top:1.6rem; padding-top:1.4rem;
+    border-top:1px solid rgba(230,236,247,0.12);
+    display:flex; gap:2.4rem;
+  }
+  .card .stat div b { display:block; font-size:1.05rem; font-weight:600; letter-spacing:0.02em; }
+  .card .stat div span { font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase; color:rgba(230,236,247,0.45); }
+
+  .opening {
+    height:100vh; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+  }
+  .opening h1 {
+    font-weight:200; font-size:clamp(3rem, 9.5vw, 8rem);
+    letter-spacing:0.32em; text-indent:0.32em;
+  }
+  .opening .sub {
+    margin-top:1.8rem;
+    font-size:0.72rem; letter-spacing:0.5em; text-transform:uppercase;
+    color:rgba(230,236,247,0.5);
+  }
+  .opening .cue { margin-top:5rem; font-size:0.62rem; letter-spacing:0.4em; text-transform:uppercase; color:rgba(230,236,247,0.4);
+    animation:cuepulse 2.4s ease-in-out infinite; }
+  @keyframes cuepulse { 50% { opacity:0.3; transform:translateY(6px); } }
+
+  .ending { min-height:110vh; align-items:center; justify-content:center; text-align:center; display:flex; }
+  .ending .fin { max-width:560px; pointer-events:auto; }
+  .ending h2 { font-weight:200; font-size:clamp(2rem, 5.5vw, 4rem); letter-spacing:0.08em; line-height:1.3; }
+  .ending p { margin-top:2rem; font-weight:300; color:rgba(230,236,247,0.6); line-height:2; }
+</style>
+</head>
+<body>
+
+<canvas id="space"></canvas>
+
+<div class="hud tl">Odyssey · № 19<span class="dist" id="dist">0 km from the Sun</span></div>
+<div class="hud tr">Velocity<span class="dist">1 scroll ≈ 10⁶ km</span></div>
+<div class="rail"><div class="track"><div class="fill" id="railFill"></div></div></div>
+
+<div class="opening">
+  <h1>ODYSSEY</h1>
+  <div class="sub">The Solar System, at scroll speed</div>
+  <div class="cue">↓ leave the sun</div>
+</div>
+
+<section data-body="mercury">
+  <div class="card">
+    <span class="idx">01 · 57.9 million km</span>
+    <h2>Mercury</h2>
+    <p>A cannonball with a five-billion-year sunburn. Daytime here would boil lead; the night, two hundred degrees below freezing — and both happen in the same place, slowly, on a world that rotates three times for every two of its years.</p>
+    <div class="stat"><div><b>430°C</b><span>Day</span></div><div><b>−180°C</b><span>Night</span></div><div><b>88 d</b><span>Year</span></div></div>
+  </div>
+</section>
+
+<section class="right" data-body="venus">
+  <div class="card">
+    <span class="idx">02 · 108.2 million km</span>
+    <h2>Venus</h2>
+    <p>The morning star is a furnace wrapped in acid clouds, pressurized like the deep sea. It is the hottest planet — hotter than Mercury, though it is twice as far from the Sun. Greenhouse gases, given four billion years to prove a point.</p>
+    <div class="stat"><div><b>465°C</b><span>Surface</span></div><div><b>92 atm</b><span>Pressure</span></div><div><b>243 d</b><span>One rotation</span></div></div>
+  </div>
+</section>
+
+<section data-body="earth">
+  <div class="card">
+    <span class="idx">03 · 149.6 million km</span>
+    <h2>Earth</h2>
+    <p>Everything you have ever loved happened on this pixel. Every war, every birthday, every library, every dog. It is the only place in the known universe where the universe reads about itself — you are doing it right now.</p>
+    <div class="stat"><div><b>1</b><span>Moon</span></div><div><b>71%</b><span>Ocean</span></div><div><b>~8.1B</b><span>Storytellers</span></div></div>
+  </div>
+</section>
+
+<section class="right" data-body="mars">
+  <div class="card">
+    <span class="idx">04 · 227.9 million km</span>
+    <h2>Mars</h2>
+    <p>A desert with a planet attached. It has the tallest volcano in the solar system, a canyon that would stretch from New York to Los Angeles, and five robots we sent because we couldn't stop wondering. One of them carries a piece of the Wright Flyer.</p>
+    <div class="stat"><div><b>21.9 km</b><span>Olympus Mons</span></div><div><b>2</b><span>Moons</span></div><div><b>687 d</b><span>Year</span></div></div>
+  </div>
+</section>
+
+<section data-body="jupiter">
+  <div class="card">
+    <span class="idx">05 · 778.5 million km</span>
+    <h2>Jupiter</h2>
+    <p>The solar system's bouncer. Eleven Earths wide, with a storm three centuries old and a magnetic field that would reach the Moon if you could see it from Earth. Most comets that might have hit us didn't, because Jupiter got there first.</p>
+    <div class="stat"><div><b>95</b><span>Moons</span></div><div><b>10 h</b><span>Day</span></div><div><b>317×</b><span>Earth's mass</span></div></div>
+  </div>
+</section>
+
+<section class="right" data-body="saturn">
+  <div class="card">
+    <span class="idx">06 · 1.43 billion km</span>
+    <h2>Saturn</h2>
+    <p>The rings are thirty metres thick and a quarter of a million kilometres wide — proportionally thinner than a sheet of paper the size of a city. They are made of snowballs, and they are temporary. You live in the lucky era that gets to see them.</p>
+    <div class="stat"><div><b>274,000 km</b><span>Ring span</span></div><div><b>~30 m</b><span>Ring thickness</span></div><div><b>146</b><span>Moons</span></div></div>
+  </div>
+</section>
+
+<section data-body="neptune">
+  <div class="card">
+    <span class="idx">07 · 4.5 billion km</span>
+    <h2>Neptune</h2>
+    <p>Found with mathematics before telescopes: astronomers noticed Uranus being tugged by something, did the algebra, and pointed a lens at the answer. The winds here break 2,000 km/h — no one fully knows why the coldest planet has the fastest weather.</p>
+    <div class="stat"><div><b>2,100 km/h</b><span>Winds</span></div><div><b>165 y</b><span>Year</span></div><div><b>1</b><span>Visit (Voyager 2)</span></div></div>
+  </div>
+</section>
+
+<div class="ending">
+  <div class="fin">
+    <h2>Past here, the Sun is just<br>the brightest star.</h2>
+    <p>Voyager 1 crossed this threshold in 2012 carrying a golden record of greetings, thunderstorms, and Chuck Berry. It will outlast the pyramids, the continents, possibly the Sun itself. Scroll back up whenever you're ready. The Earth part is the good part.</p>
+    <p style="margin-top:3rem; font-size:0.65rem; letter-spacing:0.4em; text-transform:uppercase;">№ 19 — Fable Twenty-Five</p>
+  </div>
+</div>
+
+<script>
+const cv = document.getElementById('space');
+const g = cv.getContext('2d');
+let W, H, DPR;
+function rs(){
+  DPR = Math.min(devicePixelRatio, 2);
+  W = cv.width = innerWidth*DPR; H = cv.height = innerHeight*DPR;
+  cv.style.width = innerWidth+'px'; cv.style.height = innerHeight+'px';
+}
+addEventListener('resize', rs); rs();
+
+// starfield layers
+const stars = Array.from({length:420}, () => ({
+  x:Math.random(), y:Math.random(), z:0.3+Math.random()*0.7, tw:Math.random()*7
+}));
+
+// bodies keyed by section
+const BODIES = {
+  mercury: { r:26, col:['#b8a89a','#8a7a6c','#5a4f45'], ring:false },
+  venus:   { r:40, col:['#f0d9a8','#e0b97a','#c99a58'], ring:false },
+  earth:   { r:42, col:['#7fb4ff','#3a7bd5','#1d4e89'], ring:false, earth:true },
+  mars:    { r:34, col:['#e88a5c','#c1552f','#8a3a1e'], ring:false },
+  jupiter: { r:78, col:['#e8c9a0','#c9975c','#a06a3a'], ring:false, bands:true },
+  saturn:  { r:62, col:['#f0dcae','#d9bc82','#b3955e'], ring:true },
+  neptune: { r:44, col:['#8ab4f0','#4a72c4','#2a4a8a'], ring:false },
+};
+
+const sections = [...document.querySelectorAll('section[data-body]')];
+const cards = [...document.querySelectorAll('.card')];
+const io = new IntersectionObserver(es => es.forEach(e => {
+  const card = e.target.querySelector('.card');
+  if (e.isIntersecting) card.classList.add('in');
+}), { threshold:0.35 });
+sections.forEach(s => io.observe(s));
+
+const distEl = document.getElementById('dist');
+const railFill = document.getElementById('railFill');
+
+function draw(now){
+  const t = now/1000;
+  g.clearRect(0,0,W,H);
+  const total = document.body.scrollHeight - innerHeight;
+  const p = scrollY/Math.max(1,total);
+
+  // distance HUD: 0 -> 4.5B km, eased
+  const km = Math.pow(p, 1.6) * 4.5e9;
+  distEl.textContent = km < 1e6
+    ? Math.round(km).toLocaleString() + ' km from the Sun'
+    : (km/1e6).toFixed(1) + ' million km from the Sun';
+  railFill.style.height = (p*100) + '%';
+
+  // sun recedes: big glow at top-left early, shrinks with p
+  const sunR = Math.max(8, (1-p)*(1-p) * H*0.5);
+  const sx = W*0.5 - p*W*0.2, sy = -H*0.12 - p*H*0.4;
+  const sg = g.createRadialGradient(sx, sy, 0, sx, sy, sunR*2.4);
+  sg.addColorStop(0, 'rgba(255,240,200,0.9)');
+  sg.addColorStop(0.35, 'rgba(255,190,90,0.35)');
+  sg.addColorStop(1, 'transparent');
+  g.fillStyle = sg;
+  g.fillRect(0,0,W,H);
+
+  // stars with parallax drift as you scroll
+  for (const s of stars){
+    const y = ((s.y + p * s.z * 1.6) % 1.05) * H;
+    const x = s.x * W;
+    const tw = 0.5 + 0.5*Math.sin(t*1.5 + s.tw*9);
+    g.fillStyle = `rgba(220,230,255,${(0.14 + 0.5*s.z) * (0.6+0.4*tw)})`;
+    g.beginPath();
+    g.arc(x, y, s.z * 1.5 * DPR, 0, 7);
+    g.fill();
+  }
+
+  // planets: each rendered while its section is near viewport
+  sections.forEach(sec => {
+    const r = sec.getBoundingClientRect();
+    const mid = r.top + r.height/2;
+    const vis = 1 - Math.min(1, Math.abs(mid - innerHeight/2) / (innerHeight*0.95));
+    if (vis <= 0.02) return;
+    const b = BODIES[sec.dataset.body];
+    const right = !sec.classList.contains('right');
+    const px = (right ? W*0.68 : W*0.32) + (right?1:-1) * (1-vis) * W*0.1;
+    const py = H*0.5 + (mid - innerHeight/2) * DPR * 0.55;
+    const R = b.r * DPR * (1.25 + vis*0.45) * Math.min(1, W/(1300*DPR)+0.55);
+
+    g.save();
+    g.globalAlpha = Math.min(1, vis*1.6);
+
+    // ring behind
+    if (b.ring){
+      g.save();
+      g.translate(px, py);
+      g.rotate(-0.42);
+      g.scale(1, 0.32);
+      g.strokeStyle = 'rgba(220,205,160,0.55)';
+      g.lineWidth = R*0.34;
+      g.beginPath(); g.arc(0, 0, R*1.75, Math.PI*0.04, Math.PI*1.04, false); g.stroke();
+      g.restore();
+    }
+
+    // sphere
+    const pg = g.createRadialGradient(px - R*0.4, py - R*0.42, R*0.1, px, py, R);
+    pg.addColorStop(0, b.col[0]);
+    pg.addColorStop(0.55, b.col[1]);
+    pg.addColorStop(1, b.col[2]);
+    g.fillStyle = pg;
+    g.beginPath(); g.arc(px, py, R, 0, 7); g.fill();
+
+    // jupiter bands
+    if (b.bands){
+      g.save();
+      g.beginPath(); g.arc(px, py, R, 0, 7); g.clip();
+      for (let i=-3;i<=3;i++){
+        g.fillStyle = i%2 ? 'rgba(160,106,58,0.35)' : 'rgba(240,220,190,0.22)';
+        g.fillRect(px-R, py + i*R*0.26 - R*0.09 + Math.sin(t*0.4+i)*R*0.02, R*2, R*0.17);
+      }
+      // great red spot
+      g.fillStyle = 'rgba(200,80,50,0.75)';
+      g.beginPath();
+      g.ellipse(px+R*0.34, py+R*0.3, R*0.2, R*0.12, 0.2, 0, 7);
+      g.fill();
+      g.restore();
+    }
+    // earth clouds+city glint
+    if (b.earth){
+      g.save();
+      g.beginPath(); g.arc(px, py, R, 0, 7); g.clip();
+      g.fillStyle = 'rgba(90,200,120,0.5)';
+      g.beginPath(); g.ellipse(px-R*0.25, py-R*0.1, R*0.38, R*0.26, 0.6, 0, 7); g.fill();
+      g.beginPath(); g.ellipse(px+R*0.4, py+R*0.35, R*0.26, R*0.18, -0.4, 0, 7); g.fill();
+      g.fillStyle = 'rgba(255,255,255,0.55)';
+      for (let i=0;i<5;i++){
+        g.beginPath();
+        g.ellipse(px + Math.sin(t*0.1+i*2)*R*0.7, py - R*0.5 + i*R*0.26, R*0.34, R*0.06, 0.15, 0, 7);
+        g.fill();
+      }
+      g.restore();
+    }
+
+    // terminator shadow
+    const sh = g.createRadialGradient(px + R*0.65, py + R*0.2, R*0.2, px, py, R*1.35);
+    sh.addColorStop(0, 'transparent');
+    sh.addColorStop(0.62, 'transparent');
+    sh.addColorStop(1, 'rgba(1,2,8,0.92)');
+    g.fillStyle = sh;
+    g.beginPath(); g.arc(px, py, R, 0, 7); g.fill();
+
+    // ring in front
+    if (b.ring){
+      g.save();
+      g.translate(px, py);
+      g.rotate(-0.42);
+      g.scale(1, 0.32);
+      g.strokeStyle = 'rgba(232,218,175,0.85)';
+      g.lineWidth = R*0.34;
+      g.beginPath(); g.arc(0, 0, R*1.75, -Math.PI*0.96, Math.PI*0.04, false); g.stroke();
+      g.strokeStyle = 'rgba(120,105,80,0.6)';
+      g.lineWidth = R*0.05;
+      g.beginPath(); g.arc(0, 0, R*1.52, -Math.PI, 0, false); g.stroke();
+      g.restore();
+    }
+    g.restore();
+  });
+
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
+```

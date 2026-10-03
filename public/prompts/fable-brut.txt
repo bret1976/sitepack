@@ -1,0 +1,290 @@
+# Exact recreation prompt — BRUT*
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-brut
+Brand: BRUT*
+Category: Creative
+Tagline (catalog): Brutalist type · design collective (Fable × 25 #03)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/03-brut/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: WE MAKE GRAPHIC DESIGN LOUD
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRUT* — Design Without Apology</title>
+<meta name="description" content="A design collective. We make it loud.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  ::selection { background:#ff2e00; color:#f5f2ea; }
+  body {
+    background:#f5f2ea;
+    color:#111;
+    font-family:'Space Mono', monospace;
+    cursor: crosshair;
+  }
+  a { color:inherit; }
+
+  /* ------ ticker ------ */
+  .ticker {
+    background:#111; color:#f5f2ea;
+    overflow:hidden; white-space:nowrap;
+    border-bottom:4px solid #111;
+    padding:0.55rem 0;
+    font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+  }
+  .ticker-inner { display:inline-block; animation:tick 22s linear infinite; }
+  .ticker-inner span { margin-right:3.5rem; }
+  .ticker-inner em { color:#ff2e00; font-style:normal; }
+  @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  header {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.4rem 2rem;
+    border-bottom:4px solid #111;
+  }
+  .logo { font-family:'Archivo Black'; font-size:1.6rem; letter-spacing:-0.03em; }
+  .logo sup { color:#ff2e00; }
+  nav { display:flex; gap:0; }
+  nav a {
+    text-decoration:none; font-size:0.75rem; text-transform:uppercase;
+    letter-spacing:0.15em; padding:0.7rem 1.3rem;
+    border:2px solid #111; margin-left:-2px;
+    transition:none;
+  }
+  nav a:hover { background:#111; color:#f5f2ea; }
+  nav a.hot { background:#ff2e00; color:#f5f2ea; border-color:#111; }
+  nav a.hot:hover { background:#111; }
+
+  /* ------ hero ------ */
+  .hero { padding:4.5rem 2rem 3rem; border-bottom:4px solid #111; position:relative; overflow:hidden; }
+  h1 {
+    font-family:'Archivo Black';
+    font-size:clamp(3.4rem, 15.5vw, 15rem);
+    line-height:0.82;
+    letter-spacing:-0.045em;
+    text-transform:uppercase;
+    word-break: break-word;
+  }
+  h1 .line { display:block; }
+  h1 .stroke {
+    color:transparent;
+    -webkit-text-stroke:3px #111;
+  }
+  h1 .red { color:#ff2e00; }
+  h1 .line { position:relative; }
+  h1 .line:hover { animation: judder 0.18s steps(2) infinite; }
+  @keyframes judder {
+    0% { transform:translate(0,0); }
+    50% { transform:translate(-6px,2px); }
+    100% { transform:translate(4px,-3px); }
+  }
+  .hero-meta {
+    display:flex; justify-content:space-between; margin-top:2.8rem;
+    font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;
+    gap:2rem; flex-wrap:wrap;
+  }
+  .hero-meta .box { border:2px solid #111; padding:0.8rem 1.2rem; background:#fff; box-shadow:6px 6px 0 #111; }
+
+  /* ------ manifesto grid ------ */
+  .grid { display:grid; grid-template-columns:repeat(12, 1fr); border-bottom:4px solid #111; }
+  .cell { border-right:2px solid #111; border-bottom:2px solid #111; padding:2rem; min-height:230px; position:relative; }
+  .cell:last-child { border-right:none; }
+  .cell h2 {
+    font-family:'Archivo Black'; text-transform:uppercase;
+    font-size:1.5rem; letter-spacing:-0.02em; margin-bottom:1rem;
+  }
+  .cell p { font-size:0.82rem; line-height:1.75; }
+  .cell .idx {
+    position:absolute; top:1rem; right:1.2rem;
+    font-size:0.7rem; color:#999;
+  }
+  .c-4 { grid-column:span 4; }
+  .c-8 { grid-column:span 8; }
+  .c-6 { grid-column:span 6; }
+  .c-12 { grid-column:span 12; }
+  .cell.invert { background:#111; color:#f5f2ea; }
+  .cell.red { background:#ff2e00; color:#f5f2ea; }
+  .cell.hoverflip { transition:none; }
+  .cell.hoverflip:hover { background:#111; color:#f5f2ea; }
+  .cell.hoverflip:hover .idx { color:#f5f2ea; }
+  .giant-word {
+    font-family:'Archivo Black'; text-transform:uppercase;
+    font-size:clamp(2.6rem, 7.5vw, 7rem); line-height:0.9; letter-spacing:-0.04em;
+  }
+
+  /* ------ work list ------ */
+  .work { border-bottom:4px solid #111; }
+  .work-row {
+    display:grid; grid-template-columns:90px 1fr auto;
+    align-items:baseline; gap:2rem;
+    padding:2.2rem 2rem;
+    border-bottom:2px solid #111;
+    text-decoration:none;
+    position:relative;
+    overflow:hidden;
+  }
+  .work-row:last-child { border-bottom:none; }
+  .work-row .wnum { font-size:0.8rem; }
+  .work-row .wname {
+    font-family:'Archivo Black'; text-transform:uppercase;
+    font-size:clamp(1.6rem, 4.5vw, 3.6rem); letter-spacing:-0.03em; line-height:1;
+    transition:transform 0.18s steps(3);
+  }
+  .work-row .wtag { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.15em; text-align:right; }
+  .work-row::before {
+    content:''; position:absolute; inset:0;
+    background:#ff2e00; transform:translateY(101%);
+    transition:transform 0.22s steps(4);
+    z-index:0;
+  }
+  .work-row:hover::before { transform:translateY(0); }
+  .work-row > * { position:relative; z-index:1; }
+  .work-row:hover { color:#f5f2ea; }
+  .work-row:hover .wname { transform:translateX(2rem) skewX(-6deg); }
+
+  /* ------ footer ------ */
+  footer { padding:3.5rem 2rem 6rem; background:#111; color:#f5f2ea; position:relative; }
+  footer .fbig {
+    font-family:'Archivo Black'; text-transform:uppercase;
+    font-size:clamp(2.6rem, 9.5vw, 9rem); letter-spacing:-0.04em; line-height:0.88;
+  }
+  footer .fbig a { text-decoration:none; }
+  footer .fbig a:hover { color:#ff2e00; }
+  footer .fmeta {
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    margin-top:3rem; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.15em;
+    color:#888;
+  }
+
+  .stamp {
+    position:fixed; bottom:1.4rem; right:1.4rem; z-index:50;
+    width:92px; height:92px; pointer-events:none;
+    animation:spin 14s linear infinite;
+    mix-blend-mode:difference;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  @media (max-width:860px){
+    .c-4, .c-8, .c-6 { grid-column:span 12; }
+    .cell { border-right:none; }
+    nav { display:none; }
+    .work-row { grid-template-columns:50px 1fr; }
+    .work-row .wtag { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner" id="tickerInner">
+    <span>DESIGN WITHOUT APOLOGY <em>★</em></span><span>NO MOODBOARDS <em>★</em></span>
+    <span>NO BEIGE <em>★</em></span><span>SHIP IT UGLY, SHIP IT TRUE <em>★</em></span>
+    <span>EST. NOWHERE, WORKING EVERYWHERE <em>★</em></span><span>BRUT* IS HIRING NOBODY <em>★</em></span>
+  </div>
+</div>
+
+<header>
+  <div class="logo">BRUT<sup>*</sup></div>
+  <nav>
+    <a href="#manifesto">Manifesto</a>
+    <a href="#work">Work</a>
+    <a href="#contact" class="hot">Bother Us</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>
+    <span class="line">WE MAKE</span>
+    <span class="line stroke">GRAPHIC</span>
+    <span class="line">DESIGN <span class="red">LOUD</span></span>
+  </h1>
+  <div class="hero-meta">
+    <div class="box">Collective of 9 — Zero Managers</div>
+    <div class="box">Rotterdam / Lagos / Seoul</div>
+    <div class="box">Scroll ↓ Or Don't</div>
+  </div>
+</section>
+
+<section class="grid" id="manifesto">
+  <div class="cell c-8 hoverflip">
+    <span class="idx">001</span>
+    <h2>Polish is a place ideas go to die.</h2>
+    <p>Every gradient you add is a confession that the idea underneath couldn't carry the weight. We start from the idea and stop the moment it stands up on its own. Then we ship it. The rough edge is not a bug — it's a fingerprint.</p>
+  </div>
+  <div class="cell c-4 invert">
+    <span class="idx">002</span>
+    <div class="giant-word">RAW ≠ LAZY</div>
+  </div>
+  <div class="cell c-4 red">
+    <span class="idx">003</span>
+    <div class="giant-word">86%</div>
+    <p style="margin-top:1rem">of our clients said "can you make it quieter." We could not.</p>
+  </div>
+  <div class="cell c-8 hoverflip">
+    <span class="idx">004</span>
+    <h2>The grid is a cage. We rattle it.</h2>
+    <p>We love the grid the way a drummer loves the metronome: as the thing you push against. Every layout here is built on twelve strict columns — and every layout here breaks them exactly once, on purpose, where it hurts the most.</p>
+  </div>
+  <div class="cell c-12 hoverflip" style="text-align:center; padding:4rem 2rem;">
+    <span class="idx">005</span>
+    <div class="giant-word">TASTE IS A MUSCLE.<br>SO USE IT OR LOSE IT.</div>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <a class="work-row" href="#work">
+    <span class="wnum">W—01</span>
+    <span class="wname">Concrete Records</span>
+    <span class="wtag">Identity / Vinyl / 2025</span>
+  </a>
+  <a class="work-row" href="#work">
+    <span class="wnum">W—02</span>
+    <span class="wname">Meat District Fest</span>
+    <span class="wtag">Posters / Wayfinding / 2025</span>
+  </a>
+  <a class="work-row" href="#work">
+    <span class="wnum">W—03</span>
+    <span class="wname">Null Fashion Week</span>
+    <span class="wtag">Campaign / Motion / 2024</span>
+  </a>
+  <a class="work-row" href="#work">
+    <span class="wnum">W—04</span>
+    <span class="wname">The Angry Bakery</span>
+    <span class="wtag">Packaging / Signage / 2024</span>
+  </a>
+</section>
+
+<footer id="contact">
+  <div class="fbig">
+    <a href="mailto:shout@brut.example">SHOUT AT US →</a>
+  </div>
+  <div class="fmeta">
+    <span>BRUT* Collective</span>
+    <span>No Instagram. Find us in person.</span>
+    <span>№ 03 — Fable Twenty-Five</span>
+  </div>
+</footer>
+
+<svg class="stamp" viewBox="0 0 100 100">
+  <defs><path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+  <text style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2.5px; fill:#f5f2ea;">
+    <textPath href="#circ">DESIGN WITHOUT APOLOGY ★ BRUT ★</textPath>
+  </text>
+  <circle cx="50" cy="50" r="6" fill="#ff2e00"/>
+</svg>
+
+<script>
+// duplicate ticker content for seamless loop
+const t = document.getElementById('tickerInner');
+t.innerHTML += t.innerHTML;
+</script>
+</body>
+</html>
+```

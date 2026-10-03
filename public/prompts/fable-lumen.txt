@@ -1,0 +1,335 @@
+# Exact recreation prompt — Lumen
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-lumen
+Brand: Lumen
+Category: Creative
+Tagline (catalog): Organic gradient blobs · soft SaaS (Fable × 25 #11)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/11-lumen/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Planning software with a resting heart rate.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumen — Software for the soft hours</title>
+<meta name="description" content="A calmer way to plan your day. Lumen breathes with you.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300;1,6..72,400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --ink:#2b2440;
+    --soft:#6d6488;
+    --bg:#fdfbf7;
+  }
+  body {
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Sora', sans-serif;
+    overflow-x:hidden;
+  }
+
+  /* ------- lava blobs ------- */
+  .blobs {
+    position:fixed; inset:0; z-index:0;
+    filter:blur(70px) saturate(1.15);
+    pointer-events:none;
+  }
+  .blob {
+    position:absolute; border-radius:50%;
+    mix-blend-mode:multiply;
+    opacity:0.55;
+    will-change:transform;
+  }
+  .b1 { width:46vw; height:46vw; background:#ffd9c9; }
+  .b2 { width:40vw; height:40vw; background:#cfd8ff; }
+  .b3 { width:36vw; height:36vw; background:#d9f2df; }
+  .b4 { width:30vw; height:30vw; background:#ffe9f0; }
+
+  main { position:relative; z-index:2; }
+
+  nav {
+    position:fixed; top:1.4rem; left:50%; transform:translateX(-50%);
+    z-index:20;
+    display:flex; align-items:center; gap:2.2rem;
+    background:rgba(255,255,255,0.55);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.8);
+    box-shadow:0 8px 32px rgba(43,36,64,0.08);
+    padding:0.8rem 1.8rem;
+    border-radius:100px;
+    font-size:0.82rem; font-weight:400;
+  }
+  nav .logo { font-weight:700; font-size:0.95rem; letter-spacing:-0.02em; margin-right:0.6rem; }
+  nav .logo span { color:#e88a6a; }
+  nav a { color:var(--soft); text-decoration:none; transition:color 0.3s; }
+  nav a:hover { color:var(--ink); }
+  nav .cta {
+    background:var(--ink); color:#fff;
+    padding:0.55rem 1.3rem; border-radius:100px;
+    transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.3s;
+  }
+  nav .cta:hover { transform:scale(1.06); color:#fff; background:#3d3260; }
+
+  .hero {
+    min-height:100vh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center;
+    padding:9rem 6vw 5rem;
+  }
+  .pill {
+    font-size:0.72rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;
+    color:#b06a4e;
+    background:rgba(255,217,201,0.55);
+    border:1px solid rgba(232,138,106,0.3);
+    padding:0.5rem 1.2rem; border-radius:100px;
+    margin-bottom:2.2rem;
+    animation:float-in 1.2s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  h1 {
+    font-size:clamp(2.9rem, 7.5vw, 6.2rem);
+    font-weight:600; letter-spacing:-0.045em; line-height:1.02;
+    max-width:15ch;
+    animation:float-in 1.2s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  h1 em {
+    font-family:'Newsreader', serif;
+    font-style:italic; font-weight:300;
+    letter-spacing:-0.02em;
+    background:linear-gradient(100deg, #e88a6a, #8f7ddb 60%, #5aa787);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p {
+    margin-top:2rem; max-width:46ch;
+    font-size:1.08rem; line-height:1.85; font-weight:300;
+    color:var(--soft);
+    animation:float-in 1.2s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .hero-ctas {
+    margin-top:3rem; display:flex; gap:1.1rem; flex-wrap:wrap; justify-content:center;
+    animation:float-in 1.2s 0.45s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .btn {
+    font-family:inherit; font-size:0.95rem; font-weight:600;
+    padding:1.05rem 2.2rem; border-radius:100px;
+    cursor:pointer; text-decoration:none;
+    transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s;
+  }
+  .btn.dark {
+    background:var(--ink); color:#fff; border:none;
+    box-shadow:0 12px 32px rgba(43,36,64,0.25);
+  }
+  .btn.dark:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 20px 44px rgba(43,36,64,0.3); }
+  .btn.ghost {
+    background:rgba(255,255,255,0.6); color:var(--ink);
+    border:1px solid rgba(43,36,64,0.12);
+    backdrop-filter:blur(10px);
+  }
+  .btn.ghost:hover { transform:translateY(-3px); }
+  @keyframes float-in {
+    from { opacity:0; transform:translateY(36px); }
+    to { opacity:1; transform:none; }
+  }
+
+  /* breathing demo card */
+  .breath-card {
+    margin-top:5.5rem;
+    width:min(620px, 92vw);
+    background:rgba(255,255,255,0.6);
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+    border:1px solid rgba(255,255,255,0.9);
+    border-radius:32px;
+    box-shadow:0 30px 80px rgba(43,36,64,0.12);
+    padding:3rem 2.5rem 3.4rem;
+    animation:float-in 1.2s 0.6s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .breath-card .bc-label {
+    font-size:0.7rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--soft); margin-bottom:2rem;
+  }
+  .breath-ring {
+    width:150px; height:150px; margin:0 auto;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ffd9c9, #cfd8ff);
+    display:flex; align-items:center; justify-content:center;
+    animation:breathe 8s ease-in-out infinite;
+    box-shadow:0 0 0 24px rgba(207,216,255,0.25), 0 0 0 48px rgba(207,216,255,0.1);
+  }
+  .breath-ring span {
+    font-family:'Newsreader', serif; font-style:italic;
+    font-size:1.05rem; color:var(--ink);
+  }
+  @keyframes breathe {
+    0%,100% { transform:scale(0.86); box-shadow:0 0 0 12px rgba(207,216,255,0.22), 0 0 0 28px rgba(207,216,255,0.08); }
+    40% { transform:scale(1.08); box-shadow:0 0 0 30px rgba(255,217,201,0.28), 0 0 0 60px rgba(255,217,201,0.1); }
+    55% { transform:scale(1.08); }
+  }
+  .breath-card .bc-note {
+    text-align:center; margin-top:2.2rem;
+    font-size:0.86rem; color:var(--soft); font-weight:300; line-height:1.7;
+  }
+
+  /* features */
+  section.features { padding:8rem 6vw 4rem; max-width:1180px; margin:0 auto; }
+  .feat-head { text-align:center; margin-bottom:5rem; }
+  .feat-head h2 {
+    font-size:clamp(2rem, 4.4vw, 3.4rem);
+    font-weight:600; letter-spacing:-0.04em;
+  }
+  .feat-head h2 em { font-family:'Newsreader',serif; font-style:italic; font-weight:300; }
+  .feat-grid {
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(290px,1fr)); gap:1.6rem;
+  }
+  .feat {
+    background:rgba(255,255,255,0.55);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.85);
+    border-radius:28px;
+    padding:2.6rem 2.2rem;
+    box-shadow:0 16px 44px rgba(43,36,64,0.07);
+    transition:transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s;
+  }
+  .feat:hover { transform:translateY(-8px) rotate(-0.5deg); box-shadow:0 30px 64px rgba(43,36,64,0.13); }
+  .feat .ico {
+    width:52px; height:52px; border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.4rem;
+    margin-bottom:1.6rem;
+  }
+  .feat h3 { font-size:1.12rem; font-weight:600; letter-spacing:-0.02em; margin-bottom:0.8rem; }
+  .feat p { font-size:0.9rem; font-weight:300; line-height:1.8; color:var(--soft); }
+
+  .quote {
+    padding:8rem 6vw;
+    text-align:center;
+  }
+  .quote blockquote {
+    font-family:'Newsreader', serif; font-style:italic; font-weight:300;
+    font-size:clamp(1.6rem, 3.8vw, 2.9rem);
+    line-height:1.4; letter-spacing:-0.01em;
+    max-width:26ch; margin:0 auto;
+  }
+  .quote cite {
+    display:block; margin-top:2rem; font-style:normal;
+    font-family:'Sora'; font-size:0.82rem; color:var(--soft);
+  }
+
+  footer {
+    position:relative; z-index:2;
+    text-align:center; padding:4rem 6vw 5rem;
+    font-size:0.8rem; color:var(--soft);
+  }
+
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<div class="blobs" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+</div>
+
+<nav>
+  <span class="logo">lumen<span>.</span></span>
+  <a href="#features">Features</a>
+  <a href="#quote">Why</a>
+  <a href="#" class="cta">Begin softly</a>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="pill">Now in gentle beta</div>
+    <h1>Planning software with a <em>resting heart rate.</em></h1>
+    <p>Lumen is a daily planner that refuses to panic. No red badges, no streak guilt, no productivity theater — just your day, arranged like a well-set table.</p>
+    <div class="hero-ctas">
+      <a class="btn dark" href="#features">Start your soft launch</a>
+      <a class="btn ghost" href="#quote">Watch it breathe</a>
+    </div>
+
+    <div class="breath-card">
+      <div class="bc-label">Live from the app — the Focus Ring</div>
+      <div class="breath-ring"><span>breathe</span></div>
+      <p class="bc-note">Every Lumen session opens with eight seconds of nothing.<br>It is our most-used feature, and it does nothing at all.</p>
+    </div>
+  </header>
+
+  <section class="features" id="features">
+    <div class="feat-head reveal">
+      <h2>Fewer features, <em>chosen slowly.</em></h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal">
+        <div class="ico" style="background:#ffe3d6">🌅</div>
+        <h3>Morning Pour</h3>
+        <p>Your day arrives one task at a time, like coffee — not all at once, like email. Lumen reveals what's next only when you're ready to hold it.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ico" style="background:#dfe5ff">🌊</div>
+        <h3>Tide Scheduling</h3>
+        <p>Tasks drift to the hours when you actually do them. Lumen learns your tides in two weeks and stops pretending you're a 6 a.m. person.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ico" style="background:#def0e4">🍃</div>
+        <h3>The Compost Bin</h3>
+        <p>Undone tasks don't nag — they decompose. After 30 quiet days they become a gentle monthly digest titled "things that stopped mattering."</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote" id="quote">
+    <blockquote class="reveal">"The first planner that made me feel like a person instead of a backlog."</blockquote>
+    <cite class="reveal">— an early user, whose tasks are none of your business</cite>
+  </section>
+</main>
+
+<footer>
+  lumen. — software for the soft hours · № 11 — Fable Twenty-Five
+</footer>
+
+<script>
+// blob drift — slow lissajous orbits + subtle mouse parallax
+const blobs = [...document.querySelectorAll('.blob')];
+const P = [
+  { cx:0.18, cy:0.22, ax:0.10, ay:0.14, sx:0.11, sy:0.09, ph:0 },
+  { cx:0.72, cy:0.30, ax:0.12, ay:0.10, sx:0.07, sy:0.12, ph:2 },
+  { cx:0.45, cy:0.72, ax:0.14, ay:0.09, sx:0.09, sy:0.07, ph:4 },
+  { cx:0.85, cy:0.75, ax:0.08, ay:0.12, sx:0.12, sy:0.10, ph:1 },
+];
+let mx = 0.5, my = 0.5;
+addEventListener('pointermove', e => {
+  mx = e.clientX/innerWidth; my = e.clientY/innerHeight;
+});
+(function drift(now){
+  const t = now/1000;
+  blobs.forEach((b, i) => {
+    const p = P[i];
+    const x = (p.cx + Math.sin(t*p.sx + p.ph)*p.ax + (mx-0.5)*0.04*(i+1)) * innerWidth;
+    const y = (p.cy + Math.cos(t*p.sy + p.ph)*p.ay + (my-0.5)*0.04*(i+1)) * innerHeight + scrollY*0.15*(i%2?1:-1);
+    b.style.transform = `translate(${x - b.offsetWidth/2}px, ${y - b.offsetHeight/2}px) scale(${1 + Math.sin(t*0.3+p.ph)*0.12})`;
+  });
+  requestAnimationFrame(drift);
+})(0);
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.2 });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%3)*0.12 + 's';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
+```

@@ -1,0 +1,331 @@
+# Exact recreation prompt — Monolith
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-monolith
+Brand: Monolith
+Category: Creative
+Tagline (catalog): Three.js refractive crystal · museum of one (Fable × 25 #02)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/02-monolith/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONOLITH — Exhibit № 7</title>
+<meta name="description" content="A single object, suspended. A museum of one.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@200;400;600&family=Archivo+Expanded:wght@200;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#0a0a0b;
+    color:#e8e6e1;
+    font-family:'Archivo', sans-serif;
+    overflow:hidden;
+    height:100vh;
+  }
+  #scene { position:fixed; inset:0; }
+  .frame { position:fixed; inset:0; pointer-events:none; z-index:5; }
+  .frame::before {
+    content:''; position:absolute; inset:22px;
+    border:1px solid rgba(232,230,225,0.14);
+  }
+  .corner {
+    position:absolute; width:14px; height:14px;
+    border:1px solid rgba(232,230,225,0.55);
+  }
+  .corner.tl { top:15px; left:15px; border-right:none; border-bottom:none; }
+  .corner.tr { top:15px; right:15px; border-left:none; border-bottom:none; }
+  .corner.bl { bottom:15px; left:15px; border-right:none; border-top:none; }
+  .corner.br { bottom:15px; right:15px; border-left:none; border-top:none; }
+
+  .ui { position:fixed; z-index:6; }
+  .title-block { top:7vh; left:6vw; max-width:400px; }
+  .kicker {
+    font-size:0.62rem; letter-spacing:0.5em; text-transform:uppercase;
+    color:rgba(232,230,225,0.45); margin-bottom:1.4rem;
+    display:flex; align-items:center; gap:1rem;
+  }
+  .kicker::before { content:''; width:36px; height:1px; background:rgba(232,230,225,0.4); }
+  h1 {
+    font-family:'Archivo Expanded','Archivo',sans-serif;
+    font-weight:200; font-size:clamp(2.6rem,6vw,5rem);
+    letter-spacing:0.04em; line-height:1;
+  }
+  h1 strong { font-weight:600; }
+
+  .spec-block { bottom:9vh; left:6vw; max-width:330px; }
+  .spec-block p {
+    font-size:0.82rem; line-height:1.95; font-weight:200;
+    color:rgba(232,230,225,0.68); letter-spacing:0.03em;
+  }
+  .spec-table { margin-top:1.8rem; border-top:1px solid rgba(232,230,225,0.16); }
+  .spec-row {
+    display:flex; justify-content:space-between;
+    padding:0.7rem 0; border-bottom:1px solid rgba(232,230,225,0.16);
+    font-size:0.66rem; letter-spacing:0.22em; text-transform:uppercase;
+  }
+  .spec-row span:first-child { color:rgba(232,230,225,0.4); }
+
+  .catalog { top:7vh; right:6vw; text-align:right; }
+  .catalog .big {
+    font-family:'Archivo Expanded',sans-serif;
+    font-weight:200; font-size:clamp(3rem,7vw,6rem);
+    line-height:0.9; color:rgba(232,230,225,0.92);
+  }
+  .catalog .lab {
+    font-size:0.62rem; letter-spacing:0.45em; text-transform:uppercase;
+    color:rgba(232,230,225,0.4); margin-top:0.8rem;
+  }
+
+  .hint {
+    bottom:9vh; right:6vw; text-align:right;
+    font-size:0.62rem; letter-spacing:0.35em; text-transform:uppercase;
+    color:rgba(232,230,225,0.4);
+  }
+  .hint .pulse-ring {
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    border:1px solid rgba(232,230,225,0.7); margin-right:0.8rem;
+    animation:pulse 2.2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow:0 0 0 0 rgba(232,230,225,0.35); }
+    100% { box-shadow:0 0 0 14px rgba(232,230,225,0); }
+  }
+
+  .loading {
+    position:fixed; inset:0; z-index:20; background:#0a0a0b;
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity 1s ease 0.3s;
+  }
+  .loading.done { opacity:0; pointer-events:none; }
+  .loading span {
+    font-size:0.65rem; letter-spacing:0.6em; text-transform:uppercase;
+    color:rgba(232,230,225,0.5);
+    animation:breathe 1.6s ease-in-out infinite;
+  }
+  @keyframes breathe { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+  @media (max-width:760px){
+    .spec-block { display:none; }
+    .title-block { top:9vh; }
+  }
+</style>
+</head>
+<body>
+<div class="loading" id="loading"><span>Suspending object</span></div>
+<div id="scene"></div>
+
+<div class="frame">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+
+<div class="ui title-block">
+  <div class="kicker">The Museum of One Object</div>
+  <h1>MONO<strong>LITH</strong></h1>
+</div>
+
+<div class="ui catalog">
+  <div class="big">№ 7</div>
+  <div class="lab">Permanent Collection</div>
+</div>
+
+<div class="ui spec-block">
+  <p>Recovered from no place that appears on any chart. It refracts light it has no business receiving. Visitors report that it appears to breathe; the museum makes no comment.</p>
+  <div class="spec-table">
+    <div class="spec-row"><span>Material</span><span>Unknown / Dielectric</span></div>
+    <div class="spec-row"><span>Mass</span><span>Indeterminate</span></div>
+    <div class="spec-row"><span>Acquired</span><span>1968 — Anonymous Gift</span></div>
+  </div>
+</div>
+
+<div class="ui hint"><span class="pulse-ring"></span>Drag to circle the exhibit</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"
+}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+const container = document.getElementById('scene');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.7;
+container.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0a0b);
+scene.fog = new THREE.FogExp2(0x0a0a0b, 0.055);
+
+const camera = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0, 0.4, 7.2);
+
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+// ---- the crystal ----
+const geo = new THREE.IcosahedronGeometry(1.55, 0);
+const mat = new THREE.MeshPhysicalMaterial({
+  color: 0xffffff,
+  metalness: 0,
+  roughness: 0.02,
+  transmission: 1,
+  thickness: 1.6,
+  ior: 1.7,
+  dispersion: 4.0,
+  envMapIntensity: 2.0,
+  clearcoat: 1,
+  clearcoatRoughness: 0.06,
+  iridescence: 0.9,
+  iridescenceIOR: 1.6,
+  iridescenceThicknessRange: [120, 500],
+  attenuationColor: new THREE.Color(0xbcd4ff),
+  attenuationDistance: 6.5,
+});
+const crystal = new THREE.Mesh(geo, mat);
+scene.add(crystal);
+
+// inner core — faint emissive nucleus
+const core = new THREE.Mesh(
+  new THREE.IcosahedronGeometry(0.42, 1),
+  new THREE.MeshBasicMaterial({ color: 0xcfe0ff, transparent: true, opacity: 0.9 })
+);
+scene.add(core);
+const coreLight = new THREE.PointLight(0xaac8ff, 30, 12);
+scene.add(coreLight);
+
+// wireframe cage slightly larger, barely visible
+const cage = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(2.35, 0)),
+  new THREE.LineBasicMaterial({ color: 0xe8e6e1, transparent: true, opacity: 0.07 })
+);
+scene.add(cage);
+
+// ---- dust motes ----
+const dustCount = 700;
+const dustGeo = new THREE.BufferGeometry();
+const pos = new Float32Array(dustCount * 3);
+const phase = new Float32Array(dustCount);
+for (let i = 0; i < dustCount; i++) {
+  const r = 3 + Math.random() * 9;
+  const th = Math.random() * Math.PI * 2;
+  const ph = Math.acos(2*Math.random()-1);
+  pos[i*3]   = r * Math.sin(ph) * Math.cos(th);
+  pos[i*3+1] = (Math.random()-0.5) * 9;
+  pos[i*3+2] = r * Math.sin(ph) * Math.sin(th);
+  phase[i] = Math.random() * Math.PI * 2;
+}
+dustGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+const dust = new THREE.Points(dustGeo, new THREE.PointsMaterial({
+  color: 0xcfd6e4, size: 0.02, transparent: true, opacity: 0.55,
+  sizeAttenuation: true, depthWrite: false,
+}));
+scene.add(dust);
+
+// ---- lights ----
+const key = new THREE.SpotLight(0xffffff, 420, 40, 0.6, 0.6);
+key.position.set(6, 9, 4);
+scene.add(key);
+const rim = new THREE.PointLight(0x6f8fff, 90, 30);
+rim.position.set(-7, -3, -5);
+scene.add(rim);
+const warm = new THREE.PointLight(0xffb98a, 45, 25);
+warm.position.set(4, -5, 6);
+scene.add(warm);
+
+// pedestal ring of light on "floor"
+const ring = new THREE.Mesh(
+  new THREE.RingGeometry(2.2, 2.26, 128),
+  new THREE.MeshBasicMaterial({ color: 0xe8e6e1, transparent: true, opacity: 0.22, side: THREE.DoubleSide })
+);
+ring.rotation.x = -Math.PI/2;
+ring.position.y = -2.6;
+scene.add(ring);
+
+// ---- post ----
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.35, 0.9, 0.82);
+composer.addPass(bloom);
+
+// ---- interaction: inertia drag orbit ----
+let targetRotY = 0, targetRotX = 0;
+let curRotY = 0, curRotX = 0;
+let dragging = false, px = 0, py = 0;
+let autoSpin = 0.0016;
+
+const el = renderer.domElement;
+el.style.touchAction = 'none';
+el.addEventListener('pointerdown', e => { dragging = true; px = e.clientX; py = e.clientY; });
+addEventListener('pointerup', () => dragging = false);
+addEventListener('pointermove', e => {
+  if (!dragging) return;
+  targetRotY += (e.clientX - px) * 0.005;
+  targetRotX += (e.clientY - py) * 0.003;
+  targetRotX = Math.max(-0.9, Math.min(0.9, targetRotX));
+  px = e.clientX; py = e.clientY;
+});
+
+const clock = new THREE.Clock();
+function animate(){
+  const t = clock.getElapsedTime();
+  if (!dragging) targetRotY += autoSpin;
+
+  curRotY += (targetRotY - curRotY) * 0.06;
+  curRotX += (targetRotX - curRotX) * 0.06;
+
+  // camera orbits; crystal tumbles slowly on its own axes
+  const rad = 7.2;
+  camera.position.x = Math.sin(curRotY) * rad * Math.cos(curRotX);
+  camera.position.z = Math.cos(curRotY) * rad * Math.cos(curRotX);
+  camera.position.y = 0.4 + Math.sin(curRotX) * rad * 0.55;
+  camera.lookAt(0, 0, 0);
+
+  crystal.rotation.x = t * 0.12;
+  crystal.rotation.y = t * 0.17;
+  crystal.position.y = Math.sin(t * 0.7) * 0.18;
+  core.position.y = crystal.position.y;
+  core.rotation.y = -t * 0.4;
+  core.scale.setScalar(1 + Math.sin(t * 1.8) * 0.12);
+  coreLight.position.y = crystal.position.y;
+  coreLight.intensity = 26 + Math.sin(t * 1.8) * 10;
+  cage.rotation.y = -t * 0.05;
+  cage.rotation.z = t * 0.03;
+  cage.position.y = crystal.position.y * 0.6;
+
+  dust.rotation.y = t * 0.012;
+  const dp = dust.geometry.attributes.position;
+  for (let i = 0; i < dustCount; i += 7) {
+    dp.array[i*3+1] += Math.sin(t*0.8 + phase[i]) * 0.0007;
+  }
+  dp.needsUpdate = true;
+
+  composer.render();
+  requestAnimationFrame(animate);
+}
+animate();
+document.getElementById('loading').classList.add('done');
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  composer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
+```

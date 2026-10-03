@@ -1,0 +1,539 @@
+# Exact recreation prompt — Ember Elite
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-ember
+Brand: Ember Elite
+Category: Creative
+Tagline (catalog): Product theater · live 3D basketball, drag to spin (Fable × 25 #33)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/33-ember/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Grip Index
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMBER ELITE — The Ball That Owns the Fourth Quarter</title>
+<meta name="description" content="A game ball rendered live in your browser. Drag it. Spin it. Add it to cart.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --blk:#0a0908;
+    --tx:#f2efe9;
+    --dim:rgba(242,239,233,0.5);
+    --org:#ff4d12;
+    --line:rgba(242,239,233,0.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    background:var(--org);
+    color:var(--tx);
+    font-family:'Archivo', sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection { background:var(--org); color:#fff; }
+  a { color:inherit; }
+
+  /* orange chassis frame like the reference */
+  .chassis {
+    background:var(--blk);
+    margin:14px;
+    border-radius:22px;
+    position:relative;
+    overflow:clip;
+  }
+
+  /* ---------------- top bar ---------------- */
+  .topbar {
+    position:sticky; top:0; z-index:60;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.2rem 2.4rem;
+    background:linear-gradient(rgba(10,9,8,0.94), rgba(10,9,8,0.7) 70%, transparent);
+  }
+  .brand { font-family:'Archivo Black'; font-size:1.05rem; letter-spacing:0.06em; }
+  .brand i { color:var(--org); font-style:normal; }
+  .topbar .mid {
+    display:flex; gap:2rem;
+    font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--dim);
+  }
+  .cartbtn {
+    font-family:'Archivo'; font-weight:700; font-size:0.74rem; letter-spacing:0.16em; text-transform:uppercase;
+    background:var(--org); color:#fff;
+    border:none; cursor:pointer;
+    padding:0.8rem 1.7rem;
+    clip-path:polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    transition:transform 0.2s, filter 0.2s;
+  }
+  .cartbtn:hover { transform:translateY(-2px); filter:brightness(1.12); }
+  @media (max-width:820px){ .topbar .mid { display:none; } }
+
+  /* ---------------- theater: pinned ball ---------------- */
+  .theater { position:relative; }
+  .theater-track { height:560vh; }
+  .theater-stage { position:sticky; top:0; height:100vh; overflow:hidden; }
+  #ballCv { position:absolute; inset:0; z-index:2; }
+  .cursor-glow {
+    position:absolute; inset:0; z-index:3; pointer-events:none;
+    background:radial-gradient(480px circle at var(--gx,70%) var(--gy,50%),
+      rgba(255,140,60,0.22), transparent 62%);
+    opacity:0; transition:opacity 0.5s;
+  }
+  .theater-stage:hover .cursor-glow { opacity:1; }
+
+  /* ghost type behind ball */
+  .ghost {
+    position:absolute; inset:0; z-index:1;
+    display:flex; flex-direction:column; justify-content:center;
+    padding-left:6vw;
+    pointer-events:none;
+  }
+  .ghost .gline {
+    font-family:'Archivo Black';
+    font-size:clamp(3.4rem, 10.5vw, 9.5rem);
+    line-height:0.9;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+    color:transparent;
+    -webkit-text-stroke:1.5px rgba(242,239,233,0.14);
+    transition:color 0.7s, -webkit-text-stroke-color 0.7s;
+    white-space:nowrap;
+  }
+  .ghost .gline.hot { color:rgba(242,239,233,0.1); -webkit-text-stroke-color:rgba(255,77,18,0.55); }
+
+  /* stage HUD: crosshair + ring */
+  .stage-hud { position:absolute; inset:0; z-index:1; pointer-events:none; }
+  .stage-hud .ring {
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:min(78vmin, 760px); aspect-ratio:1; border-radius:50%;
+    border:1px solid rgba(242,239,233,0.07);
+  }
+  .stage-hud .ring::before {
+    content:''; position:absolute; inset:-9%;
+    border:1px dashed rgba(242,239,233,0.05);
+    border-radius:50%;
+  }
+  .stage-hud .cross-h, .stage-hud .cross-v { position:absolute; background:rgba(242,239,233,0.05); }
+  .stage-hud .cross-h { left:0; right:0; top:50%; height:1px; }
+  .stage-hud .cross-v { top:0; bottom:0; left:50%; width:1px; }
+
+  /* spec panels (left) */
+  .spec {
+    position:absolute; left:6vw; bottom:11vh; z-index:5;
+    max-width:340px;
+    opacity:0; transform:translateY(28px);
+    transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+    pointer-events:none;
+  }
+  .spec.on { opacity:1; transform:none; }
+  .spec .sk { font-family:'JetBrains Mono'; font-size:0.6rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--org); display:flex; align-items:center; gap:0.7rem; }
+  .spec .sk::before { content:''; width:7px; height:7px; background:var(--org); }
+  .spec h3 { margin-top:1rem; font-family:'Archivo Black'; text-transform:uppercase; font-size:1.9rem; line-height:1; }
+  .spec p { margin-top:0.9rem; font-weight:300; font-size:0.87rem; line-height:1.85; color:var(--dim); }
+  .spec .bar { margin-top:1.3rem; height:3px; background:rgba(242,239,233,0.12); position:relative; }
+  .spec .bar i { position:absolute; inset:0 auto 0 0; width:0; background:var(--org); transition:width 1.2s cubic-bezier(0.22,1,0.36,1); }
+  .spec.on .bar i { width:var(--v); }
+  .spec .bar-lab { margin-top:0.5rem; display:flex; justify-content:space-between; font-family:'JetBrains Mono'; font-size:0.58rem; letter-spacing:0.2em; color:var(--dim); }
+
+  /* buy rail (right) */
+  .buy {
+    position:absolute; right:6vw; bottom:11vh; z-index:5;
+    text-align:right;
+  }
+  .buy .price { font-family:'Archivo Black'; font-size:2.6rem; letter-spacing:0.01em; }
+  .buy .size { font-family:'JetBrains Mono'; font-size:0.6rem; letter-spacing:0.26em; color:var(--dim); text-transform:uppercase; margin-top:0.3rem; }
+  .buy .addbig {
+    display:inline-block; margin-top:1.4rem;
+    font-family:'Archivo'; font-weight:700; font-size:0.85rem; letter-spacing:0.2em; text-transform:uppercase;
+    background:var(--org); color:#fff; text-decoration:none;
+    padding:1.15rem 2.6rem;
+    clip-path:polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1), filter 0.25s;
+  }
+  .buy .addbig:hover { transform:translateY(-3px) scale(1.02); filter:brightness(1.14) drop-shadow(0 12px 30px rgba(255,77,18,0.5)); }
+  .drag-hint {
+    position:absolute; left:50%; bottom:4.5vh; transform:translateX(-50%); z-index:5;
+    font-family:'JetBrains Mono'; font-size:0.58rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--dim);
+  }
+  @media (max-width:820px){
+    .spec { left:5vw; max-width:260px; }
+    .buy { right:5vw; }
+    .buy .price { font-size:1.8rem; }
+  }
+
+  /* ---------------- lower content ---------------- */
+  .lower { position:relative; z-index:5; background:var(--blk); border-top:1px solid var(--line); }
+  .marq {
+    overflow:hidden; padding:1.15rem 0;
+    border-bottom:1px solid var(--line);
+    background:var(--org);
+  }
+  .marq-in { display:flex; width:max-content; animation:mq 17s linear infinite; }
+  .marq-in span {
+    font-family:'Archivo Black'; text-transform:uppercase; color:#fff;
+    font-size:1.05rem; letter-spacing:0.06em; margin-right:2.8rem;
+    display:flex; align-items:center; gap:2.8rem;
+  }
+  .marq-in span::after { content:'●'; font-size:0.55rem; }
+  @keyframes mq { to { transform:translateX(-50%); } }
+
+  .claims {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    max-width:1280px; margin:0 auto;
+    padding:6rem 6vw;
+    gap:3.4rem;
+  }
+  .claim .cnum { font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.3em; color:var(--org); }
+  .claim h3 { margin-top:0.9rem; font-family:'Archivo Black'; text-transform:uppercase; font-size:1.25rem; }
+  .claim p { margin-top:0.8rem; font-weight:300; font-size:0.88rem; line-height:1.85; color:var(--dim); }
+  @media (max-width:820px){ .claims { grid-template-columns:1fr; gap:2.4rem; } }
+
+  .finale {
+    text-align:center; padding:9rem 6vw 10rem;
+    border-top:1px solid var(--line);
+    position:relative; overflow:hidden;
+  }
+  .finale h2 {
+    font-family:'Archivo Black'; text-transform:uppercase;
+    font-size:clamp(2.4rem, 8.4vw, 7.2rem); line-height:0.92; letter-spacing:-0.01em;
+  }
+  .finale h2 i { font-style:normal; color:var(--org); }
+  .finale .cta {
+    display:inline-block; margin-top:3rem;
+    font-weight:700; font-size:0.9rem; letter-spacing:0.22em; text-transform:uppercase; text-decoration:none;
+    background:var(--org); color:#fff;
+    padding:1.3rem 3.4rem;
+    clip-path:polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+    transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1), filter 0.25s;
+  }
+  .finale .cta:hover { transform:translateY(-3px); filter:brightness(1.15); }
+
+  footer {
+    border-top:1px solid var(--line);
+    padding:2.6rem 6vw 3.4rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-family:'JetBrains Mono'; font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--dim);
+  }
+
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<div class="chassis">
+
+  <div class="topbar">
+    <div class="brand">EMBER<i>.</i></div>
+    <div class="mid"><span>GAME BALL — SERIES 04</span><span>SIZE 29.5" · OFFICIAL</span></div>
+    <button class="cartbtn" id="cartBtn">Add to cart — $84</button>
+  </div>
+
+  <!-- ============ THEATER ============ -->
+  <section class="theater">
+    <div class="theater-track" id="ttrack">
+      <div class="theater-stage">
+        <div class="stage-hud">
+          <div class="ring"></div>
+          <div class="cross-h"></div><div class="cross-v"></div>
+        </div>
+        <div class="ghost" id="ghost">
+          <div class="gline" data-s="0">Elite</div>
+          <div class="gline" data-s="0">Control</div>
+        </div>
+        <canvas id="ballCv"></canvas>
+        <div class="cursor-glow" id="cursorGlow"></div>
+
+        <div class="spec" data-step="0">
+          <div class="sk">Performance Metrics</div>
+          <h3>Grip Index</h3>
+          <p>2,400 pebbles per panel, deep-set and heat-cured. Wet-hand grip tested at 94% of dry — sweat is no longer an excuse.</p>
+          <div class="bar"><i style="--v:94%"></i></div>
+          <div class="bar-lab"><span>GRIP RETENTION</span><span>94%</span></div>
+        </div>
+        <div class="spec" data-step="1">
+          <div class="sk">Flight Dynamics</div>
+          <h3>True Bounce</h3>
+          <p>Butyl bladder wound in nylon at 4,100 turns. Rebound variance across the surface: under 1.2% — the rim is the only thing left to argue with.</p>
+          <div class="bar"><i style="--v:98.8%"></i></div>
+          <div class="bar-lab"><span>BOUNCE CONSISTENCY</span><span>98.8%</span></div>
+        </div>
+        <div class="spec" data-step="2">
+          <div class="sk">Fourth Quarter</div>
+          <h3>Zero Fade</h3>
+          <p>Channel seams bonded, not stitched. After 10,000 simulated possessions the profile deviates 0.3mm from new. It outlasts your rotation.</p>
+          <div class="bar"><i style="--v:99.7%"></i></div>
+          <div class="bar-lab"><span>SHAPE RETENTION</span><span>99.7%</span></div>
+        </div>
+
+        <div class="buy">
+          <div class="price">$84.00</div>
+          <div class="size">SIZE 29.5" — OFFICIAL WEIGHT</div>
+          <a href="#" class="addbig" id="addBig">Add to cart</a>
+        </div>
+        <div class="drag-hint">◦ Drag the ball — scroll to inspect ◦</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOWER ============ -->
+  <div class="lower">
+    <div class="marq"><div class="marq-in" id="marq">
+      <span>Official weight</span><span>Indoor / Outdoor</span><span>Zero break-in</span>
+      <span>Fourth-quarter grip</span><span>Series 04</span>
+    </div></div>
+
+    <div class="claims">
+      <div class="claim reveal"><div class="cnum">01</div><h3>Rendered, not photographed</h3><p>The ball above is not a video and not a photo — it's a live 3D object, lit in your browser, leather grown procedurally. Drag it and check.</p></div>
+      <div class="claim reveal"><div class="cnum">02</div><h3>Tested past the buzzer</h3><p>10,000-possession rig, −10°C to 40°C, three courts and one very committed intern. The intern wore out first. The seams did not.</p></div>
+      <div class="claim reveal"><div class="cnum">03</div><h3>84 dollars, no drama</h3><p>Pro-grade materials at a JV price, shipped in a box that becomes a hoop for your wastebasket. We know our audience.</p></div>
+    </div>
+
+    <section class="finale">
+      <h2 class="reveal">Own the<br><i>fourth quarter.</i></h2>
+      <a href="#" class="cta reveal" id="ctaBuy">Add to cart — $84</a>
+    </section>
+
+    <footer>
+      <span>EMBER — a fictional equipment brand designed by Fable</span>
+      <span>The ball is live WebGL — no photo, no video</span>
+      <span>№ 33 — The Cinema Batch</span>
+    </footer>
+  </div>
+</div>
+
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+  const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10*t)), smoothWheel: true });
+  function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+</script>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const clamp01 = v => Math.max(0, Math.min(1, v));
+
+/* ============ procedural basketball texture ============ */
+function makeBallTextures(){
+  const W = 2048, H = 1024;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const g = cv.getContext('2d');
+  const bump = document.createElement('canvas'); bump.width = W; bump.height = H;
+  const bg = bump.getContext('2d');
+
+  // base leather
+  const grad = g.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0, '#c8501e');
+  grad.addColorStop(0.5, '#d95a22');
+  grad.addColorStop(1, '#b8481c');
+  g.fillStyle = grad; g.fillRect(0,0,W,H);
+  bg.fillStyle = '#808080'; bg.fillRect(0,0,W,H);
+
+  // pebbles
+  let seed = 12345;
+  const rnd = () => (seed = (seed*16807)%2147483647)/2147483647;
+  for (let i=0;i<26000;i++){
+    const x = rnd()*W, y = rnd()*H;
+    const r = 1.1 + rnd()*2.1;
+    const l = rnd();
+    g.fillStyle = `rgba(${l>0.5?255:60},${l>0.5?120:20},${l>0.5?60:5},${0.1+rnd()*0.16})`;
+    g.beginPath(); g.arc(x,y,r,0,7); g.fill();
+    bg.fillStyle = `rgba(${l>0.5?230:90},${l>0.5?230:90},${l>0.5?230:90},0.5)`;
+    bg.beginPath(); bg.arc(x,y,r,0,7); bg.fill();
+  }
+
+  // seams in equirect space
+  function seam(fn){
+    g.strokeStyle = '#1a0d06'; g.lineWidth = 13; g.lineCap='round';
+    bg.strokeStyle = '#000'; bg.lineWidth = 15;
+    [g,bg].forEach(ctx => {
+      ctx.beginPath();
+      for (let px=0; px<=W; px+=4){
+        const y = fn(px/W);
+        if (y === null){ ctx.stroke(); ctx.beginPath(); continue; }
+        px===0 ? ctx.moveTo(px, y*H) : ctx.lineTo(px, y*H);
+      }
+      ctx.stroke();
+    });
+  }
+  // equator
+  seam(u => 0.5);
+  // two meridians (vertical lines in equirect become u=const)
+  [0.0, 0.25, 0.5, 0.75].forEach(u0 => {
+    [g,bg].forEach(ctx => {
+      ctx.strokeStyle = ctx===g ? '#1a0d06' : '#000';
+      ctx.lineWidth = ctx===g ? 13 : 15;
+      ctx.beginPath(); ctx.moveTo(u0*W, 0); ctx.lineTo(u0*W, H); ctx.stroke();
+    });
+  });
+  // two curved channel seams (classic basketball arcs)
+  seam(u => 0.5 + 0.31*Math.sin(u*Math.PI*2));
+  seam(u => 0.5 - 0.31*Math.sin(u*Math.PI*2));
+
+  const map = new THREE.CanvasTexture(cv);
+  map.colorSpace = THREE.SRGBColorSpace;
+  map.anisotropy = 8;
+  const bumpT = new THREE.CanvasTexture(bump);
+  return { map, bump: bumpT };
+}
+
+/* ============ scene ============ */
+const canvas = document.getElementById('ballCv');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(34, innerWidth/innerHeight, 0.1, 50);
+camera.position.set(0, 0, 7.4);
+
+const { map, bump } = makeBallTextures();
+const ball = new THREE.Mesh(
+  new THREE.SphereGeometry(2.05, 96, 96),
+  new THREE.MeshStandardMaterial({
+    map, bumpMap:bump, bumpScale:1.4,
+    roughness:0.62, metalness:0.02,
+  })
+);
+scene.add(ball);
+
+// studio lights
+const key = new THREE.DirectionalLight(0xfff2e8, 2.6); key.position.set(4,5,6); scene.add(key);
+const rim = new THREE.DirectionalLight(0xff5a1f, 1.6); rim.position.set(-6,-2,-4); scene.add(rim);
+const fill = new THREE.DirectionalLight(0xa8c8ff, 0.5); fill.position.set(-3,2,5); scene.add(fill);
+scene.add(new THREE.AmbientLight(0x2a1a10, 1.4));
+
+// floor shadow disc
+const shadow = new THREE.Mesh(
+  new THREE.CircleGeometry(2.4, 48),
+  new THREE.MeshBasicMaterial({ color:0x000000, transparent:true, opacity:0.5 })
+);
+shadow.rotation.x = -Math.PI/2;
+shadow.position.y = -2.7;
+shadow.scale.set(1, 0.8, 1);
+scene.add(shadow);
+
+/* placement: dramatic scroll-driven scale + drift toward the right edge,
+   matching the reference — ball starts modest and centered, then grows huge
+   and bleeds off-frame as the hero copy takes over. */
+let wide = innerWidth > 900;
+function place(){
+  wide = innerWidth > 900;
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+}
+place();
+addEventListener('resize', place);
+
+const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+/* ============ interaction: drag + inertia ============ */
+let vy = 0.004, vx = 0.0016, dragging = false, px=0, py=0;
+canvas.style.touchAction = 'pan-y';
+canvas.addEventListener('pointerdown', e => { dragging = true; px = e.clientX; py = e.clientY; });
+addEventListener('pointerup', () => dragging = false);
+addEventListener('pointermove', e => {
+  if (!dragging) return;
+  vy = (e.clientX - px) * 0.00045;
+  vx = (e.clientY - py) * 0.00035;
+  px = e.clientX; py = e.clientY;
+});
+
+/* scroll progress drives presentation */
+const track = document.getElementById('ttrack');
+const specs = [...document.querySelectorAll('.spec')];
+const glines = [...document.querySelectorAll('.gline')];
+let prog = 0, curStep = -1;
+function onScroll(){
+  const r = track.getBoundingClientRect();
+  prog = clamp01(-r.top / (r.height - innerHeight));
+  const step = Math.min(2, Math.floor(prog*3));
+  if (step !== curStep){
+    curStep = step;
+    specs.forEach(s => s.classList.toggle('on', +s.dataset.step === step));
+    const words = [['Elite','Control'],['True','Bounce'],['Zero','Fade']][step];
+    glines[0].textContent = words[0];
+    glines[1].textContent = words[1];
+    glines.forEach(l => l.classList.add('hot'));
+    setTimeout(() => glines.forEach(l => l.classList.remove('hot')), 700);
+  }
+}
+addEventListener('scroll', onScroll, { passive:true });
+onScroll();
+
+/* cursor-reactive spotlight, like the reference's ambient highlight */
+const glowEl = document.getElementById('cursorGlow');
+addEventListener('pointermove', e => {
+  glowEl.style.setProperty('--gx', (e.clientX/innerWidth*100)+'%');
+  glowEl.style.setProperty('--gy', (e.clientY/innerHeight*100)+'%');
+});
+
+const clock = new THREE.Clock();
+(function animate(){
+  const t = clock.getElapsedTime();
+  if (!dragging){
+    vy += (0.0045 - vy) * 0.015;
+    vx *= 0.96;
+  }
+  ball.rotation.y += vy + prog * 0.0018;
+  ball.rotation.x += vx;
+
+  // dramatic scroll drive: ball starts modest + centered, grows huge and
+  // drifts toward (and past) the right edge as the hero copy takes over —
+  // matching the reference's "customizer -> giant hero crop" jump.
+  const ep = easeOutCubic(prog);
+  const targetScale = 0.62 + ep * 0.95;
+  const targetX = (wide ? 0.15 : 0) + ep * (wide ? 2.35 : 0.7);
+  ball.scale.setScalar(targetScale + Math.sin(t*0.9)*0.006);
+  ball.position.x += (targetX - ball.position.x) * 0.09;
+  ball.position.y = Math.sin(t*0.9) * 0.09 * (1 - ep*0.4);
+  shadow.position.x = ball.position.x;
+  shadow.scale.set(targetScale, targetScale*0.8, 1);
+  shadow.material.opacity = (0.5 - ball.position.y*0.6) * (1-ep*0.5);
+
+  // camera pushes in and the rim/key lights flare up for the "hero reveal"
+  camera.position.z = 7.4 - ep*0.7;
+  key.intensity = 2.6 + ep*1.8;
+  rim.intensity = 1.6 + ep*2.6;
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+})();
+
+/* marquee + cart feedback + reveals */
+const mq = document.getElementById('marq');
+mq.innerHTML += mq.innerHTML;
+
+let cartN = 0;
+function addCart(e){
+  e.preventDefault();
+  cartN++;
+  const b = document.getElementById('cartBtn');
+  b.textContent = `In cart ×${cartN} — $${84*cartN}`;
+  b.animate([{transform:'scale(1)'},{transform:'scale(1.12)'},{transform:'scale(1)'}], {duration:320, easing:'cubic-bezier(0.34,1.56,0.64,1)'});
+}
+document.getElementById('addBig').addEventListener('click', addCart);
+document.getElementById('ctaBuy').addEventListener('click', addCart);
+document.getElementById('cartBtn').addEventListener('click', () => {});
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.16 });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%3)*0.1+'s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
+```

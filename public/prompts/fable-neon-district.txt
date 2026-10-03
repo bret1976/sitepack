@@ -1,0 +1,343 @@
+# Exact recreation prompt — Neon District
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-neon-district
+Brand: Neon District
+Category: Creative
+Tagline (catalog): Cyberpunk glitch · techwear lookbook (Fable × 25 #13)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/13-neon-district/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: SIGNAL LOSS
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEON DISTRICT — SS26 "SIGNAL LOSS"</title>
+<meta name="description" content="Techwear for the last generation with pupils. Collection SS26.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&family=Zen+Dots&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --void:#07070d;
+    --cyan:#00f0ff;
+    --mag:#ff2d78;
+    --acid:#c8ff00;
+    --ghost:#cfd3e8;
+  }
+  body {
+    background:var(--void);
+    color:var(--ghost);
+    font-family:'Chakra Petch', sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection { background:var(--mag); color:#000; }
+
+  /* scanline + vignette overlay */
+  .overlay {
+    position:fixed; inset:0; z-index:40; pointer-events:none;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.16) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.5));
+  }
+
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.2rem 2rem;
+    background:linear-gradient(rgba(7,7,13,0.9), transparent);
+  }
+  .brand {
+    font-family:'Zen Dots', cursive;
+    font-size:1rem; letter-spacing:0.2em;
+    color:#fff;
+  }
+  .brand i { color:var(--cyan); font-style:normal; }
+  nav .status {
+    font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--acid);
+    display:flex; align-items:center; gap:0.7rem;
+  }
+  nav .status::before {
+    content:''; width:7px; height:7px; background:var(--acid); border-radius:50%;
+    box-shadow:0 0 10px var(--acid);
+    animation:blip 1.4s steps(2) infinite;
+  }
+  @keyframes blip { 50% { opacity:0.2; } }
+
+  header {
+    height:100vh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    position:relative;
+    text-align:center;
+  }
+  /* perspective grid floor */
+  .floor {
+    position:absolute; left:0; right:0; bottom:0; height:44vh;
+    background:
+      linear-gradient(transparent, rgba(0,240,255,0.09)),
+      repeating-linear-gradient(90deg, rgba(0,240,255,0.4) 0 1px, transparent 1px 90px),
+      repeating-linear-gradient(0deg, rgba(0,240,255,0.4) 0 1px, transparent 1px 42px);
+    transform:perspective(340px) rotateX(58deg);
+    transform-origin:bottom;
+    mask-image:linear-gradient(transparent, #000 35%);
+    -webkit-mask-image:linear-gradient(transparent, #000 35%);
+  }
+  .season {
+    font-size:0.7rem; letter-spacing:0.7em; text-indent:0.7em; text-transform:uppercase;
+    color:var(--cyan); margin-bottom:1.8rem;
+    text-shadow:0 0 12px rgba(0,240,255,0.7);
+  }
+  h1.glitch {
+    font-family:'Zen Dots', cursive;
+    font-size:clamp(2.6rem, 10.5vw, 8.2rem);
+    line-height:1;
+    color:#fff;
+    position:relative;
+    letter-spacing:0.03em;
+  }
+  h1.glitch::before, h1.glitch::after {
+    content:attr(data-text);
+    position:absolute; inset:0;
+  }
+  h1.glitch::before {
+    color:var(--cyan);
+    animation:g1 2.8s infinite linear alternate-reverse;
+    clip-path:polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  }
+  h1.glitch::after {
+    color:var(--mag);
+    animation:g2 2.2s infinite linear alternate-reverse;
+    clip-path:polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
+  }
+  @keyframes g1 {
+    0%,84%,100% { transform:none; opacity:0.85; }
+    86% { transform:translate(-7px, 2px) skewX(-8deg); }
+    90% { transform:translate(5px, -2px); }
+    94% { transform:translate(-3px, 1px) skewX(4deg); }
+  }
+  @keyframes g2 {
+    0%,78%,100% { transform:none; opacity:0.85; }
+    80% { transform:translate(6px, -3px) skewX(6deg); }
+    85% { transform:translate(-8px, 2px); }
+    92% { transform:translate(4px, -1px) skewX(-5deg); }
+  }
+  .drop-timer {
+    margin-top:2.6rem;
+    font-size:0.85rem; letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--ghost);
+  }
+  .drop-timer b {
+    font-family:'Zen Dots'; color:var(--acid);
+    font-size:1.3rem; letter-spacing:0.1em;
+    text-shadow:0 0 14px rgba(200,255,0,0.5);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .marquee {
+    border-top:1px solid rgba(0,240,255,0.35);
+    border-bottom:1px solid rgba(0,240,255,0.35);
+    overflow:hidden; white-space:nowrap;
+    padding:0.8rem 0;
+    background:rgba(0,240,255,0.04);
+  }
+  .marquee-in {
+    display:inline-block;
+    animation:mq 18s linear infinite;
+    font-size:0.78rem; letter-spacing:0.4em; text-transform:uppercase;
+  }
+  .marquee-in span { margin-right:4rem; }
+  .marquee-in .c { color:var(--cyan); }
+  .marquee-in .m { color:var(--mag); }
+  .marquee-in .a { color:var(--acid); }
+  @keyframes mq { to { transform:translateX(-50%); } }
+
+  .lookbook {
+    padding:7rem 6vw;
+    max-width:1300px; margin:0 auto;
+  }
+  .lb-head { margin-bottom:4rem; display:flex; align-items:baseline; gap:2rem; flex-wrap:wrap; }
+  h2 {
+    font-family:'Zen Dots';
+    font-size:clamp(1.6rem, 4vw, 2.8rem);
+    color:#fff;
+  }
+  .lb-head .count { font-size:0.75rem; letter-spacing:0.3em; color:var(--cyan); text-transform:uppercase; }
+  .looks {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:1.4rem;
+  }
+  .look {
+    aspect-ratio:3/4.2;
+    position:relative;
+    border:1px solid rgba(207,211,232,0.15);
+    overflow:hidden;
+    cursor:pointer;
+    background:#0b0c16;
+  }
+  .look .fig { position:absolute; inset:0; }
+  .look .fig svg { width:100%; height:100%; }
+  .look .tag {
+    position:absolute; left:1.1rem; bottom:1rem; z-index:3;
+    font-size:0.68rem; letter-spacing:0.28em; text-transform:uppercase;
+  }
+  .look .tag b { display:block; font-size:0.95rem; color:#fff; letter-spacing:0.15em; margin-bottom:0.25rem; }
+  .look .px {
+    position:absolute; top:1rem; right:1.1rem; z-index:3;
+    font-size:0.62rem; letter-spacing:0.2em; color:var(--acid);
+  }
+  .look::after {
+    content:''; position:absolute; inset:0; z-index:2;
+    background:linear-gradient(transparent 55%, rgba(7,7,13,0.9));
+  }
+  .look:hover .fig { animation:lookglitch 0.5s steps(3); }
+  .look:hover { border-color:var(--cyan); box-shadow:0 0 30px rgba(0,240,255,0.15); }
+  @keyframes lookglitch {
+    0% { transform:translate(0); filter:hue-rotate(0); }
+    33% { transform:translate(-6px, 2px); filter:hue-rotate(90deg); }
+    66% { transform:translate(5px, -3px); filter:hue-rotate(-60deg); }
+    100% { transform:none; }
+  }
+
+  .manifesto {
+    padding:6rem 6vw 8rem;
+    text-align:center;
+  }
+  .manifesto p {
+    max-width:52ch; margin:0 auto;
+    font-size:clamp(1.05rem, 2.4vw, 1.5rem);
+    font-weight:300;
+    line-height:2;
+    color:var(--ghost);
+  }
+  .manifesto p b { color:var(--cyan); font-weight:600; }
+  .manifesto p i { color:var(--mag); font-style:normal; }
+
+  footer {
+    border-top:1px solid rgba(207,211,232,0.15);
+    padding:2.5rem 2rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:rgba(207,211,232,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<nav>
+  <div class="brand">NEON<i>_</i>DISTRICT</div>
+  <div class="status">Uplink stable</div>
+</nav>
+
+<header>
+  <div class="floor"></div>
+  <div class="season">Collection SS26</div>
+  <h1 class="glitch" data-text="SIGNAL LOSS">SIGNAL LOSS</h1>
+  <div class="drop-timer">Next drop in <b id="timer">00:00:00</b></div>
+</header>
+
+<div class="marquee">
+  <div class="marquee-in" id="mq">
+    <span class="c">REFLECTIVE AT 200M</span><span class="m">CUT FOR RUNNING</span>
+    <span class="a">MACHINE-WASHABLE FUTURES</span><span class="c">NO NFC. NO TRACKING. POCKETS ONLY.</span>
+    <span class="m">SS26 — SIGNAL LOSS</span><span class="a">MADE IN THE DISTRICT</span>
+  </div>
+</div>
+
+<section class="lookbook">
+  <div class="lb-head">
+    <h2>LOOKBOOK</h2>
+    <span class="count">06 LOOKS — HOVER TO CORRUPT</span>
+  </div>
+  <div class="looks" id="looks"></div>
+</section>
+
+<section class="manifesto">
+  <p>We make clothes for the hour when the city switches from <b>daylight</b> to <i>advertising.</i> Everything is cut to move, sewn to last, and dyed in colors the sensors misread. If the algorithm can't classify you, it can't sell you. Dress accordingly.</p>
+</section>
+
+<footer>
+  <span>NEON_DISTRICT MFG.</span>
+  <span>SECTOR 7 — RAIN LEVEL: PERMANENT</span>
+  <span>№ 13 — FABLE TWENTY-FIVE</span>
+</footer>
+
+<script>
+// marquee duplicate
+const mq = document.getElementById('mq');
+mq.innerHTML += mq.innerHTML;
+
+// fake drop timer, counts down to next midnight
+function tick(){
+  const now = new Date();
+  const end = new Date(now); end.setHours(24,0,0,0);
+  const d = end - now;
+  const h = String(Math.floor(d/3600000)).padStart(2,'0');
+  const m = String(Math.floor(d/60000)%60).padStart(2,'0');
+  const s = String(Math.floor(d/1000)%60).padStart(2,'0');
+  document.getElementById('timer').textContent = `${h}:${m}:${s}`;
+}
+setInterval(tick, 1000); tick();
+
+// generative "figure" art for each look — abstract silhouettes in neon wireframe
+const LOOKS = [
+  { name:'GHOST RUNNER', tag:'Jacket / Iridex Shell', hue:'#00f0ff' },
+  { name:'STATIC VEIL', tag:'Hood / Anti-Recognition Mesh', hue:'#ff2d78' },
+  { name:'ACID PROXY', tag:'Vest / Volt-Dye Ripstop', hue:'#c8ff00' },
+  { name:'NULL CARRIER', tag:'Cargo / 14-Pocket System', hue:'#00f0ff' },
+  { name:'ECHO FORM', tag:'Coat / Sound-Damp Twill', hue:'#ff2d78' },
+  { name:'LAST PUPIL', tag:'Visor / UV-Dead Lens', hue:'#c8ff00' },
+];
+const container = document.getElementById('looks');
+LOOKS.forEach((lk, li) => {
+  const div = document.createElement('div');
+  div.className = 'look';
+  // seeded pseudo-random
+  let seed = li * 7919 + 13;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+  let paths = '';
+  // torso silhouette: vertical spline stack
+  const cx = 50;
+  for (let s = 0; s < 3; s++){
+    let d = `M ${cx + (rnd()-0.5)*14} 12`;
+    let y = 12;
+    while (y < 92){
+      y += 7 + rnd()*7;
+      const x = cx + Math.sin(y*0.11 + s*2 + li) * (11 + s*6) + (rnd()-0.5)*7;
+      d += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
+    }
+    paths += `<path d="${d}" stroke="${lk.hue}" stroke-opacity="${0.75 - s*0.22}" stroke-width="${1.1 - s*0.3}" fill="none"/>`;
+  }
+  // horizontal scan slices
+  for (let s = 0; s < 9; s++){
+    const y = 15 + s*9 + rnd()*3;
+    const w = 12 + rnd()*26;
+    paths += `<line x1="${cx-w}" y1="${y}" x2="${cx+w}" y2="${y}" stroke="#cfd3e8" stroke-opacity="0.12" stroke-width="0.5"/>`;
+  }
+  // head
+  paths += `<circle cx="${cx}" cy="9" r="5.5" stroke="${lk.hue}" fill="none" stroke-width="0.9" stroke-opacity="0.9"/>`;
+  // random data glyphs
+  for (let s = 0; s < 5; s++){
+    const x = 8 + rnd()*84, y = 8 + rnd()*84;
+    paths += `<rect x="${x}" y="${y}" width="${1.5+rnd()*3}" height="${1.5+rnd()*3}" fill="${lk.hue}" fill-opacity="${0.25+rnd()*0.4}"/>`;
+  }
+
+  div.innerHTML = `
+    <div class="fig"><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">${paths}</svg></div>
+    <span class="px">LK-0${li+1}</span>
+    <div class="tag"><b>${lk.name}</b>${lk.tag}</div>`;
+  container.appendChild(div);
+});
+</script>
+</body>
+</html>
+```

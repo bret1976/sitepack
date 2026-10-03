@@ -1,0 +1,258 @@
+# Exact recreation prompt — Chrome2000
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-chrome
+Brand: Chrome2000
+Category: Creative
+Tagline (catalog): Y2K liquid metal · per-pixel metaballs (Fable × 25 #25)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/25-chrome/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: CHROME2000
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHROME2000 — The Future Has Been Rescheduled</title>
+<meta name="description" content="Liquid metal for the millennium that never quite arrived.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Turret+Road:wght@300;500;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:radial-gradient(ellipse at 50% 120%, #24306b 0%, #0a0d24 55%, #05060f);
+    color:#dfe7ff;
+    font-family:'Turret Road', sans-serif;
+    height:100vh; overflow:hidden;
+  }
+  #metal { position:fixed; inset:0; z-index:1; }
+
+  .chrome-title {
+    position:fixed; top:12vh; left:0; right:0; z-index:10;
+    text-align:center;
+    pointer-events:none;
+  }
+  .chrome-title h1 {
+    font-family:'Audiowide', cursive;
+    font-size:clamp(2.6rem, 10vw, 8rem);
+    letter-spacing:0.02em;
+    background:linear-gradient(180deg,
+      #f6fbff 0%, #b9ccf0 30%, #5a6d9e 48%, #101833 50%,
+      #8fa8d8 53%, #e8f1ff 70%, #7688b8 100%);
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent;
+    filter:drop-shadow(0 4px 0 rgba(10,14,36,0.9)) drop-shadow(0 0 34px rgba(120,150,255,0.35));
+  }
+  .chrome-title .y2k {
+    display:inline-block;
+    margin-top:0.6rem;
+    font-family:'Audiowide';
+    font-size:clamp(0.8rem, 2.2vw, 1.3rem);
+    letter-spacing:0.7em; text-indent:0.7em;
+    color:#8ff0ff;
+    text-shadow:0 0 18px rgba(143,240,255,0.9);
+  }
+  .chrome-title .tag {
+    margin-top:1.6rem;
+    font-weight:300; font-size:clamp(0.85rem, 2vw, 1.05rem);
+    letter-spacing:0.3em; text-transform:uppercase;
+    color:rgba(223,231,255,0.55);
+  }
+
+  .ui-bottom {
+    position:fixed; bottom:6vh; left:0; right:0; z-index:10;
+    display:flex; flex-direction:column; align-items:center; gap:1.6rem;
+  }
+  .bubble-row { display:flex; gap:1.1rem; flex-wrap:wrap; justify-content:center; padding:0 4vw; }
+  .pill-btn {
+    font-family:'Turret Road'; font-weight:500;
+    font-size:0.78rem; letter-spacing:0.24em; text-transform:uppercase;
+    color:#dfe7ff;
+    background:linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04) 45%, rgba(120,150,255,0.1));
+    border:1px solid rgba(190,210,255,0.5);
+    border-radius:100px;
+    padding:0.85rem 1.9rem;
+    cursor:pointer;
+    backdrop-filter:blur(6px);
+    box-shadow:0 4px 20px rgba(30,50,120,0.5), 0 1px 0 rgba(255,255,255,0.55) inset;
+    transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s;
+  }
+  .pill-btn:hover {
+    transform:translateY(-3px) scale(1.04);
+    box-shadow:0 10px 34px rgba(80,120,255,0.5), 0 1px 0 rgba(255,255,255,0.7) inset;
+  }
+  .pill-btn.on { background:linear-gradient(180deg, #8ff0ff, #4a9fd8 60%, #2a5fa8); color:#05060f; font-weight:800; }
+  .hintrow {
+    font-size:0.62rem; letter-spacing:0.4em; text-transform:uppercase;
+    color:rgba(223,231,255,0.4);
+  }
+
+  .badge {
+    position:fixed; top:2rem; right:2.2rem; z-index:10;
+    font-family:'Audiowide'; font-size:0.6rem; letter-spacing:0.28em;
+    color:rgba(223,231,255,0.5);
+    border:1px solid rgba(190,210,255,0.3);
+    border-radius:100px;
+    padding:0.6rem 1.2rem;
+    text-transform:uppercase;
+  }
+  .badge b { color:#8ff0ff; }
+  .corner-tag {
+    position:fixed; top:2rem; left:2.2rem; z-index:10;
+    font-size:0.62rem; letter-spacing:0.32em; text-transform:uppercase;
+    color:rgba(223,231,255,0.45);
+  }
+</style>
+</head>
+<body>
+
+<canvas id="metal"></canvas>
+
+<div class="corner-tag">№ 25 — The Finale</div>
+<div class="badge">SYSTEM TIME: <b>DEC 31 1999 23:59</b></div>
+
+<div class="chrome-title">
+  <h1>CHROME2000</h1>
+  <div class="y2k">MILLENNIUM EDITION</div>
+  <div class="tag">The future has been rescheduled — please hold</div>
+</div>
+
+<div class="ui-bottom">
+  <div class="bubble-row">
+    <button class="pill-btn on" data-n="7">Mercury Mode</button>
+    <button class="pill-btn" data-n="14">Overflow</button>
+    <button class="pill-btn" data-n="3">Minimal Trio</button>
+    <button class="pill-btn" id="magnet">Magnet: On</button>
+  </div>
+  <div class="hintrow">Move your cursor — the metal is curious</div>
+</div>
+
+<script>
+// -------- metaballs with chrome-ish shading, 2D field rendered per-pixel at low res, upscaled --------
+const cv = document.getElementById('metal');
+const ctx2 = cv.getContext('2d');
+
+// low-res field buffer for speed
+let FW, FH, W, H, SCALE = 4;
+let field, img;
+function rs(){
+  W = cv.width = innerWidth;
+  H = cv.height = innerHeight;
+  FW = Math.ceil(W/SCALE); FH = Math.ceil(H/SCALE);
+  img = ctx2.createImageData(FW, FH);
+}
+addEventListener('resize', rs); rs();
+
+let balls = [];
+function spawn(n){
+  balls = Array.from({length:n}, (_,i) => ({
+    x: Math.random()*W, y: Math.random()*H,
+    vx: (Math.random()-0.5)*2.2, vy: (Math.random()-0.5)*2.2,
+    r: 40 + Math.random()*70,
+  }));
+}
+spawn(7);
+
+let magnet = true;
+let mx = -9999, my = -9999;
+addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; });
+addEventListener('pointerleave', () => { mx = -9999; my = -9999; });
+
+document.querySelectorAll('.pill-btn[data-n]').forEach(b => {
+  b.onclick = () => {
+    spawn(+b.dataset.n);
+    document.querySelectorAll('.pill-btn[data-n]').forEach(x => x.classList.toggle('on', x===b));
+  };
+});
+document.getElementById('magnet').onclick = function(){
+  magnet = !magnet;
+  this.textContent = 'Magnet: ' + (magnet?'On':'Off');
+  this.classList.toggle('on', false);
+};
+
+function frame(t){
+  // physics
+  for (const b of balls){
+    if (magnet && mx > -999){
+      const dx = mx - b.x, dy = my - b.y;
+      const d = Math.hypot(dx,dy)+1;
+      const f = Math.min(0.35, 4200/(d*d));
+      b.vx += dx/d * f; b.vy += dy/d * f;
+    }
+    b.x += b.vx; b.y += b.vy;
+    b.vx *= 0.992; b.vy *= 0.992;
+    if (b.x < b.r*0.3){ b.vx = Math.abs(b.vx); }
+    if (b.x > W - b.r*0.3){ b.vx = -Math.abs(b.vx); }
+    if (b.y < b.r*0.3){ b.vy = Math.abs(b.vy); }
+    if (b.y > H - b.r*0.3){ b.vy = -Math.abs(b.vy); }
+    // gentle idle wander
+    b.vx += Math.sin(t*0.001 + b.r)*0.012;
+    b.vy += Math.cos(t*0.0013 + b.r)*0.012;
+  }
+
+  // field + shading
+  const d = img.data;
+  let p = 0;
+  for (let y=0; y<FH; y++){
+    const py = y*SCALE;
+    for (let x=0; x<FW; x++){
+      const px = x*SCALE;
+      // metaball field + gradient
+      let v=0, gx=0, gy=0;
+      for (const b of balls){
+        const dx = px-b.x, dy = py-b.y;
+        const q = dx*dx + dy*dy + 40;
+        const c = b.r*b.r/q;
+        v += c;
+        gx += -2*c*dx/q; gy += -2*c*dy/q;
+      }
+      if (v > 0.85){
+        // inside: chrome shading from field gradient as pseudo-normal
+        const gl = Math.hypot(gx, gy) + 1e-5;
+        let nx = gx/gl, ny = gy/gl;
+        // edge factor: near threshold = rim
+        const edge = Math.min(1, (v-0.85)*3.2);
+        // classic chrome: bright sky above the horizon, deep ground below,
+        // hard dark band at the horizon line, soft moving env highlight
+        const skyMix = 0.5 - ny*0.5;                    // 1 at top, 0 at bottom
+        const horizon = Math.exp(-Math.pow(ny*4.5, 2)); // dark band where normal is horizontal
+        const gleam = Math.max(0, Math.sin(nx*1.8 + t*0.0009)) * 0.5;
+        let r = 26 + skyMix*185 + gleam*60;
+        let g2 = 36 + skyMix*200 + gleam*66;
+        let bl = 64 + skyMix*225 + gleam*70;
+        r *= (1-horizon*0.82); g2 *= (1-horizon*0.78); bl *= (1-horizon*0.6);
+        // fresnel rim light
+        const rim = Math.pow(1-edge, 2);
+        r += rim*110; g2 += rim*150; bl += rim*190;
+        d[p]=Math.min(255,r); d[p+1]=Math.min(255,g2); d[p+2]=Math.min(255,bl); d[p+3]=255;
+      } else if (v > 0.6){
+        // soft outer glow
+        const a = (v-0.6)/0.25;
+        d[p]=40*a; d[p+1]=70*a; d[p+2]=140*a; d[p+3]=Math.floor(a*130);
+      } else {
+        d[p+3]=0;
+      }
+      p += 4;
+    }
+  }
+
+  ctx2.clearRect(0,0,W,H);
+  // upscale blit with smoothing + slight blur to melt the pixel grid
+  ctx2.imageSmoothingEnabled = true;
+  const off = frame.off || (frame.off = document.createElement('canvas'));
+  if (off.width !== FW || off.height !== FH){ off.width = FW; off.height = FH; }
+  off.getContext('2d').putImageData(img, 0, 0);
+  ctx2.filter = 'blur(2px) saturate(1.15)';
+  ctx2.drawImage(off, 0, 0, W, H);
+  ctx2.filter = 'none';
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
+```

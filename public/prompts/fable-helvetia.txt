@@ -1,0 +1,292 @@
+# Exact recreation prompt — Studio Helvetia
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-helvetia
+Brand: Studio Helvetia
+Category: Creative
+Tagline (catalog): Swiss grid · International Style (Fable × 25 #04)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/04-helvetia/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Order is not the enemy of joy.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Helvetia — Gestaltung</title>
+<meta name="description" content="A design studio in the International Style. Order is beautiful.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;800&display=swap');
+  :root {
+    --red:#e30613;
+    --black:#1a1a1a;
+    --paper:#ffffff;
+    --grey:#8a8a8a;
+    --u: 8px; /* base unit */
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  ::selection { background:var(--red); color:#fff; }
+  body {
+    background:var(--paper);
+    color:var(--black);
+    font-family:'Inter Tight', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .page {
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 calc(var(--u)*6);
+  }
+
+  /* grid overlay toggle */
+  .grid-overlay {
+    position:fixed; inset:0; z-index:100; pointer-events:none;
+    opacity:0; transition:opacity 0.3s;
+    background-image:repeating-linear-gradient(to right,
+      rgba(227,6,19,0.12) 0, rgba(227,6,19,0.12) 1px, transparent 1px, transparent calc(100%/12));
+  }
+  body.show-grid .grid-overlay { opacity:1; }
+
+  header {
+    display:grid;
+    grid-template-columns:repeat(12, 1fr);
+    gap:calc(var(--u)*3);
+    padding:calc(var(--u)*4) 0;
+    border-bottom:2px solid var(--black);
+    align-items:baseline;
+  }
+  .brand { grid-column:1 / 4; font-weight:800; font-size:1.05rem; letter-spacing:-0.01em; }
+  .brand .dot { color:var(--red); }
+  header nav { grid-column:4 / 10; display:flex; gap:calc(var(--u)*4); }
+  header nav a {
+    color:var(--black); text-decoration:none; font-size:0.85rem; font-weight:500;
+  }
+  header nav a:hover { color:var(--red); }
+  .grid-btn {
+    grid-column:10 / 13; text-align:right;
+    font-size:0.75rem; color:var(--grey); background:none; border:none;
+    font-family:inherit; cursor:pointer; letter-spacing:0.04em;
+  }
+  .grid-btn:hover { color:var(--red); }
+
+  .hero {
+    display:grid; grid-template-columns:repeat(12,1fr); gap:calc(var(--u)*3);
+    padding:calc(var(--u)*14) 0 calc(var(--u)*12);
+    border-bottom:1px solid #e5e5e5;
+  }
+  h1 {
+    grid-column:1 / 11;
+    font-size:clamp(2.8rem, 8.5vw, 7.8rem);
+    font-weight:800;
+    letter-spacing:-0.045em;
+    line-height:0.98;
+  }
+  h1 .indent { padding-left:1.2em; display:block; }
+  h1 .red { color:var(--red); }
+  .hero-note {
+    grid-column:9 / 13;
+    align-self:end;
+    font-size:0.9rem; line-height:1.65; color:var(--grey);
+    padding-top:calc(var(--u)*4);
+  }
+  .hero-note strong { color:var(--black); font-weight:600; }
+
+  /* rotating square — the single ornament */
+  .mark {
+    grid-column:11 / 13; grid-row:1;
+    justify-self:end;
+    width:calc(var(--u)*11); height:calc(var(--u)*11);
+    background:var(--red);
+    animation:turn 12s cubic-bezier(0.65,0,0.35,1) infinite;
+  }
+  @keyframes turn {
+    0%, 20% { transform:rotate(0); border-radius:0; }
+    30%, 45% { transform:rotate(90deg); border-radius:50%; }
+    55%, 70% { transform:rotate(180deg); border-radius:0; }
+    80%, 95% { transform:rotate(270deg); border-radius:50%; }
+    100% { transform:rotate(360deg); border-radius:0; }
+  }
+
+  section { padding:calc(var(--u)*12) 0; border-bottom:1px solid #e5e5e5; }
+  .sec-head {
+    display:grid; grid-template-columns:repeat(12,1fr); gap:calc(var(--u)*3);
+    margin-bottom:calc(var(--u)*8);
+  }
+  .sec-head .no { grid-column:1/3; font-size:0.8rem; color:var(--red); font-weight:600; }
+  .sec-head h2 { grid-column:3/9; font-size:1.6rem; font-weight:600; letter-spacing:-0.02em; }
+
+  .services { display:grid; grid-template-columns:repeat(12,1fr); gap:calc(var(--u)*3); }
+  .svc {
+    grid-column:span 3;
+    border-top:2px solid var(--black);
+    padding-top:calc(var(--u)*2.5);
+    transition:border-color 0.25s;
+  }
+  .svc:hover { border-color:var(--red); }
+  .svc:hover .svc-no { color:var(--red); }
+  .svc-no { font-size:0.75rem; color:var(--grey); transition:color 0.25s; }
+  .svc h3 { font-size:1.05rem; font-weight:600; margin:calc(var(--u)*1.5) 0 var(--u); }
+  .svc p { font-size:0.83rem; line-height:1.6; color:var(--grey); }
+
+  .clients { display:grid; grid-template-columns:repeat(12,1fr); gap:calc(var(--u)*3); }
+  .client-row {
+    grid-column:1/13;
+    display:grid; grid-template-columns:repeat(12,1fr); gap:calc(var(--u)*3);
+    padding:calc(var(--u)*3) 0;
+    border-bottom:1px solid #e5e5e5;
+    align-items:baseline;
+    cursor:default;
+  }
+  .client-row:hover .cname { transform:translateX(calc(var(--u)*2)); color:var(--red); }
+  .cname {
+    grid-column:1/7; font-size:clamp(1.4rem,3.4vw,2.6rem); font-weight:300; letter-spacing:-0.03em;
+    transition:transform 0.35s cubic-bezier(0.22,1,0.36,1), color 0.25s;
+  }
+  .cfield { grid-column:7/10; font-size:0.83rem; color:var(--grey); }
+  .cyear { grid-column:11/13; text-align:right; font-size:0.83rem; font-variant-numeric:tabular-nums; }
+
+  .statement { display:grid; grid-template-columns:repeat(12,1fr); gap:calc(var(--u)*3); }
+  .statement blockquote {
+    grid-column:2/12;
+    font-size:clamp(1.6rem, 4vw, 3.2rem);
+    font-weight:300; letter-spacing:-0.03em; line-height:1.28;
+    text-indent:2em;
+  }
+  .statement blockquote strong { font-weight:600; color:var(--red); }
+  .statement cite {
+    grid-column:2/12; display:block; margin-top:calc(var(--u)*4);
+    font-style:normal; font-size:0.85rem; color:var(--grey);
+  }
+
+  footer {
+    display:grid; grid-template-columns:repeat(12,1fr); gap:calc(var(--u)*3);
+    padding:calc(var(--u)*8) 0 calc(var(--u)*10);
+    font-size:0.83rem;
+  }
+  footer .col { grid-column:span 3; line-height:1.9; }
+  footer .label { color:var(--grey); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:var(--u); }
+  footer a { color:var(--black); text-decoration:none; border-bottom:1px solid #ddd; }
+  footer a:hover { color:var(--red); border-color:var(--red); }
+
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+
+  @media (max-width:900px){
+    header nav { display:none; }
+    .brand { grid-column:1/8; }
+    .grid-btn { grid-column:8/13; }
+    h1 { grid-column:1/13; }
+    .hero-note { grid-column:1/13; }
+    .mark { display:none; }
+    .svc { grid-column:span 6; }
+    .cname { grid-column:1/13; }
+    .cfield { grid-column:1/9; }
+    .cyear { grid-column:9/13; }
+    footer .col { grid-column:span 6; margin-bottom:calc(var(--u)*3); }
+    .sec-head h2 { grid-column:3/13; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-overlay"></div>
+
+<div class="page">
+  <header>
+    <div class="brand">Studio Helvetia<span class="dot">.</span></div>
+    <nav>
+      <a href="#leistungen">Services</a>
+      <a href="#arbeit">Selected Work</a>
+      <a href="#kontakt">Contact</a>
+    </nav>
+    <button class="grid-btn" onclick="document.body.classList.toggle('show-grid')">Grid: toggle [G]</button>
+  </header>
+
+  <div class="hero">
+    <div class="mark" aria-hidden="true"></div>
+    <h1>
+      Order<br>
+      <span class="indent">is not the</span>
+      enemy of <span class="red">joy.</span>
+    </h1>
+    <p class="hero-note"><strong>Studio Helvetia</strong> is a graphic design practice of four, working in the International Style since 2009. Zürich &amp; Basel. We believe a well-set paragraph is a moral act.</p>
+  </div>
+
+  <section id="leistungen">
+    <div class="sec-head reveal">
+      <span class="no">01</span>
+      <h2>What we do, precisely</h2>
+    </div>
+    <div class="services">
+      <div class="svc reveal"><span class="svc-no">1.1</span><h3>Identity Systems</h3><p>Marks, wordmarks and the rulebooks that keep them honest for decades, not quarters.</p></div>
+      <div class="svc reveal"><span class="svc-no">1.2</span><h3>Editorial Design</h3><p>Books, journals, annual reports. Grids tuned to the text like instruments to a hall.</p></div>
+      <div class="svc reveal"><span class="svc-no">1.3</span><h3>Wayfinding</h3><p>Signage for hospitals, stations, museums. Design you only notice when it's missing.</p></div>
+      <div class="svc reveal"><span class="svc-no">1.4</span><h3>Typefaces</h3><p>Custom type, drawn in-house. Four families released; two abandoned, rightly.</p></div>
+    </div>
+  </section>
+
+  <section id="arbeit">
+    <div class="sec-head reveal">
+      <span class="no">02</span>
+      <h2>Selected work, 2009 — present</h2>
+    </div>
+    <div class="clients">
+      <div class="client-row reveal"><span class="cname">Kunsthalle Ost</span><span class="cfield">Identity, Signage</span><span class="cyear">2025</span></div>
+      <div class="client-row reveal"><span class="cname">Bundesarchiv</span><span class="cfield">Editorial System</span><span class="cyear">2024</span></div>
+      <div class="client-row reveal"><span class="cname">Tramlinie 8</span><span class="cfield">Wayfinding</span><span class="cyear">2023</span></div>
+      <div class="client-row reveal"><span class="cname">Verlag Meridian</span><span class="cfield">Book Series, 41 vols.</span><span class="cyear">2021</span></div>
+      <div class="client-row reveal"><span class="cname">Alpenwasser</span><span class="cfield">Identity, Packaging</span><span class="cyear">2019</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="statement reveal">
+      <blockquote>«The grid system is an aid, not a guarantee. But between chaos and the grid, we have made our choice — and we make it again <strong>every morning.</strong>»</blockquote>
+      <cite>— Studio principle nº 1, painted on the studio wall</cite>
+    </div>
+  </section>
+
+  <footer id="kontakt">
+    <div class="col">
+      <div class="label">Studio</div>
+      Studio Helvetia GmbH<br>
+      Gerbergasse 14<br>
+      4001 Basel
+    </div>
+    <div class="col">
+      <div class="label">Contact</div>
+      <a href="mailto:post@helvetia.example">post@helvetia.example</a><br>
+      +41 61 000 00 00
+    </div>
+    <div class="col">
+      <div class="label">Hours</div>
+      Mo–Fr, 09.00–18.00<br>
+      Never on Sundays
+    </div>
+    <div class="col">
+      <div class="label">Colophon</div>
+      Set in Inter Tight.<br>
+      № 04 — Fable Twenty-Five
+    </div>
+  </footer>
+</div>
+
+<script>
+addEventListener('keydown', e => {
+  if (e.key.toLowerCase() === 'g') document.body.classList.toggle('show-grid');
+});
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 0.08 + 's';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
+```

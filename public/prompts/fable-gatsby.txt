@@ -1,0 +1,310 @@
+# Exact recreation prompt — The Meridian
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-gatsby
+Brand: The Meridian
+Category: Creative
+Tagline (catalog): Art Deco grand hotel · gilded SVG (Fable × 25 #09)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/09-gatsby/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: THEMERIDIAN
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE MERIDIAN — A Grand Hotel, Est. 1927</title>
+<meta name="description" content="Ninety-eight years of gilded hospitality.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --noir:#0d0f14;
+    --noir2:#12151d;
+    --gold:#c9a24b;
+    --gold-bright:#e8c876;
+    --champagne:#f3e6c9;
+  }
+  body {
+    background:var(--noir);
+    color:var(--champagne);
+    font-family:'Cormorant', serif;
+    overflow-x:hidden;
+  }
+  ::selection { background:var(--gold); color:var(--noir); }
+
+  .deco-border {
+    position:fixed; inset:14px; z-index:30; pointer-events:none;
+    border:1px solid rgba(201,162,75,0.5);
+  }
+  .deco-border::before {
+    content:''; position:absolute; inset:5px;
+    border:1px solid rgba(201,162,75,0.25);
+  }
+
+  header.masthead {
+    min-height:100vh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:4rem 2rem;
+    overflow:hidden;
+  }
+  body { overflow-x:hidden; }
+  .sunburst {
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:min(150vmin, 1100px); height:min(150vmin, 1100px);
+    z-index:0; opacity:0.5;
+  }
+  .sunburst line { stroke:url(#goldgrad); }
+  .masthead-inner { position:relative; z-index:2; }
+  .est {
+    font-family:'Poiret One', cursive;
+    letter-spacing:0.8em; text-indent:0.8em;
+    font-size:0.85rem; color:var(--gold);
+    margin-bottom:2rem;
+  }
+  h1 {
+    font-family:'Poiret One', cursive;
+    font-weight:400;
+    font-size:clamp(3.4rem, 11.5vw, 9.5rem);
+    letter-spacing:0.16em; text-indent:0.16em;
+    line-height:1;
+    background:linear-gradient(180deg, #f6e7bd 0%, var(--gold-bright) 38%, #8a6a25 52%, var(--gold-bright) 66%, #f6e7bd 100%);
+    background-size:100% 220%;
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent;
+    animation:shimmer 7s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%,100% { background-position:50% 0%; }
+    50% { background-position:50% 100%; }
+  }
+  .tagline {
+    margin-top:2.4rem;
+    font-style:italic; font-weight:300;
+    font-size:clamp(1.05rem, 2.2vw, 1.5rem);
+    color:rgba(243,230,201,0.75);
+    letter-spacing:0.08em;
+  }
+  .fan-divider { margin:3rem auto 0; width:220px; }
+
+  section { padding:9rem 8vw; position:relative; }
+  .sec-label {
+    text-align:center;
+    font-family:'Poiret One', cursive;
+    letter-spacing:0.7em; text-indent:0.7em;
+    text-transform:uppercase;
+    font-size:0.8rem; color:var(--gold);
+    margin-bottom:1.2rem;
+  }
+  h2 {
+    text-align:center;
+    font-weight:400;
+    font-size:clamp(2.2rem, 5vw, 4rem);
+    letter-spacing:0.06em;
+    margin-bottom:4.5rem;
+  }
+  h2 em { font-style:italic; color:var(--gold-bright); }
+
+  .suites {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(270px, 1fr));
+    gap:2.5rem;
+    max-width:1200px; margin:0 auto;
+  }
+  .suite {
+    background:linear-gradient(170deg, var(--noir2), #0a0c11);
+    border:1px solid rgba(201,162,75,0.35);
+    padding:3rem 2.2rem 2.6rem;
+    text-align:center;
+    position:relative;
+    transition:transform 0.6s cubic-bezier(0.22,1,0.36,1), border-color 0.6s, box-shadow 0.6s;
+  }
+  .suite:hover {
+    transform:translateY(-10px);
+    border-color:var(--gold);
+    box-shadow:0 24px 60px rgba(0,0,0,0.55), 0 0 40px rgba(201,162,75,0.08) inset;
+  }
+  .suite::before, .suite::after {
+    content:''; position:absolute; width:22px; height:22px;
+    border:1px solid var(--gold);
+    transition:width 0.5s, height 0.5s;
+  }
+  .suite::before { top:8px; left:8px; border-right:none; border-bottom:none; }
+  .suite::after { bottom:8px; right:8px; border-left:none; border-top:none; }
+  .suite:hover::before, .suite:hover::after { width:34px; height:34px; }
+  .suite .motif { width:64px; margin:0 auto 1.8rem; display:block; }
+  .suite h3 {
+    font-family:'Poiret One', cursive;
+    font-size:1.45rem; letter-spacing:0.22em;
+    color:var(--gold-bright);
+    margin-bottom:1.2rem;
+  }
+  .suite p { font-weight:300; font-size:1rem; line-height:1.9; color:rgba(243,230,201,0.7); }
+  .suite .price {
+    margin-top:1.8rem; font-style:italic; color:var(--gold);
+    font-size:1.05rem;
+  }
+
+  .ledger {
+    max-width:760px; margin:0 auto;
+    border-top:1px solid rgba(201,162,75,0.35);
+  }
+  .ledger-row {
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:1.6rem 0.5rem;
+    border-bottom:1px solid rgba(201,162,75,0.2);
+    gap:2rem;
+    transition:padding-left 0.5s cubic-bezier(0.22,1,0.36,1);
+  }
+  .ledger-row:hover { padding-left:1.6rem; }
+  .ledger-row:hover .l-year { color:var(--gold-bright); }
+  .l-year {
+    font-family:'Poiret One', cursive;
+    font-size:1.6rem; color:var(--gold); min-width:5.2rem;
+    transition:color 0.4s;
+  }
+  .l-event { font-weight:300; font-size:1.08rem; line-height:1.7; color:rgba(243,230,201,0.78); text-align:right; }
+  .l-event i { color:var(--gold-bright); }
+
+  footer {
+    padding:6rem 8vw 7rem;
+    text-align:center;
+  }
+  footer .fan { width:180px; margin:0 auto 2.4rem; }
+  footer .invite {
+    font-family:'Poiret One', cursive;
+    font-size:clamp(1.6rem, 3.6vw, 2.8rem);
+    letter-spacing:0.3em; text-indent:0.3em;
+    color:var(--gold-bright);
+  }
+  footer .fine {
+    margin-top:2.4rem;
+    font-size:0.85rem; font-style:italic;
+    color:rgba(243,230,201,0.5);
+    letter-spacing:0.15em;
+    line-height:2.2;
+  }
+
+  .reveal { opacity:0; transform:translateY(46px); transition:opacity 1.2s cubic-bezier(0.22,1,0.36,1), transform 1.2s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<div class="deco-border"></div>
+
+<svg width="0" height="0" aria-hidden="true">
+  <defs>
+    <linearGradient id="goldgrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8c876" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#c9a24b" stop-opacity="0"/>
+    </linearGradient>
+    <g id="fanmotif">
+      <path d="M50 88 L50 30" stroke="#c9a24b" fill="none"/>
+      <path d="M50 88 L22 42" stroke="#c9a24b" fill="none"/>
+      <path d="M50 88 L78 42" stroke="#c9a24b" fill="none"/>
+      <path d="M50 88 L8 62" stroke="#c9a24b" fill="none"/>
+      <path d="M50 88 L92 62" stroke="#c9a24b" fill="none"/>
+      <circle cx="50" cy="88" r="4" fill="#e8c876"/>
+      <path d="M14 50 A44 44 0 0 1 86 50" stroke="#c9a24b" fill="none"/>
+    </g>
+  </defs>
+</svg>
+
+<header class="masthead">
+  <svg class="sunburst" viewBox="0 0 200 200" id="burst" aria-hidden="true"></svg>
+  <div class="masthead-inner">
+    <div class="est">Established MCMXXVII</div>
+    <h1>THE<br>MERIDIAN</h1>
+    <p class="tagline">"Every hour is golden, but the cocktail hour is gilded."</p>
+    <svg class="fan-divider" viewBox="0 0 100 100"><use href="#fanmotif"/></svg>
+  </div>
+</header>
+
+<section>
+  <div class="sec-label reveal">Accommodations</div>
+  <h2 class="reveal">Suites for the <em>incorrigibly</em> glamorous</h2>
+  <div class="suites">
+    <div class="suite reveal">
+      <svg class="motif" viewBox="0 0 100 100"><use href="#fanmotif"/></svg>
+      <h3>THE ZELDA</h3>
+      <p>A corner suite with a terrace built for arguments about poetry at 3 a.m. Chevron parquet, onyx bath, a piano nobody remembers ordering.</p>
+      <div class="price">from $890 nightly</div>
+    </div>
+    <div class="suite reveal">
+      <svg class="motif" viewBox="0 0 100 100"><use href="#fanmotif"/></svg>
+      <h3>THE AVIATRIX</h3>
+      <p>Top floor, facing the aerodrome that is no longer there. Brass instruments, a telescope, and the strongest morning light in the building.</p>
+      <div class="price">from $1,150 nightly</div>
+    </div>
+    <div class="suite reveal">
+      <svg class="motif" viewBox="0 0 100 100"><use href="#fanmotif"/></svg>
+      <h3>THE CONTINENTAL</h3>
+      <p>Two bedrooms, a private card room, and a discreet second exit. We do not ask questions; the suite has heard them all already.</p>
+      <div class="price">from $1,400 nightly</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-label reveal">The Register</div>
+  <h2 class="reveal">Ninety-eight years, <em>lightly</em> scandalous</h2>
+  <div class="ledger">
+    <div class="ledger-row reveal"><span class="l-year">1927</span><span class="l-event">Doors open. The mayor is refused entry for <i>inadequate sparkle</i>. Precedent set.</span></div>
+    <div class="ledger-row reveal"><span class="l-year">1931</span><span class="l-event">An orchestra plays for 62 hours straight. The clarinetist marries a guest mid-set; the band plays on.</span></div>
+    <div class="ledger-row reveal"><span class="l-year">1946</span><span class="l-event">The ballroom chandelier is lowered for cleaning and found to contain <i>three love letters and a passport.</i></span></div>
+    <div class="ledger-row reveal"><span class="l-year">1968</span><span class="l-event">A film crew arrives for two weeks and stays four months. The bar invents a cocktail named <i>The Overrun.</i></span></div>
+    <div class="ledger-row reveal"><span class="l-year">2025</span><span class="l-event">Restoration completed. The gold leaf is real; so, we maintain, are the ghosts — all of them <i>impeccably dressed.</i></span></div>
+  </div>
+</section>
+
+<footer>
+  <svg class="fan" viewBox="0 0 100 100"><use href="#fanmotif"/></svg>
+  <div class="invite">RESERVE YOUR ERA</div>
+  <p class="fine">
+    The Meridian Grand Hotel · 1 Meridian Circle<br>
+    Dress code: aspirational · № 09 — Fable Twenty-Five
+  </p>
+</footer>
+
+<script>
+// build sunburst rays
+const burst = document.getElementById('burst');
+const NS = 'http://www.w3.org/2000/svg';
+for (let i = 0; i < 72; i++){
+  const a = (i / 72) * Math.PI * 2;
+  const line = document.createElementNS(NS, 'line');
+  const r1 = 34, r2 = i % 2 ? 95 : 78;
+  line.setAttribute('x1', 100 + Math.cos(a) * r1);
+  line.setAttribute('y1', 100 + Math.sin(a) * r1);
+  line.setAttribute('x2', 100 + Math.cos(a) * r2);
+  line.setAttribute('y2', 100 + Math.sin(a) * r2);
+  line.setAttribute('stroke-width', '0.45');
+  burst.appendChild(line);
+}
+let rot = 0;
+(function spin(){
+  rot += 0.008;
+  burst.style.transform = `translate(-50%,-50%) rotate(${rot}deg)`;
+  requestAnimationFrame(spin);
+})();
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.15 });
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i % 3) * 0.12 + 's';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
+```

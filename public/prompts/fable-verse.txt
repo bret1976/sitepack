@@ -1,0 +1,274 @@
+# Exact recreation prompt — Verse
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-verse
+Brand: Verse
+Category: Creative
+Tagline (catalog): Kinetic typography · a poem you scroll (Fable × 25 #05)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/05-verse/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VERSE — a poem you scroll through</title>
+<meta name="description" content="Kinetic typography. The poem moves because you do.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=IBM+Plex+Mono:wght@300;400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --bg:#0e0d0b; --cream:#efe9dc; --amber:#e8a33d; --sage:#9db38a; }
+  html { scroll-behavior:auto; overflow-x:hidden; }
+  body {
+    background:var(--bg);
+    color:var(--cream);
+    font-family:'Fraunces', serif;
+    overflow-x:hidden;
+  }
+  .progress {
+    position:fixed; top:0; left:0; height:3px; width:100%;
+    background:rgba(239,233,220,0.08); z-index:50;
+  }
+  .progress .bar { height:100%; width:0; background:var(--amber); }
+
+  .meta {
+    position:fixed; z-index:40;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:rgba(239,233,220,0.4);
+  }
+  .meta.tl { top:1.6rem; left:1.8rem; }
+  .meta.tr { top:1.6rem; right:1.8rem; text-align:right; }
+
+  .stage {
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:14vh 6vw;
+    position:relative;
+  }
+
+  .w { display:inline-block; will-change:transform, opacity, filter; }
+
+  /* opening */
+  .s0 { flex-direction:column; text-align:center; }
+  .s0 .title {
+    font-size:clamp(3.2rem, 12.5vw, 13rem);
+    font-weight:100;
+    letter-spacing:0.22em;
+    text-indent:0.22em;
+    font-variation-settings:'opsz' 144;
+    white-space:nowrap;
+  }
+  .s0 .title .w { transition:font-weight 0.3s; }
+  .s0 .subtitle {
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem; letter-spacing:0.5em; text-transform:uppercase;
+    color:rgba(239,233,220,0.45);
+    margin-top:3rem;
+  }
+
+  .line {
+    font-size:clamp(2.2rem, 6.5vw, 5.6rem);
+    line-height:1.25;
+    font-weight:300;
+    max-width:20ch;
+    text-align:center;
+  }
+  .line em { font-style:italic; color:var(--amber); }
+  .line .heavy { font-weight:900; }
+  .line .thin { font-weight:100; }
+  .line .sage { color:var(--sage); }
+
+  .s-left .line { text-align:left; margin-right:auto; max-width:16ch; }
+  .s-right .line { text-align:right; margin-left:auto; max-width:16ch; }
+
+  .footnote {
+    position:absolute; bottom:8vh; left:50%; transform:translateX(-50%);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:rgba(239,233,220,0.3);
+    white-space:nowrap;
+  }
+
+  .fin { flex-direction:column; text-align:center; gap:3.2rem; }
+  .fin .line { font-style:italic; font-weight:250; }
+  .fin .sig {
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem; letter-spacing:0.35em; text-transform:uppercase;
+    color:rgba(239,233,220,0.45);
+    line-height:2.4;
+  }
+  .fin .rule { width:1px; height:70px; background:linear-gradient(transparent, var(--amber), transparent); }
+
+  .orb {
+    position:fixed; border-radius:50%; filter:blur(90px); z-index:-1;
+    pointer-events:none; opacity:0.35;
+  }
+  .orb.a { width:44vw; height:44vw; background:#3d2c12; top:-10vw; right:-10vw; }
+  .orb.b { width:36vw; height:36vw; background:#1d2a18; bottom:-8vw; left:-8vw; }
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="meta tl">Verse — № 05</div>
+<div class="meta tr">A poem in seven movements</div>
+<div class="orb a"></div>
+<div class="orb b"></div>
+
+<section class="stage s0">
+  <h1 class="title" data-split>VERSE</h1>
+  <p class="subtitle">scroll, and the words will follow</p>
+  <div class="footnote">↓ begin</div>
+</section>
+
+<section class="stage" data-fx="rise">
+  <p class="line" data-split>The morning arrives <em>letter by letter,</em></p>
+</section>
+
+<section class="stage s-left" data-fx="slide">
+  <p class="line" data-split>like mail from a country<br>you <span class="heavy">left</span> too young,</p>
+</section>
+
+<section class="stage s-right" data-fx="weight">
+  <p class="line" data-split>and every word weighs<br><span class="heavy">what it says.</span></p>
+</section>
+
+<section class="stage" data-fx="scatter">
+  <p class="line" data-split>Some sentences <em>scatter</em> when you look at them —</p>
+</section>
+
+<section class="stage" data-fx="gather">
+  <p class="line" data-split><span class="sage">others gather themselves quietly, and stay.</span></p>
+</section>
+
+<section class="stage" data-fx="wave">
+  <p class="line" data-split>Language is only <em>breath</em> that learned to hold a shape.</p>
+</section>
+
+<section class="stage fin">
+  <div class="rule"></div>
+  <p class="line" data-split>So read slowly. The shape is holding you back.</p>
+  <div class="sig">
+    written &amp; set in motion by fable<br>
+    fraunces · variable weight · № 05 — fable twenty-five
+  </div>
+</section>
+
+<script>
+// split each [data-split] into word/letter spans
+document.querySelectorAll('[data-split]').forEach(el => {
+  const walk = node => {
+    [...node.childNodes].forEach(child => {
+      if (child.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach(tok => {
+          if (/^\s+$/.test(tok)) { frag.appendChild(document.createTextNode(tok)); return; }
+          if (!tok) return;
+          const span = document.createElement('span');
+          span.className = 'w';
+          span.textContent = tok;
+          frag.appendChild(span);
+        });
+        node.replaceChild(frag, child);
+      } else if (child.nodeType === 1 && child.tagName !== 'BR') {
+        walk(child);
+      }
+    });
+  };
+  walk(el);
+});
+
+// title letters get individual spans
+const title = document.querySelector('.title');
+{
+  const word = title.querySelector('.w');
+  const letters = word.textContent.split('');
+  word.textContent = '';
+  letters.forEach(ch => {
+    const s = document.createElement('span');
+    s.className = 'w l';
+    s.textContent = ch;
+    word.appendChild(s);
+  });
+}
+
+const stages = [...document.querySelectorAll('.stage')];
+const bar = document.getElementById('bar');
+
+function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+
+// progress of a stage through the viewport: 0 = entering, 0.5 = centered, 1 = leaving
+function stageP(el){
+  const r = el.getBoundingClientRect();
+  return clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1);
+}
+
+function apply(){
+  bar.style.width = (scrollY / (document.body.scrollHeight - innerHeight) * 100) + '%';
+
+  // title: variable weight breathes with scroll
+  const tp = stageP(stages[0]);
+  title.querySelectorAll('.l').forEach((l, i) => {
+    const wgt = 100 + Math.sin((tp * 4 + i * 0.55) * Math.PI) * 400 + 400;
+    l.style.fontVariationSettings = `'opsz' 144, 'wght' ${clamp(wgt, 100, 900)}`;
+    l.style.transform = `translateY(${Math.sin(tp * 6 + i) * tp * -26}px)`;
+    l.style.opacity = 1 - clamp((tp - 0.62) * 3.2, 0, 1);
+  });
+
+  stages.slice(1).forEach(stage => {
+    const p = stageP(stage);
+    const fx = stage.dataset.fx;
+    const words = stage.querySelectorAll('.w');
+    const n = words.length;
+    words.forEach((w, i) => {
+      // per-word local progress with stagger
+      const lp = clamp((p - 0.12 - (i / n) * 0.14) * 3.2, 0, 1);
+      const out = clamp((p - 0.78) * 5, 0, 1); // exit fade
+      const ease = 1 - Math.pow(1 - lp, 3);
+      let tf = '', op = ease * (1 - out), fil = '';
+
+      if (fx === 'rise') {
+        tf = `translateY(${(1-ease)*90}px) rotate(${(1-ease)*(i%2?4:-4)}deg)`;
+        fil = `blur(${(1-ease)*10}px)`;
+      } else if (fx === 'slide') {
+        tf = `translateX(${(1-ease)*-140}px)`;
+        fil = `blur(${(1-ease)*6}px)`;
+      } else if (fx === 'weight') {
+        const wg = 100 + ease * 800;
+        w.style.fontVariationSettings = `'wght' ${w.classList.contains('heavy') ? clamp(wg,100,900) : 300}`;
+        tf = `translateY(${(1-ease)*40}px)`;
+      } else if (fx === 'scatter') {
+        const cx = (p - 0.5) * 2; // -1..1 through center
+        const mag = clamp(Math.abs(cx) * 2 - 0.35, 0, 1) * 160;
+        const ang = (i * 137.5) % 360 * Math.PI / 180;
+        tf = `translate(${Math.cos(ang)*mag}px, ${Math.sin(ang)*mag}px) rotate(${mag * (i%2?0.35:-0.35)}deg)`;
+        op = ease * (1 - clamp(Math.abs(cx)*1.6 - 0.6, 0, 1));
+        fil = `blur(${mag*0.05}px)`;
+      } else if (fx === 'gather') {
+        const ang = (i * 222.5) % 360 * Math.PI / 180;
+        const d = (1-ease) * 200;
+        tf = `translate(${Math.cos(ang)*d}px, ${Math.sin(ang)*d}px) scale(${0.6 + ease*0.4})`;
+        fil = `blur(${(1-ease)*8}px)`;
+      } else if (fx === 'wave') {
+        const t = p * Math.PI * 2;
+        tf = `translateY(${(1-ease)*70 + Math.sin(t*2 + i*0.8) * 14 * ease}px)`;
+        fil = `blur(${(1-ease)*8}px)`;
+      }
+      w.style.transform = tf;
+      w.style.opacity = op;
+      if (fil) w.style.filter = fil;
+    });
+  });
+  requestAnimationFrame(apply);
+}
+requestAnimationFrame(apply);
+</script>
+</body>
+</html>
+```

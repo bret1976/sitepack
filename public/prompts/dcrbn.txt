@@ -1,0 +1,2922 @@
+# Exact recreation prompt — DCRBN
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: dcrbn
+Brand: DCRBN
+Category: Film
+Tagline (catalog): DCRBN alias project (dcrbn.vercel.app)
+Live reference (structure only, do not hotlink private assets): https://dcrbn.vercel.app
+Stack: npm / Node
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Speed to Scale
+
+## FILE: components/ApplyForm.tsx
+```
+"use client";
+
+import { useState } from "react";
+import { trackAdsConversion } from "@/lib/ads";
+import { GROWTH_LAYERS } from "@/lib/copy";
+
+const FRONTIERS = ["AI", "Blockchain", "Quantum", "Adjacent frontier"] as const;
+const STRUCTURES = ["Advisory", "Retainer", "Equity", "Hybrid"] as const;
+
+export function ApplyForm() {
+  const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
+  const [message, setMessage] = useState("");
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("submitting");
+    setMessage("");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+    payload.support = data.getAll("support").join(", ");
+    payload.structure = data.getAll("structure").join(", ");
+    try {
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Unable to submit");
+      trackAdsConversion();
+      setStatus("done");
+      form.reset();
+    } catch (err) {
+      setStatus("error");
+      setMessage(err instanceof Error ? err.message : "Unable to submit");
+    }
+  }
+
+  if (status === "done") {
+    return (
+      <p className="home-band__intro">
+        Application received. We review selectively and will be in touch.
+      </p>
+    );
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="d-form" id="apply-form">
+      <div className="row">
+        <label>
+          Founder name
+          <input name="founderName" required />
+        </label>
+        <label>
+          Company name
+          <input name="companyName" required />
+        </label>
+        <label>
+          Website
+          <input name="website" type="url" />
+        </label>
+        <label>
+          Work email
+          <input name="email" type="email" required />
+        </label>
+      </div>
+      <label>
+        What problem are you solving?
+        <textarea name="problem" required rows={4} />
+      </label>
+      <label>
+        Why does this problem matter?
+        <textarea name="whyItMatters" required rows={4} />
+      </label>
+      <label>
+        Are you building in AI, blockchain, quantum, or an adjacent frontier?
+        <select name="frontier" required defaultValue="">
+          <option value="" disabled>
+            Select one
+          </option>
+          {FRONTIERS.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
+        What traction do you have?
+        <textarea name="traction" required rows={4} />
+      </label>
+      <fieldset>
+        <legend>Where do you need the most support?</legend>
+        <div className="checks">
+          {GROWTH_LAYERS.map((item) => (
+            <label key={item}>
+              <input type="checkbox" name="support" value={item} />
+              {item}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <label>
+        Why DCRBN?
+        <textarea name="whyDcrbn" required rows={3} />
+      </label>
+      <fieldset>
+        <legend>Open to advisory, retainer, equity, or hybrid?</legend>
+        <div className="checks">
+          {STRUCTURES.map((item) => (
+            <label key={item}>
+              <input type="checkbox" name="structure" value={item} />
+              {item}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <button type="submit" disabled={status === "submitting"}>
+        {status === "submitting" ? "Submitting…" : "Submit Application"}
+      </button>
+      {status === "error" ? <p>{message}</p> : null}
+    </form>
+  );
+}
+```
+
+## FILE: components/Cinematic.tsx
+```
+"use client";
+
+import Link from "next/link";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Cta } from "@/components/Cta";
+
+function clamp(value: number, min = 0, max = 1) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function smooth(value: number) {
+  const t = clamp(value);
+  return t * t * (3 - 2 * t);
+}
+
+function ScrollFlight({
+  folder,
+  total,
+  heightClass,
+  children,
+  onProgress,
+}: {
+  folder: string;
+  total: number;
+  heightClass: string;
+  children: React.ReactNode;
+  onProgress: (progress: number, root: HTMLElement) => void;
+}) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const cache = useRef(new Map<number, HTMLImageElement>());
+  const lastFrame = useRef(-1);
+  const progressRef = useRef(0);
+  const totalRef = useRef(total);
+  const onProgressRef = useRef(onProgress);
+  onProgressRef.current = onProgress;
+  totalRef.current = total;
+  const [ready, setReady] = useState(false);
+
+  const srcFor = useCallback(
+    (frame: number) => `/scroll/frames/${folder}/frame_${String(frame).padStart(4, "0")}.webp`,
+    [folder],
+  );
+
+  const load = useCallback(
+    (frame: number) => {
+      const n = Math.max(1, Math.min(totalRef.current, frame));
+      const cached = cache.current.get(n);
+      if (cached) return cached;
+      const img = new Image();
+      img.decoding = "async";
+      img.src = srcFor(n);
+      cache.current.set(n, img);
+      return img;
+    },
+    [srcFor],
+  );
+
+  const paint = useCallback(
+    (frame: number) => {
+      if (frame === lastFrame.current) return;
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d", { alpha: false });
+      if (!ctx) return;
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const cssW = Math.max(1, window.innerWidth);
+      const cssH = Math.max(1, window.innerHeight);
+      const w = Math.floor(cssW * dpr);
+      const h = Math.floor(cssH * dpr);
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+        canvas.style.width = `${cssW}px`;
+        canvas.style.height = `${cssH}px`;
+      }
+      const img = load(frame);
+      const draw = () => {
+        if (!img.complete || !img.naturalWidth) return;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, w, h);
+        const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight);
+        const dw = img.naturalWidth * scale;
+        const dh = img.naturalHeight * scale;
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+        lastFrame.current = frame;
+        const section = canvas.closest("section");
+        if (section) section.dataset.frame = String(frame);
+        for (let i = 1; i <= 24; i += 1) {
+          load(Math.min(totalRef.current, frame + i));
+          load(Math.max(1, frame - i));
+        }
+      };
+      if (img.complete && img.naturalWidth) draw();
+      else img.onload = draw;
+    },
+    [load],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/scroll/frames/manifest.json")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (cancelled || !json) return;
+        const count = Number(json[folder]);
+        if (count > 0) totalRef.current = count;
+      })
+      .catch(() => {});
+    Promise.all(
+      Array.from({ length: Math.min(36, total) }, (_, i) => {
+        const img = load(i + 1);
+        return new Promise<void>((resolve) => {
+          const done = () => resolve();
+          if (img.complete && img.naturalWidth) done();
+          else {
+            img.onload = done;
+            img.onerror = done;
+          }
+        });
+      }),
+    ).then(() => {
+      if (!cancelled) {
+        paint(1);
+        setReady(true);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [folder, load, paint, total]);
+
+  useEffect(() => {
+    if (!ready) return;
+    let raf = 0;
+    let live = true;
+    const tick = () => {
+      if (!live) return;
+      const section = sectionRef.current;
+      let progress = 0;
+      if (section) {
+        const box = section.getBoundingClientRect();
+        const run = Math.max(1, box.height - window.innerHeight);
+        progress = Math.max(0, Math.min(0.9999, -box.top / run));
+      }
+      progressRef.current = progress;
+      const frames = totalRef.current;
+      paint(Math.max(1, Math.min(frames, Math.floor(progress * (frames - 1)) + 1)));
+      if (section) onProgressRef.current(progress, section);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      live = false;
+      cancelAnimationFrame(raf);
+    };
+  }, [paint, ready]);
+
+  return (
+    <section ref={sectionRef} className={`relative bg-black ${heightClass}`}>
+      <div className="sticky top-0 h-svh overflow-hidden bg-black">
+        <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-[1] h-full w-full" aria-hidden />
+        <div className="relative z-10 h-full">{children}</div>
+      </div>
+    </section>
+  );
+}
+
+export function CinematicHero() {
+  const onProgress = useCallback((progress: number, root: HTMLElement) => {
+    const copy = root.querySelector<HTMLElement>("[data-copy]");
+    const cue = root.querySelector<HTMLElement>("[data-cue]");
+    const beam = root.querySelector<HTMLElement>("[data-beam]");
+    const side = root.querySelector<HTMLElement>("[data-side]");
+    if (copy) {
+      copy.style.opacity = String(smooth(1 - progress / 0.48));
+      copy.style.transform = `translate3d(0, ${(-(56 * progress)).toFixed(1)}px, 0)`;
+    }
+    if (cue) cue.style.opacity = String(smooth(1 - progress / 0.22));
+    if (beam) beam.style.opacity = String(clamp(0.18 + 0.7 * progress));
+    if (side) side.style.opacity = String(smooth(1 - progress / 0.65));
+  }, []);
+
+  return (
+    <ScrollFlight folder="hero-flight" total={241} heightClass="h-[420vh] md:h-[800vh]" onProgress={onProgress}>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/50" />
+      <div
+        data-beam
+        aria-hidden
+        className="pointer-events-none absolute top-0 left-1/2 h-full w-28 -translate-x-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,220,160,0.55)_45%,rgba(255,255,255,0.04))] blur-3xl"
+        style={{ opacity: 0.25 }}
+      />
+      <div className="pointer-events-none relative z-10 flex h-full flex-col">
+        <div
+          data-copy
+          className="mx-auto flex w-full max-w-[1400px] flex-1 flex-col items-center px-5 pt-[calc(5.5rem+env(safe-area-inset-top))] text-center md:px-12 md:pt-28"
+        >
+          <h1 className="mt-2 max-w-[18ch] text-[14vw] leading-[0.86] font-extralight tracking-[-0.045em] text-white sm:text-[12vw] lg:text-[7.6rem]">
+            Speed to Scale
+          </h1>
+          <p className="mt-6 max-w-[28rem] text-sm leading-relaxed font-light text-white/72 sm:text-base">
+            A force multiplier for infrastructure founders already in motion.
+          </p>
+          <div className="pointer-events-auto mt-8">
+            <Cta href="/apply" variant="secondary" className="border-white/25 text-white hover:border-white/60">
+              Apply to Work With Us →
+            </Cta>
+          </div>
+        </div>
+        <p
+          data-cue
+          className="absolute inset-x-0 bottom-[max(1.5rem,env(safe-area-inset-bottom))] text-center text-[10px] tracking-[0.42em] text-white/45 uppercase"
+        >
+          Scroll
+        </p>
+        <ul
+          data-side
+          className="absolute top-1/2 right-6 hidden -translate-y-1/2 flex-col items-end gap-8 lg:flex xl:right-12"
+          aria-label="Focus verticals"
+        >
+          {["AI", "Blockchain", "Quantum"].map((item) => (
+            <li key={item} className="text-[11px] tracking-[0.28em] text-white/55 uppercase">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </ScrollFlight>
+  );
+}
+
+export function CinematicEarth() {
+  const onProgress = useCallback((progress: number, root: HTMLElement) => {
+    const copy = root.querySelector<HTMLElement>("[data-copy]");
+    if (copy) {
+      copy.style.opacity = String(0.72 + 0.28 * smooth(progress));
+      copy.style.transform = `translate3d(0, ${(20 - 20 * progress).toFixed(1)}px, 0)`;
+    }
+  }, []);
+
+  return (
+    <ScrollFlight folder="earth-flight" total={241} heightClass="h-[420vh] md:h-[800vh]" onProgress={onProgress}>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black via-black/75 to-transparent" />
+      <div
+        data-copy
+        className="pointer-events-none relative z-10 mx-auto flex h-full max-w-[1400px] items-end px-5 py-16 md:px-12 md:py-20"
+      >
+        <div className="grid w-full items-end gap-10 lg:grid-cols-[minmax(0,1fr)_200px]">
+          <div className="max-w-[36rem]">
+            <p className="text-[11px] tracking-[0.28em] text-white/55 uppercase">Why We Exist</p>
+            <span className="mt-5 block h-px w-14 bg-white/45" />
+            <h2 className="mt-5 text-[2rem] leading-[0.98] font-extralight tracking-[-0.035em] text-white sm:mt-8 sm:text-6xl lg:text-[4.4rem]">
+              Backing the infrastructure layer of an abundant future.
+            </h2>
+            <p className="mt-6 max-w-md text-sm leading-relaxed font-light text-white/68">
+              DCRBN exists to be a force multiplier for founders building solutions that can help
+              shape a future of abundance.
+            </p>
+            <Link
+              href="/growth-cycle"
+              className="pointer-events-auto mt-8 inline-flex text-[11px] tracking-[0.2em] text-white/80 uppercase no-underline hover:text-white"
+            >
+              See how it works →
+            </Link>
+          </div>
+          <ul className="hidden flex-col items-end gap-5 pb-2 lg:flex" aria-label="Verticals">
+            {["AI", "Blockchain", "Quantum", "And beyond"].map((item) => (
+              <li key={item} className="text-right text-xl font-extralight tracking-[0.12em] text-white/55">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </ScrollFlight>
+  );
+}
+
+export function CinematicClose() {
+  const onProgress = useCallback((progress: number, root: HTMLElement) => {
+    const copy = root.querySelector<HTMLElement>("[data-copy]");
+    if (copy) {
+      const t = smooth(clamp((progress - 0.28) / 0.45));
+      copy.style.opacity = String(t);
+      copy.style.transform = `translate3d(0, ${(28 - 28 * t).toFixed(1)}px, 0)`;
+    }
+  }, []);
+
+  return (
+    <ScrollFlight folder="close-flight" total={241} heightClass="h-[420vh] md:h-[800vh]" onProgress={onProgress}>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/55" />
+      <div
+        data-copy
+        className="pointer-events-none relative z-10 mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-5 text-center"
+        style={{ opacity: 0 }}
+      >
+        <h2 className="max-w-[16ch] text-[2.15rem] leading-[0.94] font-extralight tracking-[-0.04em] text-white sm:text-6xl md:text-7xl">
+          Building Infrastructure That Inspires Us?
+        </h2>
+        <div className="pointer-events-auto mt-10">
+          <Cta href="/apply" variant="secondary" className="border-white/25 text-white hover:border-white/60">
+            Apply for Speed to Scale →
+          </Cta>
+        </div>
+      </div>
+    </ScrollFlight>
+  );
+}
+```
+
+## FILE: components/ContentPage.tsx
+```
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { Cta } from "@/components/Cta";
+
+export default function ContentPage({
+  kicker,
+  title,
+  em,
+  intro,
+  children,
+  ctaTitle = "Apply for Speed to Scale",
+  ctaHref = "/apply",
+}: {
+  active?: string;
+  kicker: string;
+  title: string;
+  em?: string;
+  intro: string | string[];
+  children?: React.ReactNode;
+  ctaTitle?: string;
+  ctaHref?: string;
+}) {
+  const paragraphs = Array.isArray(intro) ? intro : [intro];
+  return (
+    <main className="bg-black text-[#f4f4f4]">
+      <SiteHeader />
+      <section className="mx-auto max-w-[1400px] px-5 pb-16 pt-[calc(6.5rem+env(safe-area-inset-top))] md:px-12 md:pb-24 md:pt-40">
+        <p className="text-[11px] tracking-[0.28em] text-white/55 uppercase">{kicker}</p>
+        <h1 className="mt-6 max-w-[16ch] text-[clamp(2.6rem,8vw,6.2rem)] leading-[0.9] font-extralight tracking-[-0.04em] text-white">
+          {title}
+          {em ? (
+            <>
+              <br />
+              <em className="font-extralight not-italic text-white/70">{em}</em>
+            </>
+          ) : null}
+        </h1>
+        {paragraphs.map((p) => (
+          <p key={p.slice(0, 24)} className="mt-6 max-w-[46rem] text-[16px] leading-relaxed font-light text-white/62">
+            {p}
+          </p>
+        ))}
+      </section>
+      {children}
+      <section className="border-t border-white/10 px-5 py-20 md:px-12 md:py-28">
+        <div className="mx-auto max-w-[1400px]">
+          <p className="text-[11px] tracking-[0.28em] text-white/45 uppercase">Next / Move</p>
+          <h2 className="mt-6 max-w-[16ch] text-[clamp(2rem,5vw,4.4rem)] leading-[1.02] font-extralight tracking-[-0.035em]">
+            {ctaTitle}
+          </h2>
+          {ctaHref.startsWith("http") ? (
+            <a href={ctaHref} className="mt-8 inline-flex min-h-11 items-center justify-center border border-white/25 px-6 py-3 text-[14px] font-light text-white no-underline hover:border-white/60" rel="noopener noreferrer">
+              Start the conversation →
+            </a>
+          ) : (
+            <Cta href={ctaHref} className="mt-8">
+              Start the conversation →
+            </Cta>
+          )}
+        </div>
+      </section>
+      <SiteFooter />
+    </main>
+  );
+}
+
+export function DetailSections({
+  items,
+}: {
+  items: { n?: string; title: React.ReactNode; body: React.ReactNode }[];
+}) {
+  return (
+    <section className="border-t border-white/10 px-5 py-12 md:px-12 md:py-20">
+      <div className="mx-auto max-w-[1400px] divide-y divide-white/12">
+        {items.map((item, index) => (
+          <article key={index} className="grid gap-4 py-8 md:grid-cols-[4.5rem_1fr_1.2fr] md:gap-12">
+            <span className="font-mono text-[11px] tracking-[0.28em] text-white/35">
+              {item.n || String(index + 1).padStart(2, "0")}
+            </span>
+            <h2 className="text-[clamp(1.4rem,2.4vw,2rem)] font-extralight tracking-[-0.03em] text-white">{item.title}</h2>
+            <div className="text-[15px] leading-relaxed font-light text-white/62">{item.body}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function PillRow({ label, items }: { label: string; items: readonly string[] }) {
+  return (
+    <section className="border-t border-white/10 px-5 py-12 md:px-12">
+      <div className="mx-auto max-w-[1400px]">
+        <p className="text-[11px] tracking-[0.28em] text-white/45 uppercase">{label}</p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          {items.map((item) => (
+            <span key={item} className="border border-white/15 px-4 py-2 text-[13px] font-light text-white/70">
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: components/Cta.tsx
+```
+import Link from "next/link";
+
+const VARIANTS = {
+  primary:
+    "inline-flex min-h-11 items-center justify-center border border-white/25 px-6 py-3 text-[14px] font-light text-white no-underline transition duration-200 hover:border-white/60",
+  secondary:
+    "inline-flex min-h-11 items-center justify-center border border-white/25 px-6 py-3 text-[14px] font-light text-white no-underline transition duration-200 hover:border-white/60",
+  ghost:
+    "inline-flex min-h-11 items-center text-[11px] tracking-[0.18em] text-white/70 uppercase no-underline transition duration-200 hover:text-white sm:tracking-[0.2em]",
+} as const;
+
+export function Cta({
+  href,
+  children,
+  variant = "primary",
+  className = "",
+}: {
+  href: string;
+  children: React.ReactNode;
+  variant?: keyof typeof VARIANTS;
+  className?: string;
+}) {
+  const cls = `${VARIANTS[variant]} ${className}`;
+  if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+    return (
+      <a href={href} className={cls} rel="noreferrer">
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={cls}>
+      {children}
+    </Link>
+  );
+}
+```
+
+## FILE: components/HomeHero.tsx
+```
+"use client";
+
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { SiteHeader } from "@/components/SiteChrome";
+
+const INTRO_KEY = "dcrbn-home-intro-v2";
+const TARGET_SECONDS = 4;
+const PHONE_QUERY = "(max-width: 600px)";
+
+const BOOTSTRAP = `
+  (function () {
+    try {
+      var seen = sessionStorage.getItem("${INTRO_KEY}") === "seen";
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.documentElement.dataset.ianIntroSeen = seen || reduced ? "true" : "false";
+    } catch (_) {
+      document.documentElement.dataset.ianIntroSeen = "false";
+    }
+  })();
+`;
+
+export default function HomeHero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [needsTap, setNeedsTap] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
+
+  const markSeen = () => {
+    try {
+      sessionStorage.setItem(INTRO_KEY, "seen");
+    } catch {}
+    document.documentElement.dataset.ianIntroSeen = "true";
+    setNeedsTap(false);
+    setIntroDone(true);
+  };
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let already = false;
+    try {
+      already = sessionStorage.getItem(INTRO_KEY) === "seen";
+    } catch {}
+    if (already || reduced) {
+      videoRef.current?.pause();
+      markSeen();
+      return;
+    }
+
+    document.documentElement.dataset.ianIntroSeen = "false";
+    const video = videoRef.current;
+    if (!video) return;
+
+    const phone = window.matchMedia(PHONE_QUERY).matches;
+    const src = phone
+      ? "/scroll-world/vid/intro-portrait.mp4"
+      : "/scroll-world/vid/intro-1080.mp4";
+    const poster = phone
+      ? "/scroll-world/stills/poster-01-portrait.jpg"
+      : "/scroll-world/stills/poster-01.jpg";
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute("playsinline", "true");
+    video.setAttribute("webkit-playsinline", "true");
+    video.setAttribute("muted", "");
+    video.poster = poster;
+    if (video.getAttribute("src") !== src) {
+      video.setAttribute("src", src);
+      video.load();
+    }
+
+    const setRate = () => {
+      const duration = video.duration;
+      if (Number.isFinite(duration) && duration > 0) {
+        video.playbackRate = duration / TARGET_SECONDS;
+      }
+    };
+    if (video.readyState >= 1) setRate();
+    else video.addEventListener("loadedmetadata", setRate);
+
+    const tryPlay = () => {
+      const play = video.play();
+      if (play) {
+        play.then(() => setNeedsTap(false)).catch(() => setNeedsTap(true));
+      }
+    };
+    tryPlay();
+
+    const onGesture = () => tryPlay();
+    window.addEventListener("pointerdown", onGesture, { passive: true });
+    window.addEventListener("touchstart", onGesture, { passive: true });
+
+    return () => {
+      video.removeEventListener("loadedmetadata", setRate);
+      window.removeEventListener("pointerdown", onGesture);
+      window.removeEventListener("touchstart", onGesture);
+      video.pause();
+    };
+  }, []);
+
+  return (
+    <>
+      <script dangerouslySetInnerHTML={{ __html: BOOTSTRAP }} />
+      <div className="ian-home__intro" aria-hidden="true">
+        <video
+          ref={videoRef}
+          className="ian-home__intro-video"
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          poster="/scroll-world/stills/poster-01.jpg"
+          onEnded={markSeen}
+          onError={markSeen}
+        />
+        {needsTap ? (
+          <button
+            type="button"
+            className="ian-home__intro-play"
+            onClick={() => {
+              const video = videoRef.current;
+              if (!video) return;
+              video.play().then(() => setNeedsTap(false)).catch(() => setNeedsTap(true));
+            }}
+          >
+            <span>Tap to play</span>
+          </button>
+        ) : null}
+        <button type="button" className="ian-home__intro-skip" onClick={markSeen}>
+          Skip
+        </button>
+      </div>
+
+      <section className="ian-home__hero">
+        <SiteHeader />
+        <div className="ian-home__final-media" aria-hidden="true">
+          <picture>
+            <source
+              media="(max-width: 600px)"
+              srcSet="/scroll-world/stills/final-home-portrait.jpg"
+            />
+            <img src="/scroll-world/stills/final-home.jpg" alt="" />
+          </picture>
+        </div>
+        <div className="ian-home__site">
+          <section className="ian-home__content">
+            <span className="ian-home__eyebrow">Speed to Scale</span>
+            <h1>For AI, blockchain, and quantum founders.</h1>
+            <p>A force multiplier for infrastructure founders already in motion.</p>
+            <div className="ian-home__actions">
+              <Link
+                href="/apply"
+                className="ian-home__button ian-home__button--primary"
+              >
+                Apply
+              </Link>
+              <a
+                href="#mission"
+                className="ian-home__button ian-home__button--secondary"
+              >
+                See how it works
+              </a>
+            </div>
+          </section>
+        </div>
+        {introDone ? (
+          <a href="#mission" className="ian-home__scroll-cue">
+            Scroll
+          </a>
+        ) : null}
+      </section>
+    </>
+  );
+}
+```
+
+## FILE: components/HomeRest.tsx
+```
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { Cta } from "@/components/Cta";
+import { FOCUS_AREAS, GROWTH_LAYERS } from "@/lib/copy";
+
+const FOCUS = [
+  { ...FOCUS_AREAS[0], src: "/images/focus-ai.png", href: "/focus-areas#ai" },
+  { ...FOCUS_AREAS[1], src: "/images/focus-blockchain.png", href: "/focus-areas#blockchain" },
+  { ...FOCUS_AREAS[2], src: "/images/focus-quantum.png", href: "/focus-areas#quantum" },
+  { ...FOCUS_AREAS[3], src: "/images/focus-adjacent.png", href: "/focus-areas#adjacent" },
+] as const;
+
+const PHASES = ["Diagnose", "Design", "Assemble", "Evolve"] as const;
+const NETWORK = ["DCRBN", "Sixframe", "Lotus Trader", "Viral Growth OS", "Speed to Scale"] as const;
+
+export default function HomeRest() {
+  const [active, setActive] = useState(0);
+
+  return (
+    <div className="relative z-[1] bg-black text-[#f4f4f4]">
+      <section className="border-y border-white/10 py-10 md:py-20">
+        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-center gap-x-8 gap-y-5 px-5 md:gap-x-12 md:px-12">
+          {GROWTH_LAYERS.map((item, index) => (
+            <span key={item} className="flex items-center gap-8 md:gap-12">
+              <span className="text-[11px] font-medium tracking-[0.28em] text-white/55 uppercase">{item}</span>
+              {index < GROWTH_LAYERS.length - 1 ? <span className="hidden h-px w-8 bg-white/20 sm:block" /> : null}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-5 py-16 md:px-12 md:py-32">
+        <div className="mx-auto grid max-w-[1400px] items-end gap-10 lg:grid-cols-[auto_1fr] lg:gap-16">
+          <dl className="flex gap-8 sm:gap-12">
+            <div>
+              <dt className="text-[10px] tracking-[0.22em] text-white/40 uppercase sm:text-[11px]">Stage Growth Cycle</dt>
+              <dd className="mt-2 text-[4.2rem] leading-none font-extralight tracking-[-0.05em] sm:mt-3 sm:text-[5.5rem]">6</dd>
+            </div>
+            <div>
+              <dt className="text-[10px] tracking-[0.22em] text-white/40 uppercase sm:text-[11px]">Core Verticals</dt>
+              <dd className="mt-2 text-[4.2rem] leading-none font-extralight tracking-[-0.05em] sm:mt-3 sm:text-[5.5rem]">3</dd>
+            </div>
+          </dl>
+          <div className="max-w-[42rem] border-l border-white/15 pl-6 md:pl-12">
+            <h2 className="text-[clamp(2rem,4.2vw,3.4rem)] leading-[1.05] font-extralight tracking-[-0.035em]">
+              Great founders still hit growth constraints.
+            </h2>
+            <p className="mt-6 text-[16px] leading-relaxed font-light text-white/62">
+              Even strong founders stall when they lack the right visibility, strategy, infrastructure,
+              partnerships, customers, paid pilots, capital readiness, or operator support.
+            </p>
+            <Link
+              href="/growth-cycle"
+              className="mt-8 inline-flex text-[11px] tracking-[0.2em] text-white/80 uppercase no-underline hover:text-white"
+            >
+              See how the Growth Cycle works →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 px-5 py-14 md:px-12 md:py-28">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-[11px] tracking-[0.28em] text-white/45 uppercase">Focus Areas</p>
+            <Cta href="/focus-areas" variant="ghost" className="shrink-0 text-white/70 hover:text-white">
+              All verticals →
+            </Cta>
+          </div>
+          <h2 className="mt-4 max-w-[16ch] text-[clamp(1.85rem,8vw,3.4rem)] leading-[1.05] font-extralight tracking-[-0.035em] text-white">
+            The infrastructure we partner on.
+          </h2>
+          <div className="relative mt-8 flex flex-col-reverse gap-6 md:mt-12 md:gap-8 lg:block">
+            <ol className="border-b border-white/12 lg:w-[52%]">
+              {FOCUS.map((item, index) => {
+                const on = index === active;
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onMouseEnter={() => setActive(index)}
+                      onFocus={() => setActive(index)}
+                      className={`group grid min-h-14 grid-cols-[2.5rem_1fr] gap-3 border-t border-white/12 py-4 no-underline transition duration-300 md:grid-cols-[4.5rem_1fr] md:gap-8 md:py-5 ${on ? "bg-white/[0.045]" : ""}`}
+                    >
+                      <span className={`font-mono text-[11px] tracking-[0.28em] transition duration-300 ${on ? "text-white" : "text-white/35"}`}>
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span>
+                        <span className={`block text-[clamp(1.2rem,2.2vw,1.85rem)] font-extralight tracking-[-0.03em] transition duration-300 ${on ? "text-white" : "text-white/55"}`}>
+                          {item.title}
+                        </span>
+                        <span className={`mt-1.5 block max-w-[36rem] text-[13px] leading-snug font-light transition duration-300 md:text-[14px] ${on ? "text-white/62" : "text-white/38"}`}>
+                          {item.body}
+                        </span>
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ol>
+            <div className="sticky top-[calc(64px+env(safe-area-inset-top))] z-[1] aspect-[16/10] overflow-hidden border border-white/10 bg-black lg:absolute lg:inset-y-0 lg:right-0 lg:top-auto lg:z-auto lg:aspect-auto lg:w-[44%]">
+              {FOCUS.map((item, index) => (
+                <div
+                  key={item.src}
+                  className="absolute inset-0 transition-opacity duration-700 ease-out"
+                  style={{ opacity: index === active ? 1 : 0 }}
+                  aria-hidden={index !== active}
+                >
+                  <Image src={item.src} alt="" fill className={`object-cover transition duration-[1.2s] ease-out ${index === active ? "scale-105 opacity-90" : "scale-100 opacity-70"}`} sizes="(max-width: 1024px) 100vw, 45vw" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                  <div className="inner-grain absolute inset-0" />
+                </div>
+              ))}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-between px-5 py-5">
+                <p className="max-w-[18ch] text-[13px] font-extralight tracking-[-0.02em] text-white/85">{FOCUS[active].title}</p>
+                <p className="font-mono text-[11px] tracking-[0.28em] text-white/45">
+                  {String(active + 1).padStart(2, "0")} / 04
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-black">
+        <div className="absolute inset-0">
+          <Image src="/images/concrete-corridor.png" alt="" fill className="object-cover object-center opacity-50" sizes="100vw" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/78 to-black/30" />
+        </div>
+        <div className="relative mx-auto grid min-h-[70svh] max-w-[1400px] items-end gap-10 px-5 py-16 md:px-12 md:py-24 lg:grid-cols-[1.15fr_.85fr] lg:gap-12">
+          <div>
+            <p className="text-[11px] tracking-[0.28em] text-white/55 uppercase">Built to be a force multiplier.</p>
+            <h2 className="mt-5 max-w-[16ch] text-[clamp(2.1rem,4.8vw,4rem)] leading-[1.02] font-extralight tracking-[-0.035em]">
+              Proof across companies, portfolio, and execution.
+            </h2>
+            <p className="mt-6 max-w-[46ch] text-[15px] leading-relaxed font-light text-white/68">
+              DCRBN was founded by Majid Zafer and Cory Warfield around a simple operating idea: the
+              golden rule, applied to company building. Treat people the way you want to be treated —
+              and become a force multiplier for founders already building infrastructure that matters.
+            </p>
+            <Cta href="/proof" className="mt-8 border-white/20 text-white hover:border-white/50">
+              See the proof structure →
+            </Cta>
+          </div>
+          <ol className="flex flex-col gap-1 pb-2">
+            {PHASES.map((item, index) => (
+              <li
+                key={item}
+                className="flex items-baseline justify-between border-b border-white/12 py-4 text-[1.4rem] font-extralight tracking-[0.16em] text-white/70 uppercase"
+              >
+                <span>{item}</span>
+                <span className="font-mono text-[11px] tracking-[0.2em] text-white/35">{String(index + 1).padStart(2, "0")}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 px-5 py-14 md:px-12 md:py-24">
+        <div className="mx-auto max-w-[1400px]">
+          <p className="text-[11px] tracking-[0.28em] text-white/45 uppercase">Our Network</p>
+          <ul className="mt-10 flex flex-wrap gap-x-12 gap-y-5">
+            {NETWORK.map((item) => (
+              <li key={item} className="text-[1.5rem] font-extralight tracking-[-0.02em] text-white/75 md:text-[2rem]">
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-14">
+            <Cta href="/strategic-alignment" variant="ghost" className="text-white/70 hover:text-white">
+              Explore Strategic Alignment →
+            </Cta>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+```
+
+## FILE: components/JsonLd.tsx
+```
+import { organizationGraph } from "@/lib/seo";
+
+export function JsonLd() {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationGraph()) }}
+    />
+  );
+}
+```
+
+## FILE: components/SiteChrome.tsx
+```
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { FOOTER, SITE } from "@/lib/site";
+
+const NAV = [
+  { href: "/", label: "Home" },
+  { href: "/speed-to-scale", label: "Speed to Scale" },
+  { href: "/growth-cycle", label: "Growth Cycle" },
+  { href: "/focus-areas", label: "Focus Areas" },
+  { href: "/proof", label: "Proof" },
+  { href: "/network", label: "Our Network" },
+] as const;
+
+function Mark() {
+  return (
+    <span
+      aria-hidden
+      className="inline-block h-4 w-4 rotate-45 rounded-[3px] bg-gradient-to-br from-blue-mid to-blue-lt shadow-[0_0_14px_rgba(47,134,255,.6)]"
+    />
+  );
+}
+
+export function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  return (
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent pt-[env(safe-area-inset-top)] transition duration-300">
+      <div className="mx-auto flex h-[64px] max-w-[1400px] items-center justify-between gap-5 px-5 md:h-[72px] md:px-12">
+        <Link href="/" className="inline-flex items-center gap-[11px] no-underline" aria-label="DCRBN home">
+          <Mark />
+          <span className="text-[15px] font-light tracking-[0.18em] text-white">DCRBN</span>
+        </Link>
+        <nav className="hidden items-center gap-[clamp(16px,1.8vw,28px)] lg:flex" aria-label="Primary">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-[11px] tracking-[0.2em] text-white/60 uppercase no-underline transition hover:text-white"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/apply"
+            className="hidden border border-white/25 px-5 py-2 text-[11px] tracking-[0.2em] text-white uppercase no-underline transition hover:border-white/60 sm:inline-flex"
+          >
+            Apply for Speed to Scale
+          </Link>
+          <button
+            type="button"
+            className="inline-flex h-11 w-11 items-center justify-center border border-white/20 text-white lg:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="sr-only">Open menu</span>
+            <span className="flex flex-col gap-1.5">
+              <span className="block h-px w-5 bg-white" />
+              <span className="block h-px w-5 bg-white" />
+            </span>
+          </button>
+        </div>
+      </div>
+      {open ? (
+        <nav id="mobile-nav" className="border-t border-white/10 bg-black px-5 py-4 lg:hidden">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block py-3 text-[12px] tracking-[0.2em] text-white/70 uppercase"
+              onClick={() => setOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <Link href="/contact" className="block py-3 text-[12px] tracking-[0.2em] text-white/70 uppercase">
+            Contact
+          </Link>
+        </nav>
+      ) : null}
+    </header>
+  );
+}
+
+export function DetailHeader({ active }: { active?: string }) {
+  return <SiteHeader />;
+}
+
+export function SiteFooter() {
+  return (
+    <footer className="border-t border-white/10 bg-black">
+      <div className="mx-auto grid max-w-[1400px] gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:gap-12 md:px-12 md:py-20">
+        <div>
+          <Link href="/" className="inline-flex items-center gap-2.5 no-underline">
+            <Mark />
+            <span className="text-[15px] font-light tracking-[0.18em] text-white">DCRBN</span>
+          </Link>
+          <p className="mt-5 max-w-sm text-[14.5px] leading-relaxed font-light text-white/55">
+            DCRBN is a Speed to Scale platform for founders building infrastructure in AI, blockchain,
+            and quantum.
+          </p>
+          <p className="mt-4 text-[14px] leading-relaxed font-light text-white/40">
+            {SITE.address.street}
+            <br />
+            {SITE.address.city}, {SITE.address.region} {SITE.address.postal}
+            <br />
+            {SITE.address.country}
+          </p>
+          <a href={SITE.phoneHref} className="mt-3 inline-block text-[14px] font-light text-white/70 no-underline hover:text-white">
+            {SITE.phone}
+          </a>
+        </div>
+        <div>
+          <h2 className="mb-4 text-[11px] tracking-[0.28em] text-white/45 uppercase">Platform</h2>
+          <ul className="space-y-3">
+            {FOOTER.platform.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="inline-flex min-h-10 items-center text-[14.5px] font-light text-white/60 no-underline hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 className="mb-4 text-[11px] tracking-[0.28em] text-white/45 uppercase">Company</h2>
+          <ul className="space-y-3">
+            {FOOTER.company.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="inline-flex min-h-10 items-center text-[14.5px] font-light text-white/60 no-underline hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 className="mb-4 text-[11px] tracking-[0.28em] text-white/45 uppercase">Start</h2>
+          <ul className="space-y-3">
+            {FOOTER.start.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="inline-flex min-h-10 items-center text-[14.5px] font-light text-white/60 no-underline hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8">
+            <h2 className="mb-4 text-[11px] tracking-[0.28em] text-white/45 uppercase">Legal</h2>
+            <ul className="space-y-3">
+              {FOOTER.legal.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="inline-flex min-h-10 items-center text-[14.5px] font-light text-white/60 no-underline hover:text-white">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-3 px-5 py-6 text-[12px] tracking-[0.08em] text-white/40 sm:flex-row sm:items-center sm:justify-between md:px-12">
+          <p>© {new Date().getFullYear()} {SITE.legalName}. All rights reserved.</p>
+          <Link href="/apply" className="text-white/60 no-underline hover:text-white">
+            Apply for Speed to Scale →
+          </Link>
+        </div>
+      </div>
+    </footer>
+  );
+}
+```
+
+## FILE: app/apple-icon.tsx
+```
+import { brandMark } from "@/lib/og";
+
+export const size = { width: 180, height: 180 };
+export const contentType = "image/png";
+
+export default function AppleIcon() {
+  return brandMark(size);
+}
+```
+
+## FILE: app/globals.css
+```
+@import "tailwindcss";
+
+@theme {
+  --color-blue-mid: #2f86ff;
+  --color-blue-lt: #7eb6ff;
+  --font-sans: var(--font-dm-sans), "DM Sans", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: #f4f4f4;
+}
+
+.inner-grain {
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  opacity: 0.18;
+}
+
+.d-form { max-width: 820px; margin-top: 36px; }
+.d-form label, .d-form legend { color: #fff; font-size: 13px; display: block; margin-bottom: 8px; }
+.d-form input, .d-form textarea, .d-form select {
+  width: 100%;
+  color: #fff;
+  background: #0d1118;
+  border: 1px solid #ffffff24;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font: inherit;
+  margin-bottom: 16px;
+}
+.d-form .row { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+.d-form .checks { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; margin-bottom: 16px; }
+.d-form .checks label { display: flex; gap: 8px; align-items: center; margin: 0; color: #ffffffb8; }
+.d-form button[type=submit] {
+  color: #08100f;
+  background: #2f86ff;
+  border: 0;
+  border-radius: 10px;
+  padding: 14px 22px;
+  font: 700 12px var(--font-mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+@media (max-width: 700px) {
+  .d-form .row, .d-form .checks { grid-template-columns: 1fr; }
+}
+
+.detail-sections,
+.home-band {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding: 48px 20px;
+}
+@media (min-width: 768px) {
+  .detail-sections,
+  .home-band { padding: 72px 48px; }
+}
+.detail-sections { max-width: 1400px; margin: 0 auto; }
+.detail-sections article {
+  border-top: 1px solid rgba(255,255,255,.12);
+  display: grid;
+  gap: 16px;
+  padding: 32px 0;
+}
+@media (min-width: 768px) {
+  .detail-sections article { grid-template-columns: 4.5rem 1fr 1.2fr; gap: 48px; }
+}
+.detail-sections article > span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .28em;
+  color: rgba(255,255,255,.35);
+}
+.detail-sections h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-weight: 200;
+  letter-spacing: -.03em;
+}
+.detail-sections p,
+.home-band__intro {
+  margin: 0;
+  color: rgba(255,255,255,.62);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.home-band { max-width: 1400px; margin: 0 auto; }
+.home-band > p {
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+}
+.home-band h2 {
+  max-width: 16ch;
+  margin: 16px 0 0;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 200;
+  letter-spacing: -.04em;
+}
+.home-band__pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.home-band__pills span {
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 9px 14px;
+  font-size: .84rem;
+  font-weight: 300;
+}
+.team-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); margin-top: 36px; }
+.team-card { border: 1px solid rgba(255,255,255,.12); padding: 16px; }
+.team-card img { width: 100%; aspect-ratio: 1; object-fit: cover; margin-bottom: 12px; }
+.team-card h3 { margin: 0; font-size: 17px; font-weight: 300; }
+.team-card .role { color: #7eb6ff; font-size: 13px; margin-top: 4px; }
+.team-card p { color: rgba(255,255,255,.55); font-size: 14px; line-height: 1.55; margin: 10px 0 0; font-weight: 300; }
+```
+
+## FILE: app/icon.tsx
+```
+import { brandMark } from "@/lib/og";
+
+export const size = { width: 32, height: 32 };
+export const contentType = "image/png";
+
+export default function Icon() {
+  return brandMark(size);
+}
+```
+
+## FILE: app/layout.tsx
+```
+import type { Metadata, Viewport } from "next";
+import { DM_Sans } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
+import { GoogleAds } from "@/components/GoogleAds";
+import { JsonLd } from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
+import { SEO } from "@/lib/copy";
+import "./globals.css";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  weight: ["200", "300", "400", "500"],
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: SEO.home.title,
+    template: "%s",
+  },
+  description: SEO.home.description,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.legalName, url: SITE.url }],
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: SEO.home.title,
+    description: SEO.home.description,
+    url: SITE.url,
+    siteName: SITE.name,
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SEO.home.title,
+    description: SEO.home.description,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={`${dmSans.variable} ${GeistMono.variable}`}>
+      <body className={`${dmSans.className} bg-black font-sans text-[#f4f4f4] antialiased`}>
+        <JsonLd />
+        <GoogleAds />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+## FILE: app/not-found.tsx
+```
+import Link from "next/link";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+
+export default function NotFound() {
+  return (
+    <main className="bg-black text-white">
+      <SiteHeader />
+      <section className="mx-auto max-w-[1400px] px-5 pt-[calc(7rem+env(safe-area-inset-top))] pb-24 md:px-12">
+        <p className="text-[11px] tracking-[0.28em] text-white/45 uppercase">404</p>
+        <h1 className="mt-6 max-w-[12ch] text-[clamp(3rem,8vw,6rem)] leading-[0.9] font-extralight tracking-[-0.04em]">
+          This path doesn’t exist.
+        </h1>
+        <Link href="/" className="mt-10 inline-flex border border-white/25 px-6 py-3 text-[14px] font-light no-underline hover:border-white/60">
+          Return home →
+        </Link>
+      </section>
+      <SiteFooter />
+    </main>
+  );
+}
+```
+
+## FILE: app/opengraph-image.tsx
+```
+import { socialCard } from "@/lib/og";
+
+export const alt = "DCRBN — Speed to Scale for AI, blockchain, and quantum founders";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export default function OpenGraphImage() {
+  return socialCard(size);
+}
+```
+
+## FILE: app/page.tsx
+```
+import type { Metadata } from "next";
+import { CinematicClose, CinematicEarth, CinematicHero } from "@/components/Cinematic";
+import HomeRest from "@/components/HomeRest";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { pageMetadata } from "@/lib/seo";
+import { SEO } from "@/lib/copy";
+
+export const metadata: Metadata = pageMetadata(SEO.home, "/");
+
+export default function Page() {
+  return (
+    <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[60] focus:border focus:border-white/40 focus:bg-black focus:px-3 focus:py-2 focus:text-white"
+      >
+        Skip to content
+      </a>
+      <SiteHeader />
+      <main id="main" className="bg-black">
+        <CinematicHero />
+        <CinematicEarth />
+        <HomeRest />
+        <CinematicClose />
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
+```
+
+## FILE: app/robots.ts
+```
+import type { MetadataRoute } from "next";
+import { SITE } from "@/lib/site";
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+      },
+    ],
+    sitemap: `${SITE.url}/sitemap.xml`,
+    host: SITE.url,
+  };
+}
+```
+
+## FILE: app/sitemap.ts
+```
+import type { MetadataRoute } from "next";
+import { PUBLIC_PATHS } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/site";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return PUBLIC_PATHS.map((path) => ({
+    url: absoluteUrl(path),
+    lastModified: new Date(),
+    changeFrequency: path === "/" ? "weekly" : "monthly",
+    priority: path === "/" ? 1 : path === "/about" || path === "/contact" ? 0.8 : 0.6,
+  }));
+}
+```
+
+## FILE: app/twitter-image.tsx
+```
+import { socialCard } from "@/lib/og";
+
+export const alt = "DCRBN — Speed to Scale for AI, blockchain, and quantum founders";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export default function TwitterImage() {
+  return socialCard(size);
+}
+```
+
+## FILE: lib/copy.ts
+```
+export const SEO = {
+  home: {
+    title: "DCRBN | Speed to Scale for AI, Blockchain, and Quantum Founders",
+    description:
+      "DCRBN is a Speed to Scale platform for founders building infrastructure in AI, blockchain, and quantum. We bring resources, network, visibility, agentic infrastructure, partnerships, advisory support, venture studio capabilities, and capital readiness to accelerate founder growth.",
+    h1: "Speed to Scale",
+  },
+  speedToScale: {
+    title: "Speed to Scale | DCRBN Founder Growth Platform",
+    description:
+      "Speed to Scale is DCRBN’s growth platform for infrastructure founders. We activate visibility, strategy, agentic infrastructure, product support, partnerships, revenue, funding, and scale resources around inspired founders.",
+    h1: "The Speed to Scale Growth Cycle",
+  },
+  growthCycle: {
+    title: "The Speed to Scale Growth Cycle | DCRBN",
+    description:
+      "DCRBN identifies the real constraint, deploys only the layers required to move it, and coordinates resources, relationships, systems, and operators toward the outcomes that can accelerate the company’s next stage.",
+    h1: "The Speed to Scale Growth Cycle",
+  },
+  focusAreas: {
+    title: "Focus Areas | AI, Blockchain, and Quantum Infrastructure | DCRBN",
+    description:
+      "DCRBN partners with founders building foundational systems across AI infrastructure, blockchain and Web3 infrastructure, quantum infrastructure, and adjacent frontiers.",
+    h1: "Focused on Infrastructure That Can Move the World",
+  },
+  advisory: {
+    title: "DCRBN Advisory & Consulting | Strategy, Growth, and Capital Readiness",
+    description:
+      "DCRBN Advisory & Consulting supports founders and companies with strategy, positioning, partnerships, capital readiness, growth architecture, and operator support.",
+    h1: "Advisory & Consulting for Inspired Founders and Companies",
+  },
+  ventureStudio: {
+    title: "DCRBN Venture Studio | Build and Scale Disruptive Companies",
+    description:
+      "DCRBN Venture Studio helps build, support, and scale disruptive companies, including DCRBN-controlled companies and select founder-led ventures across AI, blockchain, quantum, media, and adjacent frontiers.",
+    h1: "Venture Studio for Disruptive Companies",
+  },
+  sixframe: {
+    title: "Sixframe | AI Film Studio by DCRBN",
+    description:
+      "Sixframe is DCRBN’s AI Film Studio focused on AI-powered creative production, storytelling, entertainment, and commercial content.",
+    h1: "Sixframe: AI Film Studio by DCRBN",
+  },
+  proof: {
+    title: "DCRBN Proof | Controlled Companies, Portfolio, and Execution Outcomes",
+    description:
+      "Explore DCRBN’s controlled companies, portfolio companies, and execution proof across visibility, paid pilots, revenue, capital readiness, product support, and strategic growth.",
+    h1: "Proof Across Companies, Portfolio, and Execution",
+  },
+  network: {
+    title: "DCRBN Network | Operators, Advisors, Partners, and Capital",
+    description:
+      "DCRBN’s network brings together operators, advisors, creators, technologists, investors, and strategic partners to accelerate founders building meaningful infrastructure companies.",
+    h1: "A Network Built to Accelerate Inspired Founders",
+  },
+  about: {
+    title: "About DCRBN | Las Vegas Venture Studio",
+    description:
+      "DCRBN is a Las Vegas venture studio built to be a force multiplier for infrastructure companies in AI, blockchain, and quantum.",
+    h1: "Built to Be a Force Multiplier",
+  },
+  contact: {
+    title: "Contact DCRBN | Las Vegas Venture Studio",
+    description:
+      "Contact DCRBN in Las Vegas. Talk with the studio about Speed to Scale for infrastructure companies in AI, blockchain, and quantum.",
+    h1: "Talk with DCRBN",
+  },
+  apply: {
+    title: "Apply for Speed to Scale | DCRBN",
+    description:
+      "Apply for Speed to Scale if you are a founder building in AI, blockchain, quantum, or adjacent infrastructure with traction, conviction, and a solution that inspires us.",
+    h1: "Apply for Speed to Scale",
+  },
+  alignment: {
+    title: "Explore Strategic Alignment | DCRBN",
+    description:
+      "DCRBN partners with people and organizations that want to help inspired founders move faster across AI, blockchain, and quantum infrastructure.",
+    h1: "Explore Strategic Alignment",
+  },
+  privacy: {
+    title: "Privacy Policy | DCRBN",
+    description: "What DCRBN collects, why we collect it, and how we use it.",
+    h1: "Privacy policy",
+  },
+  terms: {
+    title: "Terms of Service | DCRBN",
+    description: "The rules for using www.dcrbn.io and applying for Speed to Scale.",
+    h1: "Terms of service",
+  },
+  lotus: {
+    title: "Lotus Trader | DCRBN-Controlled Company",
+    description:
+      "Lotus Trader is a DCRBN-controlled company in the Venture Studio. Public product materials are limited to what DCRBN has published here.",
+    h1: "Lotus Trader",
+  },
+  social: {
+    title: "Viral Growth OS | DCRBN-Controlled Company",
+    description:
+      "Viral Growth OS is DCRBN’s social automation / LinkedIn growth operating system for founders and operators.",
+    h1: "Viral Growth OS",
+  },
+} as const;
+
+export const GROWTH_LAYERS = [
+  "Visibility",
+  "Strategy",
+  "Agentic Infrastructure",
+  "Product UI/UX",
+  "Partnerships + Advisors",
+  "Revenue",
+  "Funding",
+  "Scale",
+] as const;
+
+export const PHASES = [
+  {
+    name: "Diagnose",
+    body: "Map the economics, constraints, founder context, market signal, and single bottleneck holding back the next stage.",
+  },
+  {
+    name: "Design",
+    body: "Build the sequenced plan and determine which growth layers to deploy, in what order, against measurable outcomes.",
+  },
+  {
+    name: "Assemble",
+    body: "Build the appropriate Scale Pod from operators, specialists, advisors, partners, systems, and resources.",
+  },
+  {
+    name: "Execute",
+    body: "Ship the work and run the systems alongside the company.",
+  },
+  {
+    name: "Amplify",
+    body: "Turn early wins into momentum across visibility, distribution, partnerships, customers, pilots, revenue, and capital.",
+  },
+  {
+    name: "Evolve",
+    body: "Reconfigure the pod as the constraint moves so the company retains leverage as it scales.",
+  },
+] as const;
+
+export const TRACTION_SIGNALS = [
+  "Paying customers",
+  "Revenue",
+  "LOIs",
+  "Pilot customers",
+  "IP or patents",
+  "Prior exits or strong founder backgrounds",
+  "Exceptional team members or advisors",
+  "Strong founder-market fit",
+] as const;
+
+export const CONSTRAINTS = [
+  "Weak positioning",
+  "Low visibility",
+  "No distribution engine",
+  "Unclear strategy",
+  "Product friction",
+  "No agentic infrastructure",
+  "Weak partnerships",
+  "Limited customer access",
+  "No paid pilots",
+  "Not funding-ready",
+] as const;
+
+export const FOCUS_AREAS = [
+  {
+    title: "AI Infrastructure",
+    body: "Agentic systems, intelligent workflows, AI-native applications, model orchestration, automation infrastructure, enterprise AI layers, and data intelligence.",
+  },
+  {
+    title: "Blockchain / Web3 Infrastructure",
+    body: "Identity, payments, tokenization, decentralized networks, custody, compliance, interoperability, digital ownership, and on-chain coordination.",
+  },
+  {
+    title: "Quantum Infrastructure",
+    body: "Quantum security, post-quantum cryptography, quantum networking, quantum sensing, quantum software, and technologies supporting the transition into the quantum era.",
+  },
+  {
+    title: "Adjacent Frontiers",
+    body: "Defense, robotics, media infrastructure, entertainment technology, and other disruptive systems where infrastructure can create massive leverage.",
+  },
+] as const;
+
+export const ADVISORY_CAPABILITIES = [
+  {
+    title: "Strategy",
+    body: "Clarify the market, the company narrative, the growth path, and the highest-value opportunities.",
+  },
+  {
+    title: "Positioning",
+    body: "Refine how the founder, company, product, and mission are understood by customers, partners, and investors.",
+  },
+  {
+    title: "Partnerships",
+    body: "Identify and activate strategic relationships that can create customer access, pilots, distribution, capital, or credibility.",
+  },
+  {
+    title: "Capital Readiness",
+    body: "Support investor narrative, pitch materials, financial model, data room, use of funds, and capital strategy.",
+  },
+  {
+    title: "Operator Support",
+    body: "Bring experienced operators and specialists around the company where their involvement can accelerate progress.",
+  },
+] as const;
+
+export const VENTURE_CAPABILITIES = [
+  "Company and product strategy",
+  "AI and product development",
+  "Capital strategy and investor access",
+  "Operating cadence for company building",
+  "Fractional leadership",
+  "Commercialization and distribution support",
+  "Strategic storytelling and creative execution",
+] as const;
+
+export const ALIGN_WAYS = [
+  "Refer inspired founders",
+  "Become an advisor",
+  "Invest in portfolio companies",
+  "Become a strategic partner",
+  "Provide distribution",
+  "Provide capital",
+  "Support paid pilots",
+  "Open strategic customer relationships",
+] as const;
+
+export const ALIGN_PAGE_WAYS = [
+  "Refer inspired founders",
+  "Become an advisor",
+  "Invest in portfolio companies",
+  "Provide distribution",
+  "Provide capital",
+  "Support paid pilots",
+  "Open strategic customer relationships",
+  "Create strategic partnership opportunities",
+] as const;
+
+export type ApprovalStatus = "Approved" | "Needs verification" | "Placeholder" | "Do not publish yet";
+
+export const NETWORK_VALUES = [
+  "Commercial contracts and customer access",
+  "Strategic introductions",
+  "Industry expertise",
+  "Partnerships and pilots",
+  "Distribution and visibility",
+  "Operational and specialist support",
+  "Capital and investor access",
+] as const;
+
+export const EXECUTION_PROOF = [
+  {
+    title: "Visibility Momentum",
+    body: "Founder authority, audience growth, social reach, content distribution, and visibility outcomes.",
+    evidence:
+      "Cory Warfield, DCRBN Co-Founder, publishes as a LinkedIn Top Voice. His public profile states a half-million-plus LinkedIn following and a Tech For Good newsletter with 200k+ subscribers. These are his public figures, not a DCRBN-wide audience claim.",
+    approvalStatus: "Approved" as ApprovalStatus,
+  },
+  {
+    title: "Paid Pilots",
+    body: "Commercial pilots, customer validation, and revenue-generating proof.",
+    evidence: "Individual paid-pilot stories publish when a company and DCRBN both approve the record.",
+    approvalStatus: "Placeholder" as ApprovalStatus,
+  },
+  {
+    title: "Strategic Acquisition Support",
+    body: "Examples where DCRBN contributed to strategic positioning, growth, partnerships, or exit-related outcomes.",
+    evidence: "No named acquisition support story is published on this site.",
+    approvalStatus: "Do not publish yet" as ApprovalStatus,
+  },
+  {
+    title: "Creative / AI Media Distribution",
+    body: "Sixframe and AI-powered storytelling, content, entertainment, and commercial creative outcomes.",
+    evidence:
+      "Sixframe operates at 6framestudio.com as DCRBN’s AI Film Studio, with a public body of cinematic brand, trailer, and commercial work.",
+    approvalStatus: "Approved" as ApprovalStatus,
+  },
+  {
+    title: "Revenue Improvement",
+    body: "Business growth, revenue expansion, and commercial improvement stories where approved.",
+    evidence: "No named revenue-improvement case is published on this site.",
+    approvalStatus: "Do not publish yet" as ApprovalStatus,
+  },
+  {
+    title: "Capital Readiness",
+    body: "Pitch, investor narrative, data room, financial model, and capital strategy support.",
+    evidence: "Capability is offered under Advisory. Named capital-readiness engagements publish when approved.",
+    approvalStatus: "Placeholder" as ApprovalStatus,
+  },
+  {
+    title: "Product and Infrastructure Support",
+    body: "Product development, AI infrastructure, UX/UI, automation, and operating systems where approved.",
+    evidence:
+      "Venture Studio product work includes Sixframe and Viral Growth OS. Additional named infrastructure engagements publish when approved.",
+    approvalStatus: "Approved" as ApprovalStatus,
+  },
+];
+
+export type ControlledCompany = {
+  slug: string;
+  name: string;
+  oneLiner: string;
+  role: string;
+  founding: string;
+  website: string | null;
+  websiteLabel: string;
+  proof: string;
+  approvalStatus: ApprovalStatus;
+  href: string;
+};
+
+export const CONTROLLED_COMPANIES: ControlledCompany[] = [
+  {
+    slug: "sixframe",
+    name: "Sixframe",
+    oneLiner: "AI Film Studio / AI-powered creative production",
+    role: "DCRBN-controlled company. Build and company-creation involvement through the Venture Studio.",
+    founding: "Built inside DCRBN Venture Studio as the AI-powered creative production company.",
+    website: "https://6framestudio.com",
+    websiteLabel: "6framestudio.com",
+    proof: "Public studio site with cinematic brand, trailer, and commercial work. No unapproved metrics are restated here.",
+    approvalStatus: "Approved",
+    href: "/sixframe",
+  },
+  {
+    slug: "lotus-trader",
+    name: "Lotus Trader",
+    oneLiner: "DCRBN-controlled company in the Venture Studio.",
+    role: "DCRBN-controlled company. Company-creation involvement through the Venture Studio.",
+    founding: "Held inside DCRBN Venture Studio. A separate public marketing site has not been launched.",
+    website: "/lotus-trader",
+    websiteLabel: "www.dcrbn.io/lotus-trader",
+    proof: "Listed as a DCRBN-controlled company. No third-party traction figures are published.",
+    approvalStatus: "Approved",
+    href: "/lotus-trader",
+  },
+  {
+    slug: "social-automation",
+    name: "Viral Growth OS",
+    oneLiner: "Social automation / LinkedIn growth operating system for founders and operators.",
+    role: "DCRBN-controlled company. Product and distribution support through the Venture Studio.",
+    founding: "Built as the productized Viral Growth Masterclass workflow: brand onboarding, profile rewrite, engagement, and inbound conversion.",
+    website: "https://viral-growth-mcp.vercel.app",
+    websiteLabel: "viral-growth-mcp.vercel.app",
+    proof: "Live product at the public MCP URL. No subscriber or revenue figures are published here.",
+    approvalStatus: "Approved",
+    href: "/social-automation",
+  },
+];
+
+export type TeamMember = {
+  name: string;
+  title: string;
+  bio: string;
+  photo: string | null;
+  linkedin: string | null;
+  source: string;
+};
+
+export const TEAM: TeamMember[] = [
+  {
+    name: "Cory Warfield",
+    title: "Co-Founder",
+    bio: "Co-Founder of DCRBN. LinkedIn Top Voice and growth operator. Public work includes founder visibility, Tech For Good, and early-stage company building across AI and blockchain.",
+    photo: "/team/cory-warfield.jpg",
+    linkedin: "https://www.linkedin.com/in/corywarfield/",
+    source: "Public LinkedIn profile and DCRBN co-founder listing.",
+  },
+  {
+    name: "Majid Zafer",
+    title: "CEO",
+    bio: "CEO of DCRBN LLC. Leads the platform across advisory, venture studio, and company-building for infrastructure founders.",
+    photo: "/team/majid-zafer.jpg",
+    linkedin: null,
+    source: "Title published on the prior www.dcrbn.io site.",
+  },
+  {
+    name: "Brett Jenny",
+    title: "DCRBN",
+    bio: "Builds products and companies inside DCRBN, including Sixframe / 6Frame Studio. Based in Las Vegas.",
+    photo: "/team/brett-jenny.jpg",
+    linkedin: "https://github.com/VegasCryptoAgent",
+    source: "Public GitHub profile (company: DCRBN, location: Las Vegas NV).",
+  },
+  {
+    name: "Calvin Pack",
+    title: "DCRBN",
+    bio: "DCRBN team member.",
+    photo: null,
+    linkedin: null,
+    source: "Approved name from the DCRBN team list.",
+  },
+  {
+    name: "Chris Paper",
+    title: "DCRBN",
+    bio: "DCRBN team member.",
+    photo: null,
+    linkedin: null,
+    source: "Approved name from the DCRBN team list.",
+  },
+  {
+    name: "Thomas Quilty",
+    title: "DCRBN",
+    bio: "DCRBN team member.",
+    photo: null,
+    linkedin: null,
+    source: "Approved name from the DCRBN team list.",
+  },
+  {
+    name: "Dave Luff",
+    title: "DCRBN",
+    bio: "DCRBN team member.",
+    photo: null,
+    linkedin: null,
+    source: "Approved name from the DCRBN team list.",
+  },
+  {
+    name: "Jacob Bigg",
+    title: "DCRBN",
+    bio: "DCRBN team member.",
+    photo: null,
+    linkedin: null,
+    source: "Approved name from the DCRBN team list.",
+  },
+];
+
+export const PLACEHOLDER_BIO = "[CLIENT TO PROVIDE APPROVED BIO / TITLE / PHOTO]";
+export const PLACEHOLDER = "[PLACEHOLDER — CLIENT APPROVAL REQUIRED]";
+```
+
+## FILE: lib/site.ts
+```
+export const SITE = {
+  name: "DCRBN",
+  legalName: "DCRBN LLC",
+  domain: "www.dcrbn.io",
+  url: "https://www.dcrbn.io",
+  phone: "+1 725-425-4923",
+  phoneHref: "tel:+17254254923",
+  address: {
+    street: "11250 Hidden Peak Ave",
+    city: "Las Vegas",
+    region: "NV",
+    postal: "89135",
+    country: "United States",
+  },
+  emails: {
+    privacy: "privacy@dcrbn.io",
+    legal: "legal@dcrbn.io",
+    apply: "apply@dcrbn.io",
+  },
+  positioning:
+    "DCRBN is a Las Vegas venture studio providing Speed to Scale for infrastructure companies in AI, blockchain, and quantum.",
+  brandLine:
+    "DCRBN works on solutions that inspire us — and with founders who have the conviction to build them.",
+  missionLine:
+    "DCRBN exists to be a force multiplier for solutions that can help shape a future of abundance.",
+} as const;
+
+export const CTA = {
+  primary: { label: "Apply for Speed to Scale", href: "/apply" },
+  secondary: { label: "See How It Works", href: "/growth-cycle" },
+  partner: { label: "Explore Strategic Alignment", href: "/strategic-alignment" },
+  partnerForm: { label: "Start the Conversation", href: "/contact" },
+  submit: { label: "Submit Application", href: "/apply" },
+} as const;
+
+export const NAV = [
+  { label: "Home", href: "/" },
+  { label: "Speed to Scale", href: "/speed-to-scale" },
+  { label: "Growth Cycle", href: "/growth-cycle" },
+  { label: "Focus Areas", href: "/focus-areas" },
+  { label: "Proof", href: "/proof" },
+  { label: "Our Network", href: "/network" },
+] as const;
+
+export const FOOTER = {
+  platform: [
+    { label: "Advisory & Consulting", href: "/advisory" },
+    { label: "Venture Studio", href: "/venture-studio" },
+    { label: "Sixframe", href: "/sixframe" },
+    { label: "Proof", href: "/proof" },
+  ],
+  company: [
+    { label: "About", href: "/about" },
+    { label: "Our Network", href: "/network" },
+    { label: "Focus Areas", href: "/focus-areas" },
+    { label: "Strategic Alignment", href: "/strategic-alignment" },
+    { label: "Contact", href: "/contact" },
+  ],
+  start: [
+    { label: "Apply for Speed to Scale", href: "/apply" },
+    { label: "Explore Strategic Alignment", href: "/strategic-alignment" },
+  ],
+  legal: [
+    { label: "Privacy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
+  ],
+} as const;
+
+export function absoluteUrl(path = "/") {
+  if (path.startsWith("http")) return path;
+  if (!path || path === "/") return SITE.url;
+  return `${SITE.url}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+export function formatAddress() {
+  const { street, city, region, postal } = SITE.address;
+  return `${street}, ${city}, ${region} ${postal}`;
+}
+```
+
+## FILE: app/apple-icon.tsx
+```
+import { brandMark } from "@/lib/og";
+
+export const size = { width: 180, height: 180 };
+export const contentType = "image/png";
+
+export default function AppleIcon() {
+  return brandMark(size);
+}
+```
+
+## FILE: app/globals.css
+```
+@import "tailwindcss";
+
+@theme {
+  --color-blue-mid: #2f86ff;
+  --color-blue-lt: #7eb6ff;
+  --font-sans: var(--font-dm-sans), "DM Sans", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: #f4f4f4;
+}
+
+.inner-grain {
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  opacity: 0.18;
+}
+
+.d-form { max-width: 820px; margin-top: 36px; }
+.d-form label, .d-form legend { color: #fff; font-size: 13px; display: block; margin-bottom: 8px; }
+.d-form input, .d-form textarea, .d-form select {
+  width: 100%;
+  color: #fff;
+  background: #0d1118;
+  border: 1px solid #ffffff24;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font: inherit;
+  margin-bottom: 16px;
+}
+.d-form .row { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+.d-form .checks { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; margin-bottom: 16px; }
+.d-form .checks label { display: flex; gap: 8px; align-items: center; margin: 0; color: #ffffffb8; }
+.d-form button[type=submit] {
+  color: #08100f;
+  background: #2f86ff;
+  border: 0;
+  border-radius: 10px;
+  padding: 14px 22px;
+  font: 700 12px var(--font-mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+@media (max-width: 700px) {
+  .d-form .row, .d-form .checks { grid-template-columns: 1fr; }
+}
+
+.detail-sections,
+.home-band {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding: 48px 20px;
+}
+@media (min-width: 768px) {
+  .detail-sections,
+  .home-band { padding: 72px 48px; }
+}
+.detail-sections { max-width: 1400px; margin: 0 auto; }
+.detail-sections article {
+  border-top: 1px solid rgba(255,255,255,.12);
+  display: grid;
+  gap: 16px;
+  padding: 32px 0;
+}
+@media (min-width: 768px) {
+  .detail-sections article { grid-template-columns: 4.5rem 1fr 1.2fr; gap: 48px; }
+}
+.detail-sections article > span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .28em;
+  color: rgba(255,255,255,.35);
+}
+.detail-sections h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-weight: 200;
+  letter-spacing: -.03em;
+}
+.detail-sections p,
+.home-band__intro {
+  margin: 0;
+  color: rgba(255,255,255,.62);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.home-band { max-width: 1400px; margin: 0 auto; }
+.home-band > p {
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+}
+.home-band h2 {
+  max-width: 16ch;
+  margin: 16px 0 0;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 200;
+  letter-spacing: -.04em;
+}
+.home-band__pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.home-band__pills span {
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 9px 14px;
+  font-size: .84rem;
+  font-weight: 300;
+}
+.team-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); margin-top: 36px; }
+.team-card { border: 1px solid rgba(255,255,255,.12); padding: 16px; }
+.team-card img { width: 100%; aspect-ratio: 1; object-fit: cover; margin-bottom: 12px; }
+.team-card h3 { margin: 0; font-size: 17px; font-weight: 300; }
+.team-card .role { color: #7eb6ff; font-size: 13px; margin-top: 4px; }
+.team-card p { color: rgba(255,255,255,.55); font-size: 14px; line-height: 1.55; margin: 10px 0 0; font-weight: 300; }
+```
+
+## FILE: app/icon.tsx
+```
+import { brandMark } from "@/lib/og";
+
+export const size = { width: 32, height: 32 };
+export const contentType = "image/png";
+
+export default function Icon() {
+  return brandMark(size);
+}
+```
+
+## FILE: app/layout.tsx
+```
+import type { Metadata, Viewport } from "next";
+import { DM_Sans } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
+import { GoogleAds } from "@/components/GoogleAds";
+import { JsonLd } from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
+import { SEO } from "@/lib/copy";
+import "./globals.css";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  weight: ["200", "300", "400", "500"],
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: SEO.home.title,
+    template: "%s",
+  },
+  description: SEO.home.description,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.legalName, url: SITE.url }],
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: SEO.home.title,
+    description: SEO.home.description,
+    url: SITE.url,
+    siteName: SITE.name,
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SEO.home.title,
+    description: SEO.home.description,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={`${dmSans.variable} ${GeistMono.variable}`}>
+      <body className={`${dmSans.className} bg-black font-sans text-[#f4f4f4] antialiased`}>
+        <JsonLd />
+        <GoogleAds />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+## FILE: app/not-found.tsx
+```
+import Link from "next/link";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+
+export default function NotFound() {
+  return (
+    <main className="bg-black text-white">
+      <SiteHeader />
+      <section className="mx-auto max-w-[1400px] px-5 pt-[calc(7rem+env(safe-area-inset-top))] pb-24 md:px-12">
+        <p className="text-[11px] tracking-[0.28em] text-white/45 uppercase">404</p>
+        <h1 className="mt-6 max-w-[12ch] text-[clamp(3rem,8vw,6rem)] leading-[0.9] font-extralight tracking-[-0.04em]">
+          This path doesn’t exist.
+        </h1>
+        <Link href="/" className="mt-10 inline-flex border border-white/25 px-6 py-3 text-[14px] font-light no-underline hover:border-white/60">
+          Return home →
+        </Link>
+      </section>
+      <SiteFooter />
+    </main>
+  );
+}
+```
+
+## FILE: app/opengraph-image.tsx
+```
+import { socialCard } from "@/lib/og";
+
+export const alt = "DCRBN — Speed to Scale for AI, blockchain, and quantum founders";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export default function OpenGraphImage() {
+  return socialCard(size);
+}
+```
+
+## FILE: app/page.tsx
+```
+import type { Metadata } from "next";
+import { CinematicClose, CinematicEarth, CinematicHero } from "@/components/Cinematic";
+import HomeRest from "@/components/HomeRest";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { pageMetadata } from "@/lib/seo";
+import { SEO } from "@/lib/copy";
+
+export const metadata: Metadata = pageMetadata(SEO.home, "/");
+
+export default function Page() {
+  return (
+    <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[60] focus:border focus:border-white/40 focus:bg-black focus:px-3 focus:py-2 focus:text-white"
+      >
+        Skip to content
+      </a>
+      <SiteHeader />
+      <main id="main" className="bg-black">
+        <CinematicHero />
+        <CinematicEarth />
+        <HomeRest />
+        <CinematicClose />
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
+```
+
+## FILE: app/twitter-image.tsx
+```
+import { socialCard } from "@/lib/og";
+
+export const alt = "DCRBN — Speed to Scale for AI, blockchain, and quantum founders";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export default function TwitterImage() {
+  return socialCard(size);
+}
+```
+
+## FILE: app/about/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { PHASES, SEO, TEAM } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+import { SITE } from "@/lib/site";
+
+export const metadata: Metadata = pageMetadata(SEO.about, "/about");
+
+export default function AboutPage() {
+  return (
+    <ContentPage
+      active="/about"
+      kicker="ABOUT"
+      title="Built to be a"
+      em="force multiplier."
+      intro={[
+        "DCRBN exists to support solutions that can help shape a future of abundance. We work with founders and companies building meaningful infrastructure across AI, blockchain, quantum, and adjacent frontiers.",
+        "We believe inspired founders need more than advice. They need resources, network, strategy, visibility, partnerships, capital readiness, and people willing to help execute.",
+        SITE.brandLine,
+      ]}
+    >
+      <section className="detail-sections">
+        {PHASES.map((phase, index) => (
+          <article key={phase.name}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{phase.name}</h2>
+            <p>{phase.body}</p>
+          </article>
+        ))}
+      </section>
+      <section className="home-band">
+        <p>The People</p>
+        <h2>
+          The people behind <em>DCRBN.</em>
+        </h2>
+        <div className="team-grid">
+          {TEAM.map((person) => (
+            <article className="team-card" key={person.name}>
+              {person.photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={person.photo} alt={`${person.name}, ${person.title}`} />
+              ) : (
+                <div className="role">Photo not published</div>
+              )}
+              <h3>{person.name}</h3>
+              <p className="role">{person.title}</p>
+              <p>{person.bio}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/contact/page.tsx
+```
+import type { Metadata } from "next";
+import Link from "next/link";
+import ContentPage from "@/components/ContentPage";
+import { SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+import { SITE, formatAddress } from "@/lib/site";
+
+export const metadata: Metadata = pageMetadata(SEO.contact, "/contact");
+
+export default function ContactPage() {
+  return (
+    <ContentPage
+      active="/contact"
+      kicker="CONTACT"
+      title="Talk with"
+      em="DCRBN."
+      intro={[
+        "DCRBN is a Las Vegas venture studio. Reach the studio about Speed to Scale, advisory work, or venture-studio collaboration for infrastructure companies in AI, blockchain, and quantum.",
+        "Founders with traction can also apply directly.",
+      ]}
+      ctaTitle="Apply for Speed to Scale"
+      ctaHref="/apply"
+    >
+      <section className="detail-sections">
+        <article>
+          <span>01</span>
+          <h2>Studio</h2>
+          <p>
+            {SITE.legalName}
+            <br />
+            {formatAddress()}
+            <br />
+            {SITE.address.country}
+          </p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>Phone</h2>
+          <p>
+            <a href={SITE.phoneHref}>{SITE.phone}</a>
+          </p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>Email</h2>
+          <p>
+            Studio and applications:{" "}
+            <a href={`mailto:${SITE.emails.apply}`}>{SITE.emails.apply}</a>
+            <br />
+            Privacy: <a href={`mailto:${SITE.emails.privacy}`}>{SITE.emails.privacy}</a>
+          </p>
+        </article>
+        <article>
+          <span>04</span>
+          <h2>Founders</h2>
+          <p>
+            If you are building infrastructure in AI, blockchain, or quantum and
+            already have traction, start with an application.{" "}
+            <Link href="/apply">Apply for Speed to Scale</Link>.
+          </p>
+        </article>
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/proof/page.tsx
+```
+import type { Metadata } from "next";
+import Link from "next/link";
+import ContentPage from "@/components/ContentPage";
+import { CONTROLLED_COMPANIES, EXECUTION_PROOF, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata(SEO.proof, "/proof");
+
+export default function ProofPage() {
+  return (
+    <ContentPage
+      active="/proof"
+      kicker="PROOF"
+      title="What we control, support,"
+      em="and influence."
+      intro="DCRBN’s proof is organized by what we control, what we support, and what outcomes have been created or influenced through the platform."
+    >
+      <section className="detail-sections">
+        <article>
+          <span>01</span>
+          <h2>DCRBN-Controlled Companies</h2>
+          <p>
+            Companies where DCRBN has controlling equity, build responsibility, or
+            company-creation involvement.
+          </p>
+        </article>
+        {CONTROLLED_COMPANIES.map((company) => (
+          <article key={company.slug}>
+            <span>—</span>
+            <h2>
+              <Link href={company.href}>{company.name}</Link>
+            </h2>
+            <p>{company.oneLiner}</p>
+          </article>
+        ))}
+        <article>
+          <span>02</span>
+          <h2>Portfolio / Partner Companies</h2>
+          <p>
+            Companies DCRBN helps build, advise, scale, or support, but does not
+            necessarily control. Named partner companies are listed here when both
+            DCRBN and the company approve a public mention.
+          </p>
+        </article>
+        {EXECUTION_PROOF.filter((item) => item.approvalStatus === "Approved").map((item, index) => (
+          <article key={item.title}>
+            <span>{String(index + 3).padStart(2, "0")}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/apply/page.tsx
+```
+import type { Metadata } from "next";
+import { ApplyForm } from "@/components/ApplyForm";
+import ContentPage from "@/components/ContentPage";
+import { GROWTH_LAYERS, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata(SEO.apply, "/apply");
+
+export default function ApplyPage() {
+  return (
+    <ContentPage
+      kicker="APPLY"
+      title="Apply for Speed to Scale"
+      intro="Tell us what you are building, why it matters, and how DCRBN can become a force multiplier around your next stage of growth. We work with founders who have traction, conviction, and the will to build."
+      ctaHref="#apply-form"
+      ctaTitle="Submit your application"
+    >
+      <section className="home-band">
+        <p>Support options</p>
+        <div className="home-band__pills">
+          {GROWTH_LAYERS.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+        <ApplyForm />
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/speed-to-scale/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { GROWTH_LAYERS, PHASES, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata(SEO.speedToScale, "/speed-to-scale");
+
+export default function SpeedToScalePage() {
+  return (
+    <ContentPage
+      active="/speed-to-scale"
+      kicker="SPEED TO SCALE"
+      title="The Speed to Scale"
+      em="growth platform."
+      intro={[
+        "Speed to Scale is DCRBN’s growth platform for infrastructure founders. We activate visibility, strategy, agentic infrastructure, product support, partnerships, revenue, funding, and scale resources around inspired founders.",
+        "DCRBN does not deploy every capability to every company. We identify the bottleneck and activate the right growth layers at the right time.",
+      ]}
+    >
+      <section className="detail-sections">
+        {PHASES.map((phase, index) => (
+          <article key={phase.name}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{phase.name}</h2>
+            <p>{phase.body}</p>
+          </article>
+        ))}
+      </section>
+      <section className="home-band">
+        <p>Growth layers</p>
+        <div className="home-band__pills">
+          {GROWTH_LAYERS.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/venture-studio/page.tsx
+```
+import type { Metadata } from "next";
+import Link from "next/link";
+import ContentPage from "@/components/ContentPage";
+import { CONTROLLED_COMPANIES, SEO, VENTURE_CAPABILITIES } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata(SEO.ventureStudio, "/venture-studio");
+
+export default function VentureStudioPage() {
+  return (
+    <ContentPage
+      active="/venture-studio"
+      kicker="VENTURE STUDIO"
+      title="We do not just advise."
+      em="We help build."
+      intro="DCRBN Venture Studio is the build side of the platform. We selectively partner with founders, products, and opportunities where DCRBN can help turn proven insight, workflow, technology, or market opportunity into a scalable business."
+    >
+      <section className="home-band">
+        <p>How we build</p>
+        <div className="home-band__pills">
+          {VENTURE_CAPABILITIES.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </section>
+      <section className="detail-sections">
+        {CONTROLLED_COMPANIES.map((company, index) => (
+          <article key={company.slug}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>
+              <Link href={company.href}>{company.name}</Link>
+            </h2>
+            <p>{company.oneLiner}</p>
+          </article>
+        ))}
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/advisory/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { ADVISORY_CAPABILITIES, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata(SEO.advisory, "/advisory");
+
+export default function AdvisoryPage() {
+  return (
+    <ContentPage
+      kicker="ADVISORY & CONSULTING"
+      title="Applied strategic support"
+      em="for inspired founders."
+      intro={[
+        "DCRBN supports founders and companies with strategy, positioning, partnerships, capital readiness, growth architecture, and operator support.",
+        "This is not passive advisory. It is applied strategic support designed to help the company identify the right constraint, activate the right resources, and move toward the next stage of growth.",
+      ]}
+    >
+      <section className="detail-sections">
+        {ADVISORY_CAPABILITIES.map((item, index) => (
+          <article key={item.title}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/network/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { NETWORK_VALUES, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata(SEO.network, "/network");
+
+export default function NetworkPage() {
+  return (
+    <ContentPage
+      active="/network"
+      kicker="OUR NETWORK"
+      title="A network built to accelerate"
+      em="inspired founders."
+      intro={[
+        "Great solutions need great people around them. DCRBN brings together operators, advisors, strategists, creators, technologists, investors, and strategic partners who can help founders move faster.",
+        "This network is not a logo wall. It is an active growth asset designed to support visibility, partnerships, paid pilots, customer access, capital readiness, and company-building execution.",
+      ]}
+    >
+      <section className="home-band">
+        <p>What the network unlocks</p>
+        <div className="home-band__pills">
+          {NETWORK_VALUES.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/growth-cycle/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { GROWTH_LAYERS, PHASES, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata(SEO.growthCycle, "/growth-cycle");
+
+export default function GrowthCyclePage() {
+  return (
+    <ContentPage
+      active="/growth-cycle"
+      kicker="GROWTH CYCLE"
+      title="Identify the constraint."
+      em="Activate the right layer."
+      intro={SEO.growthCycle.description}
+      ctaHref="/apply"
+    >
+      <section className="detail-sections">
+        {PHASES.map((phase, index) => (
+          <article key={phase.name}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{phase.name}</h2>
+            <p>{phase.body}</p>
+          </article>
+        ))}
+      </section>
+      <section className="home-band">
+        <p>Layers we can activate</p>
+        <div className="home-band__pills">
+          {GROWTH_LAYERS.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/focus-areas/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { FOCUS_AREAS, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata(SEO.focusAreas, "/focus-areas");
+
+export default function FocusAreasPage() {
+  return (
+    <ContentPage
+      active="/focus-areas"
+      kicker="FOCUS AREAS"
+      title="Infrastructure that can"
+      em="move the world."
+      intro="DCRBN partners with founders building the foundational systems behind the next era of technology."
+    >
+      <section className="detail-sections">
+        {FOCUS_AREAS.map((area, index) => (
+          <article key={area.title}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h2>{area.title}</h2>
+            <p>{area.body}</p>
+          </article>
+        ))}
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/privacy/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+import { SITE } from "@/lib/site";
+
+export const metadata: Metadata = pageMetadata(SEO.privacy, "/privacy");
+
+export default function PrivacyPage() {
+  return (
+    <ContentPage
+      kicker="LEGAL"
+      title="Privacy policy"
+      intro="The only information we ask for is what we need to review your application for fit. We do not sell it."
+      ctaHref="/apply"
+    >
+      <section className="home-band">
+        <p>01</p>
+        <h2>Who we are</h2>
+        <p className="home-band__intro">
+          This site is operated by {SITE.legalName}. We are a Speed to Scale platform
+          for founders building infrastructure in AI, blockchain, and quantum.
+        </p>
+        <p className="home-band__intro">
+          Contact: {SITE.emails.privacy}
+        </p>
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/terms/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+import { SITE } from "@/lib/site";
+
+export const metadata: Metadata = pageMetadata(SEO.terms, "/terms");
+
+export default function TermsPage() {
+  return (
+    <ContentPage
+      kicker="LEGAL"
+      title="Terms of service"
+      intro={`The rules for using ${SITE.domain} and applying for Speed to Scale.`}
+      ctaHref="/apply"
+    >
+      <section className="home-band">
+        <p>01</p>
+        <h2>Using this site</h2>
+        <p className="home-band__intro">
+          By using {SITE.domain} you agree to these terms. Applications are reviewed
+          selectively. Submitting an application does not create an engagement.
+        </p>
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/strategic-alignment/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { ALIGN_PAGE_WAYS, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata(SEO.alignment, "/strategic-alignment");
+
+export default function AlignmentPage() {
+  return (
+    <ContentPage
+      kicker="STRATEGIC ALIGNMENT"
+      title="Align early with founders"
+      em="building what comes next."
+      intro={SEO.alignment.description}
+      ctaTitle="Start the conversation"
+      ctaHref="/apply"
+    >
+      <section className="home-band">
+        <p>Ways to align</p>
+        <div className="home-band__pills">
+          {ALIGN_PAGE_WAYS.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </section>
+    </ContentPage>
+  );
+}
+```
+
+## FILE: app/social-automation/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { CONTROLLED_COMPANIES, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+const company = CONTROLLED_COMPANIES.find((c) => c.slug === "social-automation")!;
+
+export const metadata: Metadata = pageMetadata(SEO.social, "/social-automation");
+
+export default function SocialPage() {
+  return (
+    <ContentPage
+      kicker="VENTURE STUDIO"
+      title="Viral Growth OS"
+      em="for founders and operators."
+      intro={[company.oneLiner, company.role, company.proof]}
+      ctaHref={company.website || "/venture-studio"}
+      ctaTitle="Open Viral Growth OS"
+    />
+  );
+}
+```
+
+## FILE: app/sixframe/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { CONTROLLED_COMPANIES, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+const company = CONTROLLED_COMPANIES.find((c) => c.slug === "sixframe")!;
+
+export const metadata: Metadata = pageMetadata(SEO.sixframe, "/sixframe");
+
+export default function SixframePage() {
+  return (
+    <ContentPage
+      kicker="VENTURE STUDIO"
+      title="Sixframe:"
+      em="AI Film Studio by DCRBN."
+      intro={[company.oneLiner, company.role, company.proof]}
+      ctaHref={company.website || "/venture-studio"}
+      ctaTitle="Visit Sixframe"
+    />
+  );
+}
+```
+
+## FILE: app/lotus-trader/page.tsx
+```
+import type { Metadata } from "next";
+import ContentPage from "@/components/ContentPage";
+import { CONTROLLED_COMPANIES, SEO } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+
+const company = CONTROLLED_COMPANIES.find((c) => c.slug === "lotus-trader")!;
+
+export const metadata: Metadata = pageMetadata(SEO.lotus, "/lotus-trader");
+
+export default function LotusPage() {
+  return (
+    <ContentPage
+      kicker="VENTURE STUDIO"
+      title="Lotus Trader"
+      em="DCRBN-controlled company."
+      intro={[company.oneLiner, company.role, company.proof]}
+      ctaHref="/venture-studio"
+      ctaTitle="Venture Studio"
+    />
+  );
+}
+```

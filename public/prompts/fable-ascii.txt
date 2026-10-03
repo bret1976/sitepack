@@ -1,0 +1,256 @@
+# Exact recreation prompt — Glyphwerk
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-ascii
+Brand: Glyphwerk
+Category: Creative
+Tagline (catalog): Real-time ASCII engine · 3D in characters (Fable × 25 #20)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/20-ascii/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: GLYPHWERK
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLYPHWERK — Everything Is Typography If You Squint</title>
+<meta name="description" content="A real-time ASCII rendering engine. 3D, fluid, and light — drawn entirely in characters.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#0a0a0a;
+    color:#e8e8e3;
+    font-family:'IBM Plex Mono', monospace;
+    height:100vh; overflow:hidden;
+  }
+  #out {
+    position:fixed; inset:0;
+    white-space:pre;
+    font-size:13px; line-height:12px; letter-spacing:1.5px;
+    display:flex; align-items:center; justify-content:center;
+    color:#c9f2c0;
+    user-select:none;
+    z-index:1;
+  }
+  .panel {
+    position:fixed; z-index:10;
+  }
+  .panel.tl { top:2.2rem; left:2.4rem; }
+  .panel.tl h1 { font-size:1.1rem; font-weight:600; letter-spacing:0.3em; }
+  .panel.tl h1 span { color:#7fdc6f; }
+  .panel.tl p { margin-top:0.5rem; font-size:0.68rem; letter-spacing:0.18em; color:#6a6a62; text-transform:uppercase; }
+  .panel.br {
+    bottom:2.2rem; right:2.4rem; text-align:right;
+    font-size:0.68rem; letter-spacing:0.22em; color:#6a6a62; text-transform:uppercase;
+  }
+  .panel.bl { bottom:2.2rem; left:2.4rem; display:flex; gap:0.7rem; }
+  .mode-btn {
+    font-family:inherit; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase;
+    background:transparent; color:#8a8a80;
+    border:1px solid #2e2e28;
+    padding:0.65rem 1.2rem;
+    cursor:pointer;
+    transition:all 0.25s;
+  }
+  .mode-btn:hover { border-color:#7fdc6f; color:#c9f2c0; }
+  .mode-btn.on {
+    background:#7fdc6f; color:#0a0a0a; border-color:#7fdc6f;
+    box-shadow:0 0 24px rgba(127,220,111,0.35);
+  }
+  @media (max-width:700px){
+    #out { font-size:9px; line-height:8.4px; letter-spacing:1px; }
+    .panel.br { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="out"></div>
+
+<div class="panel tl">
+  <h1>GLYPH<span>WERK</span></h1>
+  <p>A renderer with no pixels — only characters</p>
+</div>
+
+<div class="panel bl">
+  <button class="mode-btn on" data-m="torus">Torus</button>
+  <button class="mode-btn" data-m="wave">Ocean</button>
+  <button class="mode-btn" data-m="tunnel">Tunnel</button>
+  <button class="mode-btn" data-m="life">Life</button>
+</div>
+
+<div class="panel br">
+  Move your cursor — it is a light source<br>
+  № 20 — Fable Twenty-Five
+</div>
+
+<script>
+const out = document.getElementById('out');
+const RAMP = ' .`\'^",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$';
+let COLS = 120, ROWS = 48;
+function sizeGrid(){
+  const cw = innerWidth <= 700 ? 10 : 14.5;   // char cell width approx (font+tracking)
+  const chh = innerWidth <= 700 ? 8.4 : 12;
+  COLS = Math.floor(innerWidth / cw);
+  ROWS = Math.floor(innerHeight / chh);
+}
+sizeGrid();
+addEventListener('resize', () => { sizeGrid(); if (mode==='life') seedLife(); });
+
+let mx = 0.5, my = 0.35;
+addEventListener('pointermove', e => { mx = e.clientX/innerWidth; my = e.clientY/innerHeight; });
+
+let mode = 'torus';
+document.querySelectorAll('.mode-btn').forEach(b => {
+  b.onclick = () => {
+    mode = b.dataset.m;
+    document.querySelectorAll('.mode-btn').forEach(x => x.classList.toggle('on', x===b));
+    if (mode === 'life') seedLife();
+  };
+});
+
+// ---------- torus (classic donut, mouse-lit) ----------
+function renderTorus(t){
+  const zbuf = new Float32Array(COLS*ROWS).fill(0);
+  const chars = new Array(COLS*ROWS).fill(' ');
+  const A = t*0.7, B = t*0.4;
+  const cA=Math.cos(A), sA=Math.sin(A), cB=Math.cos(B), sB=Math.sin(B);
+  // light dir from mouse
+  const lx = (mx-0.5)*2, ly = (my-0.5)*2, lz = -1;
+  const ll = Math.hypot(lx,ly,lz);
+  const Lx=lx/ll, Ly=ly/ll, Lz=lz/ll;
+  const R1=1, R2=2, K2=5;
+  const K1 = COLS*K2*3/(8*(R1+R2)) * 1.15;
+  for (let th=0; th<6.28; th+=0.07){
+    const ct=Math.cos(th), st=Math.sin(th);
+    for (let ph=0; ph<6.28; ph+=0.02){
+      const cp=Math.cos(ph), sp=Math.sin(ph);
+      const cx = R2 + R1*ct;
+      const x = cx*(cB*cp + sA*sB*sp) - R1*st*cA*sB;
+      const y = cx*(sB*cp - sA*cB*sp) + R1*st*cA*cB;
+      const z = K2 + cA*cx*sp + R1*st*sA;
+      const ooz = 1/z;
+      const xp = Math.floor(COLS/2 + K1*ooz*x);
+      const yp = Math.floor(ROWS/2 - K1*ooz*y*0.5);
+      // normal
+      const nx = ct*(cB*cp + sA*sB*sp) - st*cA*sB;
+      const ny = ct*(sB*cp - sA*cB*sp) + st*cA*cB;
+      const nz = cA*ct*sp + st*sA;
+      const lum = -(nx*Lx + ny*Ly + nz*Lz);
+      if (xp>=0 && xp<COLS && yp>=0 && yp<ROWS){
+        const idx = yp*COLS + xp;
+        if (ooz > zbuf[idx]){
+          zbuf[idx] = ooz;
+          const li = Math.max(0, Math.min(1, lum*0.5+0.5));
+          chars[idx] = RAMP[Math.floor(li * (RAMP.length-1) * 0.75) + 4] || '.';
+        }
+      }
+    }
+  }
+  return toStr(chars);
+}
+
+// ---------- ocean wave heightfield ----------
+function renderWave(t){
+  const chars = new Array(COLS*ROWS);
+  for (let r=0;r<ROWS;r++){
+    for (let c=0;c<COLS;c++){
+      const u = c/COLS*2-1, v = r/ROWS*2-1;
+      const d = Math.hypot(u - (mx*2-1), v - (my*2-1));
+      let h = Math.sin(u*4 + t*1.2) * 0.5
+            + Math.sin(v*3.4 - t*0.9) * 0.42
+            + Math.sin((u+v)*5 + t*0.6) * 0.3
+            + Math.sin(d*11 - t*3) * 0.55 * Math.exp(-d*1.6);
+      const li = Math.max(0, Math.min(1, h*0.36+0.5));
+      chars[r*COLS+c] = RAMP[Math.floor(li*(RAMP.length-1)*0.62)];
+    }
+  }
+  return toStr(chars);
+}
+
+// ---------- tunnel ----------
+function renderTunnel(t){
+  const chars = new Array(COLS*ROWS);
+  const cx = mx*2-1, cy = my*2-1;
+  for (let r=0;r<ROWS;r++){
+    for (let c=0;c<COLS;c++){
+      const u = (c/COLS*2-1) - cx*0.5, v = ((r/ROWS*2-1) - cy*0.5)*2;
+      const ang = Math.atan2(v,u);
+      const rad = Math.hypot(u,v) + 0.0001;
+      const stripes = Math.sin(1.4/rad - t*2.4) * Math.sin(ang*7 + t*0.8);
+      const fade = Math.min(1, rad*1.4);
+      const li = Math.max(0, Math.min(1, (stripes*0.5+0.5) * fade));
+      chars[r*COLS+c] = RAMP[Math.floor(li*(RAMP.length-1)*0.7)];
+    }
+  }
+  return toStr(chars);
+}
+
+// ---------- game of life ----------
+let life, lifeNext, lastStep = 0;
+function seedLife(){
+  life = new Uint8Array(COLS*ROWS);
+  lifeNext = new Uint8Array(COLS*ROWS);
+  for (let i=0;i<life.length;i++) life[i] = Math.random() < 0.22 ? 1 : 0;
+}
+seedLife();
+function renderLife(t){
+  if (t - lastStep > 0.09){
+    lastStep = t;
+    for (let r=0;r<ROWS;r++){
+      for (let c=0;c<COLS;c++){
+        let n = 0;
+        for (let dr=-1;dr<=1;dr++) for (let dc=-1;dc<=1;dc++){
+          if (!dr && !dc) continue;
+          n += life[((r+dr+ROWS)%ROWS)*COLS + (c+dc+COLS)%COLS];
+        }
+        const a = life[r*COLS+c];
+        lifeNext[r*COLS+c] = a ? (n===2||n===3?1:0) : (n===3?1:0);
+      }
+    }
+    [life, lifeNext] = [lifeNext, life];
+    // cursor injects gliders
+    const gc = Math.floor(mx*COLS), gr = Math.floor(my*ROWS);
+    if (Math.random()<0.3){
+      [[0,1],[1,2],[2,0],[2,1],[2,2]].forEach(([dr,dc]) => {
+        const i = ((gr+dr)%ROWS)*COLS + (gc+dc)%COLS;
+        if (i>=0 && i<life.length) life[i]=1;
+      });
+    }
+  }
+  const chars = new Array(COLS*ROWS);
+  for (let i=0;i<life.length;i++) chars[i] = life[i] ? '#' : (Math.random()<0.002?'.':' ');
+  return toStr(chars);
+}
+
+function toStr(chars){
+  let s = '';
+  for (let r=0;r<ROWS;r++){
+    s += chars.slice(r*COLS, (r+1)*COLS).join('') + '\n';
+  }
+  return s;
+}
+
+let lastFrame = 0;
+function frame(now){
+  requestAnimationFrame(frame);
+  if (now - lastFrame < 33) return;   // ~30fps — plenty for phosphor
+  lastFrame = now;
+  const t = now/1000;
+  let s;
+  if (mode==='torus') s = renderTorus(t);
+  else if (mode==='wave') s = renderWave(t);
+  else if (mode==='tunnel') s = renderTunnel(t);
+  else s = renderLife(t);
+  out.textContent = s;
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
+```

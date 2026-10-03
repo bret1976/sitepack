@@ -1,0 +1,337 @@
+# Exact recreation prompt — Casa.
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-casa
+Brand: Casa.
+Category: Creative
+Tagline (catalog): Architecture journal · Muralla Roja, sticky study (Fable × 25 #34)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/34-casa/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: A fortress of pink geometry on a Spanish cliff
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASA. — A Journal of Walls and Sky</title>
+<meta name="description" content="A quiet editorial about loud architecture. Photography-first, everything else second.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,300&family=JetBrains+Mono:wght@300;400&display=swap');
+  :root {
+    --paper:#f5f3ef;
+    --ink:#151412;
+    --dim:rgba(21,20,18,0.55);
+    --line:rgba(21,20,18,0.14);
+    --red:#b8302a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection { background:var(--ink); color:var(--paper); }
+  a { color:inherit; }
+
+  /* ---------------- nav ---------------- */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:90;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.7rem 3rem;
+    mix-blend-mode:difference; color:#fff;
+  }
+  .logo { font-weight:600; font-size:1.02rem; letter-spacing:-0.01em; }
+  .logo span { opacity:0.55; }
+  nav .r { display:flex; gap:2.2rem; font-size:0.74rem; font-weight:400; letter-spacing:0.06em; }
+  nav .r a { text-decoration:none; opacity:0.8; transition:opacity 0.3s; }
+  nav .r a:hover { opacity:1; }
+  @media (max-width:700px){ nav { padding:1.3rem 1.4rem; } nav .r { gap:1.2rem; } }
+
+  /* ---------------- hero ---------------- */
+  .hero { height:100vh; position:relative; overflow:hidden; background:var(--ink); }
+  .hero .img {
+    position:absolute; inset:0;
+    background:url('/assets/casa-muralla1.jpg') center 40%/cover no-repeat;
+    transform-origin:center;
+    animation:settle 3.2s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  @keyframes settle { from { transform:scale(1.16); filter:brightness(0.7); } to { transform:scale(1.02); filter:brightness(0.98); } }
+  .hero .cap {
+    position:absolute; left:3rem; bottom:3rem; z-index:3; color:#fff;
+    mix-blend-mode:difference;
+  }
+  .hero .cap .t1 {
+    font-size:clamp(2.2rem, 6vw, 4.6rem);
+    font-weight:300; letter-spacing:-0.03em; line-height:1.08;
+  }
+  .hero .cap .t1 .ln { display:block; overflow:hidden; }
+  .hero .cap .t1 .ln span { display:block; transform:translateY(110%); animation:up 1.3s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .hero .cap .t1 .ln:nth-child(2) span { animation-delay:0.14s; font-weight:600; }
+  @keyframes up { to { transform:none; } }
+  .hero .cap .t2 {
+    margin-top:1.4rem; font-family:'JetBrains Mono'; font-size:0.62rem;
+    letter-spacing:0.3em; text-transform:uppercase; opacity:0;
+    animation:fade 1.4s 1.1s forwards;
+  }
+  @keyframes fade { to { opacity:0.75; } }
+  .hero .issue {
+    position:absolute; right:3rem; bottom:3rem; z-index:3; color:#fff; mix-blend-mode:difference;
+    text-align:right; font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase;
+    line-height:2.2; opacity:0; animation:fade 1.4s 1.3s forwards;
+  }
+
+  /* ---------------- editorial intro ---------------- */
+  .intro { padding:14vh 0; max-width:880px; margin:0 auto; padding-left:6vw; padding-right:6vw; }
+  .intro p.lede {
+    font-size:clamp(1.4rem, 3.2vw, 2.3rem);
+    font-weight:300; letter-spacing:-0.02em; line-height:1.55;
+  }
+  .intro p.lede b { font-weight:600; }
+  .intro p.lede .red { color:var(--red); }
+  .intro .byline {
+    margin-top:3rem; display:flex; gap:2rem; align-items:baseline;
+    font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--dim);
+  }
+  .intro .byline::before { content:''; width:52px; height:1px; background:var(--ink); align-self:center; }
+
+  /* ---------------- sticky study: image swaps as copy scrolls ---------------- */
+  .study { display:grid; grid-template-columns:1.15fr 1fr; gap:0; }
+  .study-imgwrap { position:sticky; top:0; height:100vh; overflow:hidden; background:var(--ink); }
+  .study-img {
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    opacity:0; transition:opacity 0.9s cubic-bezier(0.4,0,0.2,1);
+    will-change:opacity, transform;
+  }
+  .study-img.on { opacity:1; }
+  .study-img .zoom { position:absolute; inset:-4%; background:inherit; }
+  .study-cap {
+    position:absolute; left:2rem; bottom:2rem; z-index:3;
+    color:#fff; mix-blend-mode:difference;
+    font-family:'JetBrains Mono'; font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase;
+  }
+  .study-copy { padding:10vh 6vw; }
+  .chapter { min-height:92vh; display:flex; flex-direction:column; justify-content:center; max-width:480px; }
+  .chapter .no { font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.34em; color:var(--red); text-transform:uppercase; }
+  .chapter h2 { margin-top:1.2rem; font-size:clamp(1.8rem, 3.4vw, 2.8rem); font-weight:300; letter-spacing:-0.025em; line-height:1.15; }
+  .chapter h2 b { font-weight:600; }
+  .chapter p { margin-top:1.4rem; font-weight:300; font-size:0.98rem; line-height:2; color:var(--dim); }
+  .chapter .fact {
+    margin-top:2rem; border-top:1px solid var(--line); padding-top:1.2rem;
+    display:flex; justify-content:space-between;
+    font-family:'JetBrains Mono'; font-size:0.64rem; letter-spacing:0.2em; text-transform:uppercase;
+  }
+  .chapter .fact span:last-child { color:var(--dim); }
+  @media (max-width:880px){
+    .study { grid-template-columns:1fr; }
+    .study-imgwrap { position:relative; height:60vh; }
+    .chapter { min-height:auto; padding:3.4rem 0; }
+  }
+
+  /* ---------------- full-bleed pause ---------------- */
+  .pause { height:110vh; position:relative; overflow:hidden; }
+  .pause .pimg {
+    position:absolute; inset:-6%;
+    background:url('/assets/casa-torres1.jpg') center/cover;
+    will-change:transform;
+  }
+  .pause .pquote {
+    position:absolute; inset:0; z-index:2;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:0 8vw;
+  }
+  .pause .pquote blockquote {
+    color:#fff; mix-blend-mode:difference;
+    font-size:clamp(1.6rem, 4.2vw, 3.4rem);
+    font-weight:300; letter-spacing:-0.02em; line-height:1.4;
+    max-width:24ch;
+  }
+  .pause .pquote blockquote b { font-weight:600; }
+
+  /* ---------------- index of walls ---------------- */
+  .index { padding:12vh 6vw 14vh; max-width:1080px; margin:0 auto; }
+  .index .k { font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.34em; text-transform:uppercase; color:var(--red); }
+  .index h2 { margin-top:1.2rem; font-weight:300; letter-spacing:-0.03em; font-size:clamp(2rem, 4.6vw, 3.6rem); margin-bottom:3.4rem; }
+  .index h2 b { font-weight:600; }
+  .irow {
+    display:grid; grid-template-columns:3.4rem 1fr auto auto; gap:2.4rem; align-items:baseline;
+    padding:1.7rem 0.4rem; border-bottom:1px solid var(--line);
+    text-decoration:none;
+    transition:padding-left 0.4s cubic-bezier(0.22,1,0.36,1), background 0.4s;
+  }
+  .irow:first-of-type { border-top:1px solid var(--ink); }
+  .irow:hover { padding-left:1.6rem; background:rgba(184,48,42,0.045); }
+  .irow .n { font-family:'JetBrains Mono'; font-size:0.68rem; color:var(--dim); }
+  .irow .t { font-size:clamp(1.1rem, 2.4vw, 1.6rem); font-weight:400; letter-spacing:-0.015em; }
+  .irow:hover .t { color:var(--red); }
+  .irow .w { font-size:0.76rem; color:var(--dim); }
+  .irow .y { font-family:'JetBrains Mono'; font-size:0.68rem; color:var(--dim); }
+  @media (max-width:700px){ .irow { grid-template-columns:2.2rem 1fr; } .irow .w, .irow .y { display:none; } }
+
+  footer {
+    border-top:1px solid var(--line);
+    padding:3rem 6vw 4rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-family:'JetBrains Mono'; font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--dim);
+  }
+
+  .reveal { opacity:0; transform:translateY(36px); transition:opacity 1.1s cubic-bezier(0.22,1,0.36,1), transform 1.1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+  .cursor-spot {
+    position:fixed; inset:0; z-index:45; pointer-events:none;
+    background:radial-gradient(560px circle at var(--sx,50%) var(--sy,40%),
+      rgba(255,255,255,0.05), transparent 60%);
+    opacity:0; transition:opacity 0.6s;
+  }
+  body.has-mouse .cursor-spot { opacity:1; }
+</style>
+</head>
+<body>
+<div class="cursor-spot" id="cursorSpot"></div>
+
+<nav>
+  <div class="logo">Casa<span>.</span></div>
+  <div class="r">
+    <a href="#study">The Study</a>
+    <a href="#index">Index</a>
+    <a href="#">Subscribe</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="img"></div>
+  <div class="cap">
+    <div class="t1">
+      <span class="ln"><span>Every wall</span></span>
+      <span class="ln"><span>is a decision.</span></span>
+    </div>
+    <div class="t2">A journal of walls and sky — Issue 07</div>
+  </div>
+  <div class="issue">
+    La Muralla Roja<br>Calpe, España<br>Ricardo Bofill, 1973
+  </div>
+</header>
+
+<section class="intro">
+  <p class="lede reveal">Some buildings ask politely for your attention. The ones in this issue <b>painted themselves <span class="red">red</span></b> and stood against the biggest blue available. This is a journal about that kind of confidence — architecture that picks a color the way other people pick a fight.</p>
+  <div class="byline reveal">Photography-first · words rationed · Issue 07 — The Red Issue</div>
+</section>
+
+<!-- ============ STICKY STUDY ============ -->
+<section class="study" id="study">
+  <div class="study-imgwrap">
+    <div class="study-img on" style="background-image:url('/assets/casa-muralla1.jpg')"></div>
+    <div class="study-img" style="background-image:url('/assets/casa-muralla2.jpg')"></div>
+    <div class="study-img" style="background-image:url('/assets/casa-torres2.jpg')"></div>
+    <div class="study-cap" id="studyCap">FIG. 01 — LA MURALLA ROJA, CALPE</div>
+  </div>
+  <div class="study-copy">
+    <div class="chapter" data-fig="0" data-cap="FIG. 01 — LA MURALLA ROJA, CALPE">
+      <div class="no">Chapter One</div>
+      <h2>A fortress of <b>pink geometry</b> on a Spanish cliff</h2>
+      <p>Bofill stacked fifty apartments into a casbah of interlocking crosses, then washed the whole thing in reds and violets that answer the Mediterranean instead of matching it. There is no front door to speak of; there are only thresholds, and the sky is a load-bearing element.</p>
+      <div class="fact"><span>Concrete, pigment</span><span>50 dwellings</span></div>
+    </div>
+    <div class="chapter" data-fig="1" data-cap="FIG. 02 — MURALLA ROJA, UPPER TERRACES">
+      <div class="no">Chapter Two</div>
+      <h2>The staircases <b>go nowhere</b>, magnificently</h2>
+      <p>Half the stairs serve circulation. The other half serve composition — they climb two stories to deliver you to a view and an opinion. Residents report giving directions by color: past the rose wall, up the violet run, left at the sky.</p>
+      <div class="fact"><span>Purpose</span><span>Disputed, gladly</span></div>
+    </div>
+    <div class="chapter" data-fig="2" data-cap="FIG. 03 — TORRES DE SATÉLITE, MEXICO CITY">
+      <div class="no">Chapter Three</div>
+      <h2>Five towers that are <b>only fronts</b></h2>
+      <p>Barragán and Goeritz raised five hollow prisms in a traffic circle — sculpture pretending to be skyline, thirty to fifty meters of painted concrete with nothing inside but intention. Drivers have been arguing about them since 1958. The towers decline to settle it.</p>
+      <div class="fact"><span>Barragán · Goeritz</span><span>1958, still winning</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAUSE ============ -->
+<section class="pause">
+  <div class="pimg"></div>
+  <div class="pquote">
+    <blockquote>"Color is not decoration here. <b>It is the structure</b> — the concrete just holds it up."</blockquote>
+  </div>
+</section>
+
+<!-- ============ INDEX ============ -->
+<section class="index" id="index">
+  <span class="k reveal">Index of Walls</span>
+  <h2 class="reveal">The <b>Red Issue</b> — contents</h2>
+  <a class="irow reveal" href="#"><span class="n">01</span><span class="t">La Muralla Roja — the casbah in rouge</span><span class="w">Calpe, ES</span><span class="y">1973</span></a>
+  <a class="irow reveal" href="#"><span class="n">02</span><span class="t">Torres de Satélite — five hollow arguments</span><span class="w">Naucalpan, MX</span><span class="y">1958</span></a>
+  <a class="irow reveal" href="#"><span class="n">03</span><span class="t">On staircases that refuse to explain themselves</span><span class="w">Essay</span><span class="y">—</span></a>
+  <a class="irow reveal" href="#"><span class="n">04</span><span class="t">A field guide to standing in your own shadow</span><span class="w">Photo essay</span><span class="y">—</span></a>
+  <a class="irow reveal" href="#"><span class="n">05</span><span class="t">Next issue: The Blue Hour — architecture at dusk</span><span class="w">Preview</span><span class="y">08</span></a>
+</section>
+
+<footer>
+  <span>CASA. — a fictional journal designed by Fable</span>
+  <span>Photography: Joanbanjo, Octavio Alonso Maya (CC BY-SA) via Wikimedia Commons</span>
+  <span>№ 34 — The Cinema Batch</span>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+  const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10*t)), smoothWheel: true });
+  function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+</script>
+<script>
+const clamp01 = v => Math.max(0, Math.min(1, v));
+
+/* sticky study: swap fig when chapter crosses center */
+const chapters = [...document.querySelectorAll('.chapter')];
+const figs = [...document.querySelectorAll('.study-img')];
+const cap = document.getElementById('studyCap');
+let curFig = 0;
+const io2 = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const i = +e.target.dataset.fig;
+  if (i !== curFig){
+    curFig = i;
+    figs.forEach((f,j) => f.classList.toggle('on', j===i));
+    cap.textContent = e.target.dataset.cap;
+  }
+}), { threshold:0.55 });
+chapters.forEach(c => io2.observe(c));
+
+/* pause parallax */
+const pimg = document.querySelector('.pimg');
+addEventListener('scroll', () => {
+  const r = pimg.parentElement.getBoundingClientRect();
+  if (r.bottom < 0 || r.top > innerHeight) return;
+  const p = (innerHeight - r.top) / (innerHeight + r.height);
+  pimg.style.transform = `translateY(${(p-0.5)*26}%) scale(1.15)`;
+}, { passive:true });
+
+/* reveals */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.16 });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%3)*0.1+'s';
+  io.observe(el);
+});
+
+/* cursor-reactive ambient spotlight (signature reference glow) */
+{
+  const spot = document.getElementById('cursorSpot');
+  addEventListener('pointermove', e => {
+    document.body.classList.add('has-mouse');
+    spot.style.setProperty('--sx', (e.clientX/innerWidth*100)+'%');
+    spot.style.setProperty('--sy', (e.clientY/innerHeight*100)+'%');
+  });
+}
+
+</script>
+</body>
+</html>
+```

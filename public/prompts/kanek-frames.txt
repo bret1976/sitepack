@@ -1,0 +1,1954 @@
+# Exact recreation prompt — Kanek Frames
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: kanek-frames
+Brand: Kanek Frames
+Category: Landing
+Tagline (catalog): KANEK FRAMES — intelligence built into structure (WebFetch OK)
+Live reference (structure only, do not hotlink private assets): https://kanek-frames.vercel.app
+Stack: npm / Node
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: We build technology into them.
+
+## FILE: src/components/site/about.tsx
+```
+import { Link } from "@tanstack/react-router";
+import { Film } from "@/components/site/film";
+
+const STATS = [
+  {
+    value: "1",
+    label: "Physical steel. Digital structure. One system — a nervous system that mirrors the architecture.",
+  },
+  {
+    value: "100",
+    label: "Years the steel can stand. Processors change. Networks evolve. The frame remains.",
+  },
+];
+
+export function AboutFilm() {
+  return (
+    <section id="about" className="relative h-dvh overflow-hidden bg-bg">
+      <Film
+        src="/video/shop.mp4"
+        poster="/images/shop-poster.jpg"
+        label="Kanek Frames — intelligence inside the shop"
+      />
+      <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-10 md:px-10 md:pb-14 lg:max-w-2xl">
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-red">About</p>
+        <h2 className="mt-2 font-display text-4xl leading-[0.92] tracking-wide text-fg md:text-6xl">
+          We build technology into them.
+        </h2>
+        <p className="mt-4 max-w-md text-pretty text-sm leading-relaxed text-steel md:text-base">
+          Kanek Frames is redefining what a building can be. Advanced structural
+          steel with embedded digital intelligence — physical structure and
+          digital infrastructure, one system.
+        </p>
+        <Link
+          to="/about"
+          className="mt-6 inline-block text-sm font-medium text-fg underline decoration-red decoration-2 underline-offset-8 hover:text-red"
+        >
+          More
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+export function CraneFilm() {
+  return (
+    <section id="machine" className="relative h-dvh overflow-hidden bg-bg">
+      <Film
+        src="/video/crane.mp4"
+        poster="/images/crane-poster.jpg"
+        label="The intelligent frame"
+      />
+      <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-10 md:px-10 md:pb-14 lg:max-w-2xl">
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-red">The intelligent frame</p>
+        <h2 className="mt-2 font-display text-4xl leading-[0.92] tracking-wide text-fg md:text-6xl">
+          Now it's computational.
+        </h2>
+        <p className="mt-4 max-w-md text-pretty text-sm leading-relaxed text-steel md:text-base">
+          Traditional buildings are constructed first and made intelligent later.
+          Kanek reverses that model. Individual beams become connected nodes.
+          Connected nodes become a network.
+        </p>
+        <Link
+          to="/catalog/$slug"
+          params={{ slug: "kf-6516" }}
+          className="mt-6 inline-block text-sm font-medium text-fg underline decoration-red decoration-2 underline-offset-8 hover:text-red"
+        >
+          Specs
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+export function CraneStats() {
+  return (
+    <section className="relative min-h-dvh overflow-hidden border-t border-line bg-bg">
+      <div className="absolute inset-0 lg:left-auto lg:w-7/12">
+        <img
+          src="/images/crane.jpg"
+          alt="Kanek Frames intelligent structure"
+          className="h-full w-full object-cover object-[70%_center]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/55 to-bg/20 lg:hidden" />
+      </div>
+      <div className="relative z-10 grid min-h-dvh lg:grid-cols-12">
+        <div className="flex flex-col justify-end lg:col-span-5 lg:justify-center lg:bg-bg">
+          {STATS.map((s, i) => (
+            <div
+              key={s.value}
+              className={`flex min-h-[42vh] flex-col justify-end px-5 py-12 md:px-10 lg:min-h-[45vh] lg:justify-center ${
+                i === 0 ? "lg:border-b lg:border-line" : ""
+              }`}
+            >
+              <p className="font-display text-[7rem] leading-none tracking-wide text-fg md:text-[9rem]">
+                {s.value}
+              </p>
+              <p className="mt-6 max-w-sm text-sm leading-relaxed text-steel lg:text-muted">
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </div>
+        <div className="hidden lg:col-span-7 lg:block" />
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: src/components/site/chrome.tsx
+```
+import type { ReactNode } from "react";
+import { Footer } from "@/components/site/footer";
+import { Nav } from "@/components/site/nav";
+
+export function Chrome({
+  children,
+  footer = true,
+}: {
+  children: ReactNode;
+  footer?: boolean;
+}) {
+  return (
+    <main className="bg-bg text-fg">
+      <Nav />
+      {children}
+      {footer ? <Footer /> : null}
+    </main>
+  );
+}
+```
+
+## FILE: src/components/site/contact.tsx
+```
+import { useState, type FormEvent } from "react";
+import { Button } from "@/components/ui/button";
+
+const field =
+  "h-12 border border-line bg-surface px-4 font-sans text-sm tracking-normal text-fg outline-none focus:border-red";
+
+export function Contact() {
+  const [sent, setSent] = useState(false);
+
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(data.entries());
+    try {
+      const prev = JSON.parse(localStorage.getItem("kanek-leads") || "[]") as unknown[];
+      localStorage.setItem("kanek-leads", JSON.stringify([...prev, { ...payload, at: Date.now() }]));
+    } catch {
+      /* ignore quota */
+    }
+    setSent(true);
+    e.currentTarget.reset();
+  }
+
+  return (
+    <section id="contact" className="border-t border-line bg-bg">
+      <div className="grid lg:grid-cols-12">
+        <div className="px-5 py-16 md:px-10 md:py-24 lg:col-span-6">
+          <h2 className="font-display text-5xl tracking-wide text-fg md:text-6xl">
+            Build intelligence.
+          </h2>
+          <p className="mt-4 max-w-md text-muted">
+            Don't want to wait? Call{" "}
+            <a href="tel:+17025550148" className="text-fg underline decoration-red underline-offset-4">
+              +1 702 555 0148
+            </a>
+          </p>
+
+          {sent ? (
+            <p className="mt-12 max-w-md border border-line bg-surface px-6 py-8 text-lg text-fg">
+              Received. We'll be on it before the next frame leaves the shop.
+            </p>
+          ) : (
+            <form onSubmit={onSubmit} className="mt-10 grid max-w-xl gap-5">
+              <label className="grid gap-2 text-xs uppercase tracking-[0.16em] text-muted">
+                Name *
+                <input required name="name" autoComplete="name" suppressHydrationWarning className={field} />
+              </label>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <label className="grid gap-2 text-xs uppercase tracking-[0.16em] text-muted">
+                  Company
+                  <input name="company" suppressHydrationWarning className={field} />
+                </label>
+                <label className="grid gap-2 text-xs uppercase tracking-[0.16em] text-muted">
+                  Phone *
+                  <input required name="phone" type="tel" autoComplete="tel" suppressHydrationWarning className={field} />
+                </label>
+              </div>
+              <label className="grid gap-2 text-xs uppercase tracking-[0.16em] text-muted">
+                Email
+                <input required name="email" type="email" autoComplete="email" suppressHydrationWarning className={field} />
+              </label>
+              <label className="grid gap-2 text-xs uppercase tracking-[0.16em] text-muted">
+                Message *
+                <textarea
+                  required
+                  name="message"
+                  rows={4}
+                  suppressHydrationWarning
+                  className="border border-line bg-surface px-4 py-3 font-sans text-sm tracking-normal text-fg outline-none focus:border-red"
+                />
+              </label>
+              <label className="flex items-start gap-3 text-sm text-muted">
+                <input required type="checkbox" name="consent" className="mt-1 size-4 accent-red" />
+                I agree to the handling of this inquiry.
+              </label>
+              <Button type="submit" size="lg" className="mt-2 w-full sm:w-auto">
+                Request a call
+              </Button>
+            </form>
+          )}
+        </div>
+        <div className="relative min-h-[70vh] lg:col-span-6 lg:min-h-full">
+          <img
+            src="/images/shop-interior.jpg"
+            alt="Kanek Frames shop"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: src/components/site/faq.tsx
+```
+import { useState } from "react";
+
+const ITEMS = [
+  {
+    q: "What is an intelligent frame?",
+    a: "A Kanek Frame is structural steel with embedded digital intelligence. Each beam can carry a secure identity and communicate position, connections, status, and environment to the building network. Physical steel. Digital structure. One system.",
+  },
+  {
+    q: "What is Kanek Core™?",
+    a: "Kanek Core™ is the embedded intelligence architecture inside every frame. Instead of treating thousands of beams as passive material, Core turns them into interconnected components of a building-scale computing environment.",
+  },
+  {
+    q: "What is Digital Wireframe™?",
+    a: "As Kanek Frames are assembled, their digital counterparts assemble with them. Every beam, connection, floor, and critical system can become part of a continuously evolving Digital Wireframe™ — synchronized through construction and operation.",
+  },
+  {
+    q: "How does this help AI?",
+    a: "Most building AI runs on cameras, sensors, and separate software. Kanek gives AI the structure itself as a data layer — so intelligent systems understand the building against its exact physical architecture.",
+  },
+  {
+    q: "Is it quantum-ready?",
+    a: "Yes. Kanek Frames are designed around zero-trust architecture capable of supporting post-quantum cryptography. Every authorized node can maintain a cryptographically verifiable identity. Every connection can be authenticated.",
+  },
+  {
+    q: "Does the intelligence become obsolete?",
+    a: "The architecture separates the permanent structural layer from upgradeable computational systems. Processors change. Networks evolve. AI advances. The steel remains. Kanek is built for what comes next.",
+  },
+];
+
+export function Faq() {
+  const [open, setOpen] = useState<number | null>(0);
+
+  return (
+    <section id="knowledge" className="border-t border-line bg-bg px-5 py-16 md:px-10 md:py-24">
+      <h2 className="font-display text-4xl tracking-wide text-fg md:text-6xl">
+        The technical part, without the extra.
+      </h2>
+      <div className="mt-12 divide-y divide-line border-y border-line">
+        {ITEMS.map((item, i) => {
+          const isOpen = open === i;
+          return (
+            <div key={item.q}>
+              <button
+                type="button"
+                className="flex w-full items-start justify-between gap-6 py-6 text-left"
+                aria-expanded={isOpen}
+                onClick={() => setOpen(isOpen ? null : i)}
+              >
+                <span className="text-lg text-fg md:text-xl">{item.q}</span>
+                <span className="mt-1 font-mono text-red" aria-hidden>
+                  {isOpen ? "–" : "+"}
+                </span>
+              </button>
+              {isOpen ? (
+                <p className="max-w-3xl pb-6 text-pretty leading-relaxed text-muted">{item.a}</p>
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: src/components/site/film.tsx
+```
+import { useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+
+export function Film({
+  src,
+  poster,
+  className,
+  label,
+  onProgress,
+  active,
+}: {
+  src: string;
+  poster: string;
+  className?: string;
+  label?: string;
+  onProgress?: (p: number) => void;
+  active?: boolean;
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    v.muted = true;
+    const play = () => v.play().catch(() => undefined);
+    const onTime = () => {
+      if (v.duration) onProgress?.(v.currentTime / v.duration);
+    };
+    v.addEventListener("timeupdate", onTime);
+
+    if (typeof active === "boolean") {
+      if (active) play();
+      else v.pause();
+      return () => v.removeEventListener("timeupdate", onTime);
+    }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+        if (entry.isIntersecting) play();
+        else v.pause();
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(v);
+    play();
+    return () => {
+      io.disconnect();
+      v.removeEventListener("timeupdate", onTime);
+    };
+  }, [src, onProgress, active]);
+
+  return (
+    <>
+      <img
+        src={poster}
+        alt=""
+        className={cn("absolute inset-0 h-full w-full object-cover", className)}
+        aria-hidden
+      />
+      <video
+        ref={ref}
+        src={src}
+        poster={poster}
+        muted
+        loop
+        playsInline
+        autoPlay
+        preload="metadata"
+        aria-label={label}
+        className={cn("absolute inset-0 h-full w-full object-cover", className)}
+      />
+    </>
+  );
+}
+```
+
+## FILE: src/components/site/footer.tsx
+```
+import { Link } from "@tanstack/react-router";
+
+const PARTNERS = [
+  "Apex Hospitality",
+  "Desert Civic Trust",
+  "Nellis Logistics",
+  "Red Rock Partners",
+  "Summit Hangar Co.",
+  "Westline Developers",
+  "Clark Steel Erection",
+  "Mojave Civic",
+];
+
+const LINKS = [
+  { to: "/about", label: "About" },
+  { to: "/services", label: "Services" },
+  { to: "/catalog", label: "Catalog" },
+  { to: "/knowledge", label: "Knowledge" },
+  { to: "/contact", label: "Contact" },
+] as const;
+
+export function PartnerMarquee() {
+  return (
+    <div className="overflow-hidden border-t border-line/40 bg-bg/70 py-3.5 backdrop-blur-sm">
+      <div className="marquee-track gap-12 px-8">
+        {[...PARTNERS, ...PARTNERS].map((p, i) => (
+          <span key={`${p}-${i}`} className="font-display text-3xl tracking-wide text-red">
+            {p}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer className="border-t border-line bg-bg">
+      <PartnerMarquee />
+      <div className="grid gap-10 px-5 py-14 md:grid-cols-3 md:px-10">
+        <div>
+          <p className="font-display text-3xl tracking-wide text-fg">KANEK FRAMES</p>
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
+            Intelligence, built into the structure. Steel was the framework of the industrial age. Kanek is the framework of the intelligence age.
+          </p>
+        </div>
+        <div className="text-sm text-muted">
+          <p className="text-xs uppercase tracking-[0.2em] text-fg">Yard</p>
+          <p className="mt-3">1840 Helm Drive</p>
+          <p>North Las Vegas, NV 89030</p>
+          <a href="tel:+17025550148" className="mt-3 block text-fg hover:text-red">
+            +1 702 555 0148
+          </a>
+          <a href="mailto:yard@kanekframes.com" className="block hover:text-red">
+            yard@kanekframes.com
+          </a>
+        </div>
+        <div className="flex flex-col gap-2 text-sm">
+          {LINKS.map((l) => (
+            <Link key={l.to} to={l.to} className="text-muted hover:text-fg">
+              {l.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-5 py-5 font-mono text-[10px] uppercase tracking-[0.18em] text-faint md:px-10">
+        <span>© {new Date().getFullYear()} Kanek Frames</span>
+        <span>Build intelligence</span>
+      </div>
+    </footer>
+  );
+}
+```
+
+## FILE: src/components/site/hero.tsx
+```
+import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { Film } from "@/components/site/film";
+
+export function Hero() {
+  return (
+    <section id="top" className="relative h-dvh overflow-hidden bg-bg">
+      <Film
+        src="/video/hero.mp4"
+        poster="/images/hero-poster.jpg"
+        label="Kanek Frames — intelligence built into the structure"
+      />
+
+      <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-6 px-5 pb-8 md:px-10 md:pb-10">
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-red">Kanek Frames</p>
+          <h1 className="mt-2 max-w-xl font-display text-4xl leading-[0.92] tracking-wide text-fg md:text-6xl">
+            Intelligence, Built Into the Structure.
+          </h1>
+        </div>
+        <div className="hidden shrink-0 flex-col items-end gap-3 sm:flex">
+          <Button asChild size="sm" variant="outline">
+            <a href="#about">About</a>
+          </Button>
+          <Button asChild size="sm">
+            <Link to="/catalog">Catalog</Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: src/components/site/home-reel.tsx
+```
+import { Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Film } from "@/components/site/film";
+import { PartnerMarquee } from "@/components/site/footer";
+import { Button } from "@/components/ui/button";
+
+type Layer = {
+  id?: string;
+  kind: "video" | "image";
+  src: string;
+  poster?: string;
+  alt: string;
+  kicker: string;
+  title: string;
+  body?: string;
+  actions?: ReactNode;
+};
+
+const LAYERS: Layer[] = [
+  {
+    id: "top",
+    kind: "video",
+    src: "/video/hero.mp4",
+    poster: "/images/hero-poster.jpg",
+    alt: "Kanek Frames — intelligence built into the structure",
+    kicker: "Kanek Frames",
+    title: "Intelligence, Built Into the Structure.",
+    actions: (
+      <div className="hidden shrink-0 flex-col items-end gap-3 sm:flex">
+        <Button asChild size="sm" variant="outline">
+          <Link to="/about">About</Link>
+        </Button>
+        <Button asChild size="sm">
+          <Link to="/catalog">Catalog</Link>
+        </Button>
+      </div>
+    ),
+  },
+  {
+    id: "about",
+    kind: "video",
+    src: "/video/shop.mp4",
+    poster: "/images/shop-poster.jpg",
+    alt: "Kanek Frames shop floor",
+    kicker: "About",
+    title: "We build technology into them.",
+    body: "We don't add technology to buildings. Every Kanek Frame is more than steel — it is part of a connected structural network.",
+  },
+  {
+    id: "machine",
+    kind: "video",
+    src: "/video/crane.mp4",
+    poster: "/images/crane-poster.jpg",
+    alt: "The intelligent frame",
+    kicker: "The intelligent frame",
+    title: "Now it's computational.",
+    body: "Steel has been structural for centuries. Kanek reverses the model: digital wireframe architecture, built into the steel.",
+  },
+  {
+    id: "services",
+    kind: "image",
+    src: "/images/scroll/build/04.jpg",
+    alt: "Digital Wireframe",
+    kicker: "Digital Wireframe™",
+    title: "A living digital replica.",
+    body: "Physical steel. Digital structure. One system.",
+  },
+  {
+    id: "shopcrane",
+    kind: "image",
+    src: "/images/scroll/shopcrane/01.jpg",
+    alt: "Kanek Core inside the beam",
+    kicker: "Kanek Core™",
+    title: "Intelligence inside the beam.",
+    body: "Each component carries a secure digital identity — position, connections, status, environment.",
+  },
+  {
+    kind: "image",
+    src: "/images/scroll/shopcrane/02.jpg",
+    alt: "Building-scale AI",
+    kicker: "Building-scale AI",
+    title: "Give AI the building itself.",
+    body: "Most building AI lives in cameras and servers. Kanek gives AI the structure as a data layer.",
+  },
+  {
+    kind: "image",
+    src: "/images/scroll/shopcrane/03.jpg",
+    alt: "Quantum-ready security",
+    kicker: "Quantum-ready",
+    title: "Security from the frame out.",
+    body: "Zero-trust. Post-quantum capable. Every node authenticated. Every change logged.",
+  },
+  {
+    kind: "image",
+    src: "/images/scroll/shopcrane/04.jpg",
+    alt: "Structural intelligence",
+    kicker: "Structural intelligence",
+    title: "A building that knows.",
+    body: "Stress. Vibration. Movement. Temperature. Moisture. Load. Connection integrity.",
+  },
+  {
+    kind: "image",
+    src: "/images/scroll/shopcrane/05.jpg",
+    alt: "Kanek Grid",
+    kicker: "Kanek Grid™",
+    title: "The building comes online.",
+    body: "A single frame is intelligent. Thousands connected become a building-scale network.",
+  },
+  {
+    kind: "image",
+    src: "/images/scroll/shopcrane/06.jpg",
+    alt: "Build intelligence",
+    kicker: "The next generation",
+    title: "Build intelligence.",
+    body: "Steel was the framework of the industrial age. Kanek is the framework of the intelligence age.",
+  },
+];
+
+function smooth(t: number) {
+  const x = Math.max(0, Math.min(1, t));
+  return x * x * (3 - 2 * x);
+}
+
+/** Outgoing copy dies before incoming copy starts — never two titles on screen. */
+function copyOpacity(fade: number, incoming: boolean) {
+  return incoming ? smooth((fade - 0.56) / 0.26) : 1 - smooth((fade - 0.12) / 0.26);
+}
+
+export function HomeReel() {
+  const track = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    LAYERS.forEach((layer) => {
+      if (layer.kind === "image") {
+        const img = new Image();
+        img.src = layer.src;
+      }
+    });
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setProgress(0);
+      return;
+    }
+
+    let raf = 0;
+    const measure = () => {
+      const el = track.current;
+      if (!el) return;
+      const total = el.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      const p = Math.max(0, Math.min(1, -el.getBoundingClientRect().top / total));
+      setProgress(p);
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  const last = LAYERS.length - 1;
+  const exact = progress * last;
+  const i = Math.min(last, Math.floor(exact));
+  const next = Math.min(last, i + 1);
+  const fade = smooth(exact - i);
+  const layer = LAYERS[i] ?? LAYERS[0];
+  const incoming = LAYERS[next] ?? layer;
+  const marquee = smooth((exact - 3.4) / 1.1);
+  const incomingCopy = fade >= 0.5;
+  const captionLayer = incomingCopy ? incoming : layer;
+  const captionOpacity = next === i ? 1 : copyOpacity(fade, incomingCopy);
+
+  return (
+    <section
+      ref={track}
+      className="relative bg-bg"
+      style={{ height: `${last * 80 + 180}vh` }}
+    >
+      <div className="sticky top-0 h-dvh overflow-hidden bg-bg">
+        {LAYERS.map((item, idx) => {
+          let opacity = 0;
+          if (idx === i) opacity = 1 - fade;
+          else if (idx === next) opacity = fade;
+          if (opacity < 0.02 && item.kind === "image") return null;
+          const active = opacity > 0.12;
+          return (
+            <div
+              key={item.src}
+              className="absolute inset-0"
+              style={{ opacity, zIndex: idx === next ? 2 : 1 }}
+              aria-hidden={!active}
+            >
+              {item.kind === "video" ? (
+                <Film
+                  src={item.src}
+                  poster={item.poster ?? item.src}
+                  label={item.alt}
+                  active={active}
+                />
+              ) : (
+                <img src={item.src} alt="" className="absolute inset-0 h-full w-full object-cover" />
+              )}
+            </div>
+          );
+        })}
+
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-[2px] bg-transparent">
+          <div className="h-full bg-red" style={{ width: `${Math.round(progress * 100)}%` }} />
+        </div>
+
+        <Caption
+          layer={captionLayer}
+          opacity={captionOpacity}
+          marquee={marquee}
+          rise={incomingCopy}
+        />
+
+        <div
+          className="absolute inset-x-0 bottom-0 z-30"
+          style={{ opacity: marquee, pointerEvents: marquee > 0.4 ? "auto" : "none" }}
+        >
+          <PartnerMarquee />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Caption({
+  layer,
+  opacity,
+  marquee,
+  rise,
+}: {
+  layer: Layer;
+  opacity: number;
+  marquee: number;
+  rise: boolean;
+}) {
+  if (opacity < 0.04) return null;
+  const shift = (1 - opacity) * (rise ? -22 : 22);
+  return (
+    <div
+      className="pointer-events-none absolute inset-x-0 z-20 flex items-end justify-between gap-6 px-5 md:px-10"
+      style={{
+        opacity,
+        bottom: marquee > 0.08 ? "7.5rem" : "2.5rem",
+        paddingBottom: "1.5rem",
+        transform: `translateY(${shift}px)`,
+      }}
+    >
+      <div className="max-w-3xl">
+        {layer.id ? <span id={layer.id} className="sr-only" /> : null}
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-red">{layer.kicker}</p>
+        {layer.id === "top" ? (
+          <h1 className="mt-2 font-display text-4xl leading-[0.92] tracking-wide text-fg md:text-6xl">
+            {layer.title}
+          </h1>
+        ) : (
+          <h2 className="mt-2 font-display text-4xl leading-[0.92] tracking-wide text-fg md:text-6xl">
+            {layer.title}
+          </h2>
+        )}
+        {layer.body ? (
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-steel md:text-base">{layer.body}</p>
+        ) : null}
+      </div>
+      {layer.actions ? <div className="pointer-events-auto">{layer.actions}</div> : null}
+    </div>
+  );
+}
+```
+
+## FILE: src/components/site/logo.tsx
+```
+import { Link } from "@tanstack/react-router";
+import { cn } from "@/lib/utils";
+
+export function Logo({ className, compact = false }: { className?: string; compact?: boolean }) {
+  return (
+    <Link to="/" className={cn("flex items-center gap-3 text-fg", className)}>
+      <span className="relative grid size-9 shrink-0 place-items-center bg-red" aria-hidden>
+        <svg viewBox="0 0 24 24" className="size-[18px] fill-fg" aria-hidden>
+          <rect x="4" y="3" width="5" height="18" />
+          <polygon points="12,3 16.8,3 13.4,12 17,21 12,21 9.5,12" />
+        </svg>
+      </span>
+      {compact ? null : (
+        <span className="font-display text-xl leading-none tracking-[0.18em]">KANEK FRAMES</span>
+      )}
+    </Link>
+  );
+}
+```
+
+## FILE: src/components/site/nav.tsx
+```
+import { Link } from "@tanstack/react-router";
+import { Menu, Phone, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Logo } from "@/components/site/logo";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+const LINKS = [
+  { to: "/about", label: "About" },
+  { to: "/services", label: "Services" },
+  { to: "/catalog", label: "Catalog" },
+  { to: "/knowledge", label: "Knowledge" },
+  { to: "/contact", label: "Contact" },
+] as const;
+
+export function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
+        scrolled || open ? "bg-bg/90 backdrop-blur-md" : "bg-transparent",
+      )}
+    >
+      <div className="flex h-16 items-center justify-between gap-4 px-5 md:h-[72px] md:px-8">
+        <Logo />
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+          {LINKS.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              className="text-xs font-medium uppercase tracking-[0.18em] text-fg/80 transition-colors hover:text-red"
+              activeProps={{ className: "text-red" }}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="hidden items-center gap-5 lg:flex">
+          <a
+            href="tel:+17025550148"
+            className="font-mono text-xs tracking-wide text-fg/80 hover:text-fg"
+          >
+            +1 702 555 0148
+          </a>
+          <Button asChild size="sm">
+            <Link to="/contact">Build Intelligence</Link>
+          </Button>
+        </div>
+        <div className="flex items-center gap-1 lg:hidden">
+          <a
+            href="tel:+17025550148"
+            className="grid size-11 place-items-center text-fg"
+            aria-label="Call"
+          >
+            <Phone className="size-5" />
+          </a>
+          <button
+            type="button"
+            className="grid size-11 place-items-center text-fg"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="size-6" /> : <Menu className="size-6" />}
+          </button>
+        </div>
+      </div>
+      {open ? (
+        <div className="flex min-h-dvh flex-col gap-4 bg-bg px-6 pb-16 pt-4 lg:hidden">
+          {LINKS.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              onClick={() => setOpen(false)}
+              className="font-display text-5xl tracking-wide text-fg hover:text-red"
+            >
+              {l.label}
+            </Link>
+          ))}
+          <Button asChild size="lg" className="mt-8 w-full">
+            <Link to="/contact" onClick={() => setOpen(false)}>
+              Build Intelligence
+            </Link>
+          </Button>
+        </div>
+      ) : null}
+    </header>
+  );
+}
+```
+
+## FILE: src/components/site/page-hero.tsx
+```
+import { Film } from "@/components/site/film";
+
+export function PageHero({
+  title,
+  kicker,
+  image,
+  video,
+  poster,
+}: {
+  title: string;
+  kicker?: string;
+  image?: string;
+  video?: string;
+  poster?: string;
+}) {
+  return (
+    <section className="relative min-h-dvh overflow-hidden bg-bg">
+      {video && poster ? (
+        <Film src={video} poster={poster} />
+      ) : (
+        <img
+          src={image}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/35 to-transparent" />
+      <div className="relative z-10 flex min-h-dvh flex-col justify-end px-5 pb-12 md:px-10 md:pb-16">
+        {kicker ? (
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-red">{kicker}</p>
+        ) : null}
+        <h1 className="mt-3 max-w-4xl font-display text-6xl leading-[0.9] tracking-wide text-fg md:text-8xl">
+          {title}
+        </h1>
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: src/components/site/panels.tsx
+```
+import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+
+export function CatalogPanel() {
+  return (
+    <section id="catalog" className="relative h-dvh overflow-hidden bg-bg">
+      <img
+        src="/images/catalog-dusk.jpg"
+        alt="Kanek Frames — the intelligent system"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-10 md:px-10 md:pb-14">
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-red">Catalog</p>
+        <h2 className="mt-2 max-w-3xl font-display text-4xl leading-[0.92] tracking-wide text-fg md:text-6xl">
+          Four layers. One intelligent frame.
+        </h2>
+        <Button asChild size="sm" variant="outline" className="mt-6">
+          <Link to="/catalog">The book</Link>
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+export function ServicesPanel() {
+  return (
+    <section id="services" className="relative h-dvh overflow-hidden bg-bg">
+      <img
+        src="/images/scroll/build/04.jpg"
+        alt="Digital Wireframe"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-10 md:px-10 md:pb-14">
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-red">Services</p>
+        <h2 className="mt-2 max-w-3xl font-display text-4xl leading-[0.92] tracking-wide text-fg md:text-6xl">
+          Core. Wireframe. Grid. Node.
+        </h2>
+        <p className="mt-4 max-w-md text-sm text-steel">
+          Intelligence inside the beam. A living digital replica. The building as a platform.
+        </p>
+        <Button asChild size="sm" variant="outline" className="mt-6">
+          <Link to="/services">What we take on</Link>
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+export function ContactPanel() {
+  return (
+    <section id="contact" className="relative h-dvh overflow-hidden bg-bg">
+      <img
+        src="/images/shop-interior.jpg"
+        alt="Kanek Frames shop"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-10 md:px-10 md:pb-14">
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-red">Contact</p>
+        <h2 className="mt-2 max-w-3xl font-display text-4xl leading-[0.92] tracking-wide text-fg md:text-6xl">
+          Build intelligence.
+        </h2>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Button asChild size="sm">
+            <Link to="/contact">Build Intelligence</Link>
+          </Button>
+          <Button asChild size="sm" variant="outline">
+            <a href="tel:+17025550148">+1 702 555 0148</a>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: src/components/site/product-stage.tsx
+```
+import { Link } from "@tanstack/react-router";
+import { ArrowDown } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import type { Product } from "@/data/products";
+import { cn } from "@/lib/utils";
+
+export function ProductStage({
+  product,
+  nextHref = "#about",
+  id,
+}: {
+  product: Product;
+  nextHref?: string;
+  id?: string;
+}) {
+  const [active, setActive] = useState(0);
+  const view = product.views[active] ?? product.cover;
+
+  return (
+    <section id={id} className="relative min-h-dvh bg-bg pt-16 md:pt-[72px]">
+      <div className="grid min-h-[calc(100dvh-4rem)] lg:grid-cols-2 md:min-h-[calc(100dvh-72px)]">
+        <div className="flex gap-3 px-4 py-6 md:gap-4 md:px-6 md:py-8">
+          <div className="flex w-14 shrink-0 flex-col gap-2 md:w-16">
+            {product.views.map((src, i) => (
+              <button
+                key={src}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-label={`View ${i + 1}`}
+                className={cn(
+                  "relative aspect-[3/4] overflow-hidden border",
+                  i === active ? "border-fg" : "border-line opacity-70 hover:opacity-100",
+                )}
+              >
+                <img src={src} alt="" className="h-full w-full object-cover" />
+              </button>
+            ))}
+          </div>
+          <div className="relative min-h-[70vh] flex-1 overflow-hidden bg-bg-elevated">
+            <img
+              key={view}
+              src={view}
+              alt={product.name}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-between gap-12 px-5 py-10 md:px-12 md:py-14">
+          <div>
+            <h2 className="font-display text-5xl leading-[0.9] tracking-wide text-fg md:text-7xl">
+              {product.name}
+            </h2>
+            <p className="mt-6 max-w-md text-pretty leading-relaxed text-muted">{product.blurb}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild size="sm" variant="outline">
+                <a href={product.pdf} download>
+                  PDF
+                </a>
+              </Button>
+              <Button asChild size="sm" variant="outline">
+                <Link to="/contact">DWG</Link>
+              </Button>
+            </div>
+          </div>
+
+          <div>
+            <dl className="border-t border-line">
+              {product.specs.map((s) => (
+                <div
+                  key={s.label}
+                  className="flex items-baseline justify-between gap-6 border-b border-line py-4"
+                >
+                  <dt className="text-sm text-muted">{s.label}</dt>
+                  <dd className="font-mono text-sm text-fg">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <a
+              href={nextHref}
+              className="mt-8 ml-auto grid size-11 place-items-center border border-line text-fg hover:border-fg"
+              aria-label="Next section"
+            >
+              <ArrowDown className="size-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: src/components/site/scroll-film.tsx
+```
+import { useEffect, useRef, useState } from "react";
+
+export type ScrollCaption = {
+  kicker: string;
+  title: string;
+  body?: string;
+};
+
+function smooth(t: number) {
+  const x = Math.max(0, Math.min(1, t));
+  return x * x * (3 - 2 * x);
+}
+
+function copyOpacity(fade: number, incoming: boolean) {
+  return incoming ? smooth((fade - 0.56) / 0.26) : 1 - smooth((fade - 0.12) / 0.26);
+}
+
+export function ScrollFilm({
+  id,
+  frames,
+  captions,
+  alt,
+  length = 380,
+}: {
+  id?: string;
+  frames: string[];
+  captions: ScrollCaption[];
+  alt: string;
+  length?: number;
+}) {
+  const track = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const [exit, setExit] = useState(0);
+
+  useEffect(() => {
+    frames.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setProgress(0);
+      setExit(0);
+      return;
+    }
+
+    let raf = 0;
+    const measure = () => {
+      const el = track.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      if (total > 0) {
+        const p = Math.max(0, Math.min(1, -rect.top / total));
+        setProgress(p);
+      }
+      const leave =
+        rect.bottom >= window.innerHeight
+          ? 0
+          : 1 - Math.max(0, rect.bottom) / window.innerHeight;
+      setExit(leave);
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [frames]);
+
+  const last = Math.max(frames.length - 1, 1);
+  const exact = progress * last;
+  const i = Math.min(last, Math.floor(exact));
+  const next = Math.min(last, i + 1);
+  const fade = exact - i;
+  const capA = captions[Math.min(captions.length - 1, i)] ?? captions[0];
+  const capB = captions[Math.min(captions.length - 1, next)] ?? capA;
+  const sameCopy = capA?.title === capB?.title && capA?.kicker === capB?.kicker;
+  const incomingCopy = fade >= 0.5;
+  const cap = incomingCopy ? capB : capA;
+  const swap = next !== i && !sameCopy ? copyOpacity(fade, incomingCopy) : 1;
+  const shown = swap * (1 - smooth(exit / 0.32));
+
+  return (
+    <section id={id} ref={track} className="relative isolate bg-bg" style={{ height: `${length}vh` }}>
+      <div className="sticky top-0 z-0 h-dvh overflow-hidden">
+        {frames.map((src, idx) => {
+          const show = idx === i || idx === next;
+          if (!show) return null;
+          const opacity = idx === i ? 1 - fade * 0.85 : fade;
+          return (
+            <img
+              key={src}
+              src={src}
+              alt={idx === i ? alt : ""}
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ opacity }}
+            />
+          );
+        })}
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-transparent">
+          <div className="h-full bg-red" style={{ width: `${Math.round(progress * 100)}%` }} />
+        </div>
+        {cap && shown > 0.04 ? (
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-5 pb-10 md:px-10 md:pb-14"
+            style={{
+              opacity: shown,
+              transform: `translateY(${(1 - swap) * (incomingCopy ? -18 : 18)}px)`,
+            }}
+          >
+            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-red">{cap.kicker}</p>
+            <h2 className="mt-2 max-w-3xl font-display text-4xl leading-[0.92] tracking-wide text-fg md:text-6xl">
+              {cap.title}
+            </h2>
+            {cap.body ? <p className="mt-3 max-w-md text-sm text-steel md:text-base">{cap.body}</p> : null}
+          </div>
+        ) : null}
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: src/components/site/sequences.tsx
+```
+import { ScrollFilm } from "@/components/site/scroll-film";
+
+const CRANE = [
+  "/images/scroll/crane/01.jpg",
+  "/images/scroll/crane/02.jpg",
+  "/images/scroll/crane/03.jpg",
+  "/images/scroll/crane/04.jpg",
+  "/images/scroll/crane/05.jpg",
+  "/images/scroll/crane/06.jpg",
+  "/images/scroll/crane/07.jpg",
+  "/images/scroll/crane/08.jpg",
+];
+
+const BUILD = [
+  "/images/scroll/build/01.jpg",
+  "/images/scroll/build/02.jpg",
+  "/images/scroll/build/03.jpg",
+  "/images/scroll/build/04.jpg",
+  "/images/scroll/build/05.jpg",
+  "/images/scroll/build/06.jpg",
+  "/images/scroll/build/07.jpg",
+  "/images/scroll/build/08.jpg",
+];
+
+const WAREHOUSE = [
+  "/images/scroll/warehouse/01.jpg",
+  "/images/scroll/warehouse/02.jpg",
+  "/images/scroll/warehouse/03.jpg",
+  "/images/scroll/warehouse/04.jpg",
+  "/images/scroll/warehouse/05.jpg",
+  "/images/scroll/warehouse/06.jpg",
+];
+
+const SHOPCRANE = [
+  "/images/scroll/shopcrane/01.jpg",
+  "/images/scroll/shopcrane/02.jpg",
+  "/images/scroll/shopcrane/03.jpg",
+  "/images/scroll/shopcrane/04.jpg",
+  "/images/scroll/shopcrane/05.jpg",
+  "/images/scroll/shopcrane/06.jpg",
+];
+
+const CRANE_CAPS = [
+  { kicker: "Kanek Core™", title: "Intelligence inside the beam.", body: "Every authorized node can maintain its own cryptographically verifiable identity." },
+  { kicker: "The node", title: "Beams become a network.", body: "Position, connections, status, environment — reported to the building." },
+  { kicker: "The frame", title: "Now it's computational.", body: "Steel has been structural for centuries. This is the next layer." },
+  { kicker: "The cab", title: "The structure as a data layer.", body: "AI understands the building against its exact architecture." },
+  { kicker: "Kanek Grid™", title: "When the frames connect.", body: "A single frame is intelligent. Thousands become a platform." },
+  { kicker: "The mast", title: "Built for what comes next.", body: "Processors change. Networks evolve. The steel remains." },
+  { kicker: "The jib", title: "One continuous record.", body: "Identity follows the component from mill to operation." },
+  { kicker: "The system", title: "Build intelligence.", body: "The framework of the intelligence age." },
+];
+
+const BUILD_CAPS = [
+  { kicker: "Digital Wireframe™", title: "A living digital replica.", body: "As the frames go up, their counterparts assemble with them." },
+  { kicker: "Inside the frame", title: "The nervous system.", body: "A digital structure that mirrors the physical architecture." },
+  { kicker: "The hangar", title: "The building as a platform.", body: "AI, twins, robotics, energy, security — on the same frame." },
+  { kicker: "Clear span", title: "Physical steel. Digital structure.", body: "One system. No retrofit layer." },
+  { kicker: "The atrium", title: "Visualize from the steel out.", body: "The foundation for digital twins and real-time management." },
+  { kicker: "Inside", title: "Synchronized through operation.", body: "Build the physical structure once. Create its digital counterpart simultaneously." },
+  { kicker: "The canopy", title: "A structure that can understand itself.", body: "Anomalies reported to the engineer — not to the next inspection cycle." },
+  { kicker: "The hall", title: "Infrastructure that adapts.", body: "Sense. Understand. Communicate. Authenticate. Predict." },
+];
+
+const WAREHOUSE_CAPS = [
+  { kicker: "The warehouse", title: "Where the identity starts.", body: "Every component can receive a unique digital identity during manufacturing." },
+  { kicker: "The roof", title: "A network before the glass.", body: "Connected nodes. Then a building." },
+  { kicker: "The doors", title: "From mill to pad.", body: "Identity follows fabrication, haul, installation, inspection, operation." },
+  { kicker: "The floor", title: "Thousands of beams. One grid.", body: "Kanek Grid™ — a secure, building-scale digital framework." },
+  { kicker: "Night bay", title: "The shop does not wait.", body: "Intelligence is built in before the load leaves." },
+  { kicker: "The connection", title: "Every joint authenticated.", body: "Every change logged. Every system segmented." },
+];
+
+const SHOPCRANE_CAPS = [
+  { kicker: "Kanek Core™", title: "Intelligence inside the beam.", body: "A building-scale computing environment, not passive iron." },
+  { kicker: "The pick", title: "Physical and digital, same night.", body: "If it hangs here, it comes online on the pad." },
+  { kicker: "The rails", title: "The grid extends.", body: "AI management. Twins. Robotics. Predictive maintenance. Energy." },
+  { kicker: "Through the lattice", title: "Security from the frame out.", body: "Zero-trust. Post-quantum capable." },
+  { kicker: "The block", title: "A structure that knows.", body: "Stress. Vibration. Load. Connection integrity." },
+  { kicker: "The volume", title: "Build intelligence.", body: "Steel was the framework of the industrial age." },
+];
+
+export function CraneScroll() {
+  return (
+    <ScrollFilm
+      id="machine"
+      frames={CRANE}
+      captions={CRANE_CAPS}
+      alt="Kanek Core — intelligence inside the beam"
+      length={400}
+    />
+  );
+}
+
+export function BuildScroll() {
+  return (
+    <ScrollFilm
+      id="work"
+      frames={BUILD}
+      captions={BUILD_CAPS}
+      alt="Digital Wireframe — buildings"
+      length={420}
+    />
+  );
+}
+
+export function WarehouseScroll() {
+  return (
+    <ScrollFilm
+      id="warehouse"
+      frames={WAREHOUSE}
+      captions={WAREHOUSE_CAPS}
+      alt="Kanek Grid — the shop"
+      length={360}
+    />
+  );
+}
+
+export function ShopCraneScroll() {
+  return (
+    <ScrollFilm
+      id="shopcrane"
+      frames={SHOPCRANE}
+      captions={SHOPCRANE_CAPS}
+      alt="The intelligent frame"
+      length={360}
+    />
+  );
+}
+```
+
+## FILE: src/components/site/services.tsx
+```
+import { Link } from "@tanstack/react-router";
+
+const SERVICES = [
+  {
+    n: "01",
+    title: "Kanek Core™",
+    body: "Intelligence inside the beam. Each structural component carries a secure digital identity and reports position, connections, status, and environment to the building network.",
+  },
+  {
+    n: "02",
+    title: "Digital Wireframe™",
+    body: "As the frames go up, their digital counterparts assemble with them. A living replica synchronized through construction and operation — the foundation for digital twins.",
+  },
+  {
+    n: "03",
+    title: "Building-scale AI",
+    body: "Give AI the building itself. Thousands of interconnected components become a persistent data layer — structural, environmental, occupancy, energy, security — against the exact architecture.",
+  },
+  {
+    n: "04",
+    title: "Quantum-ready security",
+    body: "Security from the frame out. Zero-trust. Post-quantum capable. Every node authenticated. Every connection logged. Segmented environments for every critical system.",
+  },
+];
+
+export function Services() {
+  return (
+    <section id="services" className="border-t border-line bg-bg">
+      <div className="flex items-end justify-between px-5 py-10 md:px-10 md:py-14">
+        <h2 className="font-display text-4xl tracking-wide text-fg md:text-5xl">Our services</h2>
+        <Link to="/contact" className="text-sm text-red hover:underline">
+          More
+        </Link>
+      </div>
+      <div className="grid border-t border-line md:grid-cols-2">
+        {SERVICES.map((s) => (
+          <article
+            key={s.n}
+            className="group flex min-h-[55vh] flex-col justify-between border-b border-line px-5 py-12 md:min-h-[60vh] md:px-10 md:py-16 md:odd:border-r"
+          >
+            <p className="font-mono text-sm text-red">{s.n}</p>
+            <div>
+              <h3 className="font-display text-5xl tracking-wide text-fg md:text-6xl">{s.title}</h3>
+              <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted">{s.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+## FILE: src/components/site/stack.tsx
+```
+import { useEffect, useRef, useState, type ReactNode } from "react";
+
+export function StackSection({
+  children,
+  z,
+}: {
+  children: ReactNode;
+  z: number;
+}) {
+  const wrap = useRef<HTMLDivElement>(null);
+  const [cover, setCover] = useState(0);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    let raf = 0;
+    const measure = () => {
+      const el = wrap.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const p = Math.max(0, Math.min(1, -rect.top / Math.max(rect.height, 1)));
+      setCover(p);
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  return (
+    <div ref={wrap} className="relative h-dvh" style={{ zIndex: z }}>
+      <div className="sticky top-0 h-dvh overflow-hidden bg-bg">
+        <div
+          className="h-full w-full origin-center will-change-transform"
+          style={{
+            transform: `scale(${1 - cover * 0.08})`,
+            filter: `brightness(${1 - cover * 0.55})`,
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+## FILE: src/components/site/work.tsx
+```
+import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { PRODUCTS } from "@/data/products";
+
+export function CatalogHero() {
+  return (
+    <section id="catalog" className="relative min-h-dvh overflow-hidden bg-bg">
+      <img
+        src="/images/catalog-dusk.jpg"
+        alt="Kanek Frames — the intelligent system"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/30 to-transparent" />
+      <div className="relative z-10 flex min-h-dvh flex-col justify-end px-5 pb-12 md:px-10 md:pb-16">
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-red">Catalog</p>
+        <h2 className="mt-3 max-w-3xl font-display text-5xl leading-[0.95] tracking-wide text-fg md:text-7xl">
+          Four layers. One intelligent frame.
+        </h2>
+        <p className="mt-5 max-w-lg text-pretty text-steel">
+          Core. Wireframe. Grid. Node. The physical structure and the digital infrastructure, specified as one system.
+        </p>
+        <Button asChild size="lg" variant="outline" className="mt-8 w-fit">
+          <a href="#catalog-grid">View models</a>
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+export function ProjectGrid() {
+  return (
+    <div id="catalog-grid" className="grid border-t border-line md:grid-cols-2">
+      {PRODUCTS.map((p) => (
+        <Link
+          key={p.slug}
+          to="/catalog/$slug"
+          params={{ slug: p.slug }}
+          className="group relative min-h-[70vh] overflow-hidden md:min-h-dvh"
+        >
+          <img
+            src={p.cover}
+            alt={p.name}
+            className="absolute inset-0 h-full w-full object-cover outline outline-1 -outline-offset-1 outline-fg/10 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/25 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-red">{p.code}</p>
+            <h3 className="mt-2 font-display text-4xl tracking-wide text-fg md:text-5xl">{p.name}</h3>
+            <p className="mt-2 text-sm text-steel">{p.specs[0]?.value} · {p.specs[0]?.label}</p>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+export function Work() {
+  return (
+    <>
+      <CatalogHero />
+      <ProjectGrid />
+    </>
+  );
+}
+```
+
+## FILE: src/routes/__root.tsx
+```
+import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { AuthProvider } from "@/lib/auth/provider";
+import { PreviewHostBridge } from "@/components/preview-host-bridge";
+import appCss from "../styles.css?url";
+
+const APP_NAME = "KANEK FRAMES";
+
+export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: APP_NAME },
+      {
+        name: "description",
+        content:
+          "Kanek Frames — intelligence, built into the structure. Advanced structural steel with embedded digital intelligence.",
+      },
+      { name: "theme-color", content: "#070707" },
+    ],
+    links: [
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "stylesheet", href: appCss },
+      { rel: "manifest", href: "/__grok/manifest.webmanifest" },
+      { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap",
+      },
+    ],
+  }),
+  component: () => (
+    <html lang="en" className="antialiased" suppressHydrationWarning>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <PreviewHostBridge />
+        <AuthProvider>
+          <Outlet />
+        </AuthProvider>
+        <Scripts />
+      </body>
+    </html>
+  ),
+});
+```
+
+## FILE: src/routes/about.tsx
+```
+import { createFileRoute } from "@tanstack/react-router";
+import { CraneFilm, CraneStats } from "@/components/site/about";
+import { Chrome } from "@/components/site/chrome";
+
+export const Route = createFileRoute("/about")({
+  component: AboutPage,
+  head: () => ({
+    meta: [{ title: "About — KANEK FRAMES" }],
+  }),
+});
+
+function AboutPage() {
+  return (
+    <Chrome>
+      <CraneFilm />
+      <CraneStats />
+    </Chrome>
+  );
+}
+```
+
+## FILE: src/routes/catalog.$slug.tsx
+```
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { Chrome } from "@/components/site/chrome";
+import { ProductStage } from "@/components/site/product-stage";
+import { ProjectGrid } from "@/components/site/work";
+import { getProduct } from "@/data/products";
+
+export const Route = createFileRoute("/catalog/$slug")({
+  component: ProductPage,
+  head: ({ params }) => {
+    const product = getProduct(params.slug);
+    return {
+      meta: [{ title: `${product?.name ?? "Catalog"} — KANEK FRAMES` }],
+    };
+  },
+});
+
+function ProductPage() {
+  const { slug } = Route.useParams();
+  const product = getProduct(slug);
+
+  if (!product) {
+    return (
+      <Chrome>
+        <section className="grid min-h-dvh place-items-center px-5 text-center">
+          <div>
+            <p className="font-display text-5xl text-fg">Not in the book.</p>
+            <Link to="/catalog" className="mt-6 inline-block text-red underline underline-offset-4">
+              Back to catalog
+            </Link>
+          </div>
+        </section>
+      </Chrome>
+    );
+  }
+
+  return (
+    <Chrome>
+      <ProductStage product={product} nextHref="#catalog-grid" />
+      <div className="border-t border-line px-5 py-10 md:px-10">
+        <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-red">Other frames</p>
+        <div className="mt-3 flex items-end justify-between gap-4">
+          <h2 className="font-display text-4xl tracking-wide text-fg md:text-5xl">The catalog</h2>
+          <Link to="/catalog" className="text-sm text-red hover:underline">
+            All models
+          </Link>
+        </div>
+      </div>
+      <ProjectGrid />
+    </Chrome>
+  );
+}
+```
+
+## FILE: src/routes/catalog.tsx
+```
+import { createFileRoute } from "@tanstack/react-router";
+import { Chrome } from "@/components/site/chrome";
+import { BuildScroll } from "@/components/site/sequences";
+import { Work } from "@/components/site/work";
+
+export const Route = createFileRoute("/catalog")({
+  component: CatalogPage,
+  head: () => ({
+    meta: [{ title: "Catalog — KANEK FRAMES" }],
+  }),
+});
+
+function CatalogPage() {
+  return (
+    <Chrome>
+      <BuildScroll />
+      <Work />
+    </Chrome>
+  );
+}
+```
+
+## FILE: src/routes/contact.tsx
+```
+import { createFileRoute } from "@tanstack/react-router";
+import { Chrome } from "@/components/site/chrome";
+import { Contact } from "@/components/site/contact";
+import { ScrollFilm } from "@/components/site/scroll-film";
+
+const FRAMES = [
+  "/images/catalog-dusk.jpg",
+  "/images/scroll/crane/01.jpg",
+  "/images/shop-interior.jpg",
+  "/images/scroll/build/04.jpg",
+  "/images/truck-dusk.jpg",
+  "/images/scroll/crane/08.jpg",
+];
+
+const CAPS = [
+  { kicker: "Contact", title: "Build intelligence." },
+  { kicker: "The frame", title: "We don't add technology. We build it in." },
+  { kicker: "The shop", title: "Identity starts at manufacturing." },
+  { kicker: "The grid", title: "When the frames connect, the building comes online." },
+  { kicker: "The haul", title: "Physical steel. Digital structure. One system." },
+  { kicker: "Kanek", title: "The framework of the intelligence age." },
+];
+
+export const Route = createFileRoute("/contact")({
+  component: ContactPage,
+  head: () => ({
+    meta: [{ title: "Contact — KANEK FRAMES" }],
+  }),
+});
+
+function ContactPage() {
+  return (
+    <Chrome>
+      <ScrollFilm id="yard" frames={FRAMES} captions={CAPS} alt="Build intelligence" length={320} />
+      <Contact />
+    </Chrome>
+  );
+}
+```
+
+## FILE: src/routes/index.tsx
+```
+import { createFileRoute } from "@tanstack/react-router";
+import { Chrome } from "@/components/site/chrome";
+import { HomeReel } from "@/components/site/home-reel";
+
+export const Route = createFileRoute("/")({ component: Home });
+
+function Home() {
+  return (
+    <Chrome footer={false}>
+      <HomeReel />
+    </Chrome>
+  );
+}
+```
+
+## FILE: src/routes/knowledge.tsx
+```
+import { createFileRoute } from "@tanstack/react-router";
+import { Chrome } from "@/components/site/chrome";
+import { Faq } from "@/components/site/faq";
+import { ScrollFilm } from "@/components/site/scroll-film";
+
+const FRAMES = [
+  "/images/scroll/knowledge/01.jpg",
+  "/images/scroll/knowledge/02.jpg",
+  "/images/scroll/knowledge/03.jpg",
+  "/images/scroll/knowledge/04.jpg",
+  "/images/scroll/knowledge/05.jpg",
+  "/images/scroll/knowledge/06.jpg",
+  "/images/scroll/knowledge/07.jpg",
+  "/images/scroll/knowledge/08.jpg",
+];
+
+const CAPS = [
+  { kicker: "Knowledge", title: "Drawn from the structure.", body: "What the building knows is what the frame reports." },
+  { kicker: "Kanek Core™", title: "Identity before the pick.", body: "Every component can receive a unique digital identity during manufacturing." },
+  { kicker: "The weld", title: "A connection that can be authenticated.", body: "Every joint logged. Every change in the record." },
+  { kicker: "The packet", title: "One continuous record.", body: "Fabrication, haul, install, inspect, operate, replace." },
+  { kicker: "Inside the frame", title: "The digital counterpart.", body: "Build the physical structure once. Create its replica simultaneously." },
+  { kicker: "The cab", title: "Give AI the building itself.", body: "The structure as a data layer — not a camera array." },
+  { kicker: "The machine", title: "Security from the frame out.", body: "Zero-trust. Post-quantum capable." },
+  { kicker: "The inspector", title: "A building that knows.", body: "Anomalies reported to the engineer — not the next cycle." },
+];
+
+export const Route = createFileRoute("/knowledge")({
+  component: KnowledgePage,
+  head: () => ({
+    meta: [{ title: "Knowledge — KANEK FRAMES" }],
+  }),
+});
+
+function KnowledgePage() {
+  return (
+    <Chrome>
+      <ScrollFilm
+        id="knowledge"
+        frames={FRAMES}
+        captions={CAPS}
+        alt="Kanek Frames — structural intelligence"
+        length={440}
+      />
+      <Faq />
+    </Chrome>
+  );
+}
+```
+
+## FILE: src/routes/services.tsx
+```
+import { createFileRoute } from "@tanstack/react-router";
+import { Chrome } from "@/components/site/chrome";
+import { CraneScroll } from "@/components/site/sequences";
+import { Services } from "@/components/site/services";
+
+export const Route = createFileRoute("/services")({
+  component: ServicesPage,
+  head: () => ({
+    meta: [{ title: "Services — KANEK FRAMES" }],
+  }),
+});
+
+function ServicesPage() {
+  return (
+    <Chrome>
+      <CraneScroll />
+      <Services />
+    </Chrome>
+  );
+}
+```
+
+## FILE: src/styles.css
+```
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #070707;
+  --color-bg-elevated: #111111;
+  --color-surface: #161616;
+  --color-fg: #f2efe8;
+  --color-muted: #8c8c8c;
+  --color-faint: #5c5c5c;
+  --color-line: #2a2a2a;
+  --color-red: #e10600;
+  --color-red-hot: #ff2a1f;
+  --color-steel: #c8c4bb;
+  --font-display: "Bebas Neue", Impact, sans-serif;
+  --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  input,
+  textarea {
+    caret-color: var(--color-fg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.55'/></svg>");
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+```

@@ -1,0 +1,330 @@
+# Exact recreation prompt — Polyphon
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-synth
+Brand: Polyphon
+Category: Creative
+Tagline (catalog): Playable synthesizer · reactive visuals (Fable × 25 #22)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/22-synth/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POLYPHON — An Instrument You Already Know How to Play</title>
+<meta name="description" content="A playable browser synthesizer with a living visual field. Press any key.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#0c0918;
+    color:#efeaff;
+    font-family:'DM Mono', monospace;
+    height:100vh; overflow:hidden;
+  }
+  #viz { position:fixed; inset:0; z-index:0; }
+
+  .top {
+    position:fixed; top:2.2rem; left:0; right:0; z-index:10;
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding:0 2.6rem;
+    pointer-events:none;
+  }
+  h1 {
+    font-family:'Syne', sans-serif;
+    font-weight:800; font-size:1.5rem; letter-spacing:0.08em;
+  }
+  h1 span { color:#9d7bff; }
+  .top .right {
+    text-align:right; font-size:0.66rem; letter-spacing:0.24em;
+    text-transform:uppercase; color:rgba(239,234,255,0.45); line-height:2;
+  }
+
+  .scale-picker {
+    position:fixed; top:2.2rem; left:50%; transform:translateX(-50%);
+    z-index:10; display:flex; gap:0.5rem;
+  }
+  .scale-btn {
+    font-family:'DM Mono'; font-size:0.66rem; letter-spacing:0.18em; text-transform:uppercase;
+    background:rgba(157,123,255,0.08); color:rgba(239,234,255,0.55);
+    border:1px solid rgba(157,123,255,0.25);
+    border-radius:100px;
+    padding:0.5rem 1.1rem; cursor:pointer;
+    transition:all 0.25s;
+  }
+  .scale-btn:hover { color:#efeaff; border-color:rgba(157,123,255,0.7); }
+  .scale-btn.on { background:#9d7bff; color:#0c0918; border-color:#9d7bff; }
+
+  /* keyboard */
+  .kbd {
+    position:fixed; bottom:0; left:0; right:0; z-index:10;
+    display:flex;
+    height:clamp(150px, 24vh, 230px);
+    padding:0 2.6rem 2.2rem;
+    gap:6px;
+  }
+  .key {
+    flex:1;
+    background:linear-gradient(180deg, rgba(239,234,255,0.06), rgba(239,234,255,0.02));
+    border:1px solid rgba(239,234,255,0.14);
+    border-radius:12px 12px 16px 16px;
+    cursor:pointer;
+    position:relative;
+    transition:background 0.12s, transform 0.06s, border-color 0.12s, box-shadow 0.2s;
+    display:flex; flex-direction:column; justify-content:flex-end; align-items:center;
+    padding-bottom:1rem;
+    user-select:none; -webkit-user-select:none;
+    touch-action:none;
+  }
+  .key .kb-hint {
+    font-size:0.72rem; color:rgba(239,234,255,0.35);
+    border:1px solid rgba(239,234,255,0.2);
+    border-radius:6px;
+    width:1.7em; height:1.7em;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:0.5rem;
+  }
+  .key .note-name { font-size:0.62rem; letter-spacing:0.15em; color:rgba(239,234,255,0.4); }
+  .key.lit {
+    background:linear-gradient(180deg, var(--kc, #9d7bff), rgba(157,123,255,0.25));
+    border-color:var(--kc, #9d7bff);
+    transform:translateY(3px);
+    box-shadow:0 0 44px var(--kc, #9d7bff);
+  }
+  .key.lit .kb-hint, .key.lit .note-name { color:#0c0918; border-color:rgba(12,9,24,0.4); }
+
+  .hint-line {
+    position:fixed; bottom:calc(clamp(150px, 24vh, 230px) + 1rem);
+    left:0; right:0; z-index:9;
+    text-align:center;
+    font-size:0.64rem; letter-spacing:0.34em; text-transform:uppercase;
+    color:rgba(239,234,255,0.35);
+    pointer-events:none;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="viz"></canvas>
+
+<div class="top">
+  <h1>POLY<span>PHON</span></h1>
+  <div class="right">
+    Every sound synthesized live<br>
+    every visual driven by what you play<br>
+    № 22 — Fable Twenty-Five
+  </div>
+</div>
+
+<div class="scale-picker" id="scales"></div>
+<div class="hint-line">Play with your keyboard — A S D F G H J K L — or tap the keys</div>
+
+<div class="kbd" id="kbd"></div>
+
+<script>
+// ---------- scales ----------
+const SCALES = {
+  'Dream':   [0, 2, 4, 7, 9, 12, 14, 16, 19],       // pentatonic-ish major
+  'Dusk':    [0, 2, 3, 7, 8, 12, 14, 15, 19],       // minor add b6
+  'Koto':    [0, 1, 5, 7, 8, 12, 13, 17, 19],       // hirajoshi-ish
+  'Cosmos':  [0, 3, 5, 6, 10, 12, 15, 17, 22],      // blues/lydian mongrel
+};
+let scaleName = 'Dream';
+const ROOT = 220; // A3
+
+const KEYSROW = ['A','S','D','F','G','H','J','K','L'];
+const COLORS = ['#ff6b9d','#ff9d6b','#ffd76b','#a8ff6b','#6bffd7','#6bb4ff','#9d7bff','#e06bff','#ff6b6b'];
+
+// ---------- audio ----------
+let actx, reverb, master;
+function ensureAudio(){
+  if (actx) return;
+  actx = new (window.AudioContext||window.webkitAudioContext)();
+  master = actx.createGain(); master.gain.value = 0.5;
+  // simple synthetic reverb: feedback delay network lite
+  const dry = actx.createGain(); dry.gain.value = 0.7;
+  const wet = actx.createGain(); wet.gain.value = 0.4;
+  const d1 = actx.createDelay(); d1.delayTime.value = 0.21;
+  const d2 = actx.createDelay(); d2.delayTime.value = 0.34;
+  const fb1 = actx.createGain(); fb1.gain.value = 0.42;
+  const fb2 = actx.createGain(); fb2.gain.value = 0.36;
+  const lp = actx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=2400;
+  master.connect(dry); dry.connect(actx.destination);
+  master.connect(d1); d1.connect(fb1); fb1.connect(lp); lp.connect(d1);
+  d1.connect(d2); d2.connect(fb2); fb2.connect(d2);
+  d1.connect(wet); d2.connect(wet);
+  wet.connect(actx.destination);
+}
+
+function playNote(i){
+  ensureAudio();
+  if (actx.state === 'suspended') actx.resume();
+  const semis = SCALES[scaleName][i];
+  const f = ROOT * Math.pow(2, semis/12);
+  const now = actx.currentTime;
+
+  // main voice: two detuned triangles + sub sine
+  const g = actx.createGain();
+  g.gain.setValueAtTime(0, now);
+  g.gain.linearRampToValueAtTime(0.32, now+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, now+2.6);
+
+  [f*0.998, f*1.003].forEach(fr => {
+    const o = actx.createOscillator();
+    o.type = 'triangle'; o.frequency.value = fr;
+    o.connect(g); o.start(now); o.stop(now+2.8);
+  });
+  const sub = actx.createOscillator();
+  sub.type='sine'; sub.frequency.value = f/2;
+  const sg = actx.createGain(); sg.gain.setValueAtTime(0.18, now);
+  sg.gain.exponentialRampToValueAtTime(0.0001, now+1.6);
+  sub.connect(sg); sg.connect(master);
+  sub.start(now); sub.stop(now+1.8);
+
+  // sparkle partial
+  const sp = actx.createOscillator();
+  sp.type='sine'; sp.frequency.value = f*3.01;
+  const spg = actx.createGain();
+  spg.gain.setValueAtTime(0.05, now);
+  spg.gain.exponentialRampToValueAtTime(0.0001, now+0.7);
+  sp.connect(spg); spg.connect(master);
+  sp.start(now); sp.stop(now+0.8);
+
+  g.connect(master);
+
+  // visuals + key light
+  burst(i, f);
+  const el = keyEls[i];
+  el.classList.add('lit');
+  setTimeout(() => el.classList.remove('lit'), 240);
+}
+
+// ---------- keyboard UI ----------
+const kbd = document.getElementById('kbd');
+const NOTE_NAMES = ['do','re','mi','sol','la','do⁺','re⁺','mi⁺','sol⁺'];
+const keyEls = KEYSROW.map((k, i) => {
+  const el = document.createElement('div');
+  el.className = 'key';
+  el.style.setProperty('--kc', COLORS[i]);
+  el.innerHTML = `<div class="kb-hint">${k}</div><div class="note-name">${NOTE_NAMES[i]}</div>`;
+  el.addEventListener('pointerdown', e => { e.preventDefault(); playNote(i); });
+  kbd.appendChild(el);
+  return el;
+});
+const held = new Set();
+addEventListener('keydown', e => {
+  const i = KEYSROW.indexOf(e.key.toUpperCase());
+  if (i >= 0 && !held.has(i)){ held.add(i); playNote(i); }
+});
+addEventListener('keyup', e => {
+  const i = KEYSROW.indexOf(e.key.toUpperCase());
+  held.delete(i);
+});
+
+// scale picker
+const sc = document.getElementById('scales');
+Object.keys(SCALES).forEach(name => {
+  const b = document.createElement('button');
+  b.className = 'scale-btn' + (name===scaleName?' on':'');
+  b.textContent = name;
+  b.onclick = () => {
+    scaleName = name;
+    document.querySelectorAll('.scale-btn').forEach(x => x.classList.toggle('on', x===b));
+  };
+  sc.appendChild(b);
+});
+
+// ---------- visuals: expanding harmonic ripples + particle bloom ----------
+const cv = document.getElementById('viz');
+const cg = cv.getContext('2d');
+let W,H,DPR;
+function rs(){
+  DPR = Math.min(devicePixelRatio,2);
+  W = cv.width = innerWidth*DPR; H = cv.height = innerHeight*DPR;
+  cv.style.width = innerWidth+'px'; cv.style.height=innerHeight+'px';
+}
+addEventListener('resize', rs); rs();
+
+const ripples = [];
+const sparks = [];
+function burst(i, f){
+  const x = (i + 0.5) / KEYSROW.length * W;
+  const y = H * (0.62 - (i/KEYSROW.length)*0.28);
+  ripples.push({ x, y, r:0, col:COLORS[i], born:performance.now(), f });
+  for (let s=0;s<26;s++){
+    const a = Math.random()*Math.PI*2;
+    const v = 1 + Math.random()*4.5;
+    sparks.push({ x, y, vx:Math.cos(a)*v*DPR, vy:Math.sin(a)*v*DPR - 1.5*DPR, col:COLORS[i], life:1, decay:0.008+Math.random()*0.012 });
+  }
+}
+
+// ambient field: slow starless drift lines
+const fieldLines = Array.from({length:22}, (_,i) => ({
+  y: Math.random(), amp: 10+Math.random()*40, sp: 0.1+Math.random()*0.3, ph: Math.random()*7
+}));
+
+function draw(now){
+  const t = now/1000;
+  // soft trail fade
+  cg.fillStyle = 'rgba(12,9,24,0.16)';
+  cg.fillRect(0,0,W,H);
+
+  // ambient sine field
+  fieldLines.forEach((l,i) => {
+    cg.beginPath();
+    cg.strokeStyle = `rgba(157,123,255,${0.03 + (i%4===0?0.02:0)})`;
+    cg.lineWidth = 1*DPR;
+    for (let x=0;x<=W;x+=8*DPR){
+      const y = l.y*H + Math.sin(x/W*6 + t*l.sp + l.ph)*l.amp*DPR;
+      x===0 ? cg.moveTo(x,y) : cg.lineTo(x,y);
+    }
+    cg.stroke();
+  });
+
+  // ripples: concentric harmonic rings
+  for (let i=ripples.length-1;i>=0;i--){
+    const rp = ripples[i];
+    const age = (now - rp.born)/1000;
+    if (age > 3){ ripples.splice(i,1); continue; }
+    const alpha = Math.max(0, 1 - age/3);
+    for (let h=1; h<=4; h++){
+      const r = age * (140 + rp.f*0.18) * DPR / h;
+      cg.beginPath();
+      cg.strokeStyle = rp.col + Math.floor(alpha*200/h).toString(16).padStart(2,'0');
+      cg.lineWidth = (4.2 - h*0.8)*DPR;
+      cg.arc(rp.x, rp.y, r, 0, 7);
+      cg.stroke();
+    }
+    // luminous center bloom
+    const bg = cg.createRadialGradient(rp.x, rp.y, 0, rp.x, rp.y, 90*DPR*(1-alpha+0.2));
+    bg.addColorStop(0, rp.col + Math.floor(alpha*70).toString(16).padStart(2,'0'));
+    bg.addColorStop(1, rp.col + '00');
+    cg.fillStyle = bg;
+    cg.beginPath(); cg.arc(rp.x, rp.y, 90*DPR, 0, 7); cg.fill();
+  }
+
+  // sparks
+  for (let i=sparks.length-1;i>=0;i--){
+    const s = sparks[i];
+    s.x += s.vx; s.y += s.vy;
+    s.vy += 0.03*DPR;
+    s.vx *= 0.99; s.vy *= 0.99;
+    s.life -= s.decay;
+    if (s.life <= 0){ sparks.splice(i,1); continue; }
+    cg.fillStyle = s.col + Math.floor(s.life*220).toString(16).padStart(2,'0');
+    cg.beginPath();
+    cg.arc(s.x, s.y, (0.8 + s.life*2.2)*DPR, 0, 7);
+    cg.fill();
+  }
+
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
+```

@@ -1,0 +1,499 @@
+# Exact recreation prompt — Radiola 7
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-radiola
+Brand: Radiola 7
+Category: Creative
+Tagline (catalog): Skeuomorphic radio · real Web Audio synthesis (Fable × 25 #18)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/18-radiola/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: RADIOLA 7
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RADIOLA 7 — A Wireless Receiver for the Browser Age</title>
+<meta name="description" content="A fully working skeuomorphic radio. Turn the dial. Really.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,300&family=Marcellus&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    min-height:100vh;
+    background:radial-gradient(ellipse at 50% 20%, #4a3a2c, #241b12 65%, #14100a);
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    font-family:'Jost', sans-serif;
+    padding:4vh 4vw;
+    color:#d8c9a8;
+  }
+  .caption {
+    text-align:center; margin-bottom:3.2rem;
+  }
+  .caption h1 {
+    font-family:'Marcellus', serif;
+    font-size:clamp(1.7rem, 4.2vw, 2.8rem);
+    letter-spacing:0.28em; text-indent:0.28em;
+    color:#e8dcc0;
+  }
+  .caption p { font-size:0.85rem; letter-spacing:0.24em; text-transform:uppercase; color:#8f7d5e; margin-top:0.7rem; }
+
+  /* ---------------- radio body ---------------- */
+  .radio {
+    width:min(760px, 94vw);
+    border-radius:26px;
+    padding:2.6rem 3rem 2.4rem;
+    background:
+      linear-gradient(160deg, rgba(255,255,255,0.06), transparent 30%),
+      repeating-linear-gradient(92deg, #5a3d22 0 5px, #6b4a2b 5px 9px, #573a20 9px 14px),
+      #5a3d22;
+    box-shadow:
+      0 2px 0 rgba(255,235,200,0.16) inset,
+      0 -3px 12px rgba(0,0,0,0.5) inset,
+      0 40px 90px rgba(0,0,0,0.65),
+      0 8px 24px rgba(0,0,0,0.5);
+    position:relative;
+  }
+  .plate {
+    background:linear-gradient(180deg, #2e2317, #1d160d);
+    border-radius:16px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.75) inset, 0 1px 0 rgba(255,235,200,0.08);
+    padding:2rem 2.2rem;
+  }
+
+  /* dial window */
+  .dial-window {
+    background:linear-gradient(180deg, #10130f, #1a1e15);
+    border-radius:10px;
+    padding:1.2rem 1.4rem 1rem;
+    box-shadow:0 2px 14px rgba(0,0,0,0.8) inset;
+    border:1px solid #0b0d09;
+    position:relative;
+    overflow:hidden;
+  }
+  .dial-scale {
+    display:flex; justify-content:space-between;
+    font-size:0.66rem; letter-spacing:0.1em;
+    color:#b7e090;
+    text-shadow:0 0 8px rgba(150,220,110,0.5);
+    margin-bottom:0.5rem;
+  }
+  .dial-track { position:relative; height:34px; }
+  .dial-ticks {
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(90deg, rgba(183,224,144,0.5) 0 1px, transparent 1px 9.09%);
+    background-size:100% 12px;
+    background-repeat:no-repeat;
+    background-position:bottom;
+  }
+  .needle {
+    position:absolute; top:-6px; bottom:-2px; width:3px;
+    background:#ff9e3d;
+    box-shadow:0 0 10px rgba(255,158,61,0.9);
+    transition:left 0.18s cubic-bezier(0.3,0.9,0.5,1);
+  }
+  .station-name {
+    margin-top:0.9rem;
+    text-align:center;
+    font-family:'Marcellus', serif;
+    font-size:1.02rem; letter-spacing:0.32em; text-indent:0.32em;
+    color:#d9f2b6;
+    text-shadow:0 0 12px rgba(180,240,130,0.5);
+    min-height:1.5em;
+  }
+
+  /* controls row */
+  .controls {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:2.2rem;
+    gap:2rem;
+    flex-wrap:wrap;
+  }
+
+  .knob-group { text-align:center; }
+  .knob {
+    width:110px; height:110px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 34% 28%, #efe3c2, #b9a071 45%, #8a7147 70%, #6e5835);
+    box-shadow:
+      0 8px 20px rgba(0,0,0,0.6),
+      0 2px 3px rgba(0,0,0,0.6),
+      0 -1px 2px rgba(255,245,220,0.5) inset;
+    position:relative;
+    cursor:grab;
+    touch-action:none;
+    margin:0 auto;
+  }
+  .knob:active { cursor:grabbing; }
+  .knob .pointer {
+    position:absolute; top:8px; left:50%;
+    width:5px; height:26px; margin-left:-2.5px;
+    border-radius:3px;
+    background:#3a2c18;
+    box-shadow:0 1px 1px rgba(255,245,220,0.4);
+  }
+  .knob.small { width:78px; height:78px; }
+  .knob.small .pointer { height:19px; }
+  .knob-label {
+    margin-top:0.9rem;
+    font-size:0.62rem; letter-spacing:0.34em; text-transform:uppercase;
+    color:#9c8a68;
+  }
+
+  /* VU meter */
+  .vu {
+    width:150px; height:86px;
+    background:linear-gradient(180deg, #f5ecd3, #e6d9b5);
+    border-radius:9px;
+    border:3px solid #2b2115;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,0.5) inset;
+  }
+  .vu .arc {
+    position:absolute; inset:8px 8px 0;
+  }
+  .vu-needle {
+    position:absolute; bottom:6px; left:50%;
+    width:2px; height:62px;
+    background:#a33;
+    transform-origin:bottom center;
+    transform:rotate(-42deg);
+    transition:transform 0.09s ease-out;
+  }
+  .vu-label {
+    position:absolute; bottom:3px; width:100%;
+    text-align:center;
+    font-size:0.5rem; letter-spacing:0.3em; color:#5a4a2e;
+  }
+
+  /* power switch */
+  .power { text-align:center; }
+  .toggle {
+    width:64px; height:30px;
+    background:#1d160d;
+    border-radius:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.8) inset;
+    position:relative; cursor:pointer;
+    margin:0 auto;
+  }
+  .toggle .thumb {
+    position:absolute; top:3px; left:4px;
+    width:24px; height:24px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #efe3c2, #8a7147);
+    box-shadow:0 2px 5px rgba(0,0,0,0.6);
+    transition:left 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .toggle.on .thumb { left:36px; }
+  .lamp {
+    width:11px; height:11px; border-radius:50%;
+    background:#3a2317;
+    margin:0.8rem auto 0;
+    box-shadow:0 1px 2px rgba(0,0,0,0.7) inset;
+    transition:all 0.4s;
+  }
+  .toggle.on ~ .lamp {
+    background:#ffb347;
+    box-shadow:0 0 16px rgba(255,179,71,0.9);
+  }
+
+  /* speaker grille */
+  .grille {
+    margin-top:2.1rem;
+    height:96px;
+    border-radius:12px;
+    background:
+      radial-gradient(circle at 8px 8px, #171009 2.6px, transparent 3px),
+      linear-gradient(180deg, #332616, #241a0e);
+    background-size:16px 16px, 100% 100%;
+    background-color:#2b1f12;
+    box-shadow:0 3px 10px rgba(0,0,0,0.6) inset;
+    border:1px solid #17100a;
+  }
+
+  .brandplate {
+    position:absolute; top:1.05rem; left:50%; transform:translateX(-50%);
+    font-family:'Marcellus', serif;
+    font-size:0.8rem; letter-spacing:0.5em; text-indent:0.5em;
+    color:#caa96a;
+    text-shadow:0 -1px 0 rgba(0,0,0,0.7), 0 1px 0 rgba(255,235,190,0.2);
+  }
+
+  .hint {
+    margin-top:2.6rem;
+    font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase;
+    color:#77664a;
+    text-align:center; line-height:2;
+  }
+</style>
+</head>
+<body>
+
+<div class="caption">
+  <h1>RADIOLA 7</h1>
+  <p>Handcrafted wireless · Valve-warmed sound · № 18</p>
+</div>
+
+<div class="radio">
+  <div class="brandplate">RADIOLA · FABRIQUÉ EN CODE</div>
+  <div class="plate">
+    <div class="dial-window">
+      <div class="dial-scale">
+        <span>88</span><span>91</span><span>94</span><span>97</span><span>100</span><span>104</span><span>108</span>
+      </div>
+      <div class="dial-track">
+        <div class="dial-ticks"></div>
+        <div class="needle" id="needle" style="left:12%"></div>
+      </div>
+      <div class="station-name" id="station">— POWER OFF —</div>
+    </div>
+
+    <div class="controls">
+      <div class="knob-group">
+        <div class="knob" id="tuneKnob"><div class="pointer"></div></div>
+        <div class="knob-label">Tuning</div>
+      </div>
+
+      <div class="knob-group">
+        <div class="vu">
+          <svg class="arc" viewBox="0 0 134 70">
+            <path d="M14 62 A56 56 0 0 1 120 62" fill="none" stroke="#5a4a2e" stroke-width="1.5"/>
+            <path d="M96 28 A56 56 0 0 1 120 62" fill="none" stroke="#a33" stroke-width="3"/>
+            <g font-size="7" fill="#5a4a2e" font-family="Jost">
+              <text x="10" y="52">-20</text><text x="34" y="26">-10</text>
+              <text x="64" y="16">0</text><text x="94" y="24">+3</text><text x="114" y="50">+6</text>
+            </g>
+          </svg>
+          <div class="vu-needle" id="vuNeedle"></div>
+          <div class="vu-label">VU</div>
+        </div>
+        <div class="knob-label">Signal</div>
+      </div>
+
+      <div class="knob-group">
+        <div class="knob small" id="volKnob"><div class="pointer"></div></div>
+        <div class="knob-label">Volume</div>
+      </div>
+
+      <div class="power">
+        <div class="toggle" id="powerToggle"><div class="thumb"></div></div>
+        <div class="lamp"></div>
+        <div class="knob-label" style="margin-top:0.8rem">Power</div>
+      </div>
+    </div>
+
+    <div class="grille"></div>
+  </div>
+</div>
+
+<p class="hint">
+  Flip the power. Drag the tuning knob. Find the four stations hidden in the static.<br>
+  Everything you hear is synthesized live in your browser — no audio files exist.
+</p>
+
+<script>
+// ---------------- Web Audio radio ----------------
+let ctx, master, noiseGain, toneGain, noiseSrc, current = null;
+let powered = false;
+let freq = 90.4;      // 88..108
+let volume = 0.6;
+
+const STATIONS = [
+  { at:89.1, w:0.45, name:'KLOW — SLOW WAVES', build: slowWaves },
+  { at:94.7, w:0.45, name:'WDRM — NIGHT DRONE', build: nightDrone },
+  { at:100.3, w:0.45, name:'KBEL — BELL TOWER', build: bellTower },
+  { at:105.9, w:0.45, name:'WPLS — PULSE FM', build: pulseFM },
+];
+
+function makeNoise(){
+  const len = 2 * ctx.sampleRate;
+  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = Math.random()*2 - 1;
+  const src = ctx.createBufferSource();
+  src.buffer = buf; src.loop = true;
+  return src;
+}
+
+// --- station generators: each returns {nodes:[], gain} connected to toneGain
+function slowWaves(){
+  const g = ctx.createGain(); g.gain.value = 0;
+  const o1 = ctx.createOscillator(); o1.type='sine'; o1.frequency.value = 174;
+  const o2 = ctx.createOscillator(); o2.type='sine'; o2.frequency.value = 174*1.5 + 1.2;
+  const lfo = ctx.createOscillator(); lfo.frequency.value = 0.09;
+  const lfoG = ctx.createGain(); lfoG.gain.value = 30;
+  lfo.connect(lfoG); lfoG.connect(o2.frequency);
+  const f = ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=900;
+  o1.connect(f); o2.connect(f); f.connect(g); g.connect(toneGain);
+  [o1,o2,lfo].forEach(o=>o.start());
+  return { nodes:[o1,o2,lfo], gain:g };
+}
+function nightDrone(){
+  const g = ctx.createGain(); g.gain.value = 0;
+  const os = [55, 55*2.01, 55*2.99, 55*4.02].map((fr,i) => {
+    const o = ctx.createOscillator();
+    o.type = i%2 ? 'sawtooth' : 'triangle';
+    o.frequency.value = fr;
+    const og = ctx.createGain(); og.gain.value = 0.22/(i+1);
+    o.connect(og); og.connect(g);
+    o.start();
+    return o;
+  });
+  const f = ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=420; f.Q.value=6;
+  const lfo = ctx.createOscillator(); lfo.frequency.value=0.05;
+  const lg = ctx.createGain(); lg.gain.value=180;
+  lfo.connect(lg); lg.connect(f.frequency); lfo.start();
+  g.disconnect(); g.connect(f); f.connect(toneGain);
+  return { nodes:[...os, lfo], gain:g };
+}
+function bellTower(){
+  const g = ctx.createGain(); g.gain.value = 0;
+  g.connect(toneGain);
+  let alive = true;
+  function ring(){
+    if (!alive || !powered) return;
+    const base = [523, 659, 784, 880][Math.floor(Math.random()*4)];
+    [1, 2.76, 5.4].forEach((h, i) => {
+      const o = ctx.createOscillator(); o.type='sine';
+      o.frequency.value = base*h * (1 + (Math.random()-0.5)*0.003);
+      const og = ctx.createGain();
+      og.gain.setValueAtTime(0.35/(i+1), ctx.currentTime);
+      og.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 4 + i);
+      o.connect(og); og.connect(g);
+      o.start(); o.stop(ctx.currentTime + 5 + i);
+    });
+    setTimeout(ring, 1800 + Math.random()*2600);
+  }
+  ring();
+  return { nodes:[], gain:g, kill:() => alive = false };
+}
+function pulseFM(){
+  const g = ctx.createGain(); g.gain.value = 0;
+  const o = ctx.createOscillator(); o.type='square'; o.frequency.value=110;
+  const f = ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=600; f.Q.value=8;
+  const lfo = ctx.createOscillator(); lfo.type='square'; lfo.frequency.value=2.2;
+  const lg = ctx.createGain(); lg.gain.value=0.5;
+  const vca = ctx.createGain(); vca.gain.value=0.5;
+  lfo.connect(lg); lg.connect(vca.gain);
+  const sweep = ctx.createOscillator(); sweep.frequency.value=0.11;
+  const sg = ctx.createGain(); sg.gain.value=420;
+  sweep.connect(sg); sg.connect(f.frequency);
+  o.connect(f); f.connect(vca); vca.connect(g); g.connect(toneGain);
+  [o,lfo,sweep].forEach(x=>x.start());
+  return { nodes:[o,lfo,sweep], gain:g };
+}
+
+function initAudio(){
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  master = ctx.createGain(); master.gain.value = volume;
+  master.connect(ctx.destination);
+  noiseGain = ctx.createGain(); noiseGain.gain.value = 0;
+  toneGain = ctx.createGain(); toneGain.gain.value = 1;
+  // radio voicing: bandpass the lot
+  const voice = ctx.createBiquadFilter(); voice.type='bandpass';
+  voice.frequency.value = 1200; voice.Q.value = 0.5;
+  noiseGain.connect(voice); toneGain.connect(voice);
+  voice.connect(master);
+  noiseSrc = makeNoise();
+  noiseSrc.connect(noiseGain);
+  noiseSrc.start();
+  STATIONS.forEach(s => s.live = s.build());
+}
+
+function retune(){
+  if (!powered || !ctx) return;
+  let bestSig = 0, bestName = null;
+  STATIONS.forEach(s => {
+    const d = Math.abs(freq - s.at);
+    const sig = Math.max(0, 1 - d / s.w);        // 0..1
+    const smooth = sig*sig*(3-2*sig);
+    s.live.gain.gain.setTargetAtTime(smooth * 0.8, ctx.currentTime, 0.08);
+    if (sig > bestSig){ bestSig = sig; bestName = s.name; }
+  });
+  noiseGain.gain.setTargetAtTime(0.12 * (1 - bestSig*0.92), ctx.currentTime, 0.08);
+  const st = document.getElementById('station');
+  st.textContent = bestSig > 0.32 ? bestName : `${freq.toFixed(1)} MHz — STATIC`;
+  signalLevel = bestSig;
+}
+let signalLevel = 0;
+
+// ---------------- UI ----------------
+const needle = document.getElementById('needle');
+function updateNeedle(){
+  needle.style.left = ((freq - 88) / 20 * 100) + '%';
+}
+updateNeedle();
+
+// rotary knob behaviour
+function knobify(el, onDelta, initAngle=0){
+  let angle = initAngle;
+  el.style.transform = `rotate(${angle}deg)`;
+  let dragging = false, lastA = 0;
+  const center = () => {
+    const r = el.getBoundingClientRect();
+    return { x: r.left + r.width/2, y: r.top + r.height/2 };
+  };
+  el.addEventListener('pointerdown', e => {
+    dragging = true;
+    const c = center();
+    lastA = Math.atan2(e.clientY - c.y, e.clientX - c.x);
+    el.setPointerCapture(e.pointerId);
+  });
+  el.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const c = center();
+    const a = Math.atan2(e.clientY - c.y, e.clientX - c.x);
+    let d = a - lastA;
+    if (d > Math.PI) d -= Math.PI*2;
+    if (d < -Math.PI) d += Math.PI*2;
+    lastA = a;
+    angle += d * 180/Math.PI;
+    el.style.transform = `rotate(${angle}deg)`;
+    onDelta(d * 180/Math.PI);
+  });
+  el.addEventListener('pointerup', () => dragging = false);
+}
+
+knobify(document.getElementById('tuneKnob'), d => {
+  freq = Math.max(88, Math.min(108, freq + d * 0.02));
+  updateNeedle(); retune();
+}, -80);
+
+knobify(document.getElementById('volKnob'), d => {
+  volume = Math.max(0, Math.min(1, volume + d * 0.004));
+  if (master) master.gain.setTargetAtTime(volume, ctx.currentTime, 0.05);
+}, 30);
+
+document.getElementById('powerToggle').addEventListener('click', function(){
+  powered = !powered;
+  this.classList.toggle('on', powered);
+  if (powered){
+    if (!ctx) initAudio();
+    ctx.resume();
+    master.gain.setTargetAtTime(volume, ctx.currentTime, 0.3);
+    retune();
+  } else {
+    master.gain.setTargetAtTime(0, ctx.currentTime, 0.15);
+    document.getElementById('station').textContent = '— POWER OFF —';
+    STATIONS.forEach(s => s.live && s.live.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.1));
+    noiseGain.gain.setTargetAtTime(0, ctx.currentTime, 0.1);
+    signalLevel = 0;
+  }
+});
+
+// VU needle wobble
+const vuN = document.getElementById('vuNeedle');
+(function vu(){
+  let target = powered ? (-42 + signalLevel*70 + Math.random()*8*signalLevel + (powered?4:0)) : -42;
+  vuN.style.transform = `rotate(${target}deg)`;
+  setTimeout(vu, 90);
+})();
+</script>
+</body>
+</html>
+```

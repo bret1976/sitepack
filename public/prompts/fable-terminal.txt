@@ -1,0 +1,308 @@
+# Exact recreation prompt — OBSOLETE.SYS
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-terminal
+Brand: OBSOLETE.SYS
+Category: Creative
+Tagline (catalog): Working CRT terminal · museum of dead machines (Fable × 25 #07)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/07-terminal/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSOLETE.SYS — Museum of Dead Machines</title>
+<meta name="description" content="An interactive terminal museum. Type HELP.">
+<style>
+  @font-face { font-family:'VT323F'; src:local('VT323'); }
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#000;
+    height:100vh; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'VT323', monospace;
+  }
+  .bezel {
+    width:100vw; height:100vh;
+    background:radial-gradient(ellipse at center, #101210 0%, #050605 100%);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .crt {
+    position:relative;
+    width:min(94vw, 1100px);
+    height:min(90vh, 780px);
+    background:#020a04;
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:
+      inset 0 0 120px rgba(0,0,0,0.9),
+      0 0 0 12px #1a1c18,
+      0 0 0 14px #0c0d0b,
+      0 30px 80px rgba(0,0,0,0.8);
+  }
+  /* curvature via pseudo-element shading */
+  .crt::before {
+    content:''; position:absolute; inset:0; z-index:6; pointer-events:none;
+    background:radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.55) 100%);
+    border-radius:28px;
+  }
+  /* scanlines */
+  .crt::after {
+    content:''; position:absolute; inset:0; z-index:5; pointer-events:none;
+    background:repeating-linear-gradient(0deg,
+      rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 1px,
+      transparent 1px, transparent 3px);
+  }
+  .glow {
+    position:absolute; inset:0; z-index:4; pointer-events:none;
+    background:radial-gradient(ellipse at 50% 45%, rgba(80,255,140,0.06), transparent 70%);
+    animation:flicker 0.12s infinite;
+  }
+  @keyframes flicker {
+    0% { opacity:0.95; } 50% { opacity:1; } 100% { opacity:0.92; }
+  }
+  .screen {
+    position:absolute; inset:0; z-index:3;
+    padding:2.6rem 3rem;
+    color:#5cff8f;
+    font-size:clamp(15px, 2.1vw, 21px);
+    line-height:1.35;
+    text-shadow:0 0 6px rgba(92,255,143,0.6), 0 0 20px rgba(92,255,143,0.18);
+    overflow-y:auto;
+    scrollbar-width:none;
+  }
+  .screen::-webkit-scrollbar { display:none; }
+  .screen .dim { color:#2f9455; }
+  .screen .amber { color:#ffbf47; text-shadow:0 0 6px rgba(255,191,71,0.6); }
+  .screen .white { color:#d7ffe4; }
+  .screen pre { font-family:inherit; white-space:pre-wrap; }
+  .inline-input {
+    background:none; border:none; outline:none;
+    font:inherit; color:inherit; text-shadow:inherit;
+    width:60%;
+  }
+  .cursor {
+    display:inline-block; width:0.55em; height:1em;
+    background:#5cff8f; vertical-align:text-bottom;
+    animation:blink 1.06s steps(1) infinite;
+    box-shadow:0 0 8px rgba(92,255,143,0.8);
+  }
+  @keyframes blink { 50% { opacity:0; } }
+
+  .badge {
+    position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
+    z-index:7; color:#3a3d38; font-size:14px; letter-spacing:0.35em;
+  }
+</style>
+</head>
+<body>
+<div class="bezel">
+  <div class="crt" onclick="document.getElementById('cmd') && document.getElementById('cmd').focus()">
+    <div class="glow"></div>
+    <div class="screen" id="screen"></div>
+    <div class="badge">TELEMATIC 4400 · PHOSPHOR P1</div>
+  </div>
+</div>
+
+<script>
+const screen = document.getElementById('screen');
+let buffer = [];
+
+const EXHIBITS = {
+  '1': { name:'ENIAC (1945)', body:
+`ELECTRONIC NUMERICAL INTEGRATOR AND COMPUTER
+ ------------------------------------------
+ MASS ............. 27 TONNES
+ TUBES ............ 17,468 VACUUM
+ POWER ............ 150 KW
+ CLOCK ............ 100 KHZ
+
+ IT FILLED A ROOM AND DIMMED THE LIGHTS OF
+ PHILADELPHIA. ITS FIRST JOB WAS THE HYDROGEN
+ BOMB; ITS PROGRAMMERS WERE SIX WOMEN WHOSE
+ NAMES WERE LEFT OFF THE PRESS PHOTOS.
+ THE MACHINE REMEMBERS THEM: KAY, BETTY, JEAN,
+ MARLYN, FRAN, RUTH.` },
+  '2': { name:'ALTAIR 8800 (1975)', body:
+`ALTAIR 8800 — MITS, ALBUQUERQUE
+ ------------------------------
+ CPU .............. INTEL 8080 @ 2 MHZ
+ RAM .............. 256 BYTES (YES, BYTES)
+ I/O .............. TOGGLE SWITCHES + LEDS
+
+ NO SCREEN. NO KEYBOARD. YOU ENTERED PROGRAMS
+ BIT BY BIT ON SWITCHES, AND IT ANSWERED IN
+ BLINKING LIGHTS. THOUSANDS OF PEOPLE FOUND
+ THIS IRRESISTIBLE. TWO OF THEM WROTE A BASIC
+ INTERPRETER FOR IT AND NAMED THEIR LITTLE
+ COMPANY "MICRO-SOFT".` },
+  '3': { name:'CRAY-1 (1976)', body:
+`CRAY-1 — SUPERCOMPUTER, SERIAL 001
+ ---------------------------------
+ SPEED ............ 160 MFLOPS
+ FREON COOLED ..... YES
+ SHAPE ............ A PADDED CIRCULAR BENCH
+ COST ............. $8,800,000
+
+ SEYMOUR CRAY BUILT THE FASTEST MACHINE ON
+ EARTH AND WRAPPED IT IN LEATHER SEATING SO
+ VISITORS COULD SIT ON IT. YOUR PHONE IS NOW
+ ROUGHLY 40,000 TIMES FASTER. NOBODY LETS
+ YOU SIT ON YOUR PHONE.` },
+  '4': { name:'THE MOTHER OF ALL DEMOS (1968)', body:
+`NLS — ONLINE SYSTEM, SRI, DEC 9 1968
+ -----------------------------------
+ IN 90 MINUTES, DOUGLAS ENGELBART DEMONSTRATED:
+ THE MOUSE. HYPERTEXT. VIDEO CONFERENCING.
+ COLLABORATIVE EDITING. WINDOWS.
+
+ THE AUDIENCE HAD NEVER SEEN A CURSOR BEFORE.
+ ONE WITNESS SAID IT WAS LIKE SEEING SOMEONE
+ "DEALING LIGHTNING WITH BOTH HANDS."
+ EVERY PIXEL YOU HAVE EVER MOVED DESCENDS
+ FROM THAT AFTERNOON.` },
+};
+
+const HELP =
+`AVAILABLE COMMANDS
+ -----------------
+ HELP ......... THIS SCREEN
+ LIST ......... CATALOG OF EXHIBITS
+ VIEW <N> ..... OPEN EXHIBIT N  (E.G. VIEW 3)
+ ABOUT ........ THIS MUSEUM
+ CLEAR ........ WIPE PHOSPHOR
+ HALT ......... DO NOT`;
+
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+function println(html, cls=''){
+  const div = document.createElement('div');
+  if (cls) div.className = cls;
+  div.innerHTML = html || '&nbsp;';
+  screen.appendChild(div);
+  screen.scrollTop = screen.scrollHeight;
+  return div;
+}
+
+// typewriter that types into a fresh element
+function typeOut(text, cls='', speed=8){
+  return new Promise(res => {
+    const el = println('', cls);
+    let i = 0;
+    const pre = document.createElement('pre');
+    el.appendChild(pre);
+    (function tick(){
+      const chunk = text.slice(i, i + 3);
+      pre.textContent += chunk;
+      i += 3;
+      screen.scrollTop = screen.scrollHeight;
+      if (i < text.length) setTimeout(tick, speed);
+      else res();
+    })();
+  });
+}
+
+function prompt(){
+  const line = println('');
+  line.innerHTML = `<span class="amber">OBSOLETE&gt;</span> `;
+  const input = document.createElement('input');
+  input.className = 'inline-input';
+  input.id = 'cmd';
+  input.autocapitalize = 'off'; input.autocomplete = 'off'; input.spellcheck = false;
+  line.appendChild(input);
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  line.appendChild(cur);
+  input.focus();
+  input.addEventListener('input', () => { /* keep cursor after text */ });
+  input.addEventListener('keydown', async e => {
+    if (e.key !== 'Enter') return;
+    const cmd = input.value.trim().toUpperCase();
+    line.innerHTML = `<span class="amber">OBSOLETE&gt;</span> <span class="white">${esc(input.value)}</span>`;
+    await exec(cmd);
+    prompt();
+  });
+  screen.scrollTop = screen.scrollHeight;
+}
+
+async function exec(cmd){
+  if (!cmd) return;
+  if (cmd === 'HELP') { await typeOut(HELP, 'dim', 3); return; }
+  if (cmd === 'LIST') {
+    await typeOut(
+`CATALOG — PERMANENT COLLECTION
+ -----------------------------
+ [1] ENIAC ................. 1945
+ [2] ALTAIR 8800 ........... 1975
+ [3] CRAY-1 ................ 1976
+ [4] MOTHER OF ALL DEMOS ... 1968
+
+ TYPE: VIEW <NUMBER>`, '', 3);
+    return;
+  }
+  if (cmd.startsWith('VIEW')) {
+    const n = cmd.replace('VIEW','').trim();
+    const ex = EXHIBITS[n];
+    if (ex) {
+      println(`<span class="amber">■ EXHIBIT ${n} — ${esc(ex.name)}</span>`);
+      await typeOut(ex.body, '', 6);
+    } else {
+      await typeOut(` NO SUCH EXHIBIT. TYPE LIST.`, 'dim', 6);
+    }
+    return;
+  }
+  if (cmd === 'ABOUT') {
+    await typeOut(
+` THE MUSEUM OF DEAD MACHINES OPERATES THIS
+ TERMINAL AS ITS ONLY ENTRANCE. THE BUILDING
+ WAS DECOMMISSIONED IN 1989; THE COLLECTION
+ WAS NOT. EVERYTHING HERE ACTUALLY HAPPENED.
+
+ CURATED IN PHOSPHOR — № 07, FABLE TWENTY-FIVE.`, '', 6);
+    return;
+  }
+  if (cmd === 'CLEAR') { screen.innerHTML=''; return; }
+  if (cmd === 'HALT') {
+    await typeOut(` NICE TRY. THIS MACHINE HAS OUTLIVED
+ FOUR OWNERS AND TWO FLOODS. IT DOES NOT HALT.`, 'amber', 10);
+    return;
+  }
+  await typeOut(` ?SYNTAX ERROR: "${cmd}". TYPE HELP.`, 'dim', 6);
+}
+
+// ---------- boot sequence ----------
+(async function boot(){
+  await typeOut(
+`TELEMATIC 4400 BIOS 2.03 ... OK
+MEMORY TEST: 65536 BYTES .... OK
+PHOSPHOR WARM-UP ............ OK
+TAPE ARCHIVE MOUNT .......... OK`, 'dim', 10);
+  await new Promise(r => setTimeout(r, 350));
+  await typeOut(
+`
+ ██████  ██████  ███████  ██████  ██      ███████ ████████ ███████
+██    ██ ██   ██ ██      ██    ██ ██      ██         ██    ██
+██    ██ ██████  ███████ ██    ██ ██      █████      ██    █████
+██    ██ ██   ██      ██ ██    ██ ██      ██         ██    ██
+ ██████  ██████  ███████  ██████  ███████ ███████    ██    ███████
+`, '', 1);
+  await typeOut(
+`        .SYS — MUSEUM OF DEAD MACHINES — EST. 1989
+`, 'amber', 8);
+  await typeOut(
+`
+WELCOME, VISITOR. YOU ARE ALONE IN THE BUILDING.
+TYPE HELP TO BEGIN. TYPE LIST TO SEE THE COLLECTION.
+`, '', 8);
+  prompt();
+})();
+</script>
+</body>
+</html>
+```

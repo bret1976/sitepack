@@ -1,0 +1,2006 @@
+# Exact recreation prompt — Cory Warfield Coaching
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: cory-warfield-coaching-site
+Brand: Cory Warfield Coaching
+Category: Coaching
+Tagline (catalog): Cory Warfield coaching landing
+Live reference (structure only, do not hotlink private assets): https://cory-warfield-coaching-site.vercel.app
+Stack: Project source
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Keynotes that make the future feel usable.
+
+## FILE: keynotes.html
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Keynotes | Cory Warfield</title>
+    <meta name="description" content="Book Cory Warfield for keynotes on AI, leadership, networking, personal brand, and trust." />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23d8ff3e'/%3E%3Ctext x='7' y='42' font-size='25' font-family='Arial' font-weight='900' fill='%23080806'%3ECW%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="package-page">
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <canvas id="signalCanvas" aria-hidden="true"></canvas>
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="Cory Warfield home"><span class="brand-mark">CW</span><span>Cory Warfield</span></a>
+      <nav aria-label="Primary navigation">
+        <a href="./index.html#packages">Packages</a>
+        <a href="./index.html#method">Method</a>
+        <a href="./index.html#receipts">Receipts</a>
+        <a class="nav-cta" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Message Cory</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="offer-hero">
+        <div>
+          <p class="kicker">Stage offer</p>
+          <h1>Keynotes that make the future feel usable.</h1>
+          <p class="hero-text">A $10k keynote for rooms that need AI clarity, leadership voltage, network intelligence, and a reason to act before the next panel starts.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Message Cory on LinkedIn</a>
+            <a class="button ghost" href="./index.html#packages">Back to packages</a>
+          </div>
+        </div>
+        <aside class="offer-card">
+          <p class="package-type">Custom keynote</p>
+          <p class="price">$10,000</p>
+          <p>A high-signal talk built for executive audiences, founder rooms, leadership offsites, and technology conferences.</p>
+        </aside>
+      </section>
+
+      <section class="offer-strip" aria-label="Keynote outcomes">
+        <div><span>Room effect</span><strong>People leave with language they can use immediately.</strong></div>
+        <div><span>Topics</span><strong>AI, trust, public influence, networking, leadership, and tech for good.</strong></div>
+        <div><span>Delivery</span><strong>Strategic, weird enough to remember, grounded enough to implement.</strong></div>
+      </section>
+
+      <section class="offer-detail">
+        <aside>
+          <p class="package-type">Best for</p>
+          <h3>Executive events that cannot afford another forgettable talk.</h3>
+          <p>Cory translates messy technological and human shifts into useful mental models and memorable stories.</p>
+        </aside>
+        <div class="offer-detail-body">
+          <article class="offer-block">
+            <h3>Possible keynote arcs</h3>
+            <ul>
+              <li>The AI-native leader and the death of passive expertise</li>
+              <li>How to build trust at internet speed</li>
+              <li>Networking as infrastructure, not small talk</li>
+              <li>Personal brand as executive leverage</li>
+            </ul>
+          </article>
+          <article class="offer-block">
+            <h3>What is included</h3>
+            <p>Audience calibration, a custom talk angle, practical takeaways, and a delivery style that feels like a strategy session collided with a lightning strike.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="offer-cta">
+        <h2>Put the signal on stage.</h2>
+        <a class="button primary" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Message Cory on LinkedIn</a>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+## FILE: consulting.html
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Consulting | Cory Warfield</title>
+    <meta name="description" content="High-intensity strategic consulting with Cory Warfield at $1,250 per hour." />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23d8ff3e'/%3E%3Ctext x='7' y='42' font-size='25' font-family='Arial' font-weight='900' fill='%23080806'%3ECW%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="package-page">
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <canvas id="signalCanvas" aria-hidden="true"></canvas>
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="Cory Warfield home"><span class="brand-mark">CW</span><span>Cory Warfield</span></a>
+      <nav aria-label="Primary navigation">
+        <a href="./index.html#packages">Packages</a>
+        <a href="./index.html#method">Method</a>
+        <a href="./index.html#receipts">Receipts</a>
+        <a class="nav-cta" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Start</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="offer-hero">
+        <div>
+          <p class="kicker">Advisory sprint</p>
+          <h1>Consulting for unsolved executive knots.</h1>
+          <p class="hero-text">High-intensity strategic advisory for positioning, AI adoption, partnerships, fundraising narratives, executive decisions, and go-to-market clarity.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Start consulting</a>
+            <a class="button ghost" href="./index.html#packages">Back to packages</a>
+          </div>
+        </div>
+        <aside class="offer-card">
+          <p class="package-type">Hourly advisory</p>
+          <p class="price">$1,250 <span>/ hour</span></p>
+          <p>For when the next decision is expensive, visible, or too weird to hand to a generic advisor.</p>
+        </aside>
+      </section>
+
+      <section class="offer-strip" aria-label="Consulting outcomes">
+        <div><span>Use case</span><strong>Positioning, narrative, partnerships, fundraising, AI, public strategy.</strong></div>
+        <div><span>Cadence</span><strong>Focused advisory hours or concentrated sprint work.</strong></div>
+        <div><span>Output</span><strong>Clearer decisions, better language, faster executive movement.</strong></div>
+      </section>
+
+      <section class="offer-detail">
+        <aside>
+          <p class="package-type">Best for</p>
+          <h3>Executives and founders with a live strategic problem.</h3>
+          <p>This is not a generic coaching container. It is for high-leverage questions that need synthesis, taste, and decisive next moves.</p>
+        </aside>
+        <div class="offer-detail-body">
+          <article class="offer-block">
+            <h3>Bring Cory the knot</h3>
+            <ul>
+              <li>We need our category story to make sense.</li>
+              <li>We need to turn expertise into demand.</li>
+              <li>We need AI workflows that help the actual business.</li>
+              <li>We need the pitch, partnership, or public narrative to land.</li>
+            </ul>
+          </article>
+          <article class="offer-block">
+            <h3>How it works</h3>
+            <p>Book a strategic block, arrive with the decision or mess, and leave with language, priorities, and moves that can be executed immediately.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="offer-cta">
+        <h2>Put Cory on the hard problem.</h2>
+        <a class="button primary" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Start the consulting sprint</a>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+## FILE: index.html
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cory Warfield | Executive Coaching For Signal-Makers</title>
+    <meta
+      name="description"
+      content="A wildly strategic executive coaching and consulting website concept for Cory Warfield: personal branding, keynotes, cohorts, and consulting."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23d8ff3e'/%3E%3Ctext x='7' y='42' font-size='25' font-family='Arial' font-weight='900' fill='%23080806'%3ECW%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <canvas id="signalCanvas" aria-hidden="true"></canvas>
+
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Cory Warfield home">
+        <span class="brand-mark">CW</span>
+        <span>Cory Warfield</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#packages">Packages</a>
+        <a href="#method">Method</a>
+        <a href="#receipts">Receipts</a>
+        <a class="nav-cta" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Message Cory</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="kicker">Executive coaching for founders, operators, and public brains</p>
+          <h1 id="hero-title">
+            Turn your executive chaos into a public signal people actually follow.
+          </h1>
+          <p class="hero-text">
+            Cory Warfield helps leaders package their expertise, expand their network, sharpen their AI-era point of view, and walk into bigger rooms with a story that sells before the pitch deck opens.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#packages">See coaching packages</a>
+            <a class="button ghost" href="#signal-lab">Play with the signal lab</a>
+          </div>
+        </div>
+
+        <div class="portrait-stage" aria-label="Stylized portrait of Cory Warfield">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="portrait-distort">
+            <img class="portrait-rgb portrait-red" src="./cory.jpg" alt="" aria-hidden="true" />
+            <img class="portrait-rgb portrait-blue" src="./cory.jpg" alt="" aria-hidden="true" />
+            <img class="portrait-main" src="./cory.jpg" alt="Cory Warfield portrait" />
+          </div>
+          <div class="portrait-caption">
+            <span>Founder energy</span>
+            <strong>calibrated</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Research themes">
+        <div>
+          <span>LinkedIn growth</span>
+          <span>AI literacy</span>
+          <span>Founder narrative</span>
+          <span>Warm intros</span>
+          <span>Executive presence</span>
+          <span>Tech For Good</span>
+          <span>Keynotes</span>
+          <span>Pitch clarity</span>
+        </div>
+      </section>
+
+      <section class="section split" id="method" aria-labelledby="method-title">
+        <div>
+          <p class="eyebrow">The Method</p>
+          <h2 id="method-title">A boardroom-grade operating system wearing a glitch suit.</h2>
+        </div>
+        <div class="method-grid">
+          <article>
+            <span>01</span>
+            <h3>Extract the uncommon proof</h3>
+            <p>Map the founder story, operator lessons, category beliefs, audience, and unfair network advantage into message assets that can travel.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Build the influence machine</h3>
+            <p>Turn raw expertise into repeatable posts, keynotes, intros, offers, and conversations designed for attention without becoming noise.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Make AI useful, not ornamental</h3>
+            <p>Use practical AI workflows for research, publishing, coaching, partnerships, and decision support so the leader moves faster with taste.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Convert rooms into revenue</h3>
+            <p>Package the signal into calls, cohorts, consulting scopes, investor conversations, and keynote moments with crisp next steps.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section lab" id="signal-lab" aria-labelledby="lab-title">
+        <div class="lab-copy">
+          <p class="eyebrow">Signal Lab</p>
+          <h2 id="lab-title">Dial the Cory field.</h2>
+          <p>
+            This is the website’s tiny strategy synthesizer: move the controls and the offer language snaps between creator, executive, and capital-raising modes.
+          </p>
+        </div>
+        <div class="lab-panel">
+          <label>
+            Public signal
+            <input id="publicSignal" type="range" min="0" max="100" value="78" />
+          </label>
+          <label>
+            AI leverage
+            <input id="aiLeverage" type="range" min="0" max="100" value="86" />
+          </label>
+          <label>
+            Network velocity
+            <input id="networkVelocity" type="range" min="0" max="100" value="92" />
+          </label>
+          <output id="signalOutput">
+            Your market does not need another thought leader. It needs a trusted node with receipts, taste, and reach.
+          </output>
+        </div>
+      </section>
+
+      <section class="section packages" id="packages" aria-labelledby="packages-title">
+        <div class="section-head">
+          <p class="eyebrow">Packages</p>
+          <h2 id="packages-title">Buy the signal, not the calendar slot.</h2>
+        </div>
+
+        <div class="package-grid">
+          <article class="package featured">
+            <p class="package-type">Flagship</p>
+            <h3>You’re Amazing!! Coaching</h3>
+            <p class="price">$10,000</p>
+            <p>Influencer personal branding for executives and founders, with lifetime access to the strategic operating system.</p>
+            <ul>
+              <li>Positioning, proof, and point-of-view architecture</li>
+              <li>LinkedIn and executive content engine</li>
+              <li>AI-assisted publishing and research workflows</li>
+              <li>Network expansion and intro strategy</li>
+            </ul>
+            <a class="button primary" href="./youre-amazing-coaching.html">Claim flagship coaching</a>
+          </article>
+
+          <article class="package">
+            <p class="package-type">Stage</p>
+            <h3>Keynotes</h3>
+            <p class="price">$10,000</p>
+            <p>AI, leadership, personal brand, networking, and the strange new physics of trust in public.</p>
+            <ul>
+              <li>Custom keynote arc</li>
+              <li>Executive audience calibration</li>
+              <li>Actionable frameworks</li>
+            </ul>
+            <a class="button ghost" href="./keynotes.html">Book keynote</a>
+          </article>
+
+          <article class="package">
+            <p class="package-type">Cohort</p>
+            <h3>Exclusive Group Cohorts</h3>
+            <p class="price">$2,500 <span>/ participant</span></p>
+            <p>Ten-person groups for leaders who want pressure, feedback, accountability, and the compound benefit of a curated room.</p>
+            <ul>
+              <li>10-person cap</li>
+              <li>Live strategic workshops</li>
+              <li>Peer signal audits</li>
+            </ul>
+            <a class="button ghost" href="./cohorts.html">Join cohort</a>
+          </article>
+
+          <article class="package consulting">
+            <p class="package-type">Advisory</p>
+            <h3>Consulting</h3>
+            <p class="price">$1,250 <span>/ hour</span></p>
+            <p>High-intensity strategic advisory for positioning, go-to-market, AI adoption, partnerships, fundraising narratives, and executive decisions.</p>
+            <div class="hours">
+              <button type="button" data-hours="-1" aria-label="Decrease consulting hours">−</button>
+              <strong><span id="hoursCount">4</span> hrs</strong>
+              <button type="button" data-hours="1" aria-label="Increase consulting hours">+</button>
+            </div>
+            <p class="estimate">Estimated sprint: <span id="consultingTotal">$5,000</span></p>
+            <a class="button ghost" href="./consulting.html">Start consulting sprint</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section receipts" id="receipts" aria-labelledby="receipts-title">
+        <div class="section-head">
+          <p class="eyebrow">Receipts</p>
+          <h2 id="receipts-title">The chaos has sources.</h2>
+        </div>
+        <div class="receipt-grid">
+          <a href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">
+            <span>LinkedIn</span>
+            <strong>Public influence, founder network, content distribution.</strong>
+          </a>
+          <a href="https://www.instagram.com/coryconnects/" target="_blank" rel="noreferrer">
+            <span>Instagram</span>
+            <strong>Daily signal, personality, public presence, and CoryConnects-in-motion.</strong>
+          </a>
+          <a href="https://www.linkedin.com/company/real-tech-for-good/" target="_blank" rel="noreferrer">
+            <span>Tech For Good</span>
+            <strong>Newsletter themes around technology, impact, and practical optimism.</strong>
+          </a>
+          <a href="https://www.youtube.com/results?search_query=Cory+Warfield" target="_blank" rel="noreferrer">
+            <span>Video Trail</span>
+            <strong>Interviews and public conversations folded into the site’s voice.</strong>
+          </a>
+        </div>
+      </section>
+
+      <section class="close">
+        <p class="eyebrow">Final Transmission</p>
+        <h2>For leaders who are done being “impressive” in private.</h2>
+        <p>
+          Build the point of view. Package the proof. Activate the network. Then sell the room on a future that sounds obvious the second Cory says it.
+        </p>
+        <a class="button primary" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Message Cory on LinkedIn</a>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+## FILE: script.js
+```
+const canvas = document.querySelector("#signalCanvas");
+const ctx = canvas?.getContext("2d");
+const glow = document.querySelector(".cursor-glow");
+const signalOutput = document.querySelector("#signalOutput");
+const ranges = [...document.querySelectorAll(".lab-panel input[type='range']")];
+const hourButtons = [...document.querySelectorAll("[data-hours]")];
+const hoursCount = document.querySelector("#hoursCount");
+const consultingTotal = document.querySelector("#consultingTotal");
+const portraitStage = document.querySelector(".portrait-stage");
+const revealSections = [...document.querySelectorAll("#method, #signal-lab, #packages, #receipts")];
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+let points = [];
+let width = 0;
+let height = 0;
+let hours = 4;
+
+function resizeCanvas() {
+  if (!canvas || !ctx) return;
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  width = window.innerWidth;
+  height = window.innerHeight;
+  canvas.width = Math.floor(width * ratio);
+  canvas.height = Math.floor(height * ratio);
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  points = Array.from({ length: Math.min(84, Math.floor(width / 16)) }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    vx: (Math.random() - 0.5) * 0.35,
+    vy: (Math.random() - 0.5) * 0.35,
+    r: 1 + Math.random() * 2,
+  }));
+}
+
+function drawSignal() {
+  if (!canvas || !ctx) return;
+  ctx.clearRect(0, 0, width, height);
+  ctx.lineWidth = 1;
+
+  for (const point of points) {
+    point.x += point.vx;
+    point.y += point.vy;
+
+    if (point.x < -30) point.x = width + 30;
+    if (point.x > width + 30) point.x = -30;
+    if (point.y < -30) point.y = height + 30;
+    if (point.y > height + 30) point.y = -30;
+  }
+
+  for (let i = 0; i < points.length; i += 1) {
+    const a = points[i];
+    ctx.beginPath();
+    ctx.fillStyle = i % 3 === 0 ? "rgba(216,255,62,.7)" : "rgba(248,243,232,.45)";
+    ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+    ctx.fill();
+
+    for (let j = i + 1; j < points.length; j += 1) {
+      const b = points[j];
+      const dist = Math.hypot(a.x - b.x, a.y - b.y);
+      if (dist < 116) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(248,243,232,${0.12 - dist / 1200})`;
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  requestAnimationFrame(drawSignal);
+}
+
+function updateSignalCopy() {
+  if (!signalOutput || ranges.length < 3) return;
+  const [publicSignal, aiLeverage, networkVelocity] = ranges.map((range) => Number(range.value));
+  const average = (publicSignal + aiLeverage + networkVelocity) / 3;
+
+  if (networkVelocity > 88 && publicSignal > 72) {
+    signalOutput.value =
+      "Your next advantage is not louder content. It is becoming the room's favorite shortcut to trust.";
+  } else if (aiLeverage > 82) {
+    signalOutput.value =
+      "AI turns the blank page into an instrument. Cory turns the instrument into a business rhythm.";
+  } else if (average > 70) {
+    signalOutput.value =
+      "Strong signal detected: package the proof, publish the thesis, invite the market into the story.";
+  } else {
+    signalOutput.value =
+      "The signal is underpowered. Start with one belief, one audience, one offer, and one public proof loop.";
+  }
+}
+
+function updateConsulting() {
+  if (!hoursCount || !consultingTotal) return;
+  hoursCount.textContent = hours;
+  consultingTotal.textContent = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(hours * 1250);
+}
+
+window.addEventListener("resize", resizeCanvas);
+window.addEventListener("pointermove", (event) => {
+  if (glow) {
+    glow.style.transform = `translate3d(${event.clientX - 176}px, ${event.clientY - 176}px, 0)`;
+  }
+});
+
+if (portraitStage && !reduceMotion) {
+  portraitStage.addEventListener("pointermove", (event) => {
+    const rect = portraitStage.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+    portraitStage.classList.add("is-distorting");
+    portraitStage.style.setProperty("--tilt-x", `${x * 10}deg`);
+    portraitStage.style.setProperty("--tilt-y", `${y * -8}deg`);
+    portraitStage.style.setProperty("--rgb-x", `${x * 12}px`);
+    portraitStage.style.setProperty("--rgb-y", `${y * 10}px`);
+    portraitStage.style.setProperty("--warp", `${Math.abs(x * y) * 12}%`);
+  });
+
+  portraitStage.addEventListener("pointerleave", () => {
+    portraitStage.classList.remove("is-distorting");
+    portraitStage.style.setProperty("--tilt-x", "0deg");
+    portraitStage.style.setProperty("--tilt-y", "0deg");
+    portraitStage.style.setProperty("--rgb-x", "0px");
+    portraitStage.style.setProperty("--rgb-y", "0px");
+    portraitStage.style.setProperty("--warp", "0%");
+  });
+}
+
+if (revealSections.length) {
+  revealSections.forEach((section) => section.classList.add("reveal"));
+
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    revealSections.forEach((section) => section.classList.add("is-visible"));
+  } else {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -12% 0px" }
+    );
+
+    revealSections.forEach((section) => revealObserver.observe(section));
+  }
+}
+
+ranges.forEach((range) => range.addEventListener("input", updateSignalCopy));
+
+hourButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    hours = Math.max(1, Math.min(40, hours + Number(button.dataset.hours)));
+    updateConsulting();
+  });
+});
+
+resizeCanvas();
+drawSignal();
+updateSignalCopy();
+updateConsulting();
+```
+
+## FILE: cohorts.html
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Exclusive Group Cohorts | Cory Warfield</title>
+    <meta name="description" content="Exclusive 10-person executive cohorts with Cory Warfield." />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23d8ff3e'/%3E%3Ctext x='7' y='42' font-size='25' font-family='Arial' font-weight='900' fill='%23080806'%3ECW%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="package-page">
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <canvas id="signalCanvas" aria-hidden="true"></canvas>
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="Cory Warfield home"><span class="brand-mark">CW</span><span>Cory Warfield</span></a>
+      <nav aria-label="Primary navigation">
+        <a href="./index.html#packages">Packages</a>
+        <a href="./index.html#method">Method</a>
+        <a href="./index.html#receipts">Receipts</a>
+        <a class="nav-cta" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Join</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="offer-hero">
+        <div>
+          <p class="kicker">10-person groups</p>
+          <h1>Exclusive Group Cohorts</h1>
+          <p class="hero-text">A curated room for leaders who want their ideas pressure-tested, sharpened, and converted into visible market momentum.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Request a seat</a>
+            <a class="button ghost" href="./index.html#packages">Back to packages</a>
+          </div>
+        </div>
+        <aside class="offer-card">
+          <p class="package-type">Per participant</p>
+          <p class="price">$2,500</p>
+          <p>Ten-person cohorts with live workshops, peer signal audits, strategic accountability, and curated executive friction.</p>
+        </aside>
+      </section>
+
+      <section class="offer-strip" aria-label="Cohort outcomes">
+        <div><span>Room size</span><strong>10 people maximum, because signal dies in crowded rooms.</strong></div>
+        <div><span>Format</span><strong>Live sessions, audits, critique, and directed implementation.</strong></div>
+        <div><span>Result</span><strong>Sharper positioning, better posts, stronger offers, richer networks.</strong></div>
+      </section>
+
+      <section class="offer-detail">
+        <aside>
+          <p class="package-type">Best for</p>
+          <h3>Leaders who want coaching plus the intelligence of a curated room.</h3>
+          <p>The cohort gives each participant Cory's frameworks and the multiplying effect of peers who are also building public authority.</p>
+        </aside>
+        <div class="offer-detail-body">
+          <article class="offer-block">
+            <h3>Inside the cohort</h3>
+            <ul>
+              <li>Personal signal audit for each participant</li>
+              <li>Point-of-view development and offer clarity</li>
+              <li>Live critique of posts, pitches, and positioning</li>
+              <li>Network activation and relationship strategy</li>
+            </ul>
+          </article>
+          <article class="offer-block">
+            <h3>The room standard</h3>
+            <p>Small, direct, useful, and unusually candid. The cohort is built to create momentum, not inspirational fog.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="offer-cta">
+        <h2>Enter the room where the signal gets sharper.</h2>
+        <a class="button primary" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Request a cohort seat</a>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+## FILE: youre-amazing-coaching.html
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>You Are Amazing Coaching | Cory Warfield</title>
+    <meta name="description" content="Flagship personal branding and executive influence coaching with Cory Warfield." />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23d8ff3e'/%3E%3Ctext x='7' y='42' font-size='25' font-family='Arial' font-weight='900' fill='%23080806'%3ECW%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="package-page">
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <canvas id="signalCanvas" aria-hidden="true"></canvas>
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="Cory Warfield home"><span class="brand-mark">CW</span><span>Cory Warfield</span></a>
+      <nav aria-label="Primary navigation">
+        <a href="./index.html#packages">Packages</a>
+        <a href="./index.html#method">Method</a>
+        <a href="./index.html#receipts">Receipts</a>
+        <a class="nav-cta" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Apply</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="offer-hero">
+        <div>
+          <p class="kicker">Flagship coaching</p>
+          <h1>You Are Amazing Coaching</h1>
+          <p class="hero-text">A $10k personal branding and executive influence build for leaders who have the proof, but need the market to feel it faster.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Apply for coaching</a>
+            <a class="button ghost" href="./index.html#packages">Back to packages</a>
+          </div>
+        </div>
+        <aside class="offer-card">
+          <p class="package-type">Lifetime access</p>
+          <p class="price">$10,000</p>
+          <p>Positioning, public signal, network strategy, AI workflows, and an executive content engine that compounds.</p>
+        </aside>
+      </section>
+
+      <section class="offer-strip" aria-label="Coaching outcomes">
+        <div><span>Outcome 01</span><strong>A point of view sharp enough for strangers to repeat.</strong></div>
+        <div><span>Outcome 02</span><strong>A LinkedIn and thought leadership system that feels alive.</strong></div>
+        <div><span>Outcome 03</span><strong>A lifetime strategic operating system for public authority.</strong></div>
+      </section>
+
+      <section class="offer-detail">
+        <aside>
+          <p class="package-type">Best for</p>
+          <h3>Founders, executives, consultants, and creators of consequence.</h3>
+          <p>You already have range. This package compresses that range into a market-facing signal people can understand, trust, and buy.</p>
+        </aside>
+        <div class="offer-detail-body">
+          <article class="offer-block">
+            <h3>What Cory builds with you</h3>
+            <ul>
+              <li>Personal brand positioning and proof architecture</li>
+              <li>Content pillars, post formats, and opinion loops</li>
+              <li>AI-assisted research, drafting, and publishing workflows</li>
+              <li>Warm-introduction strategy and executive relationship design</li>
+            </ul>
+          </article>
+          <article class="offer-block">
+            <h3>The operating principle</h3>
+            <p>Influence is not performance. It is repeated clarity plus visible proof plus rooms that trust you before they meet you.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="offer-cta">
+        <h2>Turn the private genius into public gravity.</h2>
+        <a class="button primary" href="https://www.linkedin.com/in/corywarfield/" target="_blank" rel="noreferrer">Start the flagship</a>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
+```
+
+## FILE: styles.css
+```
+:root {
+  color-scheme: dark;
+  --ink: #f8f3e8;
+  --muted: #bfb7a7;
+  --black: #080806;
+  --panel: rgba(248, 243, 232, 0.08);
+  --line: rgba(248, 243, 232, 0.18);
+  --acid: #d8ff3e;
+  --hot: #ff4f8b;
+  --cyan: #25d6ff;
+  --rust: #e07b37;
+  --green: #4be07b;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(216, 255, 62, 0.16), transparent 30rem),
+    radial-gradient(circle at 86% 18%, rgba(37, 214, 255, 0.16), transparent 26rem),
+    linear-gradient(135deg, #070706 0%, #15120f 46%, #080806 100%);
+  overflow-x: hidden;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(248, 243, 232, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(248, 243, 232, 0.04) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(to bottom, black, transparent 84%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+#signalCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+}
+
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 22rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 79, 139, 0.16), transparent 68%);
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 3vw, 2.5rem);
+  border-bottom: 1px solid var(--line);
+  background: rgba(8, 8, 6, 0.74);
+  backdrop-filter: blur(18px);
+}
+
+.brand,
+nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand {
+  font-weight: 900;
+}
+
+.brand-mark {
+  display: grid;
+  width: 2.3rem;
+  height: 2.3rem;
+  place-items: center;
+  color: #080806;
+  background: var(--acid);
+  transform: rotate(-7deg);
+}
+
+nav {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  font-size: 0.83rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+nav a {
+  padding: 0.62rem 0.72rem;
+  color: var(--muted);
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: var(--ink);
+}
+
+.nav-cta {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: rgba(248, 243, 232, 0.08);
+}
+
+.hero {
+  display: grid;
+  min-height: calc(100svh - 4.5rem);
+  grid-template-columns: minmax(0, 1.04fr) minmax(20rem, 0.82fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 7rem);
+  padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 5vw, 5rem) 2rem;
+}
+
+.hero-copy {
+  max-width: 62rem;
+}
+
+.kicker,
+.eyebrow,
+.package-type {
+  margin: 0 0 1rem;
+  color: var(--acid);
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  line-height: 0.95;
+}
+
+h1 {
+  max-width: 13ch;
+  margin-bottom: 1.5rem;
+  font-size: clamp(4rem, 11vw, 11rem);
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(2.6rem, 7vw, 7rem);
+}
+
+h3 {
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.25rem, 2vw, 2rem);
+  line-height: 1.02;
+}
+
+.hero-text,
+.lab-copy p,
+.close p {
+  max-width: 45rem;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+  line-height: 1.55;
+}
+
+.hero-actions,
+.package-grid,
+.receipt-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-actions {
+  grid-template-columns: repeat(2, minmax(0, max-content));
+}
+
+.button {
+  display: inline-flex;
+  min-height: 3.2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--line);
+  font-weight: 900;
+  text-align: center;
+}
+
+.button.primary {
+  color: #080806;
+  background: var(--acid);
+  border-color: var(--acid);
+  box-shadow: 0 0 0 0.45rem rgba(216, 255, 62, 0.12);
+}
+
+.button.ghost {
+  color: var(--ink);
+  background: rgba(248, 243, 232, 0.06);
+}
+
+.button:hover,
+.button:focus-visible,
+.receipt-grid a:hover,
+.receipt-grid a:focus-visible {
+  transform: translateY(-2px);
+}
+
+.portrait-stage {
+  position: relative;
+  isolation: isolate;
+  min-height: 34rem;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --rgb-x: 0px;
+  --rgb-y: 0px;
+  --warp: 0%;
+}
+
+.portrait-distort,
+.portrait-stage img {
+  position: absolute;
+  inset: 8% 3% auto auto;
+  width: min(34rem, 88vw);
+  aspect-ratio: 4 / 5;
+}
+
+.portrait-distort {
+  transform:
+    perspective(900px)
+    rotateX(var(--tilt-y))
+    rotateY(var(--tilt-x))
+    rotate(4deg);
+  transition: transform 260ms ease, filter 260ms ease;
+}
+
+.portrait-stage img {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid rgba(248, 243, 232, 0.35);
+  filter: saturate(0.92) contrast(1.08);
+  clip-path: polygon(
+    0 calc(5% + var(--warp)),
+    94% 0,
+    100% calc(84% - var(--warp)),
+    12% 100%
+  );
+}
+
+.portrait-main {
+  z-index: 2;
+}
+
+.portrait-rgb {
+  z-index: 1;
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.portrait-red {
+  filter: saturate(1.8) hue-rotate(135deg);
+  transform: translate(calc(var(--rgb-x) * -1), var(--rgb-y));
+}
+
+.portrait-blue {
+  filter: saturate(1.8) hue-rotate(285deg);
+  transform: translate(var(--rgb-x), calc(var(--rgb-y) * -1));
+}
+
+.portrait-stage:hover .portrait-rgb,
+.portrait-stage.is-distorting .portrait-rgb {
+  opacity: 0.46;
+}
+
+.portrait-distort::before,
+.portrait-distort::after {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  content: "";
+  clip-path: polygon(
+    0 calc(5% + var(--warp)),
+    94% 0,
+    100% calc(84% - var(--warp)),
+    12% 100%
+  );
+}
+
+.portrait-distort::before {
+  opacity: 0.24;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(248, 243, 232, 0.18) 0 1px,
+    transparent 1px 7px
+  );
+}
+
+.portrait-distort::after {
+  opacity: 0;
+  background: linear-gradient(100deg, transparent 0 42%, rgba(216, 255, 62, 0.38) 48%, transparent 56% 100%);
+  transform: translateX(-45%);
+  transition: opacity 220ms ease, transform 480ms ease;
+}
+
+.portrait-stage:hover .portrait-distort::after,
+.portrait-stage.is-distorting .portrait-distort::after {
+  opacity: 0.8;
+  transform: translateX(45%);
+}
+
+.portrait-stage::before,
+.portrait-stage::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+}
+
+.portrait-stage::before {
+  inset: 15% -8% 3% 16%;
+  border: 2px solid var(--cyan);
+  transform: rotate(-8deg);
+}
+
+.portrait-stage::after {
+  inset: 0 8% 18% -4%;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 79, 139, 0.85) 0 0.42rem, transparent 0.42rem 1.2rem),
+    linear-gradient(135deg, rgba(216, 255, 62, 0.25), rgba(75, 224, 123, 0.12));
+  clip-path: polygon(9% 0, 100% 18%, 83% 100%, 0 80%);
+  mix-blend-mode: screen;
+}
+
+.orbit {
+  position: absolute;
+  border: 1px solid rgba(248, 243, 232, 0.28);
+  border-radius: 50%;
+  animation: spin 18s linear infinite;
+}
+
+.orbit-one {
+  inset: 2rem 0 auto auto;
+  width: 15rem;
+  height: 15rem;
+}
+
+.orbit-two {
+  inset: auto auto 4rem 1rem;
+  width: 10rem;
+  height: 10rem;
+  animation-duration: 11s;
+  animation-direction: reverse;
+}
+
+.portrait-caption {
+  position: absolute;
+  right: 0;
+  bottom: 1.5rem;
+  width: 13rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  color: #080806;
+  background: var(--cyan);
+  transform: rotate(-5deg);
+}
+
+.portrait-caption span,
+.portrait-caption strong {
+  display: block;
+}
+
+.portrait-caption span {
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.portrait-caption strong {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 2.1rem;
+  font-weight: 400;
+}
+
+.ticker {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  background: #f8f3e8;
+  color: #080806;
+}
+
+.ticker div {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
+
+.ticker span {
+  padding: 1rem 1.5rem;
+  font-size: clamp(1rem, 2vw, 1.45rem);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.section {
+  padding: clamp(3rem, 8vw, 8rem) clamp(1rem, 5vw, 5rem);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.55fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.method-grid article,
+.package,
+.lab-panel,
+.receipt-grid a {
+  border: 1px solid var(--line);
+  background: rgba(248, 243, 232, 0.075);
+  backdrop-filter: blur(12px);
+}
+
+.method-grid article {
+  min-height: 16rem;
+  padding: 1.25rem;
+}
+
+.method-grid span {
+  display: block;
+  margin-bottom: 2rem;
+  color: var(--hot);
+  font-weight: 900;
+}
+
+.method-grid p,
+.package p,
+.package li,
+footer {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.lab {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.7fr) minmax(20rem, 1fr);
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  background: linear-gradient(90deg, rgba(255, 79, 139, 0.1), rgba(37, 214, 255, 0.04));
+}
+
+.lab-panel {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.1rem, 3vw, 2rem);
+}
+
+.lab-panel label {
+  display: grid;
+  gap: 0.75rem;
+  color: var(--ink);
+  font-weight: 900;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--acid);
+}
+
+output {
+  min-height: 8rem;
+  padding: 1.25rem;
+  color: #080806;
+  background: var(--acid);
+  font-size: clamp(1.35rem, 3vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.section-head {
+  max-width: 66rem;
+  margin-bottom: 2rem;
+}
+
+.package-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.package {
+  position: relative;
+  display: flex;
+  min-height: 35rem;
+  flex-direction: column;
+  padding: 1.25rem;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease,
+    background 220ms ease;
+}
+
+.package::before,
+.package::after {
+  position: absolute;
+  inset: -35%;
+  pointer-events: none;
+  content: "";
+  opacity: 0;
+  transition: opacity 220ms ease, transform 420ms ease;
+}
+
+.package::before {
+  background:
+    conic-gradient(from 90deg, transparent, rgba(37, 214, 255, 0.3), transparent, rgba(255, 79, 139, 0.28), transparent),
+    radial-gradient(circle at 50% 50%, rgba(216, 255, 62, 0.25), transparent 36%);
+  transform: rotate(0deg) scale(0.72);
+  mix-blend-mode: screen;
+}
+
+.package::after {
+  inset: 0.7rem;
+  border: 1px solid rgba(216, 255, 62, 0.72);
+  background:
+    linear-gradient(90deg, transparent 49%, rgba(216, 255, 62, 0.22) 50%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, rgba(37, 214, 255, 0.18) 50%, transparent 51%);
+  transform: scale(0.86);
+}
+
+.package > * {
+  position: relative;
+  z-index: 1;
+}
+
+.package:hover,
+.package:focus-within {
+  border-color: rgba(216, 255, 62, 0.78);
+  box-shadow: 0 1.2rem 4rem rgba(37, 214, 255, 0.12);
+  transform: translateY(-0.35rem) rotateX(2deg);
+}
+
+.package.featured:hover,
+.package.featured:focus-within {
+  transform: translateY(-0.35rem) rotate(-1deg) rotateX(2deg);
+}
+
+.package:hover::before,
+.package:focus-within::before {
+  opacity: 1;
+  transform: rotate(24deg) scale(1);
+}
+
+.package:hover::after,
+.package:focus-within::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.package.featured {
+  color: #080806;
+  background: #f8f3e8;
+  transform: rotate(-1deg);
+}
+
+.package.featured p,
+.package.featured li {
+  color: #2f2a23;
+}
+
+.package.featured .package-type {
+  color: #9e244e;
+}
+
+.package.consulting {
+  border-color: rgba(216, 255, 62, 0.7);
+}
+
+.price {
+  margin-bottom: 1.1rem;
+  color: var(--ink);
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(2.4rem, 4vw, 4.5rem);
+  line-height: 0.9;
+}
+
+.featured .price {
+  color: #080806;
+}
+
+.price span {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+ul {
+  margin: 1rem 0 1.5rem;
+  padding-left: 1.1rem;
+}
+
+.package .button {
+  margin-top: auto;
+}
+
+.hours {
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  align-items: center;
+  gap: 0.7rem;
+  margin: auto 0 1rem;
+}
+
+.hours button {
+  height: 3rem;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: rgba(248, 243, 232, 0.12);
+  cursor: pointer;
+}
+
+.hours strong {
+  text-align: center;
+}
+
+.estimate {
+  color: var(--acid);
+  font-weight: 900;
+}
+
+.receipt-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.receipt-grid a {
+  min-height: 12rem;
+  padding: 1rem;
+  transition: transform 180ms ease;
+}
+
+.receipt-grid span {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: var(--cyan);
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.receipt-grid strong {
+  display: block;
+  font-size: 1.2rem;
+  line-height: 1.18;
+}
+
+.close {
+  min-height: 80svh;
+  padding: clamp(3rem, 9vw, 9rem) clamp(1rem, 5vw, 5rem);
+  background:
+    linear-gradient(90deg, rgba(8, 8, 6, 0.38), rgba(8, 8, 6, 0.04) 62%),
+    url("./cory.jpg") center / cover;
+  text-shadow: 0 2px 18px rgba(8, 8, 6, 0.88);
+}
+
+.close h2 {
+  max-width: 11ch;
+}
+
+.package-page .topbar .brand {
+  color: var(--ink);
+}
+
+.offer-hero {
+  display: grid;
+  min-height: calc(100svh - 4.5rem);
+  grid-template-columns: minmax(0, 0.95fr) minmax(20rem, 0.72fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 5vw, 5rem);
+}
+
+.offer-hero h1 {
+  max-width: 10ch;
+}
+
+.offer-card {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  min-height: 34rem;
+  align-content: end;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid rgba(248, 243, 232, 0.28);
+  background:
+    linear-gradient(160deg, rgba(8, 8, 6, 0.14), rgba(8, 8, 6, 0.78)),
+    url("./cory.jpg") center / cover;
+  overflow: hidden;
+}
+
+.offer-card::before {
+  position: absolute;
+  inset: 1rem;
+  border: 2px solid var(--acid);
+  content: "";
+  transform: rotate(-3deg);
+}
+
+.offer-card > * {
+  position: relative;
+}
+
+.offer-card .price {
+  margin: 0;
+  color: var(--acid);
+}
+
+.offer-card p:not(.price) {
+  max-width: 24rem;
+  color: var(--ink);
+  font-weight: 800;
+  text-shadow: 0 2px 14px rgba(8, 8, 6, 0.72);
+}
+
+.offer-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-block: 1px solid var(--line);
+}
+
+.offer-strip div {
+  min-height: 13rem;
+  padding: 1rem;
+  border-right: 1px solid var(--line);
+  background: rgba(248, 243, 232, 0.06);
+}
+
+.offer-strip div:last-child {
+  border-right: 0;
+}
+
+.offer-strip span {
+  display: block;
+  margin-bottom: 2rem;
+  color: var(--cyan);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.offer-strip strong {
+  display: block;
+  font-size: clamp(1.25rem, 2.4vw, 2rem);
+  line-height: 1.02;
+}
+
+.offer-detail {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.62fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  padding: clamp(3rem, 8vw, 8rem) clamp(1rem, 5vw, 5rem);
+}
+
+.offer-detail aside {
+  align-self: start;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  background: #f8f3e8;
+  color: #080806;
+}
+
+.offer-detail aside p,
+.offer-detail aside li {
+  color: #2f2a23;
+}
+
+.offer-detail-body {
+  display: grid;
+  gap: 1rem;
+}
+
+.offer-block {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  background: rgba(248, 243, 232, 0.075);
+}
+
+.offer-block p,
+.offer-block li {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.offer-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: end;
+  gap: 1rem;
+  padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 5vw, 5rem);
+  background: linear-gradient(90deg, rgba(216, 255, 62, 0.14), rgba(37, 214, 255, 0.08));
+}
+
+.offer-cta h2 {
+  max-width: 12ch;
+  margin-bottom: 0;
+}
+
+.reveal {
+  opacity: 0.72;
+  transform: translateY(1.25rem) skewY(0.6deg);
+  filter: blur(1.5px) saturate(0.88);
+  transition:
+    opacity 760ms ease,
+    transform 760ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    filter 760ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) skewY(0deg);
+  filter: blur(0);
+}
+
+.reveal .method-grid article,
+.reveal .package,
+.reveal .receipt-grid a {
+  transform: translateY(1rem);
+  transition:
+    opacity 620ms ease,
+    transform 620ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.reveal.is-visible .method-grid article,
+.reveal.is-visible .package,
+.reveal.is-visible .receipt-grid a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal.is-visible .package.featured {
+  transform: rotate(-1deg);
+}
+
+.reveal.is-visible .method-grid article:nth-child(2),
+.reveal.is-visible .package:nth-child(2),
+.reveal.is-visible .receipt-grid a:nth-child(2) {
+  transition-delay: 80ms;
+}
+
+.reveal.is-visible .method-grid article:nth-child(3),
+.reveal.is-visible .package:nth-child(3),
+.reveal.is-visible .receipt-grid a:nth-child(3) {
+  transition-delay: 160ms;
+}
+
+.reveal.is-visible .method-grid article:nth-child(4),
+.reveal.is-visible .package:nth-child(4),
+.reveal.is-visible .receipt-grid a:nth-child(4) {
+  transition-delay: 240ms;
+}
+
+.reveal.is-visible .package:hover,
+.reveal.is-visible .package:focus-within {
+  transform: translateY(-0.35rem) rotateX(2deg);
+}
+
+.reveal.is-visible .package.featured:hover,
+.reveal.is-visible .package.featured:focus-within {
+  transform: translateY(-0.35rem) rotate(-1deg) rotateX(2deg);
+}
+
+.reveal.is-visible .receipt-grid a:hover,
+.reveal.is-visible .receipt-grid a:focus-visible {
+  transform: translateY(-2px);
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem clamp(1rem, 5vw, 5rem);
+  border-top: 1px solid var(--line);
+}
+
+footer a {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+@media (max-width: 1260px) {
+  .package-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .package {
+    min-height: 30rem;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1080px) {
+  .hero,
+  .split,
+  .lab,
+  .offer-hero,
+  .offer-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .receipt-grid,
+  .offer-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .offer-strip div:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .offer-card {
+    min-height: 28rem;
+  }
+
+  .portrait-stage {
+    min-height: clamp(27rem, 72vw, 36rem);
+  }
+
+  .portrait-distort {
+    inset: 1rem auto auto 50%;
+    width: min(31rem, 74vw);
+    transform:
+      translateX(-50%)
+      perspective(900px)
+      rotateX(var(--tilt-y))
+      rotateY(var(--tilt-x))
+      rotate(4deg);
+  }
+
+  .portrait-caption {
+    right: clamp(0.75rem, 12vw, 7rem);
+  }
+}
+
+@media (max-width: 680px) {
+  .topbar {
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .brand {
+    min-width: max-content;
+  }
+
+  .brand-mark {
+    width: 1.85rem;
+    height: 1.85rem;
+    font-size: 0.78rem;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.25rem;
+    font-size: 0.62rem;
+  }
+
+  nav a {
+    padding: 0.42rem 0.35rem;
+    white-space: nowrap;
+  }
+
+  .nav-cta {
+    padding-inline: 0.45rem;
+  }
+
+  .hero,
+  .section,
+  .offer-hero,
+  .offer-detail,
+  .offer-cta {
+    padding-inline: 0.85rem;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 15vw, 4.7rem);
+  }
+
+  h2 {
+    font-size: clamp(2.25rem, 12vw, 4rem);
+  }
+
+  .hero {
+    gap: 1.25rem;
+  }
+
+  .hero-text,
+  .lab-copy p,
+  .close p {
+    font-size: 0.98rem;
+  }
+
+  .button {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.82rem 0.85rem;
+  }
+
+  .hero-actions,
+  .method-grid,
+  .package-grid,
+  .receipt-grid,
+  .offer-strip,
+  .offer-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .offer-strip div:last-child {
+    grid-column: auto;
+  }
+
+  .offer-hero {
+    min-height: auto;
+  }
+
+  .offer-hero h1 {
+    font-size: clamp(3.1rem, 15vw, 4.55rem);
+  }
+
+  .offer-card {
+    min-height: 24rem;
+  }
+
+  .offer-card::before {
+    inset: 0.7rem;
+  }
+
+  .offer-strip div {
+    min-height: 10rem;
+  }
+
+  .offer-strip strong {
+    font-size: 1.28rem;
+  }
+
+  .offer-detail aside,
+  .offer-block {
+    padding: 1rem;
+  }
+
+  .portrait-stage {
+    min-height: 29rem;
+  }
+
+  .portrait-distort {
+    inset: 1.75rem auto auto 50%;
+    width: min(22.5rem, 88vw);
+    transform:
+      translateX(-50%)
+      perspective(900px)
+      rotateX(var(--tilt-y))
+      rotateY(var(--tilt-x))
+      rotate(4deg);
+  }
+
+  .portrait-stage img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .portrait-caption {
+    right: 0.25rem;
+    bottom: 0.25rem;
+    width: 10.75rem;
+    padding: 0.75rem;
+  }
+
+  .portrait-caption strong {
+    font-size: 1.55rem;
+  }
+
+  .ticker span {
+    padding: 0.72rem 1rem;
+    font-size: 0.82rem;
+  }
+
+  .method-grid article {
+    min-height: 12rem;
+  }
+
+  .method-grid span {
+    margin-bottom: 1.1rem;
+  }
+
+  output {
+    min-height: 6.5rem;
+    padding: 1rem;
+    font-size: clamp(1.1rem, 8vw, 1.8rem);
+  }
+
+  .package {
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .package.featured {
+    transform: none;
+  }
+
+  .reveal.is-visible .package.featured,
+  .package.featured:hover,
+  .package.featured:focus-within,
+  .reveal.is-visible .package.featured:hover,
+  .reveal.is-visible .package.featured:focus-within {
+    transform: translateY(-0.2rem);
+  }
+
+  .receipt-grid a {
+    min-height: 9.5rem;
+  }
+
+  .receipt-grid span {
+    margin-bottom: 1.35rem;
+  }
+
+  .receipt-grid strong {
+    font-size: 1rem;
+  }
+
+  .close {
+    min-height: 82svh;
+    background:
+      linear-gradient(90deg, rgba(8, 8, 6, 0.54), rgba(8, 8, 6, 0.1) 72%),
+      url("./cory.jpg") 58% center / cover;
+  }
+
+  .close h2 {
+    max-width: 9.5ch;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .portrait-rgb {
+    display: none;
+  }
+}
+```

@@ -1,0 +1,265 @@
+# Exact recreation prompt — Spielplatz
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-bauhaus
+Brand: Spielplatz
+Category: Creative
+Tagline (catalog): Bauhaus playground · draggable physics (Fable × 25 #10)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/10-bauhaus/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: FORMFOLLOWSFUN.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPIELPLATZ — A Bauhaus Playground</title>
+<meta name="description" content="Form follows fun. Drag the shapes.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --rot:#d5342a; --gelb:#f2b705; --blau:#1f5aa8;
+    --schwarz:#181512; --weiss:#f4efe6;
+  }
+  body {
+    background:var(--weiss);
+    color:var(--schwarz);
+    font-family:'Archivo', sans-serif;
+    height:100vh; overflow:hidden;
+    user-select:none; -webkit-user-select:none;
+  }
+
+  .stage { position:fixed; inset:0; }
+
+  /* baseline grid */
+  .stage::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(24,21,18,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(24,21,18,0.06) 1px, transparent 1px);
+    background-size:64px 64px;
+  }
+
+  .shape {
+    position:absolute;
+    cursor:grab;
+    touch-action:none;
+    will-change:transform;
+    filter:drop-shadow(0 6px 0 rgba(24,21,18,0.18));
+    transition:filter 0.2s;
+  }
+  .shape:active { cursor:grabbing; filter:drop-shadow(0 14px 0 rgba(24,21,18,0.22)); }
+  .shape svg { display:block; overflow:visible; }
+
+  .type-block {
+    position:absolute;
+    top:6vh; left:5vw;
+    z-index:5;
+    pointer-events:none;
+    max-width:min(680px, 90vw);
+  }
+  h1 {
+    font-weight:900;
+    font-size:clamp(3rem, 10vw, 8.4rem);
+    line-height:0.88;
+    letter-spacing:-0.04em;
+    text-transform:uppercase;
+  }
+  h1 .r { color:var(--rot); }
+  h1 .b { color:var(--blau); }
+  h1 .g { color:var(--gelb); -webkit-text-stroke:2px var(--schwarz); }
+  .sub {
+    margin-top:1.6rem;
+    display:inline-block;
+    background:var(--schwarz); color:var(--weiss);
+    font-weight:500; font-size:0.85rem;
+    letter-spacing:0.28em; text-transform:uppercase;
+    padding:0.65rem 1.2rem;
+    transform:rotate(-2deg);
+    pointer-events:auto;
+  }
+
+  .caption {
+    position:absolute; bottom:5vh; left:5vw; z-index:5;
+    font-size:0.8rem; line-height:1.8; max-width:330px;
+    pointer-events:none;
+  }
+  .caption b { text-transform:uppercase; letter-spacing:0.15em; }
+
+  .controls {
+    position:absolute; bottom:5vh; right:5vw; z-index:5;
+    display:flex; gap:0.8rem;
+  }
+  .controls button {
+    font-family:inherit; font-weight:700; font-size:0.78rem;
+    letter-spacing:0.2em; text-transform:uppercase;
+    padding:0.9rem 1.5rem;
+    border:3px solid var(--schwarz);
+    background:var(--weiss); color:var(--schwarz);
+    cursor:pointer;
+    box-shadow:5px 5px 0 var(--schwarz);
+    transition:transform 0.12s, box-shadow 0.12s;
+  }
+  .controls button:hover { transform:translate(-2px,-2px); box-shadow:7px 7px 0 var(--schwarz); }
+  .controls button:active { transform:translate(3px,3px); box-shadow:2px 2px 0 var(--schwarz); }
+  .controls button.primary { background:var(--rot); color:var(--weiss); }
+
+  .corner-tag {
+    position:absolute; top:6vh; right:5vw; z-index:5;
+    writing-mode:vertical-rl;
+    font-weight:500; font-size:0.72rem;
+    letter-spacing:0.4em; text-transform:uppercase;
+    color:rgba(24,21,18,0.5);
+    pointer-events:none;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="type-block">
+    <h1>FORM<br><span class="r">FOLLOWS</span><br><span class="g">FUN</span><span class="b">.</span></h1>
+    <div class="sub">Ein Spielplatz · Weimar 1923 → Browser 2026</div>
+  </div>
+
+  <div class="caption">
+    <b>Instructions:</b> Drag the forms. Throw them. They obey a physics the Meisters would have called <i>frivolous.</i> Gravity is optional at the Bauhaus.
+  </div>
+
+  <div class="corner-tag">№ 10 — Fable Twenty-Five</div>
+
+  <div class="controls">
+    <button id="gravBtn">Gravity: Off</button>
+    <button id="resetBtn" class="primary">Reset</button>
+  </div>
+</div>
+
+<script>
+const stage = document.getElementById('stage');
+const SHAPES = [
+  { svg:`<svg width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="72" fill="#d5342a"/></svg>`, x:0.62, y:0.18 },
+  { svg:`<svg width="140" height="140" viewBox="0 0 140 140"><rect x="4" y="4" width="132" height="132" fill="#1f5aa8"/></svg>`, x:0.78, y:0.42 },
+  { svg:`<svg width="160" height="150" viewBox="0 0 160 150"><polygon points="80,4 156,146 4,146" fill="#f2b705"/></svg>`, x:0.52, y:0.55 },
+  { svg:`<svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="none" stroke="#181512" stroke-width="9"/></svg>`, x:0.86, y:0.16 },
+  { svg:`<svg width="170" height="46" viewBox="0 0 170 46"><rect x="2" y="2" width="166" height="42" fill="#181512"/></svg>`, x:0.6, y:0.78, rot:-18 },
+  { svg:`<svg width="110" height="110" viewBox="0 0 110 110"><path d="M55 4 A51 51 0 0 1 55 106 Z" fill="#d5342a"/></svg>`, x:0.42, y:0.32, rot:30 },
+  { svg:`<svg width="90" height="90" viewBox="0 0 90 90"><rect x="4" y="4" width="82" height="82" fill="#f2b705" transform="rotate(45 45 45)"/></svg>`, x:0.72, y:0.68 },
+  { svg:`<svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="#1f5aa8"/><circle cx="50" cy="50" r="22" fill="#f4efe6"/></svg>`, x:0.9, y:0.7 },
+];
+
+let bodies = [];
+let gravityOn = false;
+
+function spawn(){
+  bodies.forEach(b => b.el.remove());
+  bodies = [];
+  SHAPES.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'shape';
+    el.innerHTML = s.svg;
+    stage.appendChild(el);
+    const w = el.firstChild.getAttribute('width') * 1;
+    const h = el.firstChild.getAttribute('height') * 1;
+    const b = {
+      el, w, h,
+      x: s.x * innerWidth - w/2, y: s.y * innerHeight - h/2,
+      vx: 0, vy: 0,
+      rot: s.rot || 0, vr: 0,
+      dragging: false,
+    };
+    bodies.push(b);
+
+    el.addEventListener('pointerdown', e => {
+      b.dragging = true;
+      b.ox = e.clientX - b.x; b.oy = e.clientY - b.y;
+      b.px = e.clientX; b.py = e.clientY;
+      el.setPointerCapture(e.pointerId);
+    });
+    el.addEventListener('pointermove', e => {
+      if (!b.dragging) return;
+      b.x = e.clientX - b.ox;
+      b.y = e.clientY - b.oy;
+      b.vx = (e.clientX - b.px) * 0.9;
+      b.vy = (e.clientY - b.py) * 0.9;
+      b.vr = b.vx * 0.18;
+      b.px = e.clientX; b.py = e.clientY;
+    });
+    el.addEventListener('pointerup', () => b.dragging = false);
+  });
+}
+spawn();
+
+function step(){
+  for (const b of bodies){
+    if (!b.dragging){
+      if (gravityOn) b.vy += 0.55;
+      b.x += b.vx; b.y += b.vy;
+      b.rot += b.vr;
+      b.vx *= 0.995; b.vy *= 0.995; b.vr *= 0.99;
+
+      // walls
+      if (b.x < 0){ b.x = 0; b.vx = -b.vx * 0.75; b.vr = -b.vr * 0.6; }
+      if (b.x + b.w > innerWidth){ b.x = innerWidth - b.w; b.vx = -b.vx * 0.75; b.vr = -b.vr*0.6; }
+      if (b.y < 0){ b.y = 0; b.vy = -b.vy * 0.75; }
+      if (b.y + b.h > innerHeight){
+        b.y = innerHeight - b.h;
+        b.vy = -b.vy * 0.68;
+        b.vx *= 0.92;
+        if (Math.abs(b.vy) < 0.8) b.vy = 0;
+      }
+      // gentle idle float when gravity off
+      if (!gravityOn && Math.abs(b.vx) < 0.05 && Math.abs(b.vy) < 0.05){
+        b.y += Math.sin(performance.now()/900 + b.x) * 0.12;
+      }
+    }
+    b.el.style.transform = `translate(${b.x}px, ${b.y}px) rotate(${b.rot}deg)`;
+  }
+  // pairwise elastic-ish collision (circle approx)
+  for (let i = 0; i < bodies.length; i++){
+    for (let j = i+1; j < bodies.length; j++){
+      const a = bodies[i], c = bodies[j];
+      const ax = a.x + a.w/2, ay = a.y + a.h/2;
+      const cx2 = c.x + c.w/2, cy2 = c.y + c.h/2;
+      const ra = Math.min(a.w, a.h)/2, rc = Math.min(c.w, c.h)/2;
+      const dx = cx2 - ax, dy = cy2 - ay;
+      const d = Math.hypot(dx, dy) || 1;
+      const overlap = ra + rc - d;
+      if (overlap > 0){
+        const nx = dx/d, ny = dy/d;
+        const push = overlap/2;
+        if (!a.dragging){ a.x -= nx*push; a.y -= ny*push; }
+        if (!c.dragging){ c.x += nx*push; c.y += ny*push; }
+        const rel = (a.vx - c.vx)*nx + (a.vy - c.vy)*ny;
+        if (rel > 0){
+          const imp = rel * 0.82;
+          if (!a.dragging){ a.vx -= imp*nx; a.vy -= imp*ny; a.vr += imp*0.4; }
+          if (!c.dragging){ c.vx += imp*nx; c.vy += imp*ny; c.vr -= imp*0.4; }
+        }
+      }
+    }
+  }
+  requestAnimationFrame(step);
+}
+requestAnimationFrame(step);
+
+document.getElementById('gravBtn').onclick = function(){
+  gravityOn = !gravityOn;
+  this.textContent = 'Gravity: ' + (gravityOn ? 'On' : 'Off');
+  if (!gravityOn) bodies.forEach(b => { b.vy -= Math.random()*6 + 2; });
+};
+document.getElementById('resetBtn').onclick = spawn;
+addEventListener('resize', () => {
+  bodies.forEach(b => {
+    b.x = Math.min(b.x, innerWidth - b.w);
+    b.y = Math.min(b.y, innerHeight - b.h);
+  });
+});
+</script>
+</body>
+</html>
+```

@@ -1,0 +1,327 @@
+# Exact recreation prompt — Vence Jewelry
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: vence-jewelry
+Brand: Vence Jewelry
+Category: Landing
+Tagline (catalog): Vence jewelry brand landing
+Live reference (structure only, do not hotlink private assets): https://vence-jewelry.vercel.app/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: THE ART OF STILLNESS.
+
+## FILE: assets/index-CmsyllaB.vence.css
+```
+*,:before,:after{box-sizing:border-box;margin:0;padding:0}:root{--design-width:1920;--design-height:1080;--base-font-size:16;--scale:1}html{font-size:min(.833333vw,1.48148vh)}@media (width<=768px){html{font-size:4.26667vw}}.mob-br{display:none}body,html{color:#fff;-webkit-user-select:none;user-select:none;background:#050505;width:100%;height:100%;font-family:Inter,sans-serif;overflow:hidden}.webgl{z-index:1;outline:none;transition:filter 1.8s cubic-bezier(.4,0,.2,1);position:fixed;inset:0;width:100%!important;height:100%!important}body.about-open .webgl{filter:blur(25px)brightness(.6)}#cursor-canvas{z-index:250;pointer-events:none;width:100vw;height:100vh;display:none;position:fixed;top:0;left:0;overflow:hidden}#cursor-canvas canvas{display:block;width:100%!important;height:100%!important}#css-vignette{z-index:5;pointer-events:none;position:fixed;inset:0}.vig-corner{opacity:0;pointer-events:none;width:100%;height:100%;transition:opacity 1.2s cubic-bezier(.4,0,.2,1);position:absolute}.vig-corner.active{opacity:.85}.vig-corner.hover-active{transition:opacity .4s;opacity:.9!important}.vig-tl{background:radial-gradient(circle at 0 0,#000000f2 0%,#0006 30%,#0000 75%)}.vig-tr{background:radial-gradient(circle at 100% 0,#000000f2 0%,#0006 30%,#0000 75%)}.vig-bl{background:radial-gradient(circle at 0 100%,#000000e6 0%,#0006 30%,#0000 75%)}.vig-br{background:radial-gradient(circle at 100% 100%,#000000e6 0%,#0006 30%,#0000 75%)}body.section-0-active .vig-tl:not(.hover-active),body.section-0-active .vig-tr:not(.hover-active){opacity:0!important}body.section-0-active .vig-bl,body.section-0-active .vig-br{height:140%;opacity:.95!important}body.section-0-active .vig-bl{background:radial-gradient(circle at 0 100%,#000000f2 0%,#00000080 45%,#0000 85%)}body.section-0-active .vig-br{background:radial-gradient(circle at 100% 100%,#000000f2 0%,#00000080 45%,#0000 85%)}#loading-screen{z-index:2000;background:radial-gradient(circle,#140a1f 0%,#050505 100%);justify-content:center;align-items:center;transition:opacity 1.5s cubic-bezier(.4,0,.2,1);display:flex;position:fixed;inset:0}.loader-content{justify-content:center;align-items:center;width:100%;height:100%;display:flex;position:relative}.loader-brand-wrap{z-index:2;transition:all 1.8s cubic-bezier(.4,0,.2,1)}.loader-logo-svg{filter:drop-shadow(0 0 30px #ffffff1f);clip-path:inset(0 100% 0 0);width:17.5rem;height:auto;transition:clip-path 3.5s cubic-bezier(.4,0,.2,1);overflow:visible}.loader-logo-svg.reveal{clip-path:inset(0)}.logo-path{fill:url(#platinum-flow-loader);stroke:none}.loader-brand-wrap.exit{filter:blur(40px);opacity:0;transform:scale(1.1)}.loader-action-wrap{opacity:0;pointer-events:none;z-index:5;display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)scale(.9)}#enter-btn{color:#fff;letter-spacing:.8rem;cursor:pointer;text-transform:uppercase;text-shadow:0 0 15px #ffffff26;filter:blur(10px);background:0 0;border:none;outline:none;padding:2rem 4rem;font-family:Cormorant Infant,serif;font-size:1.8rem;font-weight:300;transition:all 1.5s cubic-bezier(.19,1,.22,1)}#enter-btn:hover{color:#edd7fe;text-shadow:0 0 40px #edd7fe99;letter-spacing:.9rem}@keyframes luxuryPulse{0%,to{opacity:.7;text-shadow:0 0 10px #ffffff1a}50%{opacity:1;text-shadow:0 0 30px #fff6}}.loader-desc{color:#ffffff40;letter-spacing:.25rem;text-transform:uppercase;opacity:0;font-family:Manrope,sans-serif;font-size:.5rem;font-weight:400;display:none;position:absolute;bottom:3rem;left:50%;transform:translate(-50%)}.loader-progress-wrap{opacity:.5;background:#ffffff08;width:100%;height:1px;position:absolute;bottom:0}.progress-bar{background:#edd7fe;width:0%;height:100%;transition:width .4s}#hero-ui{z-index:1000;pointer-events:none;opacity:0;grid-template-rows:repeat(5,1fr);grid-template-columns:repeat(5,1fr);gap:1.25rem;font-family:Manrope,sans-serif;display:grid;position:fixed;inset:3rem;overflow:visible}#hero-ui>*{pointer-events:auto}.hero-header{opacity:0;z-index:250;grid-area:1/1/auto/6;justify-content:space-between;align-items:flex-start;padding-top:0;display:flex;transform:translateY(-1.25rem)}.about-btn{color:#f0f0f0;text-align:justify;letter-spacing:-.02rem;cursor:pointer;text-transform:uppercase;opacity:.6;font-size:.8rem;font-weight:400;line-height:120%;transition:opacity .3s}.about-btn:hover{opacity:1}.logo-wrap{aspect-ratio:123.46/32;cursor:pointer;flex-shrink:0;align-items:flex-end;gap:.0405rem;width:7.71606rem;height:2rem;display:flex}.hero-logo{object-fit:contain;width:100%;height:100%}.audio-toggle{cursor:pointer;background:0 0;border:1px solid #ffffff1a;border-radius:20px;justify-content:center;align-items:center;padding:.5rem .75rem;transition:all .3s;display:flex}.audio-toggle:hover{background:#ffffff0d;border-color:#ffffff4d}#audio-wave{width:40px;height:12px}.hero-main{pointer-events:none;grid-area:3/2/auto/5;justify-content:center;align-items:center;display:flex;overflow:visible}.title-container{z-index:20;pointer-events:none;justify-content:center;align-items:center;width:100%;height:100%;display:flex;position:relative;overflow:visible}.hero-title{text-align:center;text-transform:uppercase;color:#fff;text-shadow:0 4px 30px #0003;opacity:0;pointer-events:none;z-index:25;white-space:normal;width:114rem;font-family:Cormorant Infant,serif;font-size:9.3895rem;font-style:normal;font-weight:400;line-height:78%;transition:opacity 1.2s;display:block;position:absolute}#title-0{filter:drop-shadow(0 0 15px #e5e4e226);text-shadow:none;animation:4s ease-in-out infinite shine;-webkit-mask-image:linear-gradient(-75deg,#000c 30%,#000 50%,#000c 70%);-webkit-mask-size:200%}#title-0 span{background:linear-gradient(90deg,#fff 0%,#c8d1e8 20%,#fff 40%,#ebeaf4 60%,#fff 80%,#c8d1e8 100%) 0 0/200% fixed;-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;animation:12s linear infinite platinumFlow}@keyframes platinumFlow{0%{background-position:0%}to{background-position:200%}}@keyframes shine{0%{-webkit-mask-position:150%}to{-webkit-mask-position:-50%}}.about-title span,.section-title span{white-space:pre;filter:blur(12px);opacity:0;will-change:filter, opacity, transform;background:linear-gradient(#fff 20%,#999 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;display:inline-block;transform:translateY(15px)}.hero-title span{white-space:pre;filter:blur(12px);opacity:0;will-change:filter, opacity, transform;color:#0000;-webkit-text-fill-color:transparent;display:inline-block;transform:translateY(15px)}.hero-title.active{opacity:1;pointer-events:auto}.hero-scroll-indicator{opacity:0;grid-area:2/1/5;justify-content:flex-start;align-items:center;display:flex;transform:translate(-20px)}.scroll-track-container{justify-content:center;width:2.65625rem;height:28.1875rem;display:flex;position:relative}.scroll-track-container:before{content:"";filter:blur(30px);z-index:-1;pointer-events:none;background:radial-gradient(circle,#000000b3 0%,#0000 75%);width:250%;height:120%;position:absolute;top:50%;left:20%;transform:translate(-50%,-50%)}.scroll-path-svg{opacity:.8;width:100%;height:100%;-webkit-mask-image:linear-gradient(#0000,#000 15% 85%,#0000);mask-image:linear-gradient(#0000,#000 15% 85%,#0000)}.scroll-follower{pointer-events:none;justify-content:center;align-items:center;width:3rem;height:3rem;display:flex;position:absolute;top:0;left:0;transform:translate(-50%,-50%)}.scroll-follower img{object-fit:contain;filter:drop-shadow(0 0 15px #fff6);width:100%;height:100%}.hero-footer{opacity:0;z-index:250;grid-area:5/1/auto/6;justify-content:space-between;align-items:flex-end;display:flex;position:relative;transform:translateY(1.25rem)}.footer-left{flex-direction:column;align-items:flex-start;gap:1.4375rem;max-width:28rem;display:flex}.hero-stack{flex-direction:column;align-items:flex-start;gap:1.4375rem;width:15.6875rem;display:flex}.hero-desc{color:#f0f0f0;text-align:justify;letter-spacing:-.02rem;opacity:0;align-self:stretch;font-family:Manrope,sans-serif;font-size:1rem;font-style:normal;font-weight:400;line-height:120%;transform:translateY(10px)}.hero-desc .secondary{color:#969696}.cta-btn{color:#fff;letter-spacing:.1rem;cursor:pointer;opacity:0;pointer-events:none;background:0 0;border:1px solid #fff3;justify-content:center;align-items:center;width:15.6875rem;padding:1.2rem 1.5rem;font-family:Manrope,sans-serif;font-size:.8rem;font-weight:500;display:flex;position:relative;overflow:hidden;transform:translateY(10px)}.btn-fill{z-index:0;background:#fff;width:100%;height:100%;transition:transform .5s cubic-bezier(.19,1,.22,1);position:absolute;bottom:0;left:0;transform:translateY(101%)}.btn-content{z-index:1;align-items:center;gap:.8rem;transition:color .4s;display:flex;position:relative}.cta-btn:hover .btn-fill{transform:translateY(0)}.cta-btn:hover .btn-content{color:#000}.cta-btn:hover{border-color:#fff}.footer-center{flex-direction:column;align-items:center;gap:.75rem;display:flex;position:absolute;bottom:0;left:50%;transform:translate(-50%)}.scroll-more{opacity:.4;flex-direction:column;align-items:center;gap:.625rem;display:flex}.scroll-more span{letter-spacing:.1875rem;text-transform:uppercase;font-size:.6rem}.mouse-icon{border:1px solid #fff6;border-radius:.75rem;width:1.25rem;height:2rem;position:relative}.mouse-wheel{background:#fff;border-radius:.125rem;width:2px;height:6px;animation:2s infinite scroll-anim;position:absolute;top:.375rem;left:50%;transform:translate(-50%)}@keyframes scroll-anim{0%{opacity:0;transform:translate(-50%)}30%{opacity:1}to{opacity:0;transform:translate(-50%,.75rem)}}.section-content{box-sizing:border-box;pointer-events:none;z-index:50;grid-template-rows:repeat(5,1fr);grid-template-columns:repeat(5,1fr);gap:1.25rem;width:100%;height:100%;padding:3rem;display:grid;position:absolute;top:0;left:0}#section-inter.active .content-wrap,#section-1.active .content-wrap,#section-2.active .content-wrap,#section-3.active .content-wrap{opacity:1;pointer-events:auto;transform:translateY(0)}#section-inter .content-wrap{opacity:0;flex-direction:column;grid-area:5/1;place-self:end start;align-items:flex-start;gap:1.5rem;transition:all .8s cubic-bezier(.19,1,.22,1);display:flex;transform:translateY(1.25rem)}#section-1 .content-wrap{opacity:0;flex-direction:column;grid-area:4/2;place-self:end start;align-items:flex-start;gap:1.5rem;transition:all .8s cubic-bezier(.19,1,.22,1);display:flex;transform:translateY(1.25rem)}#section-2 .content-wrap{text-align:left;opacity:0;flex-direction:column;grid-area:5/5;place-self:end;align-items:flex-start;gap:1.5rem;transition:all .8s cubic-bezier(.19,1,.22,1);display:flex;transform:translateY(1.25rem)}#section-2 .section-desc{text-align:left;width:22rem}#section-3 .content-wrap{text-align:left;opacity:0;flex-direction:column;grid-area:2/2/5;place-self:center start;align-items:flex-start;gap:1.5rem;transition:all .8s cubic-bezier(.19,1,.22,1);display:flex;transform:translateY(1.25rem)}#section-3 .section-title{width:40.625rem}.section-title{color:#f4f1ec;text-transform:uppercase;align-self:stretch;margin:0;font-family:Cormorant Garamond,serif;font-size:4rem;font-style:normal;font-weight:400;line-height:100%}.section-title span{white-space:pre;filter:blur(12px);opacity:0;will-change:filter, opacity, transform;background:linear-gradient(#fff 30%,#999 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;display:inline-block;transform:translateY(15px)}.hero-title{perspective:1000px;transform-style:preserve-3d}.hero-title span{white-space:pre;filter:blur(12px);opacity:0;will-change:filter, opacity, transform;color:#0000;-webkit-text-fill-color:transparent;transition:filter .4s,transform .1s ease-out;display:inline-block;transform:translateY(15px)translateZ(0)}.hero-title:hover span{filter:brightness(1.3);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1.02)}.section-desc{color:#6e6a72;text-align:left;letter-spacing:.01rem;width:26rem;margin:0;font-family:Manrope,sans-serif;font-size:.85rem;font-style:normal;font-weight:400;line-height:160%}#about-overlay{z-index:600;pointer-events:none;opacity:0;justify-content:center;align-items:center;transition:opacity 1.5s cubic-bezier(.4,0,.2,1);display:flex;position:fixed;inset:0}body.about-open #about-overlay{opacity:1}.about-content-center{pointer-events:none;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;padding:3.75rem;display:flex;position:relative}.about-text,.undream-link{pointer-events:auto}.about-vector-wrap{opacity:0;filter:blur(10px);justify-content:center;align-items:center;margin-bottom:2.5rem;display:flex;transform:scale(.9)}#about-panther-svg{filter:drop-shadow(0 0 30px #cfc9ff26);width:20rem;height:auto}.panther-path{stroke-dasharray:1100;stroke-dashoffset:1100px;fill:url(#platinum-flow-panther);fill-opacity:0}.about-narrative-center{justify-content:center;width:100%;display:flex;position:absolute;bottom:5rem}.about-text{color:#8b8b8b;text-align:center;text-transform:uppercase;opacity:0;width:47.5rem;font-family:Manrope,sans-serif;font-size:.75rem;font-style:normal;font-weight:300;line-height:119%;transform:translateY(1.25rem)}.undream-link{color:#fff;font-weight:500;text-decoration:none;transition:all .3s}.undream-link:hover{color:#fff;text-shadow:0 0 10px #ffffff4d}.section-highlight{justify-content:center;align-items:center;padding:.5rem 1.5rem;display:flex;position:relative}.highlight-blur{-webkit-backdrop-filter:blur(.625rem);z-index:-1;background:#ffffff0d;border-radius:.125rem;width:100%;height:100%;position:absolute;top:0;left:0}.highlight-text{color:#f4f1ec;text-align:center;margin:0;font-family:Manrope,sans-serif;font-size:.875rem;font-style:normal;font-weight:500;line-height:150%}@media (width<=768px){.mob-br{display:block!important}.loader-logo-svg{width:12rem}#enter-btn{letter-spacing:.5rem;padding:1.5rem 3rem;font-size:1.2rem}.loader-desc{letter-spacing:.15rem;text-align:center;width:100%;font-size:.4rem;bottom:2rem;display:block!important}#hero-ui{flex-direction:column;justify-content:space-between;gap:.5rem;display:flex;inset:1rem}.hero-header{flex-direction:row;justify-content:space-between;align-items:center;width:100%;padding-top:.5rem;display:flex;transform:translateY(0)}.logo-wrap{width:5rem;height:auto}#enter-btn{white-space:nowrap}.about-btn{font-size:.65rem}.audio-toggle{padding:.3rem .5rem}#audio-wave{width:1.2rem}.hero-main{pointer-events:none;justify-content:center;align-items:center;width:100%;display:flex;position:absolute;bottom:25%;left:0;transform:translateY(50%)}.hero-title{letter-spacing:-.05rem;width:100vw;font-size:3.5rem;line-height:1.1}#title-0{font-size:3.5rem}.hero-footer{flex-direction:column;justify-content:center;align-items:center;width:100%;margin-bottom:1rem;transform:translateY(0)}.hero-footer .footer-left{display:none!important}.footer-center{text-align:center;flex-direction:column;justify-content:center;align-items:center;width:auto;display:flex;position:absolute;bottom:0;left:50%;transform:translate(-50%)}.scroll-more{flex-direction:column;align-items:center;width:100%;display:flex}body:not(.section-0-active) .footer-center{display:none!important}.section-content{flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:1.5rem;display:flex}.section-content .content-wrap{text-align:left;opacity:1;align-items:flex-start;gap:.75rem;width:100%;transform:translateY(0)}.section-title{width:100%;margin-bottom:.2rem;font-size:2.8rem;line-height:1}.section-desc{text-align:left;color:#8b8b8b;width:95%;font-size:.85rem;line-height:1.4}.section-highlight{display:none!important}.hero-scroll-indicator{display:none}.about-content-center{padding:.75rem}#about-panther-svg{width:10rem;margin-bottom:1.5rem}.about-text{width:100%;padding:0 1.5rem;font-size:.65rem;line-height:140%}.about-narrative-center{bottom:2.5rem}}
+.brand-wordmark{background:linear-gradient(90deg,#fff 0%,#c8d1e8 22%,#fff 46%,#ebeaf4 68%,#fff 100%);-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;color:#fff;font-family:Cormorant Garamond,serif;font-weight:500;letter-spacing:.22em;text-transform:uppercase;line-height:1;text-shadow:0 0 30px #ffffff1f;animation:12s linear infinite platinumFlow;background-size:200% auto}.loader-wordmark{width:auto;min-width:17.5rem;height:auto;font-size:3.25rem;text-align:center;clip-path:inset(0 100% 0 0);transition:clip-path 3.5s cubic-bezier(.4,0,.2,1);filter:drop-shadow(0 0 30px #ffffff1f)}.loader-wordmark.reveal{clip-path:inset(0)}.header-wordmark{object-fit:initial;width:100%;height:100%;align-items:flex-end;justify-content:center;display:flex;font-size:1.42rem;letter-spacing:.18em}@media (width<=768px){.loader-wordmark{min-width:12rem;font-size:2.25rem}.header-wordmark{font-size:.9rem;letter-spacing:.14em}}
+.wordmark-gradient-defs{position:absolute;width:0;height:0;overflow:hidden}
+#vence-reference-frame{object-fit:cover;object-position:center center;opacity:0;visibility:hidden;z-index:1800;pointer-events:none;width:100vw;height:100vh;transition:opacity .25s ease,visibility .25s ease;position:fixed;inset:0}body.section-3-active #vence-reference-frame{opacity:1;visibility:visible}
+```
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNQMTRJV0M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VNQMTRJV0M');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VENCE — Immersive Luxury Jewelry Experience</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="VENCE is a cinematic luxury jewelry concept experience developed by Undream Studio using Blender and Three.js. A minimal immersive digital journey exploring diamonds, identity, and modern luxury.">
+    <meta name="keywords" content="luxury jewelry website, immersive web experience, three.js luxury website, 3d jewelry experience, luxury brand concept, cinematic website, react three fiber, webgl experience, diamond luxury branding, interactive luxury website, creative developer portfolio, awwwards website, blender threejs project">
+    <meta name="author" content="Undream Studio">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#140A1F">
+    <link rel="canonical" href="https://vence.undreamstudio.com/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vence.undreamstudio.com/">
+    <meta property="og:title" content="VENCE — Immersive Luxury Jewelry Experience">
+    <meta property="og:description" content="VENCE is a cinematic luxury jewelry concept experience developed by Undream Studio using Blender and Three.js.">
+    <meta property="og:image" content="https://vence.undreamstudio.com/og-vence.jpg">
+    <meta property="og:site_name" content="VENCE">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vence.undreamstudio.com/">
+    <meta property="twitter:title" content="VENCE — Immersive Luxury Jewelry Experience">
+    <meta property="twitter:description" content="VENCE is a cinematic luxury jewelry concept experience developed by Undream Studio using Blender and Three.js.">
+    <meta property="twitter:image" content="https://vence.undreamstudio.com/og-vence.jpg">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/Dark_Version_Favicon/favicon-32x32.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Light_Version_Favicon/favicon-32x32.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Dark_Version_Favicon/favicon-16x16.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Light_Version_Favicon/favicon-16x16.png" media="(prefers-color-scheme: light)">
+    <link rel="apple-touch-icon" href="/Dark_Version_Favicon/apple-touch-icon.png" media="(prefers-color-scheme: dark)">
+    <link rel="apple-touch-icon" href="/Light_Version_Favicon/apple-touch-icon.png" media="(prefers-color-scheme: light)">
+    <link rel="manifest" href="/manifest.json">
+
+    <script>
+        // Dynamic Favicon Fallback for browsers that don't support media attribute on link icons
+        function updateFavicon() {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const darkIcons = document.querySelectorAll('link[rel*="icon"][media*="dark"], link[rel*="apple-touch-icon"][media*="dark"]');
+            const lightIcons = document.querySelectorAll('link[rel*="icon"][media*="light"], link[rel*="apple-touch-icon"][media*="light"]');
+            
+            darkIcons.forEach(el => el.disabled = !isDark);
+            lightIcons.forEach(el => el.disabled = isDark);
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
+        updateFavicon();
+    </script>
+
+    <!-- Preload Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Cormorant+Infant:wght@400;500;600;700&family=Inter:wght@300;400&family=Manrope:wght@300;400;500;700&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Preload Assets -->
+    <link rel="preload" href="/models/Vence_Final_12-v1.glb" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="/background_music.mp3" as="fetch" crossorigin="anonymous">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "VENCE",
+      "alternateName": "VENCE — Immersive Luxury Jewelry Experience",
+      "description": "VENCE is a cinematic luxury jewelry concept experience developed by Undream Studio using Blender and Three.js.",
+      "url": "https://vence.undreamstudio.com/",
+      "creator": {
+        "@type": "Organization",
+        "name": "Undream Studio",
+        "url": "https://undreamstudio.com/"
+      },
+      "applicationCategory": "Immersive 3D Experience",
+      "operatingSystem": "Web",
+      "genre": "Luxury Fashion",
+      "keywords": "luxury, jewelry, 3d, three.js, webgl, diamonds"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "VENCE",
+      "url": "https://vence.undreamstudio.com/"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Undream Studio",
+      "url": "https://undreamstudio.com/",
+      "logo": "https://vence.undreamstudio.com/favicon.svg"
+    }
+    </script>
+
+  <script type="module" crossorigin src="/assets/index-C1X3pKqJ.vence11.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CmsyllaB.vence.css">
+</head>
+<body>
+
+    <!-- Three.js Canvas -->
+    <canvas class="webgl"></canvas>
+
+    <!-- CSS Corner Vignette (4 radial gradients, toggled with .active) -->
+    <div id="css-vignette">
+        <div class="vig-corner vig-tl"></div>
+        <div class="vig-corner vig-tr"></div>
+        <div class="vig-corner vig-bl"></div>
+        <div class="vig-corner vig-br"></div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-content">
+            <!-- Central Logo with Drawing and Flowing Effects -->
+            <div class="loader-brand-wrap">
+                <svg class="wordmark-gradient-defs" width="0" height="0" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="platinum-flow-loader" x1="0%" y1="0%" x2="200%" y2="0%">
+                            <stop offset="0%" stop-color="#ffffff" />
+                            <stop offset="25%" stop-color="#C8D1E8" />
+                            <stop offset="50%" stop-color="#ffffff" />
+                            <stop offset="75%" stop-color="#EBEAF4" />
+                            <stop offset="100%" stop-color="#ffffff" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="loader-logo-svg brand-wordmark loader-wordmark" aria-label="VENCE">VENCE</div>
+            </div>
+
+            <!-- Central Action Button -->
+            <div class="loader-action-wrap">
+                <button id="enter-btn" aria-label="Enter the Vence experience">CLICK TO VENCE</button>
+            </div>
+
+            <!-- Bottom Description -->
+            <p class="loader-desc">Click to enter in the world of Vence</p>
+        </div>
+
+        <!-- Minimal progress track (Optional, but kept for technical feedback) -->
+        <div class="loader-progress-wrap">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Hero UI Grid (5x5) -->
+    <div id="hero-ui">
+        <!-- Header -->
+        <header class="hero-header">
+            <div class="header-item about-btn">About</div>
+            <div class="header-item logo-wrap">
+                <div class="hero-logo brand-wordmark header-wordmark" aria-label="VENCE">VENCE</div>
+            </div>
+            <div class="header-item audio-wrap">
+                <button id="audio-btn" class="audio-toggle" aria-label="Toggle cinematic audio">
+                    <canvas id="audio-wave"></canvas>
+                </button>
+            </div>
+        </header>
+
+        <!-- Center Content (Titles) -->
+        <main class="hero-main">
+            <div class="title-container">
+                <div class="hero-title" id="title-0">Power<br>without <br class="mob-br">noise</div>
+                <!-- Other titles removed from hero-main to be handled by dedicated section overlays if needed -->
+            </div>
+        </main>
+
+        <!-- Section Overlays (Specific UI for sections 1, 2, 3) -->
+        <div class="section-content" id="section-inter">
+            <div class="content-wrap">
+                <h2 class="section-title">THE ART <br>OF STILLNESS.</h2>
+                <p class="section-desc">In the heart of the motion, there is a center. VENCE is that center. A balance of light and shadow.</p>
+                <div class="section-highlight">
+                    <div class="highlight-blur"></div>
+                    <p class="highlight-text">STRENGTH IN SILENCE.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-content" id="section-1">
+            <div class="content-wrap">
+                <h2 class="section-title">Instinct <br>Refined.</h2>
+                <p class="section-desc">Strength does not raise its voice. It waits. It chooses. It moves only when necessary.</p>
+                <div class="section-highlight">
+                    <div class="highlight-blur"></div>
+                    <p class="highlight-text">VENCE is not worn. It is inhabited.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-content" id="section-2">
+            <div class="content-wrap">
+                <h2 class="section-title">PRESENCE, <br>IN FORM.</h2>
+                <p class="section-desc">Every surface is deliberate. Every edge considered. VENCE exists between restraint and desire.</p>
+                <div class="section-highlight">
+                    <div class="highlight-blur"></div>
+                    <p class="highlight-text">ONE DIAMOND. INFINITE CONTROL.</p>
+                </div>
+            </div>
+        </div>
+        <div class="section-content" id="section-3">
+            <div class="content-wrap">
+                <h2 class="section-title">Some Names <br>Do Not Fade.</h2>
+                <p class="section-desc">VENCE is not a collection. It is a constant.</p>
+                <div class="section-highlight">
+                    <div class="highlight-blur"></div>
+                    <p class="highlight-text">Discover VENCE</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Overlay -->
+        <div id="about-overlay">
+            <div class="about-content-center">
+                <!-- Center Vector SVG -->
+                <div class="about-vector-wrap">
+                    <svg id="about-panther-svg" width="280" height="280" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="platinum-flow-panther" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FFFFFF">
+                                    <animate attributeName="stop-color" values="#FFFFFF; #A0A0A0; #FFFFFF" dur="4s" repeatCount="indefinite" />
+                                </stop>
+                                <stop offset="50%" stop-color="#E5E4E2">
+                                    <animate attributeName="stop-color" values="#E5E4E2; #FFFFFF; #E5E4E2" dur="4s" repeatCount="indefinite" />
+                                </stop>
+                                <stop offset="100%" stop-color="#A0A0A0">
+                                    <animate attributeName="stop-color" values="#A0A0A0; #E5E4E2; #A0A0A0" dur="4s" repeatCount="indefinite" />
+                                </stop>
+                            </linearGradient>
+                        </defs>
+                        <path class="panther-path" d="M48.8245 81.292C48.3771 78.4251 48.9004 75.7285 49.4681 73.0414C50.4341 68.4697 51.4584 63.8974 51.3141 59.1924C51.1836 54.9357 50.3017 50.8642 47.5688 47.4108C45.0351 44.2093 41.607 42.6694 37.6047 42.3447C35.2597 42.1545 32.9041 42.2593 30.5553 42.4357C25.1344 42.8427 21.8874 39.6965 21.8091 33.8974C21.7702 31.0166 22.6033 28.2581 23.1979 25.471C24.8396 17.7757 21.8638 12.1411 15.4234 7.76545C15.2701 7.6613 15.1025 7.57263 14.8398 7.70111C14.6662 8.21782 15.1559 8.44218 15.4199 8.73901C17.9133 11.5429 19.768 14.6759 20.4033 18.4148C20.8945 21.3064 20.4747 24.0942 19.3163 26.7896C18.3008 29.1525 17.0069 31.3678 15.6993 33.5712C14.0181 36.4043 12.7702 39.4087 11.8345 42.5522C11.7623 42.7949 11.7744 43.0779 11.4901 43.2132C11.4239 43.1914 11.3143 43.1854 11.3009 43.1466C10.5597 41.0017 9.16306 39.2585 7.83536 37.4647C6.58391 35.7739 5.90277 33.8333 5.95174 31.7427C6.0126 29.1449 4.96726 27.0058 3.55799 24.9416C1.07592 21.306 -0.212516 17.3085 0.0286943 12.8796C0.182173 10.0615 0.862905 7.37701 2.2902 4.92702C4.82351 0.578559 8.54568 -0.867345 13.4256 0.493489C16.9925 1.48818 20.1268 3.37362 23.3021 5.17353C24.9574 6.11185 26.6082 7.05315 28.3856 7.74809C30.0524 8.3998 31.7144 8.41823 33.391 7.73663C36.5679 6.44519 39.6694 4.97474 42.9156 3.8471C48.8074 1.8005 54.8718 0.773632 61.1024 0.49729C69.326 0.132559 77.3164 1.23129 85.0957 3.88675C88.0646 4.90018 90.927 6.18093 93.7841 7.45631C96.2763 8.5688 98.5862 8.37187 100.966 7.16515C104.458 5.39418 107.733 3.22519 111.322 1.63547C113.036 0.876347 114.792 0.271002 116.67 0.0927134C121.755 -0.38994 124.568 2.29697 126.315 6.29076C128.793 11.9538 128.527 17.5465 125.587 22.9933C125.093 23.9076 124.561 24.8092 123.963 25.6582C122.659 27.5095 121.938 29.5046 122.017 31.7993C122.063 33.1399 121.738 34.4414 121.177 35.6825C119.956 38.3884 117.329 40.2313 116.75 43.375C116.042 42.8555 116.078 42.283 115.937 41.8104C114.876 38.256 113.113 35.0333 111.254 31.8516C110.167 29.9912 109.136 28.1076 108.379 26.0753C106.195 20.206 107.583 15.004 111.298 10.2307C112.128 9.16427 113.072 8.18553 113.891 7.09795C110.736 8.76184 108.153 11.0117 106.303 14.0862C103.979 17.9464 103.986 22.0365 104.899 26.2528C105.479 28.9292 106.277 31.5808 106.13 34.3601C106.019 36.4642 105.582 38.4828 104.133 40.1413C102.206 42.3474 99.6236 42.5369 96.9545 42.4177C94.0838 42.2895 91.2063 42.0447 88.3615 42.6364C82.7149 43.8108 79.3118 47.3747 77.6786 52.741C76.386 56.9879 76.5851 61.3086 77.1242 65.6436C77.6092 69.5432 78.7185 73.3331 79.152 77.2399C79.4391 79.8272 79.2761 82.3612 78.0567 84.7235C77.3452 86.1019 77.0103 86.2073 75.6212 85.5142C73.7237 84.5674 71.7872 84.7635 69.831 85.2168C67.6188 85.7294 65.4381 86.4034 63.1139 86.2173C61.0908 86.0554 59.184 85.3669 57.2044 85.0148C55.4363 84.7004 53.6935 84.6995 52.1012 85.6452C51.1525 86.2086 50.602 85.8911 50.105 85.0456C49.4349 83.9056 49.0185 82.6915 48.8245 81.292Z" fill="none" stroke="#CFC9FF" stroke-width="0.3" />
+                        <path class="panther-path" d="M56.5253 106.344C55.1394 108.055 53.3726 109.155 51.3883 110.266C52.1117 110.557 52.6981 110.406 53.2412 110.329C55.4331 110.02 57.5582 109.478 59.49 108.342C60.2358 107.904 60.919 107.39 61.4803 106.734C63.1414 104.793 62.8926 102.468 60.7351 101.102C59.3187 100.206 58.4333 99.1044 58.0935 97.452C57.7161 95.6167 56.3719 94.6368 54.6129 94.2288C52.5294 93.7454 50.5932 93.0579 49.3701 91.1448C48.3986 89.6253 47.7083 88.0256 47.7827 86.1579C48.4305 86.1202 48.5252 86.6086 48.7603 86.9001C49.2279 87.4797 49.6676 88.0754 50.2834 88.5201C50.9296 88.9867 51.4584 89.0732 52.1624 88.4821C53.5081 87.3524 55.1462 87.2105 56.8267 87.5162C58.7698 87.8698 60.6455 88.5442 62.6211 88.7451C65.1646 89.0037 67.5834 88.3649 70.005 87.7265C72.1923 87.1499 74.3012 87.1504 76.1316 88.7361C76.4743 89.0329 76.7977 88.9761 77.1611 88.7989C77.7796 88.4972 78.2528 88.0423 78.6874 87.5186C79.0821 87.0428 79.3229 86.4302 79.8851 86.0943C80.2771 86.282 80.1693 86.623 80.1447 86.8853C79.8906 89.5932 78.0493 93.2243 74.6462 93.8403C74.1345 93.9329 73.6336 94.0975 73.1373 94.258C71.4306 94.8097 70.14 95.8046 69.8046 97.6559C69.5324 99.1583 68.6897 100.156 67.4268 100.976C64.8293 102.662 64.6886 105.197 66.9931 107.274C69.0307 109.11 73.4558 110.574 76.3136 110.267C75.4589 109.696 74.7291 109.219 74.0107 108.725C72.7397 107.853 71.5883 106.866 70.8634 105.468C70.0968 103.989 70.1526 102.559 71.0318 101.137C72.2947 99.093 74.0215 97.5391 76.0904 96.3492C79.7031 94.2714 81.9212 91.2173 82.6411 87.1237C83.184 84.0369 82.7601 80.9896 82.1371 77.9641C81.5691 75.2057 80.9009 72.4669 80.3797 69.7003C79.9863 67.6119 79.9141 65.4964 80.5942 63.4303C81.4594 60.8018 83.2657 59.4577 86.0967 59.3346C87.9941 59.2521 89.9062 59.3688 91.7834 59.008C95.758 58.2441 98.548 55.8667 100.559 52.4922C101.07 51.6338 101.49 50.7123 101.864 49.7847C102.219 48.904 101.919 48.5993 101.014 48.7659C99.4134 49.0604 98.2421 49.6676 97.4805 51.3503C95.7367 55.2028 91.8307 57.1005 87.6041 56.502C87.1248 56.4342 86.6363 56.4244 86.1597 56.3435C84.1258 55.9981 82.5115 56.682 81.1904 58.2265C80.8234 58.6555 80.4989 59.2036 79.7778 59.3405C79.3165 58.2287 79.7004 57.1344 79.8541 56.0791C80.0564 54.6901 80.4393 53.3254 80.9937 52.0192C82.8766 47.5833 86.4076 45.6073 91.0775 45.3034C93.7021 45.1326 96.2846 45.6245 98.8896 45.7633C103.885 46.0295 106.719 42.5227 107.767 39.1948C108.284 37.5549 108.568 35.8826 108.508 34.1562C108.496 33.806 108.375 33.4191 108.694 33.0419C109.221 33.1946 109.351 33.7011 109.574 34.089C112.644 39.423 114.555 45.1795 115.775 51.1733C116.745 55.9392 117.428 60.7524 117.32 65.6253C117.169 72.4117 115.485 78.7572 111.369 84.3048C109.425 86.9244 106.95 89.0232 104.429 91.0682C102.347 92.7581 100.284 94.4705 98.4824 96.467C98.2899 96.6803 98.107 96.9409 97.662 96.9167C97.3209 95.9959 97.4509 94.9876 97.4022 94.0272C97.2647 91.3163 97.4727 88.6136 98.0669 85.9589C98.7544 82.8871 100.227 80.2156 102.33 77.8638C104.188 75.7851 106.128 73.7652 107.526 71.3225C110.118 66.7935 110.795 61.9292 110.051 56.8144C109.798 58.2256 109.568 59.6413 109.286 61.0468C109.002 62.4661 108.561 63.8414 108.072 65.2067C106.671 69.1132 104.153 72.2556 101.303 75.188C98.5787 77.9913 96.5603 81.1908 95.8155 85.085C95.79 85.2183 95.6943 85.3383 95.4548 85.8186C93.7455 81.1406 90.6559 77.6769 87.863 74.0015C87.7304 74.7806 88.0961 75.3834 88.3934 76.0054C90.1374 79.6544 92.234 83.1386 93.4929 87.0138C95.3675 92.7845 95.5982 98.539 93.1508 104.187C90.9541 109.257 87.3401 112.789 81.6461 113.722C78.9477 114.164 76.2936 113.71 73.6768 113.032C69.9201 112.058 66.1741 111.05 62.2225 111.372C59.1142 111.625 56.1579 112.562 53.1544 113.285C48.0234 114.519 43.2683 113.926 39.201 110.342C35.9772 107.501 34.2181 103.816 33.4219 99.6562C32.2153 93.3524 33.833 87.5239 36.5368 81.8969C37.582 79.7215 38.7019 77.5815 39.769 75.4163C39.9237 75.1023 40.1961 74.7912 39.9318 74.0928C37.1288 77.825 34.1307 81.2003 32.6103 85.5453C32.2364 85.3673 32.167 85.1505 32.1248 84.9329C31.3286 80.8315 29.0874 77.5174 26.1796 74.664C21.4857 70.0577 18.9559 64.482 18.167 58.0453C18.1447 57.8628 18.0966 57.6822 18.0449 57.5052C18.0259 57.4401 17.9619 57.388 17.7134 57.0565C17.6188 58.4385 17.4394 59.5758 17.4806 60.705C17.6964 66.6127 19.7737 71.75 23.9337 76.0429C26.4362 78.6255 28.6396 81.4173 29.5881 84.9953C30.626 88.9103 30.7689 92.8651 30.384 96.8241C30.0457 96.9291 29.8935 96.8095 29.7699 96.6744C27.1463 93.8032 24.0316 91.4772 21.0777 88.977C15.1835 83.9882 12.094 77.5684 10.9895 70.0536C10.2124 64.7657 10.8329 59.5618 11.6275 54.3445C12.5606 48.2179 14.2445 42.3257 16.9574 36.7383C17.5804 35.4552 18.2638 34.2025 19.214 33.0634C19.5111 34.5052 19.3534 35.9409 19.6598 37.3387C20.344 40.4602 21.6186 43.1811 24.5464 44.8458C26.5419 45.9805 28.7153 45.8718 30.875 45.6422C33.3643 45.3777 35.8398 45.1074 38.3447 45.4847C43.0418 46.1923 46.043 48.8237 47.4044 53.3168C47.9836 55.2284 48.4743 57.1639 48.2925 59.1821C47.6912 59.3886 47.4483 58.9562 47.2317 58.6697C45.5746 56.4775 43.366 55.9843 40.7651 56.404C35.8234 57.2013 31.582 54.8342 30.0085 50.4328C29.7671 49.7574 29.2857 49.3502 28.5577 49.1824C27.621 48.9666 26.7011 48.6786 25.7405 48.4125C26.9495 53.6119 31.2588 58.6787 37.1873 59.1609C38.6049 59.2762 40.0162 59.3222 41.4336 59.337C45.0113 59.3743 47.1758 61.3538 47.6833 64.8973C48.0886 67.7274 47.4723 70.4327 46.8523 73.1412C45.9499 77.0833 44.9828 81.0053 45.1256 85.1017C45.2985 90.0628 47.4339 93.8326 51.782 96.3382C53.6099 97.3914 55.2011 98.7219 56.4239 100.459C57.976 102.664 58.0151 104.014 56.5253 106.344Z" fill="none" stroke="#CFC9FF" stroke-width="0.3" />
+                        <path class="panther-path" d="M74.5374 126.322C72.3538 127.172 70.1477 127.587 67.9234 127.796C62.9785 128.26 58.0875 128 53.3574 126.303C48.872 124.693 45.8188 121.627 44.0799 117.241C43.9226 116.845 43.6771 116.44 43.8528 115.883C44.8274 116.046 45.7972 116.255 46.7783 116.363C50.0752 116.725 53.2306 115.955 56.372 115.109C59.1534 114.361 61.9517 113.783 64.8659 113.908C67.5396 114.022 70.086 114.742 72.6512 115.381C75.3374 116.05 78.0319 116.656 80.8264 116.369C81.9256 116.256 83.0118 116.017 84.1091 115.835C84.306 119.313 79.6367 124.432 74.5374 126.322Z" fill="none" stroke="#CFC9FF" stroke-width="0.3" />
+                    </svg>
+                </div>
+
+                <!-- Bottom Centered Paragraph -->
+                <div class="about-narrative-center">
+                    <p class="about-text">VENCE IS A CONCEPTUAL LUXURY JEWELRY BRAND CREATED BY <a href="https://undreamstudio.com/" target="_blank" class="undream-link">UNDREAM STUDIO</a> TO SHOWCASE IMMERSIVE DIGITAL EXPERIENCES FOR MODERN LUXURY FASHION AND DIAMOND BRANDS. THE PROJECT BLENDS CINEMATIC 3D STORYTELLING, MINIMAL DESIGN SYSTEMS, AND INTERACTIVE WEB TECHNOLOGIES TO CREATE A REFINED AND EMOTIONALLY DRIVEN LUXURY EXPERIENCE.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background Cursor Canvas -->
+        <div id="cursor-canvas"></div>
+
+        <!-- Left Scroll Indicator -->
+        <aside class="hero-scroll-indicator">
+            <div class="scroll-track-container">
+                <svg class="scroll-path-svg" viewBox="0 0 30 452" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path id="scroll-path" d="M10.1025 0.0507812L1.24079 87.6049C-1.15007 111.227 2.13855 135.078 10.8327 157.171L19.108 178.2C32.6214 212.54 32.9106 250.673 19.9195 285.214L11.7577 306.915C2.48674 331.565 -0.0852929 358.231 4.30354 384.198L15.6025 451.051" stroke="white" stroke-opacity="0.2" stroke-dasharray="2 10"/>
+                </svg>
+                <div class="scroll-follower" id="scroll-pointer">
+                    <img src="/Page_scroll_Follow.svg" alt="Scroll Progress Indicator">
+                </div>
+            </div>
+        </aside>
+
+        <img id="vence-reference-frame" src="/assets/vence-frame-reference.png" alt="" aria-hidden="true">
+
+        <!-- Footer -->
+        <footer class="hero-footer">
+            <div class="footer-left hero-stack">
+                <p class="hero-desc">
+                    Vence <span class="secondary">is formed in</span> restraint.<br>
+                    <span class="secondary">Crafted for those who do not need to</span> announce their presence.
+                </p>
+                <button class="cta-btn" aria-label="Enter the silence - Explore Collection">
+                    <span class="btn-fill"></span>
+                    <span class="btn-content"><span class="plus">+</span> ENTER THE SILENCE</span>
+                </button>
+            </div>
+            <div class="footer-center">
+                <div class="scroll-more">
+                    <div class="mouse-icon">
+                        <div class="mouse-wheel"></div>
+                    </div>
+                    <span>SCROLL MORE</span>
+                </div>
+            </div>
+            <div class="footer-right">
+                <!-- Empty for hero, can hold other elements for other sections -->
+            </div>
+        </footer>
+    </div>
+
+    </body>
+</html>
+```

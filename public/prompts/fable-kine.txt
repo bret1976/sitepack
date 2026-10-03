@@ -1,0 +1,428 @@
+# Exact recreation prompt — KINE®
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-kine
+Brand: KINE®
+Category: Creative
+Tagline (catalog): Motion studio · velocity-reactive type, cursor previews (Fable × 25 #29)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/29-kine/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Selected Work
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KINE® — A Motion Studio for Brands in a Hurry</title>
+<meta name="description" content="Motion design studio. The type moves when you do. Fictional studio designed by Fable.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400&display=swap');
+  :root {
+    --bg:#e8e4dc;
+    --ink:#141311;
+    --org:#ff4d00;
+    --line:rgba(20,19,17,0.16);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    cursor:none;
+  }
+  @media (hover:none), (max-width:820px){ body { cursor:auto; } .cur { display:none !important; } }
+  ::selection { background:var(--org); color:#fff; }
+  a { color:inherit; }
+
+  /* ---------- cursor ---------- */
+  .cur {
+    position:fixed; z-index:300; pointer-events:none;
+    width:14px; height:14px; border-radius:50%;
+    background:var(--org);
+    transform:translate(-50%,-50%);
+    mix-blend-mode:normal;
+    transition:width 0.25s, height 0.25s;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family:'JetBrains Mono'; font-size:0; letter-spacing:0.08em;
+  }
+  body.cur-view .cur { width:74px; height:74px; font-size:0.6rem; }
+  body.cur-view .cur::after { content:'VIEW'; }
+
+  /* ---------- preview float (work hover) ---------- */
+  .peek {
+    position:fixed; z-index:90; pointer-events:none;
+    width:min(400px, 34vw); aspect-ratio:4/3;
+    border-radius:6px; overflow:hidden;
+    transform:translate(-50%,-55%) scale(0.7) rotate(-4deg);
+    opacity:0;
+    transition:opacity 0.35s, transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    box-shadow:0 40px 90px rgba(20,19,17,0.35);
+  }
+  .peek.on { opacity:1; transform:translate(-50%,-55%) scale(1) rotate(0deg); }
+  .peek canvas { width:100%; height:100%; display:block; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.5rem 2.5rem;
+    mix-blend-mode:difference; color:#fff;
+  }
+  .logo { font-family:'Anton'; font-size:1.3rem; letter-spacing:0.02em; }
+  .logo sup { color:var(--org); font-size:0.7em; }
+  nav .time { font-family:'JetBrains Mono'; font-size:0.68rem; letter-spacing:0.2em; }
+  nav .menu { font-family:'JetBrains Mono'; font-size:0.68rem; letter-spacing:0.25em; text-transform:uppercase; text-decoration:none; }
+
+  /* ---------- hero: kinetic stack ---------- */
+  .hero {
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:16vh 0 10vh;
+    overflow:hidden;
+    position:relative;
+  }
+  .kline {
+    font-family:'Anton', sans-serif;
+    font-size:clamp(4rem, 14.5vw, 13.5rem);
+    line-height:0.86;
+    text-transform:uppercase;
+    white-space:nowrap;
+    will-change:transform;
+    letter-spacing:-0.01em;
+  }
+  .kline .row { display:flex; width:max-content; }
+  .kline span.wd { display:inline-block; padding-right:0.35em; }
+  .kline.ol { color:transparent; -webkit-text-stroke:2.5px var(--ink); }
+  .kline .org { color:var(--org); }
+  .hero .meta-row {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    padding:0 2.5rem; margin-top:7vh;
+    font-size:0.85rem; line-height:1.8;
+  }
+  .hero .meta-row .desc { max-width:34ch; font-weight:300; }
+  .hero .meta-row .desc b { font-weight:600; }
+  .hero .meta-row .scroll-note { font-family:'JetBrains Mono'; font-size:0.64rem; letter-spacing:0.3em; text-transform:uppercase; opacity:0.5; }
+  @media (max-width:760px){ .hero .meta-row { flex-direction:column; align-items:flex-start; gap:1.4rem; } }
+
+  /* ---------- capabilities marquee ---------- */
+  .caps {
+    border-top:3px solid var(--ink); border-bottom:3px solid var(--ink);
+    padding:1.2rem 0; overflow:hidden;
+    background:var(--ink); color:var(--bg);
+  }
+  .caps-in { display:flex; width:max-content; animation:capmq 20s linear infinite; }
+  .caps-in span {
+    font-family:'Anton'; font-size:1.4rem; text-transform:uppercase; letter-spacing:0.04em;
+    margin-right:2.6rem; display:flex; align-items:center; gap:2.6rem;
+  }
+  .caps-in span::after { content:'●'; color:var(--org); font-size:0.8rem; }
+  @keyframes capmq { to { transform:translateX(-50%); } }
+
+  /* ---------- work ---------- */
+  .work { padding:12vh 2.5rem; }
+  .work-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:5vh; }
+  .work-head h2 { font-family:'Anton'; font-size:clamp(2rem, 6vw, 4.6rem); text-transform:uppercase; }
+  .work-head .cnt { font-family:'JetBrains Mono'; font-size:0.7rem; letter-spacing:0.2em; opacity:0.5; }
+  .wrow {
+    display:grid; grid-template-columns:6rem 1fr auto auto;
+    gap:3vw; align-items:baseline;
+    padding:2.6rem 0.5rem;
+    border-bottom:1px solid var(--line);
+    text-decoration:none;
+    position:relative;
+  }
+  .wrow:first-of-type { border-top:1px solid var(--line); }
+  .wrow .idx { font-family:'JetBrains Mono'; font-size:0.75rem; opacity:0.45; }
+  .wrow .name {
+    font-family:'Anton'; text-transform:uppercase;
+    font-size:clamp(1.9rem, 5.5vw, 4.4rem); line-height:1;
+    transition:transform 0.5s cubic-bezier(0.22,1,0.36,1), color 0.3s;
+  }
+  .wrow:hover .name { transform:translateX(2.2rem); color:var(--org); }
+  .wrow .cat { font-size:0.78rem; font-weight:300; opacity:0.6; text-align:right; }
+  .wrow .yr { font-family:'JetBrains Mono'; font-size:0.75rem; opacity:0.45; }
+  @media (max-width:760px){
+    .wrow { grid-template-columns:3rem 1fr; }
+    .wrow .cat, .wrow .yr { display:none; }
+  }
+
+  /* ---------- process: sticky numbers ---------- */
+  .process { display:grid; grid-template-columns:1fr 1.4fr; gap:6vw; padding:14vh 2.5rem; border-top:3px solid var(--ink); }
+  .proc-left { position:sticky; top:18vh; height:max-content; }
+  .proc-left h2 { font-family:'Anton'; font-size:clamp(2.4rem, 6vw, 5rem); text-transform:uppercase; line-height:0.95; }
+  .proc-left h2 em { font-style:normal; color:var(--org); }
+  .proc-left p { margin-top:1.8rem; max-width:32ch; font-weight:300; font-size:0.95rem; line-height:1.9; opacity:0.75; }
+  .step {
+    padding:4.5rem 0;
+    border-bottom:1px solid var(--line);
+    display:grid; grid-template-columns:7rem 1fr; gap:2rem;
+  }
+  .step .bignum {
+    font-family:'Anton'; font-size:4.4rem; line-height:0.9;
+    color:transparent; -webkit-text-stroke:2px var(--ink);
+    transition:color 0.4s;
+  }
+  .step:hover .bignum { color:var(--org); -webkit-text-stroke-color:var(--org); }
+  .step h3 { font-family:'Anton'; font-size:1.6rem; text-transform:uppercase; margin-bottom:0.9rem; }
+  .step p { font-weight:300; font-size:0.92rem; line-height:1.9; opacity:0.75; max-width:44ch; }
+  @media (max-width:860px){ .process { grid-template-columns:1fr; } .proc-left { position:static; } }
+
+  /* ---------- reel band ---------- */
+  .reel {
+    background:var(--ink); color:var(--bg);
+    padding:14vh 2.5rem;
+    text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .reel h2 {
+    font-family:'Anton'; text-transform:uppercase;
+    font-size:clamp(2.6rem, 9vw, 8rem); line-height:0.92;
+  }
+  .reel h2 .fill { color:var(--org); }
+  .reel h2 .ol2 { color:transparent; -webkit-text-stroke:2px var(--bg); }
+  .reel .play {
+    margin:4rem auto 0;
+    width:110px; height:110px; border-radius:50%;
+    border:2px solid var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.3em;
+    animation:spin 12s linear infinite;
+    position:relative;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .reel .play i {
+    position:absolute; font-style:normal;
+    animation:spin 12s linear infinite reverse;
+    font-size:1.3rem;
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    padding:14vh 2.5rem 3rem;
+  }
+  footer .fbig {
+    font-family:'Anton'; text-transform:uppercase;
+    font-size:clamp(3rem, 12.5vw, 12rem); line-height:0.88;
+    text-decoration:none; display:block;
+  }
+  footer .fbig .ln { display:block; overflow:hidden; }
+  footer .fbig .ln i { font-style:normal; display:inline-block; transition:transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  footer .fbig:hover .ln i { transform:translateY(-6%) skewX(-6deg); color:var(--org); }
+  footer .fmeta {
+    margin-top:6vh; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-family:'JetBrains Mono'; font-size:0.66rem; letter-spacing:0.22em; text-transform:uppercase; opacity:0.55;
+  }
+
+  .reveal { opacity:0; transform:translateY(50px); transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="peek" id="peek"><canvas id="peekCv" width="800" height="600"></canvas></div>
+
+<nav>
+  <div class="logo">KINE<sup>®</sup></div>
+  <div class="time" id="clock">— : — : —</div>
+  <a href="#contact" class="menu">Start a project</a>
+</nav>
+
+<header class="hero">
+  <div class="kline" data-speed="0.5"><div class="row" id="kr1"></div></div>
+  <div class="kline ol" data-speed="-0.35"><div class="row" id="kr2"></div></div>
+  <div class="kline" data-speed="0.65"><div class="row" id="kr3"></div></div>
+  <div class="meta-row">
+    <p class="desc"><b>KINE® is a motion studio.</b> We make the three seconds that decide whether anyone watches the other thirty. Amsterdam &amp; wherever the render farm is.</p>
+    <span class="scroll-note">Scroll fast — the type notices ↓</span>
+  </div>
+</header>
+
+<div class="caps">
+  <div class="caps-in" id="caps">
+    <span>Brand Motion</span><span>Title Sequences</span><span>Product Film</span>
+    <span>Kinetic Identity</span><span>3D &amp; CGI</span><span>Type in Motion</span>
+  </div>
+</div>
+
+<section class="work">
+  <div class="work-head">
+    <h2 class="reveal">Selected Work</h2>
+    <span class="cnt">2019 → 2026 · HOVER THE ROWS</span>
+  </div>
+  <a class="wrow" href="#" data-hue="18"><span class="idx">01</span><span class="name">Velocity FC</span><span class="cat">Rebrand · Broadcast package</span><span class="yr">2026</span></a>
+  <a class="wrow" href="#" data-hue="205"><span class="idx">02</span><span class="name">Oslo Opera</span><span class="cat">Season titles · Projection</span><span class="yr">2025</span></a>
+  <a class="wrow" href="#" data-hue="280"><span class="idx">03</span><span class="name">Hyperloop One</span><span class="cat">Launch film · CGI</span><span class="yr">2025</span></a>
+  <a class="wrow" href="#" data-hue="120"><span class="idx">04</span><span class="name">Verdant</span><span class="cat">Kinetic identity system</span><span class="yr">2024</span></a>
+  <a class="wrow" href="#" data-hue="45"><span class="idx">05</span><span class="name">Night Signal</span><span class="cat">Netflix main titles</span><span class="yr">2023</span></a>
+</section>
+
+<section class="process">
+  <div class="proc-left">
+    <h2 class="reveal">How the <em>sausage</em> gets animated</h2>
+    <p class="reveal">Four steps. No discovery-phase theater, no fifty-slide decks. We are expensive because we are fast, and fast because we decide.</p>
+  </div>
+  <div class="proc-right">
+    <div class="step reveal"><div class="bignum">01</div><div><h3>Watch</h3><p>We watch your brand move — or fail to. Every asset you have, played at 0.25× speed, until we know exactly where the life is missing.</p></div></div>
+    <div class="step reveal"><div class="bignum">02</div><div><h3>One Word</h3><p>Every motion system we build obeys a single word. Velocity. Bloom. Snap. If we can't name your brand's physics in one word, we keep watching.</p></div></div>
+    <div class="step reveal"><div class="bignum">03</div><div><h3>Make It Move</h3><p>Boards, then style frames, then the first three seconds — approved at full quality before we animate a single frame more. No surprises at delivery.</p></div></div>
+    <div class="step reveal"><div class="bignum">04</div><div><h3>Hand The Keys</h3><p>You get the system, not just the films: rigged templates, easing libraries, a one-page physics spec your in-house team will actually read.</p></div></div>
+  </div>
+</section>
+
+<section class="reel">
+  <h2 class="reveal">
+    <span class="ol2">EVERY BRAND</span><br>
+    <span class="fill">HAS A PHYSICS.</span><br>
+    <span class="ol2">FIND YOURS.</span>
+  </h2>
+  <div class="play reveal"><i>▶</i>SHOWREEL '26</div>
+</section>
+
+<footer id="contact">
+  <a class="fbig" href="mailto:hello@kine.example">
+    <span class="ln"><i>LET'S MAKE</i></span>
+    <span class="ln"><i>IT MOVE →</i></span>
+  </a>
+  <div class="fmeta">
+    <span>KINE® — Motion Studio, Amsterdam</span>
+    <span>A fictional studio designed by Fable</span>
+    <span>№ 29 — Fable Encore</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- cursor ---------- */
+const cur = document.getElementById('cur');
+let cx=-200, cy=-200, tx=cx, ty=cy;
+cur.style.left = '-200px'; cur.style.top = '-200px';
+addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; });
+(function curLoop(){
+  cx += (tx-cx)*0.28; cy += (ty-cy)*0.28;
+  cur.style.left = cx+'px'; cur.style.top = cy+'px';
+  requestAnimationFrame(curLoop);
+})();
+
+/* ---------- clock ---------- */
+setInterval(() => {
+  document.getElementById('clock').textContent =
+    new Date().toTimeString().slice(0,8) + ' AMS';
+}, 1000);
+
+/* ---------- kinetic hero rows ---------- */
+function fillRow(id, words, cls){
+  const row = document.getElementById(id);
+  let html = '';
+  for (let r=0;r<6;r++) words.forEach((w,i) => {
+    html += `<span class="wd ${cls && i===cls.idx ? cls.cls : ''}">${w}</span>`;
+  });
+  row.innerHTML = html;
+}
+fillRow('kr1', ['MOTION','IS','MEANING','—'], {idx:2, cls:'org'});
+fillRow('kr2', ['STILLNESS','IS','A','CHOICE','—'], null);
+fillRow('kr3', ['MAKE','IT','MOVE','—'], {idx:2, cls:'org'});
+
+/* velocity-reactive marquee: rows drift, scroll velocity skews + speeds them */
+let vel = 0, lastScroll = scrollY;
+addEventListener('scroll', () => {
+  vel += (scrollY - lastScroll);
+  lastScroll = scrollY;
+}, { passive:true });
+
+const klines = [...document.querySelectorAll('.kline')];
+const offsets = klines.map(() => 0);
+(function kinLoop(){
+  vel *= 0.9;
+  klines.forEach((kl, i) => {
+    const speed = parseFloat(kl.dataset.speed);
+    offsets[i] -= speed * (1.2 + Math.abs(vel)*0.06);
+    const row = kl.firstElementChild;
+    const half = row.scrollWidth / 2;
+    if (offsets[i] < -half) offsets[i] += half;
+    if (offsets[i] > 0) offsets[i] -= half;
+    const skew = Math.max(-14, Math.min(14, vel * 0.22 * (speed > 0 ? 1 : -1)));
+    kl.style.transform = `translateX(${offsets[i]}px) skewX(${skew}deg)`;
+  });
+  requestAnimationFrame(kinLoop);
+})();
+
+/* ---------- caps marquee duplicate ---------- */
+const caps = document.getElementById('caps');
+caps.innerHTML += caps.innerHTML;
+
+/* ---------- work rows: cursor-following generative previews ---------- */
+const peek = document.getElementById('peek');
+const pcv = document.getElementById('peekCv');
+const pg = pcv.getContext('2d');
+let peekOn = false, peekHue = 20, peekSeed = 1;
+
+document.querySelectorAll('.wrow').forEach((row, ri) => {
+  row.addEventListener('pointerenter', () => {
+    peekOn = true; peekHue = +row.dataset.hue; peekSeed = ri*97+13;
+    peek.classList.add('on');
+    document.body.classList.add('cur-view');
+  });
+  row.addEventListener('pointerleave', () => {
+    peekOn = false;
+    peek.classList.remove('on');
+    document.body.classList.remove('cur-view');
+  });
+});
+addEventListener('pointermove', e => {
+  peek.style.left = e.clientX+'px';
+  peek.style.top = e.clientY+'px';
+});
+
+/* generative "style frame" animation in the peek window */
+(function peekLoop(now){
+  if (peekOn){
+    const t = now/1000;
+    const W = 800, H = 600;
+    pg.fillStyle = `hsl(${peekHue} 62% 12%)`;
+    pg.fillRect(0,0,W,H);
+    let seed = peekSeed;
+    const rnd = () => (seed = (seed*16807)%2147483647)/2147483647;
+    // sweeping bars
+    for (let i=0;i<9;i++){
+      const y = rnd()*H;
+      const h = 14 + rnd()*70;
+      const sp = 0.3 + rnd()*1.4;
+      const x = ((t*sp*160 + rnd()*W) % (W+400)) - 200;
+      pg.fillStyle = `hsla(${peekHue + rnd()*40-20} ${70+rnd()*30}% ${55+rnd()*25}% / ${0.5+rnd()*0.5})`;
+      pg.fillRect(x, y, 120+rnd()*260, h);
+    }
+    // big type ghost
+    pg.font = '900 190px Anton, sans-serif';
+    pg.fillStyle = `hsla(${peekHue} 90% 88% / 0.9)`;
+    pg.textAlign = 'center';
+    const words = ['MOVE','PLAY','FAST','LOUD','LIVE'];
+    pg.save();
+    pg.translate(W/2, H/2 + 60);
+    pg.scale(1 + Math.sin(t*2.4)*0.04, 1);
+    pg.fillText(words[peekSeed % words.length], 0, 0);
+    pg.restore();
+    // scanline
+    const sy = (t*260) % H;
+    pg.fillStyle = 'rgba(255,255,255,0.14)';
+    pg.fillRect(0, sy, W, 3);
+  }
+  requestAnimationFrame(peekLoop);
+})(0);
+
+/* ---------- reveals ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.14 });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%3)*0.1+'s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
+```

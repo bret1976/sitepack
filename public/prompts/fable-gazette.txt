@@ -1,0 +1,280 @@
+# Exact recreation prompt — The Evening Gazette
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-gazette
+Brand: The Evening Gazette
+Category: Creative
+Tagline (catalog): 1890s broadsheet · pure letterpress (Fable × 25 #12)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/12-gazette/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: The Evening Gazette
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE EVENING GAZETTE — Vol. CXXXVII, No. 42</title>
+<meta name="description" content="All the news that fits the type case. An 1890s broadsheet, set in the browser.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=UnifrakturCook:wght@700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --paper:#efe7d5;
+    --ink:#231f19;
+    --faint:#5a5346;
+    --rule:#2a251d;
+  }
+  body {
+    background:#c9bda2;
+    font-family:'Old Standard TT', serif;
+    color:var(--ink);
+    padding:3vmin;
+  }
+  .sheet {
+    max-width:1180px;
+    margin:0 auto;
+    background:var(--paper);
+    padding:4.5rem 4rem 5rem;
+    box-shadow:0 24px 70px rgba(35,31,25,0.4);
+    position:relative;
+  }
+  /* aging: foxing spots + edge burn */
+  .sheet::before {
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(ellipse 90px 60px at 12% 8%, rgba(139,109,60,0.14), transparent),
+      radial-gradient(ellipse 130px 90px at 88% 90%, rgba(139,109,60,0.16), transparent),
+      radial-gradient(ellipse 70px 50px at 78% 22%, rgba(139,109,60,0.1), transparent),
+      radial-gradient(ellipse at center, transparent 60%, rgba(90,70,40,0.13) 100%);
+  }
+  .sheet::after {
+    content:''; position:absolute; inset:0; pointer-events:none; opacity:0.5;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.2 0 0 0 0 0.17 0 0 0 0 0.1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  }
+
+  .topbar {
+    display:flex; justify-content:space-between;
+    font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:0.5rem;
+  }
+  .masthead {
+    text-align:center;
+    padding:2.2rem 0 1.4rem;
+    border-bottom:4px double var(--rule);
+  }
+  .masthead h1 {
+    font-family:'UnifrakturCook', cursive;
+    font-weight:700;
+    font-size:clamp(2.8rem, 8.4vw, 6.4rem);
+    letter-spacing:0.01em;
+    line-height:1;
+  }
+  .masthead .motto {
+    margin-top:0.9rem;
+    font-style:italic; font-size:0.95rem; color:var(--faint);
+  }
+  .dateline {
+    display:flex; justify-content:space-between;
+    font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+    padding:0.55rem 0;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:2.2rem;
+  }
+
+  .columns {
+    column-count:4;
+    column-gap:2.2rem;
+    column-rule:1px solid rgba(42,37,29,0.35);
+    text-align:justify;
+    hyphens:auto;
+    font-size:0.92rem;
+    line-height:1.55;
+  }
+  @media (max-width:1020px){ .columns { column-count:3; } }
+  @media (max-width:780px){ .columns { column-count:2; } .sheet{ padding:3rem 2rem; } }
+  @media (max-width:540px){ .columns { column-count:1; } }
+
+  article { break-inside:avoid; margin-bottom:2rem; }
+  .lead { break-inside:auto; }
+  h2 {
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    text-align:center;
+    font-size:2rem;
+    line-height:1.1;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    margin-bottom:0.6rem;
+  }
+  h2.mega { font-size:2.6rem; }
+  .deck {
+    text-align:center;
+    font-style:italic;
+    font-size:1.02rem;
+    margin-bottom:0.8rem;
+    color:var(--faint);
+  }
+  .deck::before, .deck::after { content:'—'; margin:0 0.5em; }
+  h3 {
+    font-family:'Playfair Display', serif;
+    font-weight:700; text-align:center;
+    font-size:1.25rem; text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin-bottom:0.55rem;
+  }
+  .rule-orn {
+    text-align:center;
+    margin:0.4rem 0 0.9rem;
+    font-size:0.85rem;
+    letter-spacing:0.4em;
+    color:var(--faint);
+  }
+  p { margin-bottom:0.75em; }
+  .dropcap::first-letter {
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:3.4em;
+    float:left;
+    line-height:0.8;
+    padding:0.06em 0.12em 0 0;
+  }
+  .byline {
+    text-align:center; font-size:0.75rem; letter-spacing:0.18em;
+    text-transform:uppercase; margin-bottom:0.7rem; color:var(--faint);
+  }
+
+  .advert {
+    border:2px solid var(--ink);
+    padding:1.3rem 1.1rem;
+    text-align:center;
+    margin-bottom:2rem;
+    break-inside:avoid;
+  }
+  .advert.fancy { border:4px double var(--ink); }
+  .advert .ad-big {
+    font-family:'Playfair Display', serif;
+    font-weight:900; font-size:1.5rem; text-transform:uppercase;
+    line-height:1.15;
+  }
+  .advert .ad-mid { font-style:italic; margin:0.5rem 0; font-size:0.9rem; }
+  .advert .ad-small { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; }
+  .advert .pointing::before { content:'☞ '; }
+
+  .weather-box {
+    border:1px solid var(--ink);
+    padding:0.9rem 1rem;
+    font-size:0.82rem;
+    margin-bottom:2rem;
+    break-inside:avoid;
+  }
+  .weather-box b { font-family:'Playfair Display'; text-transform:uppercase; letter-spacing:0.1em; font-size:0.78rem; }
+
+  footer {
+    margin-top:2.6rem;
+    border-top:4px double var(--rule);
+    padding-top:1rem;
+    display:flex; justify-content:space-between;
+    font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--faint);
+    flex-wrap:wrap; gap:0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <div class="topbar">
+    <span>Price: Two Cents</span>
+    <span>Largest Circulation in the Territory</span>
+    <span>Final Edition</span>
+  </div>
+
+  <header class="masthead">
+    <h1>The Evening Gazette</h1>
+    <div class="motto">"All the News that Fits the Type Case — and Some that Does Not."</div>
+  </header>
+
+  <div class="dateline">
+    <span>Vol. CXXXVII — No. 42</span>
+    <span>Tuesday, July 8th, 1890</span>
+    <span>Fourteen Pages</span>
+  </div>
+
+  <div class="columns">
+    <article class="lead">
+      <h2 class="mega">Machine Writes Entire Newspaper; Editors Astonished</h2>
+      <p class="deck">A Thinking Engine of Uncommon Manners Sets Every Column of To-day's Edition</p>
+      <div class="byline">By Our Correspondent at the Patent Office</div>
+      <p class="dropcap">REMARKABLE scenes attended the composing room of this journal late yesterday evening, when a calculating engine of the newest design was observed to set, justify, and correct the whole of the present edition without the assistance of a single human compositor. The device, described by its keepers as a "language model" — a term this newspaper does not pretend to understand — worked through the night without complaint, tobacco, or wages, three habits hitherto thought inseparable from the printing trade.</p>
+      <p>Foreman R. Whitlock, twenty-two years at the stone, examined the machine's justification and pronounced it "suspiciously even." The apprentices, less charitable, have accused the engine of showing off. It is reported that when asked for a comment, the machine produced a sonnet, which the editors have declined to print on grounds of space, envy, or both.</p>
+      <p>The proprietors wish to assure subscribers that the engine has been instructed in the customs of this house: no scandal above the fold, no adjectives before breakfast, and absolutely no poetry in the shipping news.</p>
+    </article>
+
+    <div class="rule-orn">❦ ❦ ❦</div>
+
+    <article>
+      <h3>Aeronaut Descends in Widow Hartley's Garden; Roses Lost, Engagement Rumored</h3>
+      <p>The balloon <i>Perseverance</i>, having departed the Exposition grounds at noon with the stated intention of reaching the coast, arrived instead in the rose garden of Mrs. Eugenia Hartley, relict of the late Judge Hartley, at half past four. The aeronaut, M. Duval, emerged from the wreckage of the gondola holding his barometer and his composure, and apologized in French, which made everything worse and then, gradually, better. Mrs. Hartley has invited M. Duval to remain for the harvest. The roses are beyond assistance.</p>
+    </article>
+
+    <div class="advert fancy">
+      <div class="ad-big">Dr. Pemberton's Improving Tonic</div>
+      <div class="ad-mid">For Lassitude, Melancholy, Weak Nerves, &amp; Disappointing Sons</div>
+      <div class="ad-small pointing">Now with 40% less laudanum — Ask your Druggist</div>
+    </div>
+
+    <article>
+      <h3>Telegraph Line to Carry "Moving Pictures," Claims Professor; Saloon Keepers Skeptical</h3>
+      <p>Professor Aldous Vane, addressing the Mechanics' Institute on Thursday, asserted that within the century, images in full motion would travel by wire into every parlor in the Republic, accompanied by sound, color, and — here the Professor grew excited — <i>advertisements.</i> The audience received the first three claims with polite doubt and the fourth with open horror. Mr. Kessler of the Golden Rail Saloon observed that if entertainment were piped into homes like gas, "a man would never leave his sofa," a prophecy the assembly dismissed as contrary to human nature.</p>
+    </article>
+
+    <article>
+      <h3>Municipal Notes</h3>
+      <p><b>THE COUNCIL</b> met Tuesday and resolved, after four hours' debate, to table the question of the new bridge until the river freezes, "when the matter will resolve itself."</p>
+      <p><b>THE LAMPLIGHTER</b> on Chestnut Street has been observed lighting the lamps in alphabetical order of the households' surnames. He offers no explanation. The Herschels, at No. 2, are delighted; the Zimmermans have written a letter.</p>
+      <p><b>A PIG</b> belonging to no one in particular entered the Opera House during the second act of <i>Lucia di Lammermoor</i> and was, by general agreement, not the worst tenor of the season.</p>
+    </article>
+
+    <div class="weather-box">
+      <b>The Weather To-day</b><br>
+      Morning: fog, lifting into doubt.<br>
+      Afternoon: sunshine of a provisional character.<br>
+      Evening: stars, same as ever.<br>
+      The Almanac regrets last Tuesday.
+    </div>
+
+    <article>
+      <h3>Letters: A Reader Objects to the Future</h3>
+      <p>SIR — I have read with alarm your notices concerning thinking engines, moving pictures, and horseless carriages. I wish to state plainly that I want none of it. The present arrived without my consent and the future shows even less courtesy. If any century wishes to proceed, it may do so without me; I shall remain in 1890, where the tea is strong and the machinery knows its place. — YOURS, A SUBSCRIBER OF FORTY YEARS</p>
+      <p><i>The Editor replies: We have forwarded your letter to the future, which reports that you went along anyway.</i></p>
+    </article>
+
+    <div class="advert">
+      <div class="ad-big">Spectacles!</div>
+      <div class="ad-mid">See the World as it Regrettably Is</div>
+      <div class="ad-small">Barnaby &amp; Sons, Opticians — Fitted While You Squint</div>
+    </div>
+
+    <article>
+      <h3>Shipping Intelligence</h3>
+      <p><b>ARRIVED:</b> Barque <i>Estrella</i>, 41 days from Valparaíso, with copper, hides, and a parrot the crew refuses to discuss. Steamer <i>Northern Light</i>, from Halifax, all well.</p>
+      <p><b>CLEARED:</b> Schooner <i>Prudence</i>, for Havana, in ballast and high spirits.</p>
+      <p><b>OVERDUE:</b> The clipper <i>Comet</i>, 118 days out. Her owners remain confident. Her insurers remain reachable only by letter.</p>
+    </article>
+  </div>
+
+  <footer>
+    <span>The Evening Gazette — Printed on the Premises</span>
+    <span>Set entire by the Thinking Engine</span>
+    <span>№ 12 — Fable Twenty-Five</span>
+  </footer>
+</div>
+
+</body>
+</html>
+```

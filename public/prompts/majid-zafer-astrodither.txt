@@ -1,0 +1,216 @@
+# Exact recreation prompt — Majid Zafer Astrodither
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: majid-zafer-astrodither
+Brand: Majid Zafer Astrodither
+Category: Landing
+Tagline (catalog): Majid Zafer Astrodither art site
+Live reference (structure only, do not hotlink private assets): https://majid-zafer-astrodither.vercel.app
+Stack: npm / Node
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Majid Zafer — visionary architect of tomorrow
+
+## FILE: index.html
+```
+<!DOCTYPE html><script type="module" src="/_astro/index.astro_astro_type_script_index_0_lang.DMYiZ7Wx.js"></script> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.CeuNaKB2.js"></script> <html lang="en" class="font-main" data-astro-cid-sckkx6r4> <head><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-FKGXZJC2N8"></script><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-FKGXZJC2N8");</script><meta charset="UTF-8"><meta name="theme-color" content="#080808"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.13.7"><title>Majid Zafer — DCRBN — Educate. Empower. Evolve.</title><link rel="canonical" href="https://astrodither.majidzafer.is/"><meta name="description" content="Majid Zafer is a visionary architect of tomorrow, CEO and Co-Founder of DCRBN, and a Las Vegas-based builder at the edge of Web3, AI, sustainability, and human potential."><meta name="robots" content="index, follow"><meta property="og:title" content="Majid Zafer — DCRBN — Educate. Empower. Evolve."><meta property="og:type" content="website"><meta property="og:image" content="https://astrodither.majidzafer.is/share.jpg"><meta property="og:url" content="https://astrodither.majidzafer.is/"><meta name="twitter:creator" content="@majidzafer"><link rel="icon" href="/favicon.ico"><link rel="icon" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"><link rel="manifest" href="/site.webmanifest"><meta name="twitter:image" content="https://astrodither.majidzafer.is/share.jpg"><meta name="twitter:title" content="Majid Zafer — DCRBN — Educate. Empower. Evolve."><meta name="twitter:description" content="Majid Zafer bridges ancient wisdom and cutting-edge possibility through DCRBN, Web3 strategy, sustainability, and conscious capitalism."><script type="module" src="/_astro/Layout.astro_astro_type_script_index_2_lang.YdeKktAQ.js"></script><link rel="stylesheet" href="/_astro/index.pdvcenzl.css"><link rel="stylesheet" href="/majid-pages.css"></head> <body data-astro-cid-sckkx6r4>  <h1 class="sr-only">Majid Zafer — visionary architect of tomorrow</h1> <h2 class="sr-only">CEO and Co-Founder of DCRBN, Web3 strategist, sustainability builder, public speaker, and conscious capitalist in Las Vegas.</h2> <div class="invisible js-main-content"> <div class="site-max fixed w-full h-full l-0 t-0 py-22 sm:py-45 invisible z-1  pointer-events-none js-ui"> <div class="relative flex flex-col justify-between h-full"> <script type="module" src="/_astro/Header.astro_astro_type_script_index_0_lang.Cg3VPFMQ.js"></script> <div class="main-grid w-full z-2 top-22 sm:top-45 pointer-events-none"> <div class="col-start-1 col-span-4 sm:col-span-4"> <div class="flex"> <a class="pointer-events-auto" href="#home"> <img class="w-80 sm:w-110 3xl:w-80" src="/images/logo.svg"> </a> <div class="mx-10 w-1 bg-white"></div> <div class="uppercase font-bold js-learn cursor-pointer pointer-events-auto">Learn more</div> </div> </div> <div class="col-start-5 col-span-2 justify-self-end sm:col-start-9 sm:col-span-4 sm:justify-self-start"> <div class="flex">
+ASTRO&nbsp;<span class="js-header-title">DITHER</span> </div> </div> </div>  <script type="module" src="/_astro/Bottom.astro_astro_type_script_index_0_lang.CVQmSQl-.js"></script> <div class="main-grid w-full z-1 bottom-22 justify-self-end sm:bottom-45 sm:justify-self-start pointer-events-none"> <div class="col-start-1 col-span-4"> <div class="flex"> <div class="js-t-m">00</div>:
+<div class="js-t-s">00</div>:
+<div class="js-t-ms">00</div> </div> </div> <div class="col-start-9 col-span-4"> <div class="relative inline-flex hover:font-bold pointer-events-auto has-hover:pointer-events-none cursor-pointer select-none js-change-speed"> <span class="hidden has-hover:inline-block">HOLD FOR SPEED</span> <span class="inline-block has-hover:hidden select-none">CLICK FOR SPEED</span> <div class="mx-10 w-1 bg-white"></div> <span class="js-change-speed-value tabular-nums">1:00</span>x
+</div> </div> </div>  <script type="module" src="/_astro/Info.astro_astro_type_script_index_0_lang.BHVEbzzx.js"></script> <div class="fixed w-800 h-800 top-0 left-0 z-1 pointer-events-none sidebar-bg js-sidebar-bg" data-astro-cid-edwrpnhe></div> <div class="absolute top-30 z-1 left-0 w-full py-30 sm:max-w-480 3xl:max-w-400 pointer-events-none" data-astro-cid-edwrpnhe> <div class="text-12 3xl:text-10 sidebar-info js-sidebar" data-astro-cid-edwrpnhe> <div class="font-bold uppercase mb-5" data-astro-cid-edwrpnhe>AstroDither, a webGPU & TSL experiment</div> <p class="mb-20" data-astro-cid-edwrpnhe>AstroDither is a audio reactive TSL & webGPU  experiment built with ThreeJS. This started after saw an online GIF i decided to recreate, trying to explore new tech like TSL with webGPU. <br data-astro-cid-edwrpnhe>Nothing fancy, just goooood old R&D.</p> <div class="font-bold uppercase mb-5" data-astro-cid-edwrpnhe>SOME RANDOM TECH</div> <p class="mb-20" data-astro-cid-edwrpnhe>Despite what you think, a lot is happening here. There is a custom dither on the model only, needed to mix with a generic scene and a custom fluid built from scratch in a single pass for performances. On top of that a dither+displacement in postprocessing and selective bloom without masks, just fancy tricks. Oh wait, did you see the aberration?</p> <p class="mb-20 font-bold uppercase" data-astro-cid-edwrpnhe>[signal. lost. beauty. found. digital. chaos.]</p> <div class="" data-astro-cid-edwrpnhe> <div class="flex mb-5" data-astro-cid-edwrpnhe> <div class="w-100 font-bold" data-astro-cid-edwrpnhe>X</div><a class="underline" href="#" target="_blank" data-astro-cid-edwrpnhe>@majidzafer</a> </div> <div class="flex mb-5" data-astro-cid-edwrpnhe> <div class="w-100 font-bold" data-astro-cid-edwrpnhe>WBST</div><a class="underline" href="https://majidzafer.is/" target="_blank" data-astro-cid-edwrpnhe>majidzafer.is</a> </div> <div class="flex" data-astro-cid-edwrpnhe> <div class="w-100 font-bold" data-astro-cid-edwrpnhe>INSPO</div><a class="underline" href="https://www.newyorker.com/magazine/2024/12/02/a-revolution-in-how-robots-learn" target="_blank" data-astro-cid-edwrpnhe>New Yorker article</a> </div> </div> <div class="w-full h-[1px] bg-white my-20 opacity-50" data-astro-cid-edwrpnhe></div> <div class="font-bold pointer-events-auto cursor-pointer js-sidebar-close" data-astro-cid-edwrpnhe>CLOSE</div> </div> </div>  </div> </div> <script type="module" src="/_astro/Enter.astro_astro_type_script_index_0_lang.CJU-psKb.js"></script> <div class="js-enter pointer-events-none fixed z-50 font-bold tracking-[-0.1em]"> <div class="absolute -top-10 left-0 -translate-x-1/2 -translate-y-1/2 bg-black/50 p-10 whitespace-nowrap">[:: CLICK TO ENTER + ENABLE AUDIO ::]</div> </div>  <div class="js-canvas-wrapper fixed inset-0"> <canvas class="js-canvas absolute"></canvas> </div> </div>  <script type="module" src="/majid-pages.js"></script></body></html>
+```
+
+## FILE: majid-pages.js
+```
+import { d as appState } from "./_astro/common.DNnWXwKG.js";
+import { aJ as runtime } from "./_astro/index.xQnTCKcK.js";
+
+const pages = {
+  about: {
+    title: "Majid Zafer, architect of tomorrow",
+    body: `
+      <p>Majid Zafer is a visionary architect of tomorrow, a bridge between ancient wisdom and cutting-edge possibility, thriving at the neon heartbeat of Las Vegas.</p>
+      <p>Born in India and transplanted to America as a young dreamer, Zafer carries a relentless fire for equity, innovation, and impact. He is a devoted father, conscious capitalist, and relentless builder who transforms friction into momentum, turning bold ideas into scalable realities that honor both people and planet.</p>
+      <p class="mz-kicker">[educate. empower. evolve.]</p>
+    `,
+  },
+  dcrbn: {
+    title: "DCRBN, zero to hero",
+    body: `
+      <p>As CEO and Co-Founder of DCRBN, Majid leads a Web3 venture studio and consulting force that catapults companies from zero to hero in the decentralized era.</p>
+      <p>With over 15 years forging sustainability frontiers, he fuses blockchain, AI, quantum encryption, and operational intelligence into seamless strategies that deliver explosive 5x growth.</p>
+      <p>DCRBN does not just consult. It engineers meteoric rises, crafting bespoke journeys where technology becomes a force for good.</p>
+    `,
+  },
+  speaking: {
+    title: "Speaker, strategist, advisor",
+    body: `
+      <p>A dynamic public speaker, brand strategist, and advisor, Majid moves effortlessly across ecosystems, partnering with trailblazers like Cory Warfield, amplifying platforms like Phyll, and igniting rooms at Las Vegas expos, NFL Alumni events, and beyond.</p>
+      <p>Whether demystifying Web3 for enterprise leaders or championing local businesses in the desert city he calls home, his presence commands attention and inspires action.</p>
+    `,
+  },
+  legacy: {
+    title: "The Zafer legacy",
+    body: `
+      <p>In a world racing toward decentralization, Majid Zafer stands as the calm, magnetic strategist who removes friction between groundbreaking tech and human potential.</p>
+      <p>Educate. Empower. Evolve. That is the Zafer legacy: building brands, futures, and movements that do not just scale. They illuminate.</p>
+      <p class="mz-kicker">[brands. futures. movements. illuminated.]</p>
+    `,
+  },
+};
+
+const routeOrder = ["about", "dcrbn", "speaking", "legacy"];
+
+function routeFromHash() {
+  const route = window.location.hash.replace(/^#/, "");
+  return pages[route] ? route : "home";
+}
+
+function setRoute(route, push = true) {
+  const normalized = pages[route] ? route : "home";
+  if (push) {
+    const hash = normalized === "home" ? "#home" : `#${normalized}`;
+    if (window.location.hash !== hash) history.pushState(null, "", hash);
+  }
+  renderRoute(normalized);
+}
+
+function openSidebar() {
+  if (!runtime.size) {
+    window.setTimeout(openSidebar, 100);
+    return;
+  }
+  appState.isSidebarActive.value = true;
+}
+
+function closeSidebar() {
+  appState.isSidebarActive.value = false;
+}
+
+function renderRoute(route) {
+  document.querySelectorAll("[data-mz-route]").forEach((link) => {
+    link.classList.toggle("is-active", link.dataset.mzRoute === route);
+  });
+
+  if (route === "home") {
+    closeSidebar();
+    return;
+  }
+
+  const page = pages[route] || pages.about;
+  const title = document.querySelector(".js-mz-page-title");
+  const body = document.querySelector(".js-mz-page-body");
+  if (title) title.textContent = page.title;
+  if (body) body.innerHTML = page.body;
+  openSidebar();
+}
+
+function wireNavigation() {
+  document.addEventListener("click", (event) => {
+    const routeLink = event.target.closest("[data-mz-route]");
+    if (!routeLink) return;
+    event.preventDefault();
+    setRoute(routeLink.dataset.mzRoute);
+  });
+
+  document.querySelector(".js-learn")?.addEventListener("click", () => {
+    if (routeFromHash() === "home") setRoute("about");
+    else renderRoute(routeFromHash());
+  });
+
+  window.addEventListener("hashchange", () => renderRoute(routeFromHash()));
+  window.addEventListener("popstate", () => renderRoute(routeFromHash()));
+  renderRoute(routeFromHash());
+}
+
+function boot() {
+  const sidebar = document.querySelector(".js-sidebar");
+  if (!sidebar) return;
+
+  sidebar.innerHTML = `
+    <nav class="mz-nav" aria-label="Majid Zafer sections">
+      <a href="#home" data-mz-route="home">Home</a>
+      ${routeOrder.map((route) => `<a href="#${route}" data-mz-route="${route}">${route}</a>`).join("")}
+    </nav>
+    <div class="font-bold uppercase mb-5 mz-page-title js-mz-page-title" data-astro-cid-edwrpnhe></div>
+    <div class="mz-page-body js-mz-page-body" data-astro-cid-edwrpnhe></div>
+    <div class="w-full h-[1px] bg-white my-20 opacity-50" data-astro-cid-edwrpnhe></div>
+    <a href="#home" class="mz-home-link" data-mz-route="home" data-astro-cid-edwrpnhe>Back home</a>
+    <div class="font-bold pointer-events-auto cursor-pointer js-sidebar-close" data-astro-cid-edwrpnhe>CLOSE</div>
+  `;
+
+  document.querySelector(".js-sidebar-close")?.addEventListener("click", () => {
+    closeSidebar();
+    if (window.location.hash && window.location.hash !== "#home") history.pushState(null, "", "#home");
+  });
+
+  document.querySelector('a[href="https://majidzafer.is/"]')?.setAttribute("href", "#home");
+  document.querySelector('a[href="#home"]')?.removeAttribute("target");
+  wireNavigation();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  boot();
+}
+```
+
+## FILE: majid-pages.css
+```
+.mz-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.2rem;
+  margin: 0 0 2rem;
+  pointer-events: auto;
+}
+
+.mz-nav a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.mz-nav a::before {
+  content: "[";
+}
+
+.mz-nav a::after {
+  content: "]";
+}
+
+.mz-nav a.is-active,
+.mz-nav a:hover {
+  text-decoration: underline;
+}
+
+.mz-page-title {
+  margin-bottom: 0.5rem;
+}
+
+.mz-page-body p {
+  margin-bottom: 2rem;
+}
+
+.mz-page-body .mz-kicker {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mz-home-link {
+  margin-top: 2rem;
+  display: inline-block;
+  font-weight: 700;
+  text-transform: uppercase;
+  pointer-events: auto;
+}
+
+.mz-home-link:hover {
+  text-decoration: underline;
+}
+```
+
+## FILE: index.css
+```
+@import"https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap";@layer properties{@supports (((-webkit-hyphens:none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){*,:before,:after,::backdrop{--tw-translate-x:0;--tw-translate-y:0;--tw-translate-z:0;--tw-border-style:solid;--tw-font-weight:initial;--tw-tracking:initial;--tw-ordinal:initial;--tw-slashed-zero:initial;--tw-numeric-figure:initial;--tw-numeric-spacing:initial;--tw-numeric-fraction:initial;--tw-blur:initial;--tw-brightness:initial;--tw-contrast:initial;--tw-grayscale:initial;--tw-hue-rotate:initial;--tw-invert:initial;--tw-opacity:initial;--tw-saturate:initial;--tw-sepia:initial;--tw-drop-shadow:initial;--tw-drop-shadow-color:initial;--tw-drop-shadow-alpha:100%;--tw-drop-shadow-size:initial;--tw-backdrop-blur:initial;--tw-backdrop-brightness:initial;--tw-backdrop-contrast:initial;--tw-backdrop-grayscale:initial;--tw-backdrop-hue-rotate:initial;--tw-backdrop-invert:initial;--tw-backdrop-opacity:initial;--tw-backdrop-saturate:initial;--tw-backdrop-sepia:initial}}}@layer theme{:root,:host{--font-sans:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--font-mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--color-black:#000;--color-white:#f7f8f9;--spacing:.1rem;--font-weight-bold:700;--default-transition-duration:.15s;--default-transition-timing-function:cubic-bezier(.4,0,.2,1);--default-font-family:var(--font-sans);--default-mono-font-family:var(--font-mono);--font-main:var(--font-main)}}@layer base{*,:after,:before,::backdrop{box-sizing:border-box;border:0 solid;margin:0;padding:0}::file-selector-button{box-sizing:border-box;border:0 solid;margin:0;padding:0}html,:host{-webkit-text-size-adjust:100%;tab-size:4;line-height:1.5;font-family:var(--default-font-family,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji");font-feature-settings:var(--default-font-feature-settings,normal);font-variation-settings:var(--default-font-variation-settings,normal);-webkit-tap-highlight-color:transparent}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:var(--default-mono-font-family,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace);font-feature-settings:var(--default-mono-font-feature-settings,normal);font-variation-settings:var(--default-mono-font-variation-settings,normal);font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}:-moz-focusring{outline:auto}progress{vertical-align:baseline}summary{display:list-item}ol,ul,menu{list-style:none}img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}button,input,select,optgroup,textarea{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}::file-selector-button{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}:where(select:is([multiple],[size])) optgroup{font-weight:bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start:20px}::file-selector-button{margin-inline-end:4px}::placeholder{opacity:1}@supports (not ((-webkit-appearance:-apple-pay-button))) or (contain-intrinsic-size:1px){::placeholder{color:currentColor}@supports (color:color-mix(in lab,red,red)){::placeholder{color:color-mix(in oklab,currentcolor 50%,transparent)}}}textarea{resize:vertical}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-date-and-time-value{min-height:1lh;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-datetime-edit{padding-block:0}::-webkit-datetime-edit-year-field{padding-block:0}::-webkit-datetime-edit-month-field{padding-block:0}::-webkit-datetime-edit-day-field{padding-block:0}::-webkit-datetime-edit-hour-field{padding-block:0}::-webkit-datetime-edit-minute-field{padding-block:0}::-webkit-datetime-edit-second-field{padding-block:0}::-webkit-datetime-edit-millisecond-field{padding-block:0}::-webkit-datetime-edit-meridiem-field{padding-block:0}::-webkit-calendar-picker-indicator{line-height:1}:-moz-ui-invalid{box-shadow:none}button,input:where([type=button],[type=reset],[type=submit]){appearance:button}::file-selector-button{appearance:button}::-webkit-inner-spin-button{height:auto}::-webkit-outer-spin-button{height:auto}[hidden]:where(:not([hidden=until-found])){display:none!important}}@layer components;@layer utilities{.pointer-events-auto{pointer-events:auto}.pointer-events-none{pointer-events:none}.invisible{visibility:hidden}.visible{visibility:visible}.sr-only{clip-path:inset(50%);white-space:nowrap;border-width:0;width:1px;height:1px;margin:-1px;padding:0;position:absolute;overflow:hidden}.absolute{position:absolute}.fixed{position:fixed}.relative{position:relative}.static{position:static}.inset-0{inset:calc(var(--spacing)*0)}.-top-10{top:calc(var(--spacing)*-10)}.top-0{top:calc(var(--spacing)*0)}.top-22{top:calc(var(--spacing)*22)}.top-30{top:calc(var(--spacing)*30)}.bottom-22{bottom:calc(var(--spacing)*22)}.left-0{left:calc(var(--spacing)*0)}.z-1{z-index:1}.z-2{z-index:2}.z-50{z-index:50}.col-span-2{grid-column:span 2/span 2}.col-span-4{grid-column:span 4/span 4}.col-start-1{grid-column-start:1}.col-start-5{grid-column-start:5}.col-start-9{grid-column-start:9}.container{width:100%}@media (min-width:375px){.container{max-width:375px}}@media (min-width:415px){.container{max-width:415px}}@media (min-width:650px){.container{max-width:650px}}@media (min-width:769px){.container{max-width:769px}}@media (min-width:1100px){.container{max-width:1100px}}@media (min-width:1280px){.container{max-width:1280px}}@media (min-width:1536px){.container{max-width:1536px}}@media (min-width:2001px){.container{max-width:2001px}}@media (min-width:2101px){.container{max-width:2101px}}.mx-10{margin-inline:calc(var(--spacing)*10)}.my-20{margin-block:calc(var(--spacing)*20)}.mb-5{margin-bottom:calc(var(--spacing)*5)}.mb-20{margin-bottom:calc(var(--spacing)*20)}.flex{display:flex}.grid{display:grid}.hidden{display:none}.inline-block{display:inline-block}.inline-flex{display:inline-flex}.h-800{height:calc(var(--spacing)*800)}.h-\[1px\]{height:1px}.h-full{height:100%}.w-1{width:calc(var(--spacing)*1)}.w-80{width:calc(var(--spacing)*80)}.w-100{width:calc(var(--spacing)*100)}.w-800{width:calc(var(--spacing)*800)}.w-full{width:100%}.grow{flex-grow:1}.-translate-x-1\/2{--tw-translate-x: -50% ;translate:var(--tw-translate-x)var(--tw-translate-y)}.-translate-y-1\/2{--tw-translate-y: -50% ;translate:var(--tw-translate-x)var(--tw-translate-y)}.cursor-pointer{cursor:pointer}.resize{resize:both}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.justify-between{justify-content:space-between}.justify-self-end{justify-self:flex-end}.border{border-style:var(--tw-border-style);border-width:1px}.bg-black\/50{background-color:#00000080}@supports (color:color-mix(in lab,red,red)){.bg-black\/50{background-color:color-mix(in oklab,var(--color-black)50%,transparent)}}.bg-white{background-color:var(--color-white)}.p-10{padding:calc(var(--spacing)*10)}.py-22{padding-block:calc(var(--spacing)*22)}.py-30{padding-block:calc(var(--spacing)*30)}.font-main{font-family:var(--font-main)}.text-12{font-size:1.2rem}.font-bold{--tw-font-weight:var(--font-weight-bold);font-weight:var(--font-weight-bold)}.tracking-\[-0\.1em\]{--tw-tracking:-.1em;letter-spacing:-.1em}.whitespace-nowrap{white-space:nowrap}.uppercase{text-transform:uppercase}.tabular-nums{--tw-numeric-spacing:tabular-nums;font-variant-numeric:var(--tw-ordinal,)var(--tw-slashed-zero,)var(--tw-numeric-figure,)var(--tw-numeric-spacing,)var(--tw-numeric-fraction,)}.underline{text-decoration-line:underline}.opacity-50{opacity:.5}.blur{--tw-blur:blur(8px);filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.filter{filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.backdrop-filter{-webkit-backdrop-filter:var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,);backdrop-filter:var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,)}.transition{transition-property:color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.select-none{-webkit-user-select:none;user-select:none}@media (hover:hover){.hover\:font-bold:hover{--tw-font-weight:var(--font-weight-bold);font-weight:var(--font-weight-bold)}}@media (min-width:650px){.sm\:top-45{top:calc(var(--spacing)*45)}.sm\:bottom-45{bottom:calc(var(--spacing)*45)}.sm\:col-span-4{grid-column:span 4/span 4}.sm\:col-start-9{grid-column-start:9}.sm\:w-110{width:calc(var(--spacing)*110)}.sm\:max-w-480{max-width:calc(var(--spacing)*480)}.sm\:justify-self-start{justify-self:flex-start}.sm\:py-45{padding-block:calc(var(--spacing)*45)}}@media (min-width:2001px){.\33xl\:w-80{width:calc(var(--spacing)*80)}.\33xl\:max-w-400{max-width:calc(var(--spacing)*400)}.\33xl\:text-10{font-size:1rem}}@media (hover:hover) and (pointer:fine){.has-hover\:pointer-events-none{pointer-events:none}.has-hover\:hidden{display:none}.has-hover\:inline-block{display:inline-block}}}/*! tailwindcss v4.1.13 | MIT License | https://tailwindcss.com */@layer properties{@supports (((-webkit-hyphens:none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){*,:before,:after,::backdrop{--tw-translate-x:0;--tw-translate-y:0;--tw-translate-z:0;--tw-border-style:solid;--tw-font-weight:initial;--tw-tracking:initial;--tw-ordinal:initial;--tw-slashed-zero:initial;--tw-numeric-figure:initial;--tw-numeric-spacing:initial;--tw-numeric-fraction:initial;--tw-blur:initial;--tw-brightness:initial;--tw-contrast:initial;--tw-grayscale:initial;--tw-hue-rotate:initial;--tw-invert:initial;--tw-opacity:initial;--tw-saturate:initial;--tw-sepia:initial;--tw-drop-shadow:initial;--tw-drop-shadow-color:initial;--tw-drop-shadow-alpha:100%;--tw-drop-shadow-size:initial;--tw-backdrop-blur:initial;--tw-backdrop-brightness:initial;--tw-backdrop-contrast:initial;--tw-backdrop-grayscale:initial;--tw-backdrop-hue-rotate:initial;--tw-backdrop-invert:initial;--tw-backdrop-opacity:initial;--tw-backdrop-saturate:initial;--tw-backdrop-sepia:initial}}}:root{--size:390;--containerPadding:2rem;--gridGutter:2rem;--bodyFontSize:1.2rem;--font-main:"Azeret Mono",monospace}@media (min-width:650px){:root{--size:1500;--containerPadding:4rem;--gridGutter:2rem;--bodyFontSize:1.4rem}}@media (min-width:2001px){:root{--bodyFontSize:1rem}}@layer theme{:root,:host{--font-sans:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--font-mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--color-black:#000;--color-white:#f7f8f9;--spacing:.1rem;--font-weight-bold:700;--default-transition-duration:.15s;--default-transition-timing-function:cubic-bezier(.4,0,.2,1);--default-font-family:var(--font-sans);--default-mono-font-family:var(--font-mono);--font-main:var(--font-main)}}@layer base{*,:after,:before,::backdrop{box-sizing:border-box;border:0 solid;margin:0;padding:0}::file-selector-button{box-sizing:border-box;border:0 solid;margin:0;padding:0}html,:host{-webkit-text-size-adjust:100%;tab-size:4;line-height:1.5;font-family:var(--default-font-family,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji");font-feature-settings:var(--default-font-feature-settings,normal);font-variation-settings:var(--default-font-variation-settings,normal);-webkit-tap-highlight-color:transparent}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:var(--default-mono-font-family,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace);font-feature-settings:var(--default-mono-font-feature-settings,normal);font-variation-settings:var(--default-mono-font-variation-settings,normal);font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}:-moz-focusring{outline:auto}progress{vertical-align:baseline}summary{display:list-item}ol,ul,menu{list-style:none}img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}button,input,select,optgroup,textarea{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}::file-selector-button{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}:where(select:is([multiple],[size])) optgroup{font-weight:bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start:20px}::file-selector-button{margin-inline-end:4px}::placeholder{opacity:1}@supports (not ((-webkit-appearance:-apple-pay-button))) or (contain-intrinsic-size:1px){::placeholder{color:currentColor}@supports (color:color-mix(in lab,red,red)){::placeholder{color:color-mix(in oklab,currentcolor 50%,transparent)}}}textarea{resize:vertical}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-date-and-time-value{min-height:1lh;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-datetime-edit{padding-block:0}::-webkit-datetime-edit-year-field{padding-block:0}::-webkit-datetime-edit-month-field{padding-block:0}::-webkit-datetime-edit-day-field{padding-block:0}::-webkit-datetime-edit-hour-field{padding-block:0}::-webkit-datetime-edit-minute-field{padding-block:0}::-webkit-datetime-edit-second-field{padding-block:0}::-webkit-datetime-edit-millisecond-field{padding-block:0}::-webkit-datetime-edit-meridiem-field{padding-block:0}::-webkit-calendar-picker-indicator{line-height:1}:-moz-ui-invalid{box-shadow:none}button,input:where([type=button],[type=reset],[type=submit]){appearance:button}::file-selector-button{appearance:button}::-webkit-inner-spin-button{height:auto}::-webkit-outer-spin-button{height:auto}[hidden]:where(:not([hidden=until-found])){display:none!important}}@layer components;@layer utilities{.pointer-events-auto{pointer-events:auto}.pointer-events-none{pointer-events:none}.invisible{visibility:hidden}.visible{visibility:visible}.sr-only{clip-path:inset(50%);white-space:nowrap;border-width:0;width:1px;height:1px;margin:-1px;padding:0;position:absolute;overflow:hidden}.absolute{position:absolute}.fixed{position:fixed}.relative{position:relative}.static{position:static}.inset-0{inset:calc(var(--spacing)*0)}.-top-10{top:calc(var(--spacing)*-10)}.top-0{top:calc(var(--spacing)*0)}.top-22{top:calc(var(--spacing)*22)}.top-30{top:calc(var(--spacing)*30)}.bottom-22{bottom:calc(var(--spacing)*22)}.left-0{left:calc(var(--spacing)*0)}.z-1{z-index:1}.z-2{z-index:2}.z-50{z-index:50}.col-span-2{grid-column:span 2/span 2}.col-span-4{grid-column:span 4/span 4}.col-start-1{grid-column-start:1}.col-start-5{grid-column-start:5}.col-start-9{grid-column-start:9}.container{width:100%}@media (min-width:375px){.container{max-width:375px}}@media (min-width:415px){.container{max-width:415px}}@media (min-width:650px){.container{max-width:650px}}@media (min-width:769px){.container{max-width:769px}}@media (min-width:1100px){.container{max-width:1100px}}@media (min-width:1280px){.container{max-width:1280px}}@media (min-width:1536px){.container{max-width:1536px}}@media (min-width:2001px){.container{max-width:2001px}}@media (min-width:2101px){.container{max-width:2101px}}.mx-10{margin-inline:calc(var(--spacing)*10)}.my-20{margin-block:calc(var(--spacing)*20)}.mb-5{margin-bottom:calc(var(--spacing)*5)}.mb-20{margin-bottom:calc(var(--spacing)*20)}.flex{display:flex}.grid{display:grid}.hidden{display:none}.inline-block{display:inline-block}.inline-flex{display:inline-flex}.h-800{height:calc(var(--spacing)*800)}.h-\[1px\]{height:1px}.h-full{height:100%}.w-1{width:calc(var(--spacing)*1)}.w-80{width:calc(var(--spacing)*80)}.w-100{width:calc(var(--spacing)*100)}.w-800{width:calc(var(--spacing)*800)}.w-full{width:100%}.grow{flex-grow:1}.-translate-x-1\/2{--tw-translate-x: -50% ;translate:var(--tw-translate-x)var(--tw-translate-y)}.-translate-y-1\/2{--tw-translate-y: -50% ;translate:var(--tw-translate-x)var(--tw-translate-y)}.cursor-pointer{cursor:pointer}.resize{resize:both}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.justify-between{justify-content:space-between}.justify-self-end{justify-self:flex-end}.border{border-style:var(--tw-border-style);border-width:1px}.bg-black\/50{background-color:#00000080}@supports (color:color-mix(in lab,red,red)){.bg-black\/50{background-color:color-mix(in oklab,var(--color-black)50%,transparent)}}.bg-white{background-color:var(--color-white)}.p-10{padding:calc(var(--spacing)*10)}.py-22{padding-block:calc(var(--spacing)*22)}.py-30{padding-block:calc(var(--spacing)*30)}.font-main{font-family:var(--font-main)}.text-12{font-size:1.2rem}.font-bold{--tw-font-weight:var(--font-weight-bold);font-weight:var(--font-weight-bold)}.tracking-\[-0\.1em\]{--tw-tracking:-.1em;letter-spacing:-.1em}.whitespace-nowrap{white-space:nowrap}.uppercase{text-transform:uppercase}.tabular-nums{--tw-numeric-spacing:tabular-nums;font-variant-numeric:var(--tw-ordinal,)var(--tw-slashed-zero,)var(--tw-numeric-figure,)var(--tw-numeric-spacing,)var(--tw-numeric-fraction,)}.underline{text-decoration-line:underline}.opacity-50{opacity:.5}.blur{--tw-blur:blur(8px);filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.filter{filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.backdrop-filter{-webkit-backdrop-filter:var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,);backdrop-filter:var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,)}.transition{transition-property:color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.select-none{-webkit-user-select:none;user-select:none}@media (hover:hover){.hover\:font-bold:hover{--tw-font-weight:var(--font-weight-bold);font-weight:var(--font-weight-bold)}}@media (min-width:650px){.sm\:top-45{top:calc(var(--spacing)*45)}.sm\:bottom-45{bottom:calc(var(--spacing)*45)}.sm\:col-span-4{grid-column:span 4/span 4}.sm\:col-start-9{grid-column-start:9}.sm\:w-110{width:calc(var(--spacing)*110)}.sm\:max-w-480{max-width:calc(var(--spacing)*480)}.sm\:justify-self-start{justify-self:flex-start}.sm\:py-45{padding-block:calc(var(--spacing)*45)}}@media (min-width:2001px){.\33xl\:w-80{width:calc(var(--spacing)*80)}.\33xl\:max-w-400{max-width:calc(var(--spacing)*400)}.\33xl\:text-10{font-size:1rem}}@media (hover:hover) and (pointer:fine){.has-hover\:pointer-events-none{pointer-events:none}.has-hover\:hidden{display:none}.has-hover\:inline-block{display:inline-block}}}html{font-size:clamp(1px,calc(10*(100vw/var(--size))),14px);font-kerning:none;font-feature-settings:"liga" 1;font-variant-ligatures:common-ligatures;-webkit-text-size-adjust:none;-webkit-font-smoothing:subpixel-antialiased;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:#0000;-webkit-tap-highlight-color:transparent;background-color:var(--color-white);color:var(--color-white)}html,body{overscroll-behavior:none;width:100%;min-height:100%;font-family:var(--font-main);background:#080808;line-height:1.5}body{font-size:var(--bodyFontSize);font-optical-sizing:auto;font-style:normal}canvas{touch-action:none}.site-max{padding-left:var(--containerPadding);padding-right:var(--containerPadding);width:100%;margin-left:auto;margin-right:auto}.main-grid{grid-column-gap:var(--gridGutter);grid-template-columns:repeat(6,minmax(0,1fr));display:grid}@media (min-width:650px){.main-grid{grid-template-columns:repeat(12,minmax(0,1fr))}}@property --tw-translate-x{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-y{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-z{syntax:"*";inherits:false;initial-value:0}@property --tw-border-style{syntax:"*";inherits:false;initial-value:solid}@property --tw-font-weight{syntax:"*";inherits:false}@property --tw-tracking{syntax:"*";inherits:false}@property --tw-ordinal{syntax:"*";inherits:false}@property --tw-slashed-zero{syntax:"*";inherits:false}@property --tw-numeric-figure{syntax:"*";inherits:false}@property --tw-numeric-spacing{syntax:"*";inherits:false}@property --tw-numeric-fraction{syntax:"*";inherits:false}@property --tw-blur{syntax:"*";inherits:false}@property --tw-brightness{syntax:"*";inherits:false}@property --tw-contrast{syntax:"*";inherits:false}@property --tw-grayscale{syntax:"*";inherits:false}@property --tw-hue-rotate{syntax:"*";inherits:false}@property --tw-invert{syntax:"*";inherits:false}@property --tw-opacity{syntax:"*";inherits:false}@property --tw-saturate{syntax:"*";inherits:false}@property --tw-sepia{syntax:"*";inherits:false}@property --tw-drop-shadow{syntax:"*";inherits:false}@property --tw-drop-shadow-color{syntax:"*";inherits:false}@property --tw-drop-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-drop-shadow-size{syntax:"*";inherits:false}@property --tw-backdrop-blur{syntax:"*";inherits:false}@property --tw-backdrop-brightness{syntax:"*";inherits:false}@property --tw-backdrop-contrast{syntax:"*";inherits:false}@property --tw-backdrop-grayscale{syntax:"*";inherits:false}@property --tw-backdrop-hue-rotate{syntax:"*";inherits:false}@property --tw-backdrop-invert{syntax:"*";inherits:false}@property --tw-backdrop-opacity{syntax:"*";inherits:false}@property --tw-backdrop-saturate{syntax:"*";inherits:false}@property --tw-backdrop-sepia{syntax:"*";inherits:false}html,body{margin:0;width:100%;height:100%}.sidebar-bg[data-astro-cid-edwrpnhe]{--size: 0;backdrop-filter:brightness(.45) blur(2px);mask-image:radial-gradient(circle at top left,#ffffff calc((var(--size) - 20) * 1%),transparent calc((var(--size)) * 1%))}.sidebar-info[data-astro-cid-edwrpnhe]{--size: 0;mask-image:radial-gradient(circle at top left,#ffffff calc((var(--size) - 20) * 1%),transparent calc((var(--size)) * 1%))}.sidebar-info[data-astro-cid-edwrpnhe].--isActive a[data-astro-cid-edwrpnhe]{pointer-events:auto}
+```

@@ -1,0 +1,363 @@
+# Exact recreation prompt — Flux
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-flux
+Brand: Flux
+Category: Creative
+Tagline (catalog): Seeded generative gallery · eight algorithms (Fable × 25 #23)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/23-flux/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: FLUXan infinite gallery
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLUX — An Infinite Gallery</title>
+<meta name="description" content="Generative artworks minted from a seed. No two visits identical.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital@0;1&family=Space+Grotesk:wght@300;400;500;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --bg:#141310; --paper:#1c1a16; --tx:#e6e1d6; --dim:#8f887a; --hot:#e2543e; }
+  body {
+    background:var(--bg);
+    color:var(--tx);
+    font-family:'Space Grotesk', sans-serif;
+  }
+  header {
+    padding:4.5rem 6vw 3rem;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:2rem;
+    border-bottom:1px solid rgba(230,225,214,0.12);
+  }
+  h1 {
+    font-family:'Libre Caslon Text', serif;
+    font-weight:400;
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    letter-spacing:-0.01em;
+  }
+  h1 em { font-style:italic; color:var(--hot); }
+  .head-r { text-align:right; max-width:360px; }
+  .head-r p { font-size:0.86rem; line-height:1.85; color:var(--dim); }
+  .head-r .seed-line {
+    margin-top:1rem; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--tx);
+  }
+  .head-r .seed-line b { color:var(--hot); font-variant-numeric:tabular-nums; }
+
+  .toolbar {
+    padding:1.4rem 6vw;
+    display:flex; gap:1rem; align-items:center;
+    border-bottom:1px solid rgba(230,225,214,0.12);
+    flex-wrap:wrap;
+  }
+  .toolbar button {
+    font-family:inherit; font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase;
+    background:transparent; color:var(--tx);
+    border:1px solid rgba(230,225,214,0.3);
+    padding:0.75rem 1.5rem;
+    cursor:pointer;
+    transition:all 0.25s;
+  }
+  .toolbar button:hover { border-color:var(--hot); color:var(--hot); }
+  .toolbar button.solid { background:var(--hot); border-color:var(--hot); color:#141310; font-weight:700; }
+  .toolbar button.solid:hover { background:#f06a54; color:#141310; }
+  .toolbar .note { font-size:0.72rem; color:var(--dim); letter-spacing:0.08em; }
+
+  .gallery {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(310px, 1fr));
+    gap:1px;
+    background:rgba(230,225,214,0.12);
+    border-bottom:1px solid rgba(230,225,214,0.12);
+  }
+  .work {
+    background:var(--bg);
+    padding:2.4rem 2.4rem 2rem;
+    transition:background 0.4s;
+  }
+  .work:hover { background:var(--paper); }
+  .work canvas {
+    width:100%; aspect-ratio:1; display:block;
+    background:#0e0d0b;
+  }
+  .work .meta {
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:1.4rem;
+  }
+  .work .meta h3 {
+    font-family:'Libre Caslon Text', serif;
+    font-weight:400; font-style:italic;
+    font-size:1.05rem;
+  }
+  .work .meta span { font-size:0.66rem; letter-spacing:0.18em; color:var(--dim); text-transform:uppercase; }
+  .work .algo {
+    margin-top:0.4rem;
+    font-size:0.7rem; color:var(--dim); letter-spacing:0.06em;
+  }
+
+  footer {
+    padding:3.5rem 6vw;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--dim);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>FLUX<br><em>an infinite gallery</em></h1>
+  <div class="head-r">
+    <p>Eight algorithms, one seed. Every visit mints a new exhibition — the works below have never been seen before and, unless you save the seed, will never be seen again.</p>
+    <div class="seed-line">Exhibition seed — <b id="seedShow">…</b></div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <button class="solid" id="remint">↻ Mint a new exhibition</button>
+  <button id="copyseed">Copy seed link</button>
+  <span class="note" id="copynote">Share the link to show someone this exact set.</span>
+</div>
+
+<div class="gallery" id="gallery"></div>
+
+<footer>
+  <span>FLUX — deterministic beauty, seeded</span>
+  <span>№ 23 — Fable Twenty-Five</span>
+</footer>
+
+<script>
+// ---------- seeded RNG (mulberry32) ----------
+function mulberry32(a){
+  return function(){
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+const PALETTES = [
+  ['#e2543e','#e6e1d6','#22467d','#d9a441'],
+  ['#1b1f3a','#e63946','#f1faee','#457b9d'],
+  ['#264653','#2a9d8f','#e9c46a','#f4a261'],
+  ['#5f0f40','#9a031e','#fb8b24','#e36414'],
+  ['#0d1b2a','#778da9','#e0e1dd','#c9532e'],
+  ['#3a5a40','#a3b18a','#dad7cd','#588157'],
+];
+
+// ---------- algorithms: each draws into ctx at size S with rng ----------
+const ALGOS = [
+  { name:'Flow Field', fn(x, S, rnd, pal){
+      x.fillStyle = '#0e0d0b'; x.fillRect(0,0,S,S);
+      const sc = 0.006 + rnd()*0.008;
+      const ph1 = rnd()*10, ph2 = rnd()*10;
+      for (let i=0;i<420;i++){
+        let px = rnd()*S, py = rnd()*S;
+        x.strokeStyle = pal[Math.floor(rnd()*pal.length)] + '55';
+        x.lineWidth = 0.6 + rnd()*1.6;
+        x.beginPath(); x.moveTo(px,py);
+        for (let s=0;s<60;s++){
+          const a = Math.sin(px*sc+ph1)*3 + Math.cos(py*sc+ph2)*3;
+          px += Math.cos(a)*3; py += Math.sin(a)*3;
+          x.lineTo(px,py);
+        }
+        x.stroke();
+      }
+    } },
+  { name:'Circle Packing', fn(x, S, rnd, pal){
+      x.fillStyle = '#0e0d0b'; x.fillRect(0,0,S,S);
+      const circles = [];
+      for (let tries=0; tries<2400 && circles.length<160; tries++){
+        const c = { x:rnd()*S, y:rnd()*S, r:2 };
+        let maxR = Math.min(S*0.22, c.x, c.y, S-c.x, S-c.y);
+        let ok = true;
+        for (const o of circles){
+          const d = Math.hypot(c.x-o.x, c.y-o.y) - o.r;
+          if (d < 3){ ok=false; break; }
+          maxR = Math.min(maxR, d-2);
+        }
+        if (!ok || maxR < 3) continue;
+        c.r = Math.min(maxR, 4 + rnd()*rnd()*S*0.18);
+        circles.push(c);
+        const col = pal[Math.floor(rnd()*pal.length)];
+        if (rnd() < 0.55){ x.fillStyle = col; x.beginPath(); x.arc(c.x,c.y,c.r,0,7); x.fill(); }
+        else { x.strokeStyle = col; x.lineWidth = 1+rnd()*2; x.beginPath(); x.arc(c.x,c.y,c.r*0.85,0,7); x.stroke(); }
+      }
+    } },
+  { name:'Truchet Maze', fn(x, S, rnd, pal){
+      x.fillStyle = '#0e0d0b'; x.fillRect(0,0,S,S);
+      const n = 10 + Math.floor(rnd()*8);
+      const c = S/n;
+      x.lineWidth = c*0.16;
+      x.lineCap = 'round';
+      for (let r=0;r<n;r++) for (let q=0;q<n;q++){
+        x.strokeStyle = pal[Math.floor(rnd()*pal.length)];
+        const ox = q*c, oy = r*c;
+        if (rnd()<0.5){
+          x.beginPath(); x.arc(ox, oy, c/2, 0, Math.PI/2); x.stroke();
+          x.beginPath(); x.arc(ox+c, oy+c, c/2, Math.PI, Math.PI*1.5); x.stroke();
+        } else {
+          x.beginPath(); x.arc(ox+c, oy, c/2, Math.PI/2, Math.PI); x.stroke();
+          x.beginPath(); x.arc(ox, oy+c, c/2, Math.PI*1.5, Math.PI*2); x.stroke();
+        }
+      }
+    } },
+  { name:'Strata', fn(x, S, rnd, pal){
+      x.fillStyle = '#0e0d0b'; x.fillRect(0,0,S,S);
+      let y = 0;
+      while (y < S){
+        const h = 6 + rnd()*rnd()*70;
+        const col = pal[Math.floor(rnd()*pal.length)];
+        x.fillStyle = col + (rnd()<0.25 ? 'ff' : (Math.floor(80+rnd()*140)).toString(16));
+        x.beginPath();
+        x.moveTo(0, y);
+        const w1 = rnd()*24, w2 = rnd()*24, ph = rnd()*7;
+        for (let px=0;px<=S;px+=6){
+          x.lineTo(px, y + Math.sin(px*0.02+ph)*w1 + Math.sin(px*0.007-ph)*w2);
+        }
+        for (let px=S;px>=0;px-=6){
+          x.lineTo(px, y + h + Math.sin(px*0.018+ph+1)*w2);
+        }
+        x.closePath(); x.fill();
+        y += h*0.72;
+      }
+    } },
+  { name:'Orbital Lattice', fn(x, S, rnd, pal){
+      x.fillStyle = '#0e0d0b'; x.fillRect(0,0,S,S);
+      const cx = S/2, cy = S/2;
+      const arms = 3 + Math.floor(rnd()*5);
+      const pts = [];
+      for (let a=0;a<arms;a++){
+        for (let i=0;i<44;i++){
+          const th = a/arms*Math.PI*2 + i*0.16 + rnd()*0.05;
+          const r = 12 + i*(S*0.0092) * (0.8+rnd()*0.4);
+          pts.push({ x:cx+Math.cos(th)*r, y:cy+Math.sin(th)*r, c:pal[a%pal.length] });
+        }
+      }
+      // connective threads
+      x.lineWidth = 0.5;
+      for (let i=0;i<pts.length;i++){
+        for (let j=i+1;j<Math.min(i+18, pts.length);j++){
+          const d = Math.hypot(pts[i].x-pts[j].x, pts[i].y-pts[j].y);
+          if (d < S*0.07){
+            x.strokeStyle = pts[i].c + '30';
+            x.beginPath(); x.moveTo(pts[i].x,pts[i].y); x.lineTo(pts[j].x,pts[j].y); x.stroke();
+          }
+        }
+      }
+      pts.forEach(p => {
+        x.fillStyle = p.c;
+        x.beginPath(); x.arc(p.x,p.y, 1+rnd()*2.4, 0, 7); x.fill();
+      });
+    } },
+  { name:'Torn Paper', fn(x, S, rnd, pal){
+      x.fillStyle = pal[0]; x.fillRect(0,0,S,S);
+      for (let layer=1; layer<5; layer++){
+        const col = pal[layer % pal.length];
+        x.fillStyle = col;
+        const yBase = S*layer/5 + (rnd()-0.5)*S*0.1;
+        x.beginPath();
+        x.moveTo(0, S); x.lineTo(0, yBase);
+        for (let px=0;px<=S;px+=4){
+          x.lineTo(px, yBase + Math.sin(px*0.03+layer*3)*10 + (rnd()-0.5)*14);
+        }
+        x.lineTo(S, S);
+        x.closePath();
+        x.save();
+        x.shadowColor = 'rgba(0,0,0,0.5)'; x.shadowBlur = 20; x.shadowOffsetY = -6;
+        x.fill();
+        x.restore();
+      }
+    } },
+  { name:'Meridian Weave', fn(x, S, rnd, pal){
+      x.fillStyle = '#0e0d0b'; x.fillRect(0,0,S,S);
+      const n = 26 + Math.floor(rnd()*20);
+      for (let i=0;i<n;i++){
+        const col = pal[Math.floor(rnd()*pal.length)];
+        x.strokeStyle = col + 'aa';
+        x.lineWidth = 0.8 + rnd()*2;
+        const vertical = rnd()<0.5;
+        const pos = rnd()*S;
+        const amp = 6 + rnd()*40, fr = 0.004 + rnd()*0.02, ph = rnd()*7;
+        x.beginPath();
+        for (let s=0;s<=S;s+=4){
+          const off = Math.sin(s*fr+ph)*amp;
+          const px = vertical ? pos+off : s;
+          const py = vertical ? s : pos+off;
+          s===0 ? x.moveTo(px,py) : x.lineTo(px,py);
+        }
+        x.stroke();
+      }
+    } },
+  { name:'Signal Bloom', fn(x, S, rnd, pal){
+      x.fillStyle = '#0e0d0b'; x.fillRect(0,0,S,S);
+      const cx = S*(0.3+rnd()*0.4), cy = S*(0.3+rnd()*0.4);
+      const rays = 90 + Math.floor(rnd()*140);
+      for (let i=0;i<rays;i++){
+        const a = i/rays*Math.PI*2;
+        const len = S*0.1 + rnd()*rnd()*S*0.5;
+        const col = pal[Math.floor(rnd()*pal.length)];
+        const grad = x.createLinearGradient(cx, cy, cx+Math.cos(a)*len, cy+Math.sin(a)*len);
+        grad.addColorStop(0, col+'ee'); grad.addColorStop(1, col+'00');
+        x.strokeStyle = grad;
+        x.lineWidth = 0.5 + rnd()*2.2;
+        x.beginPath();
+        x.moveTo(cx + Math.cos(a)*S*0.03, cy + Math.sin(a)*S*0.03);
+        x.lineTo(cx + Math.cos(a)*len, cy + Math.sin(a)*len);
+        x.stroke();
+      }
+      x.fillStyle = pal[Math.floor(rnd()*pal.length)];
+      x.beginPath(); x.arc(cx, cy, 4+rnd()*8, 0, 7); x.fill();
+    } },
+];
+
+const TITLES1 = ['Quiet','Burning','Folded','Distant','Patient','Sudden','Hollow','Gilded','Broken','Slow'];
+const TITLES2 = ['Meridian','Harvest','Signal','Cartography','Chorus','Reservoir','Alphabet','Weather','Arithmetic','Orchard'];
+
+let seed;
+function mint(newSeed){
+  seed = newSeed;
+  document.getElementById('seedShow').textContent = '#' + seed;
+  history.replaceState(null, '', '#' + seed);
+  const gal = document.getElementById('gallery');
+  gal.innerHTML = '';
+  const rndTop = mulberry32(seed);
+  ALGOS.forEach((algo, i) => {
+    const workSeed = Math.floor(rndTop()*1e9);
+    const rnd = mulberry32(workSeed);
+    const pal = PALETTES[Math.floor(rnd()*PALETTES.length)];
+    const div = document.createElement('div');
+    div.className = 'work';
+    const S = 640;
+    div.innerHTML = `
+      <canvas width="${S}" height="${S}"></canvas>
+      <div class="meta">
+        <h3>${TITLES1[Math.floor(rnd()*10)]} ${TITLES2[Math.floor(rnd()*10)]}</h3>
+        <span>${String(i+1).padStart(2,'0')} / 08</span>
+      </div>
+      <div class="algo">${algo.name} — object ${workSeed.toString(16)}</div>`;
+    gal.appendChild(div);
+    const x = div.querySelector('canvas').getContext('2d');
+    algo.fn(x, S, rnd, pal);
+  });
+}
+
+document.getElementById('remint').onclick = () => mint(Math.floor(Math.random()*1e9));
+document.getElementById('copyseed').onclick = async () => {
+  try {
+    await navigator.clipboard.writeText(location.href);
+    document.getElementById('copynote').textContent = 'Copied — this exact exhibition is now shareable.';
+  } catch { document.getElementById('copynote').textContent = 'Copy failed — grab the URL bar instead.'; }
+};
+
+const fromHash = parseInt(location.hash.slice(1), 10);
+mint(Number.isFinite(fromHash) ? fromHash : Math.floor(Math.random()*1e9));
+</script>
+</body>
+</html>
+```

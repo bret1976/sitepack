@@ -1,0 +1,448 @@
+# Exact recreation prompt — Nocturne
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-nocturne
+Brand: Nocturne
+Category: Creative
+Tagline (catalog): Night film house · full-screen scene wipes (Fable × 25 #35)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/35-nocturne/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: WE SHOOT THE CITY'S SECOND SHIFT
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOCTURNE — A Production House for the Dark Hours</title>
+<meta name="description" content="We shoot what the city does after midnight. A film house site of full-screen scenes.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100..125,100..900&family=JetBrains+Mono:wght@300;400&display=swap');
+  :root {
+    --blk:#050507;
+    --tx:#eceaf2;
+    --dim:rgba(236,234,242,0.5);
+    --line:rgba(236,234,242,0.13);
+    --cy:#57e8e0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--blk);
+    color:var(--tx);
+    font-family:'Archivo', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection { background:var(--cy); color:#050507; }
+  a { color:inherit; }
+
+  .grain {
+    position:fixed; inset:-60%; width:220%; height:220%; z-index:70; pointer-events:none; opacity:0.07;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:gr 6s steps(8) infinite;
+  }
+  @keyframes gr {
+    0%,100%{transform:translate(0,0)} 13%{transform:translate(-5%,-9%)} 26%{transform:translate(-11%,5%)}
+    39%{transform:translate(7%,-18%)} 52%{transform:translate(-5%,16%)} 65%{transform:translate(-13%,7%)}
+    78%{transform:translate(11%,2%)} 91%{transform:translate(3%,24%)}
+  }
+
+  /* letterbox bars that breathe open on load */
+  .bar-top, .bar-bot {
+    position:fixed; left:0; right:0; height:0; background:#000; z-index:60;
+    animation:barin 1.6s 0.2s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .bar-top { top:0; } .bar-bot { bottom:0; }
+  @keyframes barin { from { height:16vh; } to { height:0; } }
+
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:80;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.6rem 2.6rem;
+    mix-blend-mode:difference;
+  }
+  .logo { font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:800; letter-spacing:0.12em; font-size:0.95rem; }
+  .logo i { font-style:normal; color:var(--cy); }
+  nav .tc { font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.3em; color:var(--dim); }
+  nav .contact { font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase; text-decoration:none; }
+  nav .contact:hover { color:var(--cy); }
+
+  /* ---------------- hero ---------------- */
+  .hero { height:100vh; position:relative; overflow:hidden; }
+  .hero .him {
+    position:absolute; inset:-4%;
+    background:url('/assets/noc-1.jpg') center/cover no-repeat;
+    animation:hkb 24s ease-in-out infinite alternate;
+    filter:brightness(0.85) saturate(1.15);
+  }
+  @keyframes hkb { from { transform:scale(1) } to { transform:scale(1.12) translateY(-2%) } }
+  .hero .hshade { position:absolute; inset:0; background:linear-gradient(180deg, rgba(5,5,7,0.55), transparent 30%, transparent 55%, var(--blk)); }
+  .hero-title {
+    position:absolute; left:0; right:0; bottom:9vh; z-index:4;
+    padding:0 4vw;
+  }
+  h1 {
+    font-family:'Archivo', sans-serif; font-stretch:125%;
+    font-weight:800;
+    font-size:clamp(3rem, 12.4vw, 11.4rem);
+    line-height:0.86;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+  }
+  h1 .row { display:block; overflow:hidden; }
+  h1 .row span { display:inline-block; transform:translateY(112%); animation:tup 1.3s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay:var(--d); }
+  h1 .thin { font-weight:200; }
+  @keyframes tup { to { transform:none; } }
+  .hero-sub {
+    margin-top:2rem;
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;
+    opacity:0; animation:fadein 1.4s 1.3s forwards;
+  }
+  @keyframes fadein { to { opacity:1; } }
+  .hero-sub p { font-weight:300; font-size:0.95rem; color:var(--dim); max-width:42ch; line-height:1.8; }
+  .hero-sub .mono { font-family:'JetBrains Mono'; font-size:0.6rem; letter-spacing:0.32em; text-transform:uppercase; color:var(--dim); }
+
+  /* ---------------- capabilities: pinned wipe deck ---------------- */
+  .deck { position:relative; }
+  .deck-track { height:500vh; }
+  .deck-stage { position:sticky; top:0; height:100vh; overflow:hidden; }
+  .slide { position:absolute; inset:0; visibility:hidden; }
+  .slide .clipper {
+    position:absolute; inset:0; overflow:hidden;
+    clip-path:inset(0 0 0 100%);
+    will-change:clip-path;
+  }
+  .slide.first .clipper { clip-path:inset(0); }
+  .slide .sim {
+    position:absolute; inset:-4%;
+    background-size:cover; background-position:center;
+    filter:brightness(0.8) saturate(1.1);
+    will-change:transform;
+  }
+  .slide .sha { position:absolute; inset:0; background:linear-gradient(180deg, rgba(5,5,7,0.5), transparent 35%, transparent 55%, rgba(5,5,7,0.85)); }
+  .slide .stx {
+    position:absolute; left:4vw; bottom:12vh; z-index:4; max-width:640px;
+    opacity:0; transform:translateY(26px);
+    transition:opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
+  }
+  .slide.live .stx { opacity:1; transform:none; }
+  .slide .cap-k {
+    font-family:'JetBrains Mono'; font-size:0.6rem; letter-spacing:0.42em; text-transform:uppercase; color:var(--cy);
+  }
+  .slide h2 {
+    margin-top:1rem;
+    font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:800; text-transform:uppercase;
+    font-size:clamp(2.2rem, 6.4vw, 5.6rem); line-height:0.92; letter-spacing:-0.01em;
+  }
+  .slide h2 .thin { font-weight:200; }
+  .slide p { margin-top:1.3rem; font-weight:300; font-size:0.94rem; line-height:1.9; color:var(--dim); max-width:46ch; }
+  .slide .meta {
+    opacity:0; transition:opacity 0.55s 0.1s;
+    position:absolute; right:4vw; bottom:12vh; z-index:4; text-align:right;
+    font-family:'JetBrains Mono'; font-size:0.62rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--dim); line-height:2.3;
+  }
+  .slide .meta b { color:var(--tx); font-weight:400; }
+  .slide.live .meta { opacity:1; }
+
+  .deck-hud {
+    position:absolute; left:0; right:0; bottom:3.4vh; z-index:6;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:0 4vw;
+    font-family:'JetBrains Mono'; font-size:0.6rem; letter-spacing:0.3em; color:var(--dim);
+  }
+  .deck-hud .drail { display:flex; gap:0.6rem; align-items:center; }
+  .deck-hud .dseg { width:26px; height:2px; background:rgba(236,234,242,0.2); overflow:hidden; }
+  .deck-hud .dseg i { display:block; height:100%; width:0; background:var(--cy); }
+  @media (max-width:760px){ .slide .meta { display:none; } }
+
+  /* ---------------- selected work strip ---------------- */
+  .workstrip { padding:11rem 4vw; max-width:1300px; margin:0 auto; }
+  .workstrip .k { font-family:'JetBrains Mono'; font-size:0.6rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--cy); }
+  .workstrip h2 { margin-top:1.1rem; font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:200; text-transform:uppercase; font-size:clamp(1.9rem, 4.8vw, 3.8rem); letter-spacing:-0.005em; }
+  .workstrip h2 b { font-weight:800; }
+  .films { margin-top:3.6rem; }
+  .film-row {
+    display:grid; grid-template-columns:5rem 1fr auto auto; gap:2.4rem; align-items:center;
+    padding:1.9rem 0.4rem; border-bottom:1px solid var(--line);
+    text-decoration:none;
+    position:relative; overflow:hidden;
+  }
+  .film-row:first-child { border-top:1px solid var(--line); }
+  .film-row .fthumb {
+    position:absolute; right:16%; top:50%; transform:translateY(-50%) scale(0.85) rotate(3deg);
+    width:190px; aspect-ratio:16/10; border-radius:6px;
+    background-size:cover; background-position:center;
+    opacity:0; transition:opacity 0.4s, transform 0.55s cubic-bezier(0.22,1,0.36,1);
+    pointer-events:none; z-index:2;
+    box-shadow:0 24px 60px rgba(0,0,0,0.6);
+  }
+  .film-row:hover .fthumb { opacity:1; transform:translateY(-50%) scale(1) rotate(0); }
+  .film-row .fn { font-family:'JetBrains Mono'; font-size:0.66rem; color:var(--dim); }
+  .film-row .ft { font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:400; text-transform:uppercase; font-size:clamp(1.2rem, 3vw, 2rem); letter-spacing:0.01em; transition:color 0.3s, transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+  .film-row:hover .ft { color:var(--cy); transform:translateX(1.4rem); }
+  .film-row .fc { font-size:0.76rem; color:var(--dim); }
+  .film-row .fy { font-family:'JetBrains Mono'; font-size:0.66rem; color:var(--dim); }
+  @media (max-width:760px){ .film-row { grid-template-columns:3rem 1fr; } .film-row .fc,.film-row .fy{ display:none; } }
+
+  /* ---------------- finale ---------------- */
+  .finale {
+    position:relative; overflow:hidden;
+    padding:20vh 4vw; text-align:center;
+  }
+  .finale .fim { position:absolute; inset:-5%; background:url('/assets/noc-4.jpg') center/cover; filter:brightness(0.5); }
+  .finale .fsh { position:absolute; inset:0; background:radial-gradient(ellipse at center, transparent 30%, var(--blk) 90%); }
+  .finale .fin { position:relative; z-index:3; }
+  .finale h2 {
+    font-family:'Archivo', sans-serif; font-stretch:125%; font-weight:200; text-transform:uppercase;
+    font-size:clamp(2rem, 6.8vw, 5.8rem); line-height:1; letter-spacing:0;
+  }
+  .finale h2 b { font-weight:800; }
+  .finale .cta {
+    display:inline-block; margin-top:3.2rem;
+    font-family:'JetBrains Mono'; font-size:0.7rem; letter-spacing:0.34em; text-transform:uppercase; text-decoration:none;
+    color:var(--blk); background:var(--cy);
+    padding:1.25rem 3rem; border-radius:100px;
+    transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+  }
+  .finale .cta:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 16px 54px rgba(87,232,224,0.4); }
+
+  footer {
+    border-top:1px solid var(--line);
+    padding:2.8rem 4vw 3.8rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-family:'JetBrains Mono'; font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--dim);
+  }
+
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+  .cursor-spot {
+    position:fixed; inset:0; z-index:45; pointer-events:none;
+    background:radial-gradient(560px circle at var(--sx,50%) var(--sy,40%),
+      rgba(255,255,255,0.05), transparent 60%);
+    opacity:0; transition:opacity 0.6s;
+  }
+  body.has-mouse .cursor-spot { opacity:1; }
+</style>
+</head>
+<body>
+<div class="cursor-spot" id="cursorSpot"></div>
+
+<div class="grain"></div>
+<div class="bar-top"></div><div class="bar-bot"></div>
+
+<nav>
+  <div class="logo">NOCTURNE<i>*</i></div>
+  <div class="tc" id="tc">00:00:00:00</div>
+  <a class="contact" href="#book">Book a shoot</a>
+</nav>
+
+<header class="hero">
+  <div class="him"></div>
+  <div class="hshade"></div>
+  <div class="hero-title">
+    <h1>
+      <span class="row"><span style="--d:0.35s">WE SHOOT</span></span>
+      <span class="row"><span class="thin" style="--d:0.52s">THE CITY'S</span></span>
+      <span class="row"><span style="--d:0.68s">SECOND SHIFT</span></span>
+    </h1>
+    <div class="hero-sub">
+      <p>Nocturne is a production house that only works after dark. Neon, rain, sodium vapor, the hour when the city stops performing — that's our golden hour.</p>
+      <span class="mono">EST. MIDNIGHT · SCROLL FOR CAPABILITIES ↓</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ CAPABILITY DECK ============ -->
+<section class="deck">
+  <div class="deck-track" id="dtrack">
+    <div class="deck-stage">
+
+      <div class="slide first" data-i="0">
+        <div class="clipper">
+          <div class="sim" style="background-image:url('/assets/noc-2.jpg')"></div>
+          <div class="sha"></div>
+          </div>
+        <div class="stx">
+            <div class="cap-k">Capability 01</div>
+            <h2>ORIGINAL <span class="thin">FILMS</span></h2>
+            <p>Documentary and narrative work shot entirely between dusk and dawn. Our first feature spent 340 nights in production — the sun appears in exactly one frame, by accident.</p>
+          </div>
+          <div class="meta">Format — <b>Anamorphic 2.39:1</b><br>Stock — <b>Tungsten 500T</b><br>Call time — <b>21:00</b></div>
+        
+      </div>
+
+      <div class="slide" data-i="1">
+        <div class="clipper">
+          <div class="sim" style="background-image:url('/assets/noc-3.jpg')"></div>
+          <div class="sha"></div>
+          </div>
+        <div class="stx">
+            <div class="cap-k">Capability 02</div>
+            <h2>COMMERCIAL <span class="thin">WORK</span></h2>
+            <p>Brands come to us when the boardroom says "edgier" and means it. Motorcycles, watches, perfume — anything that photographs better wet, backlit, and slightly out of legal's comfort zone.</p>
+          </div>
+          <div class="meta">Clients — <b>Undisclosed, famous</b><br>Awards — <b>In the freezer</b><br>Day rate — <b>There is no day</b></div>
+        
+      </div>
+
+      <div class="slide" data-i="2">
+        <div class="clipper">
+          <div class="sim" style="background-image:url('/assets/noc-1.jpg')"></div>
+          <div class="sha"></div>
+          </div>
+        <div class="stx">
+            <div class="cap-k">Capability 03</div>
+            <h2>MUSIC <span class="thin">VIDEO</span></h2>
+            <p>One artist, one street, one take if we can get it. Our videos are shot like heists: planned for weeks, executed before the puddles dry, gone before the permit questions start.</p>
+          </div>
+          <div class="meta">Longest take — <b>11 min 42 s</b><br>Rain — <b>Usually ours</b><br>Permits — <b>Improvisational</b></div>
+        
+      </div>
+
+      <div class="slide" data-i="3">
+        <div class="clipper">
+          <div class="sim" style="background-image:url('/assets/noc-4.jpg')"></div>
+          <div class="sha"></div>
+          </div>
+        <div class="stx">
+            <div class="cap-k">Capability 04</div>
+            <h2>THE <span class="thin">GRADE</span></h2>
+            <p>Post happens in-house, in a room with no windows, which for us is just continuity. We grade for the dark: blacks with texture, neon that hums, fog you can almost breathe.</p>
+          </div>
+          <div class="meta">Suite — <b>Windowless, on purpose</b><br>Monitors — <b>Calibrated at 2 a.m.</b><br>Coffee — <b>Structural</b></div>
+        
+      </div>
+
+      <div class="deck-hud">
+        <span id="deckLabel">01 / 04 — ORIGINAL FILMS</span>
+        <div class="drail" id="drail"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section class="workstrip">
+  <span class="k reveal">Selected Work</span>
+  <h2 class="reveal">EIGHT FILMS, <b>ZERO SUNRISES</b></h2>
+  <div class="films">
+    <a class="film-row reveal" href="#"><span class="fn">01</span><span class="ft">Sodium</span><span class="fc">Feature · 98 min</span><span class="fy">2026</span><span class="fthumb" style="background-image:url('/assets/noc-1.jpg')"></span></a>
+    <a class="film-row reveal" href="#"><span class="fn">02</span><span class="ft">Wet Neon</span><span class="fc">Commercial · 60 s</span><span class="fy">2025</span><span class="fthumb" style="background-image:url('/assets/noc-2.jpg')"></span></a>
+    <a class="film-row reveal" href="#"><span class="fn">03</span><span class="ft">Two Riders</span><span class="fc">Music video · 4 min</span><span class="fy">2025</span><span class="fthumb" style="background-image:url('/assets/noc-3.jpg')"></span></a>
+    <a class="film-row reveal" href="#"><span class="fn">04</span><span class="ft">Fog Line</span><span class="fc">Short · 12 min</span><span class="fy">2024</span><span class="fthumb" style="background-image:url('/assets/noc-4.jpg')"></span></a>
+  </div>
+</section>
+
+<!-- ============ FINALE ============ -->
+<section class="finale" id="book">
+  <div class="fim"></div>
+  <div class="fsh"></div>
+  <div class="fin">
+    <h2 class="reveal">GOT SOMETHING THAT<br><b>ONLY WORKS AT NIGHT?</b></h2>
+    <a href="#" class="cta reveal">Book the dark hours</a>
+  </div>
+</section>
+
+<footer>
+  <span>NOCTURNE — a fictional production house designed by Fable</span>
+  <span>Photography: CC BY-SA / CC0 via Wikimedia Commons — full credits in /guide</span>
+  <span>№ 35 — The Cinema Batch</span>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+  const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10*t)), smoothWheel: true });
+  function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+</script>
+<script>
+const clamp01 = v => Math.max(0, Math.min(1, v));
+
+/* timecode */
+setInterval(() => {
+  const n = new Date();
+  const f = String(Math.floor(n.getMilliseconds()/41.7)).padStart(2,'0');
+  document.getElementById('tc').textContent =
+    `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}:${f}`;
+}, 41);
+
+/* ---------- wipe deck ---------- */
+const dtrack = document.getElementById('dtrack');
+const slides = [...document.querySelectorAll('.slide')];
+const drail = document.getElementById('drail');
+const NAMES = ['ORIGINAL FILMS','COMMERCIAL WORK','MUSIC VIDEO','THE GRADE'];
+slides.forEach(() => {
+  const s = document.createElement('div');
+  s.className = 'dseg'; s.innerHTML = '<i></i>';
+  drail.appendChild(s);
+});
+const segs = [...drail.querySelectorAll('.dseg i')];
+const dlabel = document.getElementById('deckLabel');
+let curDeck = -1;
+
+function deck(){
+  const r = dtrack.getBoundingClientRect();
+  const p = clamp01(-r.top / (r.height - innerHeight));
+  const n = slides.length;
+  const f = p * n;
+  const idx = Math.min(n-1, Math.floor(f));
+  const local = f - idx;
+
+  slides.forEach((s, i) => {
+    const clip = s.querySelector('.clipper');
+    const im = s.querySelector('.sim');
+    if (i < idx){ s.style.visibility='visible'; s.style.zIndex = i; clip.style.clipPath = 'inset(0)'; }
+    else if (i === idx){
+      s.style.visibility='visible'; s.style.zIndex = i;
+      clip.style.clipPath = 'inset(0)';
+      im.style.transform = `scale(${1.02 + local*0.06}) translateX(${local*-1.4}%)`;
+    } else if (i === idx+1){
+      // next slide wipes in from the right over the last 22% of current
+      const w = local > 0.78 ? (local-0.78)/0.22 : 0;
+      s.style.visibility = w > 0 ? 'visible' : 'hidden';
+      s.style.zIndex = i;
+      clip.style.clipPath = `inset(0 0 0 ${100 - w*100}%)`;
+      im.style.transform = 'scale(1.05)';
+    } else {
+      s.style.visibility='hidden';
+    }
+    s.classList.toggle('live', i === idx && local < 0.86);
+  });
+
+  segs.forEach((seg, i) => {
+    seg.style.width = i < idx ? '100%' : i === idx ? (local*100)+'%' : '0%';
+  });
+  if (idx !== curDeck){
+    curDeck = idx;
+    dlabel.textContent = `0${idx+1} / 0${slides.length} — ${NAMES[idx]}`;
+  }
+}
+addEventListener('scroll', deck, { passive:true });
+deck();
+
+/* reveals */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.16 });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%3)*0.1+'s';
+  io.observe(el);
+});
+
+/* cursor-reactive ambient spotlight (signature reference glow) */
+{
+  const spot = document.getElementById('cursorSpot');
+  addEventListener('pointermove', e => {
+    document.body.classList.add('has-mouse');
+    spot.style.setProperty('--sx', (e.clientX/innerWidth*100)+'%');
+    spot.style.setProperty('--sy', (e.clientY/innerHeight*100)+'%');
+  });
+}
+
+</script>
+</body>
+</html>
+```

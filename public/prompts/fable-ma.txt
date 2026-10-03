@@ -1,0 +1,321 @@
+# Exact recreation prompt — 間 — Ma
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-ma
+Brand: 間 — Ma
+Category: Creative
+Tagline (catalog): Japanese negative space · four seasons (Fable × 25 #08)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/08-ma/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>間 — MA / The Space Between</title>
+<meta name="description" content="A meditation on negative space, in four seasons.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --paper:#f7f4ee;
+    --sumi:#26241f;
+    --faded:#8d887c;
+    --accent:#b23a2f; /* shu vermilion */
+  }
+  body {
+    background:var(--paper);
+    color:var(--sumi);
+    font-family:'Noto Serif JP', serif;
+    overflow-x:hidden;
+  }
+  /* paper texture */
+  body::before {
+    content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+    opacity:0.4;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' result='n'/%3E%3CfeColorMatrix in='n' type='matrix' values='0 0 0 0 0.55 0 0 0 0 0.53 0 0 0 0 0.48 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  }
+
+  main { position:relative; z-index:1; }
+
+  .hanko {
+    position:fixed; top:2.4rem; right:2.4rem; z-index:20;
+    width:52px; height:52px;
+    background:var(--accent);
+    color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; font-weight:400;
+    border-radius:4px;
+    writing-mode:vertical-rl;
+    box-shadow:0 1px 0 rgba(0,0,0,0.08);
+  }
+
+  .side-nav {
+    position:fixed; left:2.4rem; top:50%; transform:translateY(-50%);
+    z-index:20;
+    writing-mode:vertical-rl;
+    display:flex; gap:2rem;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:0.7rem; letter-spacing:0.5em;
+    color:var(--faded);
+  }
+  .side-nav a { color:inherit; text-decoration:none; transition:color 0.5s; }
+  .side-nav a:hover, .side-nav a.on { color:var(--accent); }
+
+  section {
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    padding:12vh 10vw;
+  }
+
+  /* --- opening --- */
+  .cover { flex-direction:column; gap:0; }
+  .kanji {
+    font-size:clamp(11rem, 34vw, 26rem);
+    font-weight:200;
+    line-height:1;
+    position:relative;
+    opacity:0;
+    animation:ink 3.2s 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  @keyframes ink {
+    from { opacity:0; filter:blur(14px); transform:scale(1.04); }
+    to { opacity:1; filter:blur(0); transform:scale(1); }
+  }
+  .cover .en {
+    margin-top:4vh;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:0.78rem; letter-spacing:0.9em; text-indent:0.9em;
+    text-transform:uppercase; color:var(--faded);
+    opacity:0; animation:fadein 2s 2s forwards;
+  }
+  .cover .def {
+    margin-top:2.5vh; max-width:34ch; text-align:center;
+    font-weight:300; font-size:1rem; line-height:2.4; color:var(--faded);
+    opacity:0; animation:fadein 2s 2.7s forwards;
+  }
+  @keyframes fadein { to { opacity:1; } }
+
+  /* --- season panels --- */
+  .season { justify-content:flex-start; }
+  .season .vert {
+    writing-mode:vertical-rl;
+    font-size:clamp(1.5rem, 3.6vw, 2.6rem);
+    font-weight:300;
+    line-height:2.6;
+    letter-spacing:0.28em;
+    height:min(64vh, 620px);
+    margin-left:auto;
+  }
+  .season .vert .small {
+    font-size:0.85rem; letter-spacing:0.4em; color:var(--faded);
+    margin-top:2em;
+  }
+  .season .label {
+    position:absolute; bottom:10vh; left:10vw;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:0.68rem; letter-spacing:0.55em; text-transform:uppercase;
+    color:var(--faded);
+  }
+  .season .label b { color:var(--accent); font-weight:400; margin-right:1.4em; }
+
+  /* enso circle draws on scroll */
+  .enso-wrap { position:absolute; left:12vw; top:50%; transform:translateY(-50%); }
+  .enso { width:min(34vw, 380px); height:auto; }
+  .enso path {
+    fill:none; stroke:var(--sumi); stroke-width:7;
+    stroke-linecap:round;
+    stroke-dasharray:1000; stroke-dashoffset:1000;
+    opacity:0.85;
+  }
+
+  /* falling petals / leaves / snow */
+  .drift { position:fixed; inset:0; pointer-events:none; z-index:5; }
+
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity 1.6s ease, transform 1.6s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+
+  footer {
+    padding:16vh 10vw 10vh;
+    text-align:center;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:0.68rem; letter-spacing:0.4em; text-transform:uppercase;
+    color:var(--faded);
+    line-height:2.6;
+  }
+
+  @media (max-width:760px){
+    .side-nav { display:none; }
+    .enso-wrap { position:static; transform:none; margin-bottom:6vh; }
+    .season { flex-direction:column; justify-content:center; }
+    .season .vert { height:52vh; margin:0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hanko">間</div>
+
+<nav class="side-nav">
+  <a href="#haru">春</a>
+  <a href="#natsu">夏</a>
+  <a href="#aki">秋</a>
+  <a href="#fuyu">冬</a>
+</nav>
+
+<canvas class="drift" id="drift"></canvas>
+
+<main>
+  <section class="cover">
+    <div class="kanji">間</div>
+    <div class="en">MA — The Space Between</div>
+    <p class="def">Not emptiness. The pause that gives the note its meaning, the white that lets the ink speak. This page is mostly nothing, on purpose.</p>
+  </section>
+
+  <section class="season" id="haru">
+    <div class="enso-wrap reveal">
+      <svg class="enso" viewBox="0 0 200 200">
+        <path id="ensoPath" d="M 108 22 C 60 18, 22 58, 24 104 C 26 152, 68 184, 112 180 C 156 176, 184 138, 180 96 C 176 58, 148 32, 116 30"/>
+      </svg>
+    </div>
+    <div class="vert reveal">
+      春の夜や<br>
+      桜のあいだ<br>
+      月とほる
+      <div class="small">a spring night — the moon passes through the space between cherry blossoms</div>
+    </div>
+    <div class="label"><b>一</b> Spring · The interval</div>
+  </section>
+
+  <section class="season" id="natsu">
+    <div class="vert reveal">
+      静けさは<br>
+      蝉の声より<br>
+      深くあり
+      <div class="small">the silence runs deeper than the voice of the cicada — because it surrounds it</div>
+    </div>
+    <div class="label"><b>二</b> Summer · The pause</div>
+  </section>
+
+  <section class="season" id="aki">
+    <div class="vert reveal">
+      柿一つ<br>
+      残して空へ<br>
+      枝ゆずる
+      <div class="small">the branch keeps one persimmon, and yields the rest of itself to sky</div>
+    </div>
+    <div class="label"><b>三</b> Autumn · The remainder</div>
+  </section>
+
+  <section class="season" id="fuyu">
+    <div class="vert reveal">
+      雪の上<br>
+      足あとのなき<br>
+      道つづく
+      <div class="small">the road continues — unmarked by any footprint, entirely itself</div>
+    </div>
+    <div class="label"><b>四</b> Winter · The unmarked</div>
+  </section>
+</main>
+
+<footer>
+  間 — composed in stillness<br>
+  № 08 — Fable Twenty-Five
+</footer>
+
+<script>
+// enso draws as it scrolls into view
+const enso = document.getElementById('ensoPath');
+const len = enso.getTotalLength();
+enso.style.strokeDasharray = len;
+enso.style.strokeDashoffset = len;
+addEventListener('scroll', () => {
+  const r = enso.closest('section').getBoundingClientRect();
+  const p = Math.max(0, Math.min(1, (innerHeight - r.top) / (innerHeight * 1.1)));
+  enso.style.strokeDashoffset = len * (1 - p);
+}, { passive:true });
+
+// reveals
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold:0.3 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// active nav
+const secs = ['haru','natsu','aki','fuyu'].map(id => document.getElementById(id));
+const links = document.querySelectorAll('.side-nav a');
+const io2 = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting){
+    links.forEach((l,i) => l.classList.toggle('on', secs[i] === e.target));
+  }
+}), { threshold:0.5 });
+secs.forEach(s => io2.observe(s));
+
+// seasonal drift particles — change by scroll position (season)
+const cv = document.getElementById('drift');
+const cx = cv.getContext('2d');
+let W, H;
+function rs(){ W = cv.width = innerWidth; H = cv.height = innerHeight; }
+addEventListener('resize', rs); rs();
+
+const flakes = Array.from({length: 26}, () => ({
+  x: Math.random()*1, y: Math.random()*1,
+  s: 0.5 + Math.random(), ph: Math.random()*7,
+  spin: Math.random()*7,
+}));
+
+const SEASONS = [
+  { col:'rgba(216,150,160,0.7)', shape:'petal' },  // spring
+  { col:'rgba(110,140,100,0.55)', shape:'leaf' },  // summer
+  { col:'rgba(190,120,60,0.6)', shape:'leaf' },    // autumn
+  { col:'rgba(255,255,255,0.9)', shape:'snow' },   // winter
+];
+
+function seasonIndex(){
+  const total = document.body.scrollHeight - innerHeight;
+  const p = scrollY / Math.max(1,total);
+  if (p < 0.22) return -1;              // cover: nothing falls
+  return Math.min(3, Math.floor((p - 0.22) / 0.195));
+}
+
+function draw(now){
+  const t = now/1000;
+  cx.clearRect(0,0,W,H);
+  const si = seasonIndex();
+  if (si >= 0){
+    const s = SEASONS[si];
+    cx.fillStyle = s.col;
+    for (const f of flakes){
+      const x = ((f.x + Math.sin(t*0.3 + f.ph)*0.05) % 1) * W;
+      const y = ((f.y + t*0.018*f.s) % 1.1) * H;
+      cx.save();
+      cx.translate(x, y);
+      cx.rotate(t*f.spin*0.2 + f.ph);
+      if (s.shape === 'petal'){
+        cx.beginPath();
+        cx.ellipse(0, 0, 5*f.s, 3*f.s, 0, 0, 7);
+        cx.fill();
+      } else if (s.shape === 'leaf'){
+        cx.beginPath();
+        cx.moveTo(0,-5*f.s); cx.quadraticCurveTo(5*f.s,0, 0,5*f.s);
+        cx.quadraticCurveTo(-5*f.s,0, 0,-5*f.s);
+        cx.fill();
+      } else {
+        cx.beginPath();
+        cx.arc(0,0, 2.2*f.s, 0, 7);
+        cx.fill();
+      }
+      cx.restore();
+    }
+  }
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
+```

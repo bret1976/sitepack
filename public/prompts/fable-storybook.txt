@@ -1,0 +1,303 @@
+# Exact recreation prompt — The Snail Who Mailed Herself
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-storybook
+Brand: The Snail Who Mailed Herself
+Category: Creative
+Tagline (catalog): Watercolor storybook · SVG illustration (Fable × 25 #14)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/14-storybook/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: The Snail WhoMailed Herself
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Snail Who Mailed Herself — A Storybook</title>
+<meta name="description" content="A gentle illustrated tale, painted in code.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Caveat:wght@400;600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --cream:#fdf8ee;
+    --ink:#4a4238;
+    --rose:#e8a3a3;
+    --sky:#a3c9e8;
+    --leaf:#a8c99a;
+    --sun:#f2d38a;
+  }
+  body {
+    background:#e9ddc8;
+    color:var(--ink);
+    font-family:'Gaegu', cursive;
+    overflow-x:hidden;
+  }
+
+  .book {
+    max-width:880px;
+    margin:5vh auto;
+    background:var(--cream);
+    border-radius:18px;
+    box-shadow:0 30px 70px rgba(74,66,56,0.3), 0 4px 0 #d9cbb0 inset;
+    overflow:hidden;
+    position:relative;
+  }
+  /* watercolor paper grain */
+  .book::after {
+    content:''; position:absolute; inset:0; pointer-events:none; opacity:0.5;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.75 0 0 0 0 0.7 0 0 0 0 0.6 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+  }
+
+  .page {
+    padding:4rem 8% 4.5rem;
+    min-height:88vh;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  .page.on { display:flex; animation:pagein 0.9s cubic-bezier(0.22,1,0.36,1); }
+  @keyframes pagein {
+    from { opacity:0; transform:translateX(40px) rotate(0.6deg); }
+    to { opacity:1; transform:none; }
+  }
+
+  .illus { width:min(460px, 82vw); margin-bottom:2.2rem; }
+  .illus svg { width:100%; height:auto; overflow:visible; }
+
+  h1 {
+    font-weight:700;
+    font-size:clamp(2.1rem, 5.6vw, 3.4rem);
+    line-height:1.15;
+    margin-bottom:1rem;
+  }
+  .story {
+    font-size:clamp(1.25rem, 3vw, 1.7rem);
+    line-height:1.75;
+    max-width:34ch;
+    font-weight:300;
+  }
+  .story b { font-weight:700; color:#b0715e; }
+  .byline { font-family:'Caveat', cursive; font-size:1.3rem; color:#9c8f7c; margin-top:1.4rem; }
+
+  .pager {
+    position:absolute; bottom:1.6rem; left:0; right:0;
+    display:flex; align-items:center; justify-content:center; gap:1.6rem;
+    z-index:5;
+  }
+  .pager button {
+    font-family:'Gaegu', cursive; font-weight:700; font-size:1.15rem;
+    background:var(--ink); color:var(--cream);
+    border:none; border-radius:100px;
+    padding:0.55rem 1.6rem;
+    cursor:pointer;
+    transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .pager button:hover { transform:scale(1.1) rotate(-2deg); }
+  .pager button:disabled { opacity:0.25; transform:none; cursor:default; }
+  .dots { display:flex; gap:0.5rem; }
+  .dot { width:9px; height:9px; border-radius:50%; background:#d3c4a9; transition:background 0.3s, transform 0.3s; }
+  .dot.on { background:#b0715e; transform:scale(1.35); }
+
+  .wobble { animation:wobble 4s ease-in-out infinite; transform-origin:center bottom; }
+  @keyframes wobble { 0%,100%{transform:rotate(-1.6deg)} 50%{transform:rotate(1.6deg)} }
+  .bob { animation:bob 3.2s ease-in-out infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+  .drift-cloud { animation:cloud 12s ease-in-out infinite; }
+  @keyframes cloud { 0%,100%{transform:translateX(-14px)} 50%{transform:translateX(14px)} }
+  .spin-slow { animation:spinS 24s linear infinite; transform-origin:center; }
+  @keyframes spinS { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="book">
+  <!-- PAGE 1 : cover -->
+  <div class="page on">
+    <div class="illus">
+      <svg viewBox="0 0 400 300">
+        <ellipse cx="200" cy="268" rx="150" ry="16" fill="#a8c99a" opacity="0.5"/>
+        <g class="drift-cloud">
+          <ellipse cx="90" cy="60" rx="42" ry="18" fill="#dceaf5"/>
+          <ellipse cx="120" cy="52" rx="30" ry="14" fill="#e8f2f9"/>
+        </g>
+        <g class="spin-slow" style="transform-origin:330px 55px">
+          <circle cx="330" cy="55" r="26" fill="#f2d38a"/>
+          <g stroke="#f2d38a" stroke-width="4" stroke-linecap="round">
+            <line x1="330" y1="14" x2="330" y2="24"/><line x1="330" y1="86" x2="330" y2="96"/>
+            <line x1="289" y1="55" x2="299" y2="55"/><line x1="361" y1="55" x2="371" y2="55"/>
+            <line x1="301" y1="26" x2="308" y2="33"/><line x1="352" y1="77" x2="359" y2="84"/>
+            <line x1="359" y1="26" x2="352" y2="33"/><line x1="308" y1="77" x2="301" y2="84"/>
+          </g>
+        </g>
+        <g class="wobble">
+          <path d="M120 250 Q125 200 165 205 Q160 250 120 250" fill="#e8b56a"/>
+          <circle cx="185" cy="215" r="42" fill="#e8a3a3"/>
+          <circle cx="185" cy="215" r="30" fill="#f0c0b4"/>
+          <circle cx="185" cy="215" r="17" fill="#e8a3a3"/>
+          <path d="M120 250 Q150 262 230 258 Q252 256 250 242 Q248 230 225 234 L130 240 Z" fill="#c9b08f"/>
+          <circle cx="115" cy="222" r="4.5" fill="#4a4238"/>
+          <path d="M108 214 Q104 200 96 196" stroke="#4a4238" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M122 212 Q124 198 132 192" stroke="#4a4238" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <circle cx="96" cy="195" r="4" fill="#4a4238"/><circle cx="133" cy="191" r="4" fill="#4a4238"/>
+          <path d="M104 232 Q110 238 118 234" stroke="#4a4238" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+        <g class="bob">
+          <rect x="270" y="180" width="64" height="46" rx="6" fill="#dceaf5" stroke="#4a4238" stroke-width="3"/>
+          <path d="M270 186 L302 210 L334 186" stroke="#4a4238" stroke-width="3" fill="none"/>
+          <circle cx="322" cy="172" r="12" fill="#e8a3a3" stroke="#4a4238" stroke-width="2.5"/>
+        </g>
+      </svg>
+    </div>
+    <h1>The Snail Who<br>Mailed Herself</h1>
+    <p class="byline">written &amp; painted by Fable · № 14</p>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page">
+    <div class="illus">
+      <svg viewBox="0 0 400 300">
+        <ellipse cx="200" cy="272" rx="170" ry="14" fill="#a8c99a" opacity="0.5"/>
+        <path d="M40 272 Q200 240 360 272" stroke="#a8c99a" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <g class="wobble">
+          <circle cx="200" cy="200" r="48" fill="#e8a3a3"/>
+          <circle cx="200" cy="200" r="34" fill="#f0c0b4"/>
+          <circle cx="200" cy="200" r="19" fill="#e8a3a3"/>
+          <path d="M150 250 Q190 264 265 258 Q285 256 282 244 Q280 234 258 238 L158 242 Z" fill="#c9b08f"/>
+          <circle cx="146" cy="226" r="4.5" fill="#4a4238"/>
+          <path d="M140 218 Q136 202 128 198" stroke="#4a4238" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M152 216 Q154 202 162 196" stroke="#4a4238" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <circle cx="128" cy="197" r="4" fill="#4a4238"/><circle cx="163" cy="195" r="4" fill="#4a4238"/>
+          <path d="M136 236 Q140 240 146 238" stroke="#4a4238" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+        <g class="bob" style="animation-delay:0.6s">
+          <path d="M60 90 Q80 70 110 82" stroke="#a3c9e8" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="2 9"/>
+          <path d="M290 100 Q320 84 344 100" stroke="#a3c9e8" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="2 9"/>
+        </g>
+      </svg>
+    </div>
+    <p class="story">Pip was a snail, and snails are <b>slow</b>. The sea was seven gardens away — which, in snail, is roughly <b>forever</b>.</p>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="page">
+    <div class="illus">
+      <svg viewBox="0 0 400 300">
+        <rect x="120" y="70" width="160" height="150" rx="10" fill="#e8c78a" stroke="#4a4238" stroke-width="4"/>
+        <rect x="120" y="70" width="160" height="34" rx="10" fill="#d9a05e" stroke="#4a4238" stroke-width="4"/>
+        <rect x="176" y="130" width="48" height="34" rx="4" fill="#fdf8ee" stroke="#4a4238" stroke-width="3"/>
+        <text x="200" y="153" text-anchor="middle" font-family="Caveat" font-size="20" fill="#4a4238">TO: SEA</text>
+        <g class="wobble" style="transform-origin:200px 220px">
+          <circle cx="200" cy="205" r="26" fill="#e8a3a3"/>
+          <circle cx="200" cy="205" r="17" fill="#f0c0b4"/>
+          <circle cx="172" cy="216" r="3.5" fill="#4a4238"/>
+          <path d="M168 210 Q165 200 160 197" stroke="#4a4238" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="160" cy="196" r="3" fill="#4a4238"/>
+        </g>
+        <g class="bob">
+          <path d="M310 60 q14 -6 22 4 q12 -4 14 8 q10 4 2 14 l-40 -4 z" fill="#dceaf5"/>
+        </g>
+        <text x="86" y="256" font-family="Caveat" font-size="24" fill="#9c8f7c" transform="rotate(-6 86 256)">one stamp, please!</text>
+      </svg>
+    </div>
+    <p class="story">So Pip did the sensible thing. She climbed into a parcel box, addressed it <b>"TO: THE SEA,"</b> and waited for the postman to notice her.</p>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div class="page">
+    <div class="illus">
+      <svg viewBox="0 0 400 300">
+        <path d="M0 250 Q100 230 200 250 T400 250 L400 300 L0 300 Z" fill="#a3c9e8" opacity="0.7"/>
+        <path d="M0 265 Q100 248 200 265 T400 265 L400 300 L0 300 Z" fill="#8db8dd" opacity="0.7">
+          <animateTransform attributeName="transform" type="translate" values="0 0; -24 0; 0 0" dur="5s" repeatCount="indefinite"/>
+        </path>
+        <g class="spin-slow" style="transform-origin:60px 52px">
+          <circle cx="60" cy="52" r="22" fill="#f2d38a"/>
+        </g>
+        <g class="bob">
+          <rect x="150" y="140" width="100" height="70" rx="8" fill="#e8c78a" stroke="#4a4238" stroke-width="4"/>
+          <path d="M150 150 L200 185 L250 150" stroke="#4a4238" stroke-width="3.5" fill="none"/>
+          <g class="wobble" style="transform-origin:200px 140px">
+            <circle cx="200" cy="118" r="24" fill="#e8a3a3"/>
+            <circle cx="200" cy="118" r="15" fill="#f0c0b4"/>
+            <circle cx="176" cy="128" r="3.5" fill="#4a4238"/>
+            <path d="M172 121 Q169 112 164 109" stroke="#4a4238" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="164" cy="108" r="3" fill="#4a4238"/>
+            <path d="M170 136 Q174 140 180 138" stroke="#4a4238" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </g>
+        </g>
+        <path d="M290 90 q10 -18 24 0 q14 -18 24 0" stroke="#4a4238" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <p class="story">The box bumped over hills and under bridges, and when it opened — there it was. The sea! Big and blue and <b>exactly on time</b>.</p>
+  </div>
+
+  <!-- PAGE 5 -->
+  <div class="page">
+    <div class="illus">
+      <svg viewBox="0 0 400 300">
+        <path d="M0 230 Q100 214 200 230 T400 230 L400 300 L0 300 Z" fill="#a3c9e8" opacity="0.75"/>
+        <g class="bob">
+          <path d="M140 226 L200 160 L260 226 Z" fill="#fdf8ee" stroke="#4a4238" stroke-width="4"/>
+          <path d="M130 226 Q200 250 270 226 L262 250 Q200 266 138 250 Z" fill="#e8a3a3" stroke="#4a4238" stroke-width="4"/>
+          <line x1="200" y1="160" x2="200" y2="226" stroke="#4a4238" stroke-width="4"/>
+          <g class="wobble" style="transform-origin:200px 240px">
+            <circle cx="200" cy="236" r="17" fill="#f0c0b4"/>
+            <circle cx="184" cy="242" r="3" fill="#4a4238"/>
+            <path d="M181 236 Q179 229 175 227" stroke="#4a4238" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <circle cx="175" cy="226" r="2.5" fill="#4a4238"/>
+          </g>
+        </g>
+        <g class="drift-cloud">
+          <ellipse cx="310" cy="60" rx="38" ry="16" fill="#e8f2f9"/>
+        </g>
+        <text x="200" y="290" text-anchor="middle" font-family="Caveat" font-size="26" fill="#9c8f7c">the end — or the beginning, if you're slow enough</text>
+      </svg>
+    </div>
+    <p class="story">Pip never went home. She became a <b>sailor</b> — the slowest one on any sea, and the only one who always, always arrived.</p>
+    <p class="byline">The End · read it again to someone small</p>
+  </div>
+
+  <div class="pager">
+    <button id="prev">← back</button>
+    <div class="dots" id="dots"></div>
+    <button id="next">turn the page →</button>
+  </div>
+</div>
+
+<script>
+const pages = [...document.querySelectorAll('.page')];
+const dots = document.getElementById('dots');
+pages.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' on' : '');
+  d.onclick = () => go(i);
+  dots.appendChild(d);
+});
+let cur = 0;
+function go(i){
+  cur = Math.max(0, Math.min(pages.length - 1, i));
+  pages.forEach((p, j) => p.classList.toggle('on', j === cur));
+  [...dots.children].forEach((d, j) => d.classList.toggle('on', j === cur));
+  document.getElementById('prev').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === pages.length - 1;
+  document.getElementById('next').textContent = cur === pages.length - 1 ? 'the end ♡' : 'turn the page →';
+}
+document.getElementById('prev').onclick = () => go(cur - 1);
+document.getElementById('next').onclick = () => go(cur + 1);
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(cur + 1);
+  if (e.key === 'ArrowLeft') go(cur - 1);
+});
+go(0);
+</script>
+</body>
+</html>
+```

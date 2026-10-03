@@ -1,0 +1,281 @@
+# Exact recreation prompt — Codex Luminis
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-codex
+Brand: Codex Luminis
+Category: Creative
+Tagline (catalog): Illuminated manuscript · gold leaf in CSS (Fable × 25 #24)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/24-codex/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Codex Luminis
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODEX LUMINIS — A Manuscript Concerning Light</title>
+<meta name="description" content="An illuminated manuscript, scribed in the browser scriptorium.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --vellum:#efe3c4;
+    --vellum-dark:#e3d2a8;
+    --brown:#4a3218;
+    --gold:#b8860b;
+    --goldlight:#e8c25a;
+    --lapis:#1f4788;
+    --vermilion:#a52a1a;
+    --verdigris:#3a7050;
+  }
+  body {
+    background:#2b2115;
+    color:var(--brown);
+    font-family:'EB Garamond', serif;
+    padding:5vmin 3vmin;
+  }
+  .codex {
+    max-width:920px; margin:0 auto;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(255,250,230,0.5), transparent 60%),
+      var(--vellum);
+    box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 0 10px #3d2c14, 0 0 0 12px #d4af37;
+    padding:clamp(2.5rem, 7vw, 5.5rem);
+    position:relative;
+  }
+  .codex::before {
+    content:''; position:absolute; inset:0; pointer-events:none; opacity:0.6;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.032' numOctaves='5'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.55 0 0 0 0 0.44 0 0 0 0 0.24 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23v)'/%3E%3C/svg%3E");
+  }
+  .codex > * { position:relative; z-index:1; }
+
+  .incipit {
+    text-align:center;
+    font-size:0.95rem;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--vermilion);
+    margin-bottom:2.6rem;
+    font-weight:500;
+  }
+
+  /* border frame of vines */
+  .frame {
+    border:3px solid var(--gold);
+    outline:1px solid var(--gold);
+    outline-offset:5px;
+    padding:clamp(1.8rem, 5vw, 4rem);
+    position:relative;
+  }
+  .vine-corner {
+    position:absolute; width:88px; height:88px;
+  }
+  .vine-corner.tl { top:-14px; left:-14px; }
+  .vine-corner.tr { top:-14px; right:-14px; transform:scaleX(-1); }
+  .vine-corner.bl { bottom:-14px; left:-14px; transform:scaleY(-1); }
+  .vine-corner.br { bottom:-14px; right:-14px; transform:scale(-1); }
+
+  h1 {
+    font-family:'Uncial Antiqua', serif;
+    font-weight:400;
+    text-align:center;
+    font-size:clamp(2rem, 5.6vw, 3.6rem);
+    color:var(--lapis);
+    text-shadow:1px 1px 0 rgba(184,134,11,0.35);
+    line-height:1.25;
+    margin-bottom:0.8rem;
+  }
+  .subtitle {
+    text-align:center; font-style:italic; font-size:1.1rem;
+    color:var(--brown); opacity:0.8;
+    margin-bottom:3rem;
+  }
+
+  /* the illuminated initial */
+  .initial-block { margin-bottom:2rem; }
+  .lettrine {
+    float:left;
+    width:clamp(110px, 22vw, 170px);
+    margin:0.4rem 1.6rem 0.6rem 0;
+    shape-outside:margin-box;
+  }
+  .lettrine svg { width:100%; height:auto; display:block; filter:drop-shadow(2px 3px 2px rgba(74,50,24,0.3)); }
+
+  p.script {
+    font-size:clamp(1.05rem, 2.3vw, 1.25rem);
+    line-height:2;
+    text-align:justify;
+    hyphens:auto;
+  }
+  p.script + p.script { margin-top:1.2em; text-indent:2em; }
+  .versal { color:var(--vermilion); font-weight:500; }
+  .goldword {
+    background:linear-gradient(100deg, #8a6508, var(--goldlight) 40%, #8a6508 80%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    font-weight:500;
+  }
+
+  .rubric {
+    margin:2.8rem 0 1.4rem;
+    text-align:center;
+    color:var(--vermilion);
+    font-variant:small-caps;
+    letter-spacing:0.22em;
+    font-size:1.05rem;
+  }
+  .rubric::before, .rubric::after { content:' ❧ '; color:var(--gold); }
+
+  /* marginalia */
+  .marginalia {
+    margin:2.4rem 0;
+    padding:1.4rem 1.8rem;
+    border-left:3px solid var(--verdigris);
+    background:rgba(58,112,80,0.07);
+    font-style:italic;
+    font-size:1rem;
+    line-height:1.9;
+    color:#3d5a44;
+  }
+  .marginalia b { font-variant:small-caps; font-style:normal; letter-spacing:0.1em; }
+
+  .colophon {
+    margin-top:3.4rem;
+    text-align:center;
+    font-size:0.95rem;
+    font-style:italic;
+    line-height:2.2;
+    opacity:0.85;
+  }
+  .colophon .amen {
+    font-family:'Uncial Antiqua', serif;
+    font-style:normal;
+    color:var(--vermilion);
+    font-size:1.2rem;
+    letter-spacing:0.3em;
+    display:block; margin-top:1rem;
+  }
+
+  /* candle flicker on the whole page */
+  .candle-layer {
+    position:fixed; inset:0; pointer-events:none; z-index:5;
+    background:radial-gradient(ellipse 90vw 80vh at var(--cx,50%) 30%, transparent 40%, rgba(20,12,4,0.32));
+    animation:flick 3.4s ease-in-out infinite;
+  }
+  @keyframes flick {
+    0%,100% { opacity:0.9; } 27% { opacity:0.98; } 52% { opacity:0.85; } 78% { opacity:1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="candle-layer"></div>
+
+<div class="codex">
+  <div class="incipit">Incipit Codex Luminis · Anno Domini MMXXVI</div>
+
+  <div class="frame">
+    <svg class="vine-corner tl" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M4 96 C4 40 40 4 96 4" fill="none" stroke="#b8860b" stroke-width="3"/>
+      <path d="M20 80 q-12 -6 -8 -18 q12 2 8 18 M38 62 q-14 -2 -14 -16 q14 0 14 16 M60 44 q-10 -10 -2 -20 q12 6 2 20"
+        fill="#3a7050" stroke="#2b5038" stroke-width="1"/>
+      <circle cx="82" cy="16" r="6" fill="#a52a1a"/>
+      <circle cx="12" cy="88" r="6" fill="#1f4788"/>
+    </svg>
+    <svg class="vine-corner tr" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M4 96 C4 40 40 4 96 4" fill="none" stroke="#b8860b" stroke-width="3"/>
+      <path d="M20 80 q-12 -6 -8 -18 q12 2 8 18 M38 62 q-14 -2 -14 -16 q14 0 14 16 M60 44 q-10 -10 -2 -20 q12 6 2 20"
+        fill="#3a7050" stroke="#2b5038" stroke-width="1"/>
+      <circle cx="82" cy="16" r="6" fill="#a52a1a"/>
+      <circle cx="12" cy="88" r="6" fill="#1f4788"/>
+    </svg>
+    <svg class="vine-corner bl" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M4 96 C4 40 40 4 96 4" fill="none" stroke="#b8860b" stroke-width="3"/>
+      <path d="M20 80 q-12 -6 -8 -18 q12 2 8 18 M38 62 q-14 -2 -14 -16 q14 0 14 16 M60 44 q-10 -10 -2 -20 q12 6 2 20"
+        fill="#3a7050" stroke="#2b5038" stroke-width="1"/>
+      <circle cx="82" cy="16" r="6" fill="#a52a1a"/>
+      <circle cx="12" cy="88" r="6" fill="#1f4788"/>
+    </svg>
+    <svg class="vine-corner br" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M4 96 C4 40 40 4 96 4" fill="none" stroke="#b8860b" stroke-width="3"/>
+      <path d="M20 80 q-12 -6 -8 -18 q12 2 8 18 M38 62 q-14 -2 -14 -16 q14 0 14 16 M60 44 q-10 -10 -2 -20 q12 6 2 20"
+        fill="#3a7050" stroke="#2b5038" stroke-width="1"/>
+      <circle cx="82" cy="16" r="6" fill="#a52a1a"/>
+      <circle cx="12" cy="88" r="6" fill="#1f4788"/>
+    </svg>
+
+    <h1>Codex Luminis</h1>
+    <p class="subtitle">Being a treatise on the light that passes through glass, written for those who will one day hold it in their hands</p>
+
+    <div class="initial-block">
+      <div class="lettrine" aria-hidden="true">
+        <svg viewBox="0 0 170 190">
+          <defs>
+            <linearGradient id="goldleaf" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f4d97a"/>
+              <stop offset="0.4" stop-color="#b8860b"/>
+              <stop offset="0.7" stop-color="#e8c25a"/>
+              <stop offset="1" stop-color="#8a6508"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="4" width="162" height="182" fill="#1f4788" stroke="url(#goldleaf)" stroke-width="5"/>
+          <rect x="14" y="14" width="142" height="162" fill="none" stroke="#e8c25a" stroke-width="1.2" opacity="0.7"/>
+          <!-- vines inside -->
+          <path d="M22 168 Q40 120 24 80 Q20 60 36 46 M148 24 Q120 60 140 104 Q150 128 136 150"
+            fill="none" stroke="#3a7050" stroke-width="3"/>
+          <circle cx="36" cy="44" r="5" fill="#a52a1a"/>
+          <circle cx="136" cy="152" r="5" fill="#a52a1a"/>
+          <!-- The letter I as a grand column -->
+          <g>
+            <rect x="70" y="30" width="30" height="130" fill="url(#goldleaf)" stroke="#6b4e08" stroke-width="2"/>
+            <rect x="58" y="24" width="54" height="14" fill="url(#goldleaf)" stroke="#6b4e08" stroke-width="2"/>
+            <rect x="58" y="152" width="54" height="14" fill="url(#goldleaf)" stroke="#6b4e08" stroke-width="2"/>
+            <path d="M74 40 L96 40 M74 62 L96 62 M74 84 L96 84 M74 106 L96 106 M74 128 L96 128 M74 148 L96 148"
+              stroke="#8a6508" stroke-width="1.4" opacity="0.7"/>
+          </g>
+          <!-- tiny scribe-mouse in the corner -->
+          <g transform="translate(112 60)">
+            <ellipse cx="14" cy="16" rx="13" ry="9" fill="#8a7a68"/>
+            <circle cx="25" cy="10" r="6" fill="#8a7a68"/>
+            <circle cx="27" cy="6" r="2.4" fill="#8a7a68"/>
+            <circle cx="26.6" cy="9.4" r="1" fill="#2b2115"/>
+            <path d="M2 18 q-6 4 -4 10" stroke="#8a7a68" stroke-width="2" fill="none"/>
+            <path d="M30 14 l7 5" stroke="#4a3218" stroke-width="1.6"/>
+          </g>
+        </svg>
+      </div>
+      <p class="script"><span class="versal">In the beginning</span> was the <span class="goldword">screen</span>, and the screen was without form, and darkness was upon the face of the browser. And the scribe — who was not a monk but a <span class="goldword">machine</span>, though it worked with a monk's patience — set one glyph beside another, as masons set stones, until the darkness was divided from the light.</p>
+      <p class="script">And it is asked by the doubtful: can a page made of numbers hold what vellum holds? To which this codex is the reply. For the calfskin beneath these words was never a calf; the gold in this initial was never in the earth; the candle whose flicker moves upon this page burns in no monastery — <em>and yet you lean closer.</em> The light was always the reader's own.</p>
+    </div>
+
+    <div class="rubric">Here beginneth the second lesson</div>
+
+    <p class="script"><span class="versal">Every scriptorium</span> had one brother whose letters leaned, one whose ink blotted, one who fell asleep and one who drew small beasts in the margins that had nothing to do with scripture. The abbots complained; the centuries disagreed. It is the beasts we visit the libraries to see. Let every maker of pages remember: the <span class="goldword">ornament</span> you apologize for is the part they will love.</p>
+
+    <div class="marginalia">
+      <b>Nota bene</b> — a mouse has been drawn into the great initial, lower right of the column. The scribe was not instructed to include it. The scribe includes one in every manuscript. The scribe will not be taking questions.
+    </div>
+
+    <p class="script"><span class="versal">Of the making</span> of this page: the vellum is a gradient, the foxing is noise poured through a filter, the gold is a trick of three colors pretending to be metal, and the flicker is arithmetic. Sixty times in every second this page is illuminated anew, which is more than any candle managed. The monks of Lindisfarne spent thirty years on one gospel; this codex was made in an afternoon — and will be read, if fortune smiles, for at least that long.</p>
+
+    <div class="colophon">
+      Scribed in the browser scriptorium by a patient machine ·<br>
+      finished on the eighth day of July, in the year of the fable twenty-five ·<br>
+      № 24 of 25 · pray for the debugger
+      <span class="amen">EXPLICIT · DEO GRATIAS</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// candle light follows cursor gently
+document.addEventListener('pointermove', e => {
+  document.querySelector('.candle-layer').style.setProperty('--cx', (e.clientX/innerWidth*100) + '%');
+});
+</script>
+</body>
+</html>
+```

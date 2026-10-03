@@ -1,0 +1,329 @@
+# Exact recreation prompt — Stellar Cartography
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: fable-stellar
+Brand: Stellar Cartography
+Category: Creative
+Tagline (catalog): 1,400 living particles · invented constellations (Fable × 25 #06)
+Live reference (structure only, do not hotlink private assets): https://fable-25-ruby.vercel.app/06-stellar/
+Stack: Static HTML capture
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Stellar Cartography
+
+## FILE: index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STELLAR CARTOGRAPHY — An Atlas of Invented Skies</title>
+<meta name="description" content="Constellations that never existed, drawn in living particles.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;1,200;1,300&family=Space+Grotesk:wght@300;400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#03040a;
+    color:#dfe6f5;
+    font-family:'Space Grotesk', sans-serif;
+    overflow:hidden; height:100vh;
+    cursor:crosshair;
+  }
+  canvas { position:fixed; inset:0; }
+
+  .vignette {
+    position:fixed; inset:0; pointer-events:none; z-index:2;
+    background:radial-gradient(ellipse at center, transparent 55%, rgba(1,2,6,0.8) 100%);
+  }
+
+  .hud { position:fixed; z-index:10; }
+  .hud.title { top:6vh; left:5vw; }
+  .kicker {
+    font-size:0.6rem; letter-spacing:0.55em; text-transform:uppercase;
+    color:rgba(223,230,245,0.45); margin-bottom:1rem;
+  }
+  h1 {
+    font-family:'Spectral', serif;
+    font-weight:200; font-style:italic;
+    font-size:clamp(2rem, 4.6vw, 3.8rem);
+    line-height:1.1;
+  }
+
+  .hud.legend {
+    bottom:6vh; left:5vw; max-width:300px;
+    font-size:0.78rem; line-height:1.85; color:rgba(223,230,245,0.6);
+    font-weight:300;
+  }
+
+  .hud.nav {
+    bottom:6vh; right:5vw;
+    display:flex; flex-direction:column; gap:0.4rem; align-items:flex-end;
+  }
+  .const-btn {
+    background:none; border:none; color:rgba(223,230,245,0.4);
+    font-family:'Spectral', serif; font-style:italic; font-size:1.05rem;
+    cursor:pointer; padding:0.35rem 0;
+    display:flex; align-items:center; gap:0.9rem;
+    transition:color 0.4s;
+  }
+  .const-btn .tick { width:22px; height:1px; background:currentColor; transition:width 0.4s; }
+  .const-btn:hover { color:rgba(223,230,245,0.85); }
+  .const-btn.active { color:#ffd9a0; }
+  .const-btn.active .tick { width:44px; }
+
+  .hud.story {
+    top:50%; right:5vw; transform:translateY(-50%);
+    max-width:300px; text-align:right; z-index:9;
+  }
+  .story .const-name {
+    font-family:'Spectral', serif; font-weight:200; font-style:italic;
+    font-size:2.1rem; color:#ffd9a0; margin-bottom:1rem;
+    transition:opacity 0.8s;
+  }
+  .story .const-lore {
+    font-size:0.82rem; font-weight:300; line-height:1.9;
+    color:rgba(223,230,245,0.55);
+    transition:opacity 0.8s;
+  }
+
+  .autonote {
+    position:fixed; top:6vh; right:5vw; z-index:10;
+    font-size:0.6rem; letter-spacing:0.4em; text-transform:uppercase;
+    color:rgba(223,230,245,0.3);
+  }
+
+  @media (max-width:820px){
+    .hud.story { display:none; }
+    .hud.legend { max-width:220px; font-size:0.7rem; }
+  }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="vignette"></div>
+
+<div class="hud title">
+  <div class="kicker">Atlas of Invented Skies · № 06</div>
+  <h1>Stellar Cartography</h1>
+</div>
+
+<div class="autonote">Cycles every 9s — or choose</div>
+
+<div class="hud story">
+  <div class="const-name" id="cname"></div>
+  <div class="const-lore" id="clore"></div>
+</div>
+
+<div class="hud legend">
+  Six constellations that never existed, mapped from 1,400 living particles. Move your cursor through the field — the stars remember being disturbed.
+</div>
+
+<div class="hud nav" id="nav"></div>
+
+<script>
+const canvas = document.getElementById('sky');
+const ctx = canvas.getContext('2d');
+let W, H, DPR;
+function resize(){
+  DPR = Math.min(devicePixelRatio, 2);
+  W = canvas.width = innerWidth * DPR;
+  H = canvas.height = innerHeight * DPR;
+  canvas.style.width = innerWidth + 'px';
+  canvas.style.height = innerHeight + 'px';
+}
+addEventListener('resize', resize); resize();
+
+// ---------- constellation shapes (normalized 0..1 coords + edges) ----------
+const CONSTELLATIONS = [
+  { name:'The Cartographer', lore:'She drew maps of places that refused to stay put. Her compass needle is the only star that moves.',
+    pts:[[.30,.25],[.42,.32],[.55,.28],[.66,.38],[.60,.52],[.47,.58],[.35,.50],[.28,.38],[.72,.55],[.66,.68]],
+    edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,0],[3,8],[8,9]] },
+  { name:'The Sleeping Fox', lore:'Curled at the horizon since the first winter. Sailors say the tail brightens the night before snow.',
+    pts:[[.28,.55],[.38,.45],[.50,.42],[.62,.46],[.70,.55],[.64,.64],[.52,.66],[.40,.63],[.33,.66],[.25,.62],[.74,.44]],
+    edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,0],[3,10],[10,4]] },
+  { name:'The Broken Lantern', lore:'A lamp dropped by a god in a hurry. The spilled light became the four small stars beneath it.',
+    pts:[[.48,.22],[.42,.32],[.56,.32],[.40,.48],[.58,.48],[.44,.60],[.54,.60],[.36,.72],[.48,.76],[.60,.70],[.66,.78]],
+    edges:[[0,1],[0,2],[1,2],[1,3],[2,4],[3,4],[3,5],[4,6],[5,6]] },
+  { name:'The Choir of Nine', lore:'Nine voices arranged in an arc. On silent nights, radio telescopes pick up a faint chord — always a minor sixth.',
+    pts:[[.22,.60],[.30,.50],[.39,.43],[.49,.39],[.59,.38],[.69,.41],[.77,.47],[.83,.56],[.86,.66]],
+    edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8]] },
+  { name:'The Door Ajar', lore:'A rectangle that never closes. What comes through it has not yet been catalogued.',
+    pts:[[.38,.28],[.60,.28],[.60,.68],[.38,.68],[.66,.24],[.66,.62]],
+    edges:[[0,1],[1,2],[2,3],[3,0],[1,4],[2,5],[4,5]] },
+  { name:'The Long Goodbye', lore:'Two stars drifting apart by one arc-second a century. Astronomers keep watch, out of politeness.',
+    pts:[[.30,.42],[.38,.48],[.45,.52],[.51,.54],[.57,.54],[.63,.52],[.70,.48],[.78,.42],[.24,.38],[.84,.38]],
+    edges:[[8,0],[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,9]] },
+];
+
+// ---------- particles ----------
+const N = 1400;
+const parts = [];
+for (let i = 0; i < N; i++){
+  parts.push({
+    x: Math.random(), y: Math.random(),      // current (normalized)
+    tx: Math.random(), ty: Math.random(),    // target
+    vx: 0, vy: 0,
+    r: Math.random(),                        // size seed
+    tw: Math.random() * Math.PI * 2,         // twinkle phase
+    role: 'dust',
+  });
+}
+
+let active = 0;
+let edgeAlpha = 0;
+let nameEl = document.getElementById('cname');
+let loreEl = document.getElementById('clore');
+
+function assign(ci){
+  const c = CONSTELLATIONS[ci];
+  // scale into center region, keep aspect
+  const pad = 0.08;
+  const mapX = x => 0.18 + x * 0.5;
+  const mapY = y => 0.12 + y * 0.72;
+
+  // anchors: brightest particles
+  c.pts.forEach((p, i) => {
+    const pt = parts[i];
+    pt.tx = mapX(p[0]); pt.ty = mapY(p[1]);
+    pt.role = 'anchor';
+  });
+  // edge particles: distribute along the lines
+  let idx = c.pts.length;
+  const perEdge = Math.floor((260 - c.pts.length) / c.edges.length);
+  c.edges.forEach(([a,b]) => {
+    for (let k = 1; k <= perEdge; k++){
+      if (idx >= 260) break;
+      const t = k / (perEdge + 1);
+      const jitter = (Math.random() - 0.5) * 0.006;
+      const pt = parts[idx++];
+      pt.tx = mapX(c.pts[a][0] + (c.pts[b][0]-c.pts[a][0]) * t) + jitter;
+      pt.ty = mapY(c.pts[a][1] + (c.pts[b][1]-c.pts[a][1]) * t) + jitter;
+      pt.role = 'edge';
+    }
+  });
+  // the rest: ambient drift
+  for (let i = idx; i < N; i++){
+    const pt = parts[i];
+    if (pt.role !== 'dust' || Math.random() < 0.02){
+      pt.tx = Math.random(); pt.ty = Math.random();
+    }
+    pt.role = 'dust';
+  }
+
+  // story text swap
+  nameEl.style.opacity = 0; loreEl.style.opacity = 0;
+  setTimeout(() => {
+    nameEl.textContent = c.name;
+    loreEl.textContent = c.lore;
+    nameEl.style.opacity = 1; loreEl.style.opacity = 1;
+  }, 500);
+
+  document.querySelectorAll('.const-btn').forEach((b, i) =>
+    b.classList.toggle('active', i === ci));
+}
+
+// nav buttons
+const nav = document.getElementById('nav');
+CONSTELLATIONS.forEach((c, i) => {
+  const b = document.createElement('button');
+  b.className = 'const-btn';
+  b.innerHTML = `<span>${c.name}</span><span class="tick"></span>`;
+  b.onclick = () => { active = i; assign(i); resetTimer(); };
+  nav.appendChild(b);
+});
+
+let timer;
+function resetTimer(){
+  clearInterval(timer);
+  timer = setInterval(() => {
+    active = (active + 1) % CONSTELLATIONS.length;
+    assign(active);
+  }, 9000);
+}
+assign(0); resetTimer();
+
+// mouse repulsion
+let mx = -1, my = -1;
+addEventListener('pointermove', e => { mx = e.clientX / innerWidth; my = e.clientY / innerHeight; });
+addEventListener('pointerleave', () => { mx = -1; my = -1; });
+
+// ---------- render ----------
+let t0 = performance.now();
+function frame(now){
+  const t = now / 1000;
+  ctx.clearRect(0, 0, W, H);
+
+  // milky-way wash
+  const g = ctx.createLinearGradient(0, 0, W, H);
+  g.addColorStop(0, 'rgba(10,14,30,0.9)');
+  g.addColorStop(0.5, 'rgba(6,8,18,0.9)');
+  g.addColorStop(1, 'rgba(12,10,24,0.9)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+
+  edgeAlpha += (1 - edgeAlpha) * 0.012;
+
+  // physics
+  for (const p of parts){
+    let ax = (p.tx - p.x) * 0.012;
+    let ay = (p.ty - p.y) * 0.012;
+    if (p.role === 'dust'){
+      ax += Math.sin(t * 0.3 + p.tw * 5) * 0.00002;
+      ay += Math.cos(t * 0.25 + p.tw * 7) * 0.00002;
+    }
+    if (mx >= 0){
+      const dx = p.x - mx, dy = p.y - my;
+      const d2 = dx*dx + dy*dy;
+      if (d2 < 0.012){
+        const f = (0.012 - d2) * 0.9;
+        ax += dx * f; ay += dy * f;
+      }
+    }
+    p.vx = (p.vx + ax) * 0.9;
+    p.vy = (p.vy + ay) * 0.9;
+    p.x += p.vx; p.y += p.vy;
+  }
+
+  // constellation lines (drawn between anchor targets, faded by particle arrival)
+  const c = CONSTELLATIONS[active];
+  ctx.strokeStyle = `rgba(255,217,160,${0.16 * edgeAlpha})`;
+  ctx.lineWidth = DPR * 0.8;
+  ctx.beginPath();
+  c.edges.forEach(([a,b]) => {
+    ctx.moveTo(parts[a].x * W, parts[a].y * H);
+    ctx.lineTo(parts[b].x * W, parts[b].y * H);
+  });
+  ctx.stroke();
+
+  // particles
+  for (const p of parts){
+    const tw = 0.6 + 0.4 * Math.sin(t * (1.2 + p.r) + p.tw * 10);
+    let size, alpha, color;
+    if (p.role === 'anchor'){
+      size = (2.4 + p.r * 1.6) * DPR; alpha = 0.95 * tw;
+      color = `rgba(255,221,170,${alpha})`;
+      // glow
+      ctx.fillStyle = `rgba(255,200,120,${0.12 * tw})`;
+      ctx.beginPath();
+      ctx.arc(p.x * W, p.y * H, size * 4, 0, 7);
+      ctx.fill();
+    } else if (p.role === 'edge'){
+      size = (0.9 + p.r * 0.9) * DPR; alpha = 0.7 * tw;
+      color = `rgba(215,228,255,${alpha})`;
+    } else {
+      size = (0.4 + p.r * 0.9) * DPR; alpha = (0.12 + p.r * 0.25) * tw;
+      color = `rgba(190,205,240,${alpha})`;
+    }
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(p.x * W, p.y * H, size, 0, 7);
+    ctx.fill();
+  }
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
+```

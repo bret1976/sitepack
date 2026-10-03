@@ -1,0 +1,2135 @@
+# Exact recreation prompt — Still Theory Studio
+Recreate this exact website. Do not invent a different brand, palette, section order, or generic template. Match the structure, visible copy, type, color, and layout in the source below.
+Pack id: still-theory-studio
+Brand: Still Theory Studio
+Category: Film
+Tagline (catalog): Still Theory Studio cinematic marketing site
+Live reference (structure only, do not hotlink private assets): https://still-theory-studio.vercel.app
+Stack: Project source
+Output working files using the same filenames. Keep every headline and section that appears in the source. If a file is a compiled bundle slice, rebuild it as readable components that render the same DOM, classes, and copy.
+
+Distinctive line that must appear verbatim: Terms of Use
+
+## FILE: db/schema.ts
+```
+// Intentionally empty by default.
+// Add Drizzle tables here when the site actually needs a database.
+// See examples/d1/db/schema.ts for an opt-in example.
+export {};
+```
+
+## FILE: db/index.ts
+```
+/**
+ * Optional D1 helper for Cloudflare/vinext hosts.
+ * Not used by the public Still Theory Studio marketing site.
+ */
+import { drizzle } from "drizzle-orm/d1";
+import * as schema from "./schema";
+
+type D1Like = {
+  prepare: (query: string) => unknown;
+};
+
+function getCloudflareDb(): D1Like | null {
+  try {
+    // Dynamic access so standard Next.js builds (Vercel/Railway) don't require cloudflare:workers
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const workers = (globalThis as { Cloudflare?: { env?: { DB?: D1Like } } }).Cloudflare;
+    return workers?.env?.DB ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export function getDb() {
+  const DB = getCloudflareDb();
+  if (!DB) {
+    throw new Error(
+      "Database binding is unavailable. This marketing site does not require a database.",
+    );
+  }
+  return drizzle(DB as never, { schema });
+}
+```
+
+## FILE: build/sites-vite-plugin.ts
+```
+import { access, cp, mkdir, rm } from "node:fs/promises";
+import { resolve } from "node:path";
+import type { Plugin } from "vite";
+
+async function exists(path: string): Promise<boolean> {
+  try {
+    await access(path);
+    return true;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return false;
+    }
+    throw error;
+  }
+}
+
+// Packages Sites metadata and migrations after Vite finishes compiling.
+export function sites(): Plugin {
+  let root = process.cwd();
+
+  return {
+    name: "sites",
+    apply: "build",
+    configResolved(config) {
+      root = config.root;
+    },
+    async closeBundle() {
+      const outputDirectory = resolve(root, "dist", ".openai");
+      const hostingConfig = resolve(root, ".openai", "hosting.json");
+      const drizzleSource = resolve(root, "drizzle");
+
+      await rm(outputDirectory, { recursive: true, force: true });
+      await mkdir(outputDirectory, { recursive: true });
+
+      if (await exists(hostingConfig)) {
+        await cp(hostingConfig, resolve(outputDirectory, "hosting.json"));
+      }
+      if (await exists(drizzleSource)) {
+        await cp(drizzleSource, resolve(outputDirectory, "drizzle"), {
+          recursive: true,
+        });
+      }
+    },
+  };
+}
+```
+
+## FILE: public/globe.svg
+```
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+```
+
+## FILE: public/file.svg
+```
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+```
+
+## FILE: public/favicon.svg
+```
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="4" fill="#f1e7d4"/>
+  <circle cx="16" cy="16" r="8" stroke="#e86e18" stroke-width="5" fill="none"/>
+  <rect x="6" y="14" width="20" height="3" fill="#f1e7d4" transform="rotate(-8 16 15.5)"/>
+</svg>
+```
+
+## FILE: public/window.svg
+```
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+```
+
+## FILE: next.config.ts
+```
+import type { NextConfig } from "next";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = path.dirname(fileURLToPath(import.meta.url));
+
+const nextConfig: NextConfig = {
+  turbopack: {
+    root,
+  },
+  images: {
+    unoptimized: true,
+  },
+  // Critical for production film scrub: long-cache static frames so scroll feels like localhost
+  async headers() {
+    return [
+      {
+        source: "/assets/film/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+        ],
+      },
+      {
+        source: "/assets/intro/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/assets/brand/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/:path*.webp",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+```
+
+## FILE: postcss.config.mjs
+```
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+```
+
+## FILE: app/page.tsx
+```
+"use client";
+
+import { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+/**
+ * Still Theory Studio — scroll film.
+ * All-intra H.264 scrub videos (every frame is a keyframe) + full blob preload.
+ * Scroll drives video.currentTime with a 1:1 rAF loop — no per-frame HTTP.
+ */
+
+type ScrubMeta = {
+  frames: number;
+  duration: number;
+  src: string;
+};
+
+const scenes = [
+  {
+    id: "01-logo",
+    label: "Logo",
+    eyebrow: "STILL THEORY STUDIO",
+    titleWords: ["IDEAS", "BEGIN", "ON", "PAPER"],
+    body: "We cut, fold and rebuild brands.",
+    tone: "ink",
+    frames: 193,
+  },
+  {
+    id: "02-kimlik",
+    label: "Identity",
+    eyebrow: "01 / BRAND IDENTITY",
+    titleWords: ["EVERY", "PIECE", "OF", "YOUR", "BRAND"],
+    body: "Logo, color, typography, business cards — designed by one hand, in one visual language.",
+    tone: "cream",
+    frames: 193,
+  },
+  {
+    id: "03-yazilim",
+    label: "Software",
+    eyebrow: "02 / SOFTWARE",
+    titleWords: ["FROM", "IDEA", "TO", "WORKING", "PRODUCT"],
+    body: "Web and mobile apps — fast, scalable, entirely yours.",
+    tone: "kraft",
+    frames: 193,
+  },
+  {
+    id: "04-sosyal",
+    label: "Social",
+    eyebrow: "03 / SOCIAL MEDIA",
+    titleWords: ["YOUR", "BRAND", "SPEAKS", "EVERY", "DAY"],
+    body: "We design what it says and how it looks — content, management, growth.",
+    tone: "cream",
+    frames: 193,
+  },
+  {
+    id: "05-burusma",
+    label: "Crumple",
+    eyebrow: "",
+    titleWords: ["FROM", "PAPER", "TO", "REAL."],
+    body: "",
+    tone: "none",
+    frames: 193,
+  },
+  {
+    id: "06-cocuk",
+    label: "Child",
+    eyebrow: "",
+    titleWords: ["EVERY", "BIG", "IDEA", "STARTS", "AT", "A", "CHILD'S", "DESK"],
+    body: "",
+    tone: "ink",
+    frames: 193,
+  },
+  {
+    id: "07-basket",
+    label: "Basket",
+    eyebrow: "",
+    titleWords: ["CREATIVITY", "FOR", "NEXT", "GENERATIONS"],
+    body: "",
+    tone: "none",
+    frames: 145,
+  },
+];
+
+const works = [
+  { name: "Kali Beach", kind: "WEB", href: "/work" },
+  { name: "Beşantaş", kind: "WEB", href: "/work" },
+  { name: "Mendel’s", kind: "WEB", href: "/work" },
+  { name: "Still Theory Studio", kind: "GROUP BRAND", href: "/work" },
+];
+
+const FPS = 30;
+
+function isPortrait() {
+  return typeof window !== "undefined" && window.matchMedia("(max-width: 768px) and (orientation: portrait)").matches;
+}
+
+function defaultSrc(sceneId: string, portrait: boolean) {
+  return `/assets/film/scrub/${portrait ? "portrait" : "landscape"}/${sceneId}.mp4`;
+}
+
+export default function Home() {
+  const filmRef = useRef<HTMLElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const blobUrlsRef = useRef<string[]>([]);
+  const progressTarget = useRef(0);
+  const progressDisplay = useRef(0);
+  const lastSeekKey = useRef("");
+  const scrollListening = useRef(false);
+  const dimTimer = useRef<number | null>(null);
+  const rafLoop = useRef(0);
+  const audioRef = useRef<{ ctx: AudioContext; gain: GainNode } | null>(null);
+  const metaRef = useRef<Record<string, ScrubMeta>>({});
+
+  const [load, setLoad] = useState(0);
+  const [introReady, setIntroReady] = useState(false);
+  const [entered, setEntered] = useState(false);
+  const [active, setActive] = useState(0);
+  const [local, setLocal] = useState(0);
+  const [sound, setSound] = useState(false);
+  const [ritual, setRitual] = useState(false);
+  const [barDim, setBarDim] = useState(false);
+  const [portrait, setPortrait] = useState(false);
+  const [videosReady, setVideosReady] = useState(false);
+
+  const sceneFrames = useMemo(
+    () =>
+      scenes.map((s) => {
+        const m = metaRef.current[s.id];
+        return m?.frames || s.frames;
+      }),
+    // recompute when videos ready / portrait flips (meta filled)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [videosReady, portrait],
+  );
+
+  const totalFrames = useMemo(() => sceneFrames.reduce((a, b) => a + b, 0), [sceneFrames]);
+
+  const resolveFrame = useCallback(
+    (globalFrame: number) => {
+      let remaining = Math.max(0, Math.min(Math.max(0, totalFrames - 1), globalFrame));
+      for (let i = 0; i < scenes.length; i += 1) {
+        const count = sceneFrames[i] || scenes[i].frames;
+        if (remaining < count) {
+          return {
+            sceneIndex: i,
+            frame: remaining + 1,
+            local: remaining / Math.max(1, count - 1),
+            frames: count,
+          };
+        }
+        remaining -= count;
+      }
+      const last = scenes.length - 1;
+      const count = sceneFrames[last] || scenes[last].frames;
+      return { sceneIndex: last, frame: count, local: 1, frames: count };
+    },
+    [sceneFrames, totalFrames],
+  );
+
+  const uiSceneRef = useRef(0);
+  const uiLocalRef = useRef(0);
+  const barDimOnRef = useRef(false);
+
+  const seekVideos = useCallback(
+    (progress: number) => {
+      if (totalFrames < 2) return;
+      const exact = progress * (totalFrames - 1);
+      const resolved = resolveFrame(exact);
+      const scene = scenes[resolved.sceneIndex];
+      const meta = metaRef.current[scene.id];
+      const frames = meta?.frames || resolved.frames;
+      const duration = meta?.duration || frames / FPS;
+      // frame index 0-based within scene
+      const frameIndex = Math.min(frames - 1, Math.max(0, Math.round(resolved.local * (frames - 1))));
+      const time = Math.min(duration - 0.001, Math.max(0, frameIndex / FPS));
+
+      const key = `${resolved.sceneIndex}:${frameIndex}`;
+      if (lastSeekKey.current !== key) {
+        lastSeekKey.current = key;
+        const vid = videoRefs.current[resolved.sceneIndex];
+        if (vid && Number.isFinite(time)) {
+          // All-intra + full blob: seek is free — hard-set every frame change
+          try {
+            if (Math.abs(vid.currentTime - time) >= 1 / FPS - 0.001) {
+              vid.currentTime = time;
+            }
+          } catch {
+            /* ignore mid-load seeks */
+          }
+        }
+      }
+
+      // Visibility via DOM only — never wait on React for the film layer
+      if (uiSceneRef.current !== resolved.sceneIndex) {
+        for (let i = 0; i < scenes.length; i += 1) {
+          const v = videoRefs.current[i];
+          if (!v) continue;
+          const on = i === resolved.sceneIndex;
+          v.style.opacity = on ? "1" : "0";
+          v.style.zIndex = on ? "2" : "1";
+          if (on && !v.paused) v.pause();
+        }
+        uiSceneRef.current = resolved.sceneIndex;
+        setActive(resolved.sceneIndex);
+      }
+
+      // Captions / rail — throttle React to ~3% steps
+      if (Math.abs(uiLocalRef.current - resolved.local) > 0.03) {
+        uiLocalRef.current = resolved.local;
+        setLocal(resolved.local);
+      }
+    },
+    [resolveFrame, totalFrames],
+  );
+
+  // Portrait / orientation
+  useEffect(() => {
+    const update = () => setPortrait(isPortrait());
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+    };
+  }, []);
+
+  // Full blob preload of all-intra scrub videos — network only during intro
+  useEffect(() => {
+    let cancelled = false;
+    const blobUrls: string[] = [];
+
+    const run = async () => {
+      setVideosReady(false);
+      setIntroReady(false);
+      setLoad(0);
+      lastSeekKey.current = "";
+
+      // revoke previous blobs
+      for (const u of blobUrlsRef.current) URL.revokeObjectURL(u);
+      blobUrlsRef.current = [];
+
+      // load scrub manifest if present
+      try {
+        const man = await fetch("/assets/film/scrub/manifest.json").then((r) => (r.ok ? r.json() : null));
+        if (man) {
+          const key = isPortrait() ? "portrait" : "landscape";
+          const pack = man[key] || man.landscape || {};
+          metaRef.current = pack;
+        }
+      } catch {
+        /* defaults */
+      }
+
+      const orientation = isPortrait() ? "portrait" : "landscape";
+      const sources = scenes.map((s) => {
+        const m = metaRef.current[s.id];
+        return m?.src || defaultSrc(s.id, orientation === "portrait");
+      });
+
+      // Parallel fetch with progress
+      const totalBytesEstimate = sources.length; // fallback weight per file
+      const weights = sources.map(() => 1);
+      const loaded = sources.map(() => 0);
+
+      const report = () => {
+        const sumW = weights.reduce((a, b) => a + b, 0) || 1;
+        const sumL = loaded.reduce((a, b, i) => a + b * weights[i], 0);
+        const pct = Math.min(99, Math.round((sumL / sumW) * 100));
+        setLoad(pct);
+      };
+
+      const results = await Promise.all(
+        sources.map(async (src, i) => {
+          try {
+            const res = await fetch(src, { cache: "force-cache" });
+            if (!res.ok) throw new Error(`fetch ${src}`);
+            const cl = res.headers.get("content-length");
+            if (cl) weights[i] = Math.max(1, parseInt(cl, 10));
+
+            // Stream if possible for smooth %; else blob
+            if (res.body && cl) {
+              const reader = res.body.getReader();
+              const chunks: Uint8Array[] = [];
+              let received = 0;
+              const total = parseInt(cl, 10);
+              for (;;) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                if (value) {
+                  chunks.push(value);
+                  received += value.length;
+                  loaded[i] = Math.min(1, received / total);
+                  if (!cancelled) report();
+                }
+              }
+              const blob = new Blob(chunks as BlobPart[], { type: "video/mp4" });
+              loaded[i] = 1;
+              if (!cancelled) report();
+              return blob;
+            }
+
+            const blob = await res.blob();
+            loaded[i] = 1;
+            if (!cancelled) report();
+            return blob;
+          } catch {
+            loaded[i] = 1;
+            if (!cancelled) report();
+            return null;
+          }
+        }),
+      );
+
+      if (cancelled) return;
+
+      // Attach to video elements
+      for (let i = 0; i < scenes.length; i += 1) {
+        const video = videoRefs.current[i];
+        if (!video) continue;
+        video.pause();
+        video.muted = true;
+        video.playsInline = true;
+        video.preload = "auto";
+        video.setAttribute("playsinline", "");
+        video.setAttribute("webkit-playsinline", "");
+        video.setAttribute("muted", "");
+
+        const blob = results[i];
+        if (blob) {
+          const url = URL.createObjectURL(blob);
+          blobUrls.push(url);
+          video.src = url;
+        } else {
+          // network fallback path (still all-intra file)
+          video.src = sources[i];
+        }
+
+        await new Promise<void>((resolve) => {
+          const done = () => {
+            video.removeEventListener("loadeddata", done);
+            video.removeEventListener("error", done);
+            resolve();
+          };
+          if (video.readyState >= 2) {
+            resolve();
+            return;
+          }
+          video.addEventListener("loadeddata", done);
+          video.addEventListener("error", done);
+          video.load();
+        });
+
+        // Decode first frame
+        try {
+          video.currentTime = 0;
+        } catch {
+          /* */
+        }
+
+        // Fill meta duration from element if missing
+        if (!metaRef.current[scenes[i].id]) {
+          metaRef.current[scenes[i].id] = {
+            frames: scenes[i].frames,
+            duration: video.duration && Number.isFinite(video.duration) ? video.duration : scenes[i].frames / FPS,
+            src: sources[i],
+          };
+        } else if (video.duration && Number.isFinite(video.duration)) {
+          metaRef.current[scenes[i].id].duration = video.duration;
+        }
+      }
+
+      if (cancelled) return;
+      blobUrlsRef.current = blobUrls;
+      setVideosReady(true);
+      setLoad(100);
+      // paint frame 0
+      seekVideos(0);
+      window.setTimeout(() => {
+        if (!cancelled) setIntroReady(true);
+      }, 120);
+    };
+
+    void run();
+
+    return () => {
+      cancelled = true;
+      for (const u of blobUrls) URL.revokeObjectURL(u);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [portrait]);
+
+  // Continuous rAF: follow scroll target 1:1 (buffered video = no catch-up lag needed)
+  useEffect(() => {
+    if (!videosReady) return;
+
+    const readProgress = () => {
+      const film = filmRef.current;
+      if (!film) return 0;
+      const rect = film.getBoundingClientRect();
+      const distance = Math.max(1, rect.height - window.innerHeight);
+      return Math.max(0, Math.min(0.9999, -rect.top / distance));
+    };
+
+    const tick = () => {
+      const target = scrollListening.current ? readProgress() : progressTarget.current;
+      progressTarget.current = target;
+
+      // Snap 1:1 — all-intra + blob means seek is free; lag would feel sticky
+      const display = target;
+      progressDisplay.current = display;
+      seekVideos(display);
+
+      if (display > 0.01 && display < 0.99) {
+        if (!barDimOnRef.current) {
+          barDimOnRef.current = true;
+          setBarDim(true);
+        }
+        if (dimTimer.current) window.clearTimeout(dimTimer.current);
+        dimTimer.current = window.setTimeout(() => {
+          barDimOnRef.current = false;
+          setBarDim(false);
+        }, 700);
+      }
+
+      rafLoop.current = requestAnimationFrame(tick);
+    };
+
+    const onScroll = () => {
+      scrollListening.current = true;
+      progressTarget.current = readProgress();
+    };
+
+    scrollListening.current = true;
+    progressTarget.current = readProgress();
+    rafLoop.current = requestAnimationFrame(tick);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    window.addEventListener("wheel", onScroll, { passive: true });
+    window.addEventListener("touchmove", onScroll, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(rafLoop.current);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("wheel", onScroll);
+      window.removeEventListener("touchmove", onScroll);
+      if (dimTimer.current) window.clearTimeout(dimTimer.current);
+    };
+  }, [videosReady, seekVideos]);
+
+  const enter = () => {
+    if (!introReady) return;
+    setEntered(true);
+    window.setTimeout(() => {
+      const film = filmRef.current;
+      if (!film) return;
+      seekVideos(0);
+      const top = window.scrollY + film.getBoundingClientRect().top;
+      window.scrollTo({ top: top + 2, behavior: "auto" });
+    }, 40);
+  };
+
+  const toggleSound = async () => {
+    if (!audioRef.current) {
+      const ctx = new AudioContext();
+      const gain = ctx.createGain();
+      const osc = ctx.createOscillator();
+      const filter = ctx.createBiquadFilter();
+      osc.type = "triangle";
+      osc.frequency.value = 72;
+      filter.type = "lowpass";
+      filter.frequency.value = 240;
+      gain.gain.value = 0;
+      osc.connect(filter).connect(gain).connect(ctx.destination);
+      osc.start();
+      audioRef.current = { ctx, gain };
+    }
+    const next = !sound;
+    await audioRef.current.ctx.resume();
+    audioRef.current.gain.gain.setTargetAtTime(next ? 0.02 : 0, audioRef.current.ctx.currentTime, 0.18);
+    setSound(next);
+  };
+
+  const seek = (index: number) => {
+    const film = filmRef.current;
+    if (!film || totalFrames < 2) return;
+    let before = 0;
+    for (let i = 0; i < index; i += 1) before += sceneFrames[i] || scenes[i].frames;
+    const progress = before / Math.max(1, totalFrames - 1);
+    const top = window.scrollY + film.getBoundingClientRect().top;
+    const travel = film.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: top + travel * progress, behavior: "auto" });
+  };
+
+  const sceneStyle = { "--p": local.toFixed(3) } as CSSProperties;
+  const introFrame = String(Math.min(29, Math.floor((load / 100) * 30))).padStart(3, "0");
+
+  return (
+    <main>
+      <div
+        className={`intro ${introReady ? "is-ready" : ""} ${entered ? "is-gone" : ""}`}
+        onWheel={enter}
+        onTouchMove={enter}
+      >
+        <picture className="intro-unfold">
+          <source
+            media="(max-width: 768px) and (orientation: portrait)"
+            srcSet={`/assets/intro/frames-portrait/intro-${introFrame}.webp`}
+          />
+          <img src={`/assets/intro/frames/intro-${introFrame}.webp`} alt="" />
+        </picture>
+        <div className="intro-pct">
+          {load}
+          <i>%</i>
+        </div>
+        <div className="intro-reveal">
+          <picture className="intro-poster">
+            <source
+              media="(max-width: 768px) and (orientation: portrait)"
+              srcSet="/assets/intro/paper-doodles-portrait.webp"
+            />
+            <img src="/assets/intro/paper-doodles.webp" alt="" />
+          </picture>
+          <div className="intro-copy">
+            <img src="/assets/intro/headline.webp" alt="Dreams are drawn first — Still Theory Studio" />
+            <p>we were all that kid once</p>
+          </div>
+          <button type="button" onClick={enter}>
+            Scroll <span>↓</span>
+          </button>
+        </div>
+      </div>
+
+      <a className="skip" href="#paper-cursor">
+        skip film <span>↓</span>
+      </a>
+
+      <header className={`topbar ${barDim ? "is-dim" : ""}`}>
+        <a className="topmark" href="#film" aria-label="Still Theory Studio">
+          <span className="eclipse" />
+          <b>still theory studio</b>
+        </a>
+        <nav aria-label="site navigation">
+          <a className="on" href="#film">
+            film
+          </a>
+          <i>·</i>
+          <a href="/work">work</a>
+          <i>·</i>
+          <a href="/studio">studio</a>
+          <i>·</i>
+          <a href="/backstage">backstage</a>
+          <i>·</i>
+          <span className="langs">
+            <b>en</b>
+            <em>tr</em>
+          </span>
+        </nav>
+      </header>
+
+      <button
+        className={`sound-toggle ${sound ? "is-on" : ""}`}
+        type="button"
+        onClick={toggleSound}
+        aria-label="Toggle sound"
+      >
+        <span className="speaker">◖</span>
+        <span className="waves">
+          <i />
+          <i />
+          <i />
+        </span>
+        <b>{sound ? "sound on" : "sound off"}</b>
+      </button>
+
+      <section ref={filmRef} id="film" className="film" aria-label="Still Theory Studio brand film">
+        <div className="film-stage" style={sceneStyle}>
+          {scenes.map((scene, index) => (
+            <video
+              key={`${scene.id}-${portrait ? "p" : "l"}`}
+              ref={(el) => {
+                videoRefs.current[index] = el;
+              }}
+              className="film-canvas-el film-scrub-video"
+              muted
+              playsInline
+              preload="auto"
+              aria-hidden={active !== index}
+              style={{ opacity: active === index ? 1 : 0, zIndex: active === index ? 2 : 1 }}
+            />
+          ))}
+
+          {scenes.map((scene, index) => (
+            <div
+              className={`scene film-beat beat-${index} ${active === index ? "is-on" : ""}`}
+              key={scene.id}
+              aria-hidden={active !== index}
+            >
+              {index < 4 && (
+                <div className={`collage-caption tone-${scene.tone} cap-${index}`}>
+                  <p className="cap-eyebrow">{scene.eyebrow}</p>
+                  <div className="cap-words">
+                    {scene.titleWords.map((word) => (
+                      <span key={word}>{word}</span>
+                    ))}
+                  </div>
+                  {scene.body && <b className="cap-body">{scene.body}</b>}
+                </div>
+              )}
+              {index === 4 && (
+                <div className="crumple-word">
+                  FROM PAPER
+                  <br />
+                  <b>TO REAL.</b>
+                </div>
+              )}
+              {index === 5 && (
+                <div className="child-title">
+                  Every big idea starts
+                  <br />
+                  at a child&apos;s desk
+                </div>
+              )}
+              {index === 6 && (
+                <div className="final-words">
+                  <span>CREATIVITY</span>
+                  <span>TECHNOLOGY</span>
+                  <i>FOR</i>
+                  <b>
+                    NEXT
+                    <br />
+                    GENERATIONS
+                  </b>
+                </div>
+              )}
+            </div>
+          ))}
+
+          <nav className="scene-rail" aria-label="Film scenes">
+            <div className="scene-rail-track">
+              <div
+                className="scene-rail-fill"
+                style={{ height: `${((active + local) / scenes.length) * 100}%` }}
+              />
+            </div>
+            {scenes.map((scene, index) => (
+              <button
+                key={scene.label}
+                type="button"
+                className={active === index ? "is-active" : ""}
+                onClick={() => seek(index)}
+              >
+                <i />
+                <span>{scene.label}</span>
+              </button>
+            ))}
+          </nav>
+        </div>
+      </section>
+
+      <footer id="paper-cursor" className={ritual ? "ritual" : ""}>
+        <section className="footer-hero">
+          <div className="footer-headline">
+            <span>CREATIVITY FOR</span>
+            <b>NEXT GENERATIONS</b>
+          </div>
+          <p>
+            Ideas begin on paper.
+            <br />
+            The good ones keep moving.
+          </p>
+        </section>
+
+        <section id="works" className="selected-work">
+          <div className="footer-label">SELECTED WORK</div>
+          <div className="work-list">
+            {works.map((work) => (
+              <a href={work.href} key={work.name}>
+                <small>{work.kind}</small>
+                <b>{work.name}</b>
+                <span>→</span>
+              </a>
+            ))}
+          </div>
+          <div className="works-links">
+            <a href="/work">SEE ALL →</a>
+            <a href="#connect">@stilltheorystudio</a>
+          </div>
+        </section>
+
+        <div className="footer-cards">
+          <section className="brand-card brand-card-photo">
+            <div className="footer-label">BRAND</div>
+            <img className="brand-paper-shot" src="/assets/brand/logo-lockup.jpg" alt="Still Theory Studio paper lockup" />
+            <div className="brand-lockup">
+              <span className="eclipse huge" />
+              <b>
+                still
+                <br />
+                theory
+                <br />
+                studio
+              </b>
+              <em>ideas begin on paper</em>
+            </div>
+            <p>We turn ideas into tangible work.</p>
+          </section>
+          <section id="studio" className="workshop-card">
+            <div className="footer-label">WORKSHOP</div>
+            <p>Every job starts on paper.</p>
+            <ol>
+              <li>
+                <b>01</b> DRAW
+              </li>
+              <li>
+                <b>02</b> MAKE
+              </li>
+              <li>
+                <b>03</b> GROW
+              </li>
+            </ol>
+            <a href="/studio">enter the workshop →</a>
+            <a id="backstage" href="/backstage">
+              go backstage →
+            </a>
+          </section>
+        </div>
+
+        <section id="connect" className="connect-card">
+          <div className="footer-label">CONNECT</div>
+          <a className="contact-mail" href="mailto:hello@stilltheory.studio">
+            hello@stilltheory.studio
+          </a>
+          <div className="contact-row">
+            <span>LOS ANGELES · EVERYWHERE</span>
+            <b>open for new projects</b>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer">
+              Instagram
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+          </div>
+        </section>
+
+        <div className="legal">
+          <span>© 2026 STILL THEORY STUDIO — ALL RIGHTS RESERVED.</span>
+          <div>
+            <a href="/legal/privacy">Privacy</a> · <a href="/legal/terms">Terms</a>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setRitual(false);
+              requestAnimationFrame(() => setRitual(true));
+            }}
+          >
+            crumple the day
+          </button>
+        </div>
+      </footer>
+    </main>
+  );
+}
+```
+
+## FILE: app/legal/terms/page.tsx
+```
+import type { Metadata } from "next";
+import { SiteFooter } from "../../components/SiteFooter";
+import { SiteHeader } from "../../components/SiteHeader";
+
+export const metadata: Metadata = {
+  title: "Terms of Use",
+  description: "Terms of use for Still Theory Studio.",
+};
+
+export default function TermsPage() {
+  return (
+    <main className="subpage legal-page">
+      <SiteHeader />
+      <a className="skip skip-static" href="#legal-body">
+        skip to content <span>↓</span>
+      </a>
+
+      <article id="legal-body" className="legal-doc">
+        <h1>Terms of Use</h1>
+        <p className="legal-updated">Last updated: July 23, 2026</p>
+
+        <h2>About this site</h2>
+        <p>
+          This website is operated by Still Theory Studio. By using the site you agree to these terms. If you
+          do not agree, please do not use the site.
+        </p>
+
+        <h2>Content</h2>
+        <p>
+          All text, film, imagery, marks and design on this site are the property of Still Theory Studio or
+          its partners, unless otherwise noted. You may not copy, redistribute or reuse them without written
+          permission.
+        </p>
+
+        <h2>Projects & proposals</h2>
+        <p>
+          Project discussions started by email or social channels are confidential to the extent agreed in
+          writing. Nothing on this site constitutes a binding offer until confirmed in a signed agreement.
+        </p>
+
+        <h2>No warranties</h2>
+        <p>
+          The site is provided “as is.” We make reasonable efforts to keep it available and accurate, but we
+          do not guarantee uninterrupted access or that every detail will always be current.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions about these terms:{" "}
+          <a href="mailto:hello@stilltheory.studio">hello@stilltheory.studio</a>.
+        </p>
+      </article>
+
+      <SiteFooter />
+    </main>
+  );
+}
+```
+
+## FILE: app/legal/privacy/page.tsx
+```
+import type { Metadata } from "next";
+import { SiteFooter } from "../../components/SiteFooter";
+import { SiteHeader } from "../../components/SiteHeader";
+
+export const metadata: Metadata = {
+  title: "Privacy Notice",
+  description: "Privacy notice for Still Theory Studio.",
+};
+
+export default function PrivacyPage() {
+  return (
+    <main className="subpage legal-page">
+      <SiteHeader />
+      <a className="skip skip-static" href="#legal-body">
+        skip to content <span>↓</span>
+      </a>
+
+      <article id="legal-body" className="legal-doc">
+        <h1>Privacy Notice</h1>
+        <p className="legal-updated">Last updated: July 23, 2026</p>
+
+        <h2>Data Controller</h2>
+        <p>
+          This site is operated by Still Theory Studio. For anything regarding your personal data, reach us at{" "}
+          <a href="mailto:hello@stilltheory.studio">hello@stilltheory.studio</a>.
+        </p>
+
+        <h2>What We Process</h2>
+        <p>
+          When you email us: your name, email address and the content of your message — processed solely to
+          carry out the correspondence and answer your request.
+        </p>
+        <p>
+          Preferences stored in your browser (if you enable sound or language choices) live in your device’s
+          localStorage; they are never sent to us or to any third party for advertising.
+        </p>
+
+        <h2>Analytics & Tracking</h2>
+        <p>
+          This site uses no analytics or tracking tools by default. Your visit is not profiled for marketing.
+        </p>
+
+        <h2>Cookies</h2>
+        <p>
+          Essential preferences only (for example a language cookie if enabled). They serve no advertising or
+          profiling purpose.
+        </p>
+
+        <h2>Retention & Sharing</h2>
+        <p>
+          Email correspondence is kept with our email provider for as long as the exchange requires. Your data
+          is never sold to third parties for marketing.
+        </p>
+
+        <h2>Your Rights</h2>
+        <p>
+          You may request access to, correction or deletion of your data, and object to its processing.
+          Contact: <a href="mailto:hello@stilltheory.studio">hello@stilltheory.studio</a>.
+        </p>
+      </article>
+
+      <SiteFooter />
+    </main>
+  );
+}
+```
+
+## FILE: app/robots.ts
+```
+import type { MetadataRoute } from "next";
+
+const BASE = "https://still-theory-studio.vercel.app";
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+      },
+    ],
+    sitemap: `${BASE}/sitemap.xml`,
+    host: BASE,
+  };
+}
+```
+
+## FILE: app/components/SiteHeader.tsx
+```
+type NavKey = "film" | "work" | "studio" | "backstage";
+
+export function SiteHeader({ active }: { active?: NavKey }) {
+  return (
+    <header className="topbar topbar-static" data-brand="Still Theory Studio">
+      <a className="topmark" href="/" aria-label="Still Theory Studio home">
+        <span className="eclipse" aria-hidden="true" />
+        <b>still theory studio</b>
+      </a>
+      <nav aria-label="site navigation">
+        <a className={active === "film" ? "on" : undefined} href="/">
+          film
+        </a>
+        <i>·</i>
+        <a className={active === "work" ? "on" : undefined} href="/work">
+          work
+        </a>
+        <i>·</i>
+        <a className={active === "studio" ? "on" : undefined} href="/studio">
+          studio
+        </a>
+        <i>·</i>
+        <a className={active === "backstage" ? "on" : undefined} href="/backstage">
+          backstage
+        </a>
+        <i>·</i>
+        <span className="langs">
+          <b>en</b>
+          <em>tr</em>
+        </span>
+      </nav>
+    </header>
+  );
+}
+```
+
+## FILE: app/components/SiteFooter.tsx
+```
+export function SiteFooter() {
+  return (
+    <footer className="page-footer">
+      <div className="page-footer-inner">
+        <a className="topmark" href="/" aria-label="Still Theory Studio">
+          <span className="eclipse" />
+          <b>still theory studio</b>
+        </a>
+        <div className="page-footer-links">
+          <a href="/work">work</a>
+          <a href="/studio">studio</a>
+          <a href="/backstage">backstage</a>
+          <a href="mailto:hello@stilltheory.studio">hello@stilltheory.studio</a>
+        </div>
+        <div className="legal legal-inline">
+          <span>© 2026 STILL THEORY STUDIO — ALL RIGHTS RESERVED.</span>
+          <div>
+            <a href="/legal/privacy">Privacy</a> · <a href="/legal/terms">Terms</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+```
+
+## FILE: app/layout.tsx
+```
+import type { Metadata } from "next";
+import { headers } from "next/headers";
+import "./globals.css";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const host = requestHeaders.get("host") || "localhost:3000";
+  const protocol = host.includes("localhost") ? "http" : "https";
+  const image = `${protocol}://${host}/og.png`;
+
+  return {
+    title: {
+      default: "Still Theory Studio — Ideas begin on paper",
+      template: "%s — Still Theory Studio",
+    },
+    description:
+      "A creative studio told through a scroll-driven paper-cut brand film: identity, software and social — cut, folded and rebuilt by hand.",
+    icons: { icon: "/favicon.svg" },
+    openGraph: {
+      title: "Still Theory Studio — Ideas begin on paper",
+      description: "Identity, software and social — cut, folded and rebuilt by hand.",
+      type: "website",
+      siteName: "Still Theory Studio",
+      images: [{ url: image, width: 1200, height: 630, alt: "Still Theory Studio" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Still Theory Studio — Ideas begin on paper",
+      description: "Identity, software and social — cut, folded and rebuilt by hand.",
+      images: [image],
+    },
+  };
+}
+
+export const viewport = {
+  themeColor: "#16130f",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Caveat:wght@600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+## FILE: app/studio/page.tsx
+```
+import type { Metadata } from "next";
+import { SiteFooter } from "../components/SiteFooter";
+import { SiteHeader } from "../components/SiteHeader";
+
+export const metadata: Metadata = {
+  title: "Studio",
+  description:
+    "Still Theory Studio workshop — ideas begin on paper. We draw, make and grow brands, software and social.",
+};
+
+const steps = [
+  {
+    num: "01",
+    title: "DRAW",
+    body: "Every job starts as a sketch. We open paper on the table, not slides in a meeting; an idea breathes in lines first. A wrong line is still a line — we crumple it and start again.",
+  },
+  {
+    num: "02",
+    title: "MAKE",
+    body: "Design and code are made at the same table. The designer reads the code, the developer reads the sketch; there is no handover in between. What you see on screen is the very thing we drew.",
+  },
+  {
+    num: "03",
+    title: "GROW",
+    body: "Going live is a beginning, not an end. We watch, measure and grow the work in production — an idea that left the paper stays alive by being used.",
+  },
+];
+
+const services = ["brand identity", "web experiences", "product interfaces", "software"];
+
+const frames = [
+  { src: "/assets/brand/logo-lockup.jpg", caption: "still theory studio — paper lockup" },
+  { src: "/assets/brand/id-board.jpg", caption: "identity board from the desk" },
+  { src: "/assets/brand/social-scene.jpg", caption: "social, cut from kraft" },
+  { src: "/assets/reference-scenes/basket.webp", caption: "and the ball finds the bin" },
+];
+
+export default function StudioPage() {
+  return (
+    <main className="subpage">
+      <SiteHeader active="studio" />
+      <a className="skip skip-static" href="#workshop">
+        skip to content <span>↓</span>
+      </a>
+
+      <div className="subpage-hero studio-hero-with-paper">
+        <p className="footer-label">WORKSHOP · STILL THEORY STUDIO</p>
+        <h1>
+          Ideas begin
+          <br />
+          on paper.
+        </h1>
+        <p className="subpage-lede">We take them from there and turn them into living work.</p>
+        <img
+          className="studio-hero-paper"
+          src="/assets/brand/logo-lockup.jpg"
+          alt="Still Theory Studio — still theory studio cut from paper"
+        />
+      </div>
+
+      <section id="workshop" className="studio-steps">
+        {steps.map((step) => (
+          <article className="studio-step" key={step.num}>
+            <p className="footer-label">
+              {step.num} / {step.title}
+            </p>
+            <h2>
+              {step.num} / {step.title}
+            </h2>
+            <p>{step.body}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="studio-frames">
+        <h2>Frames from the desk</h2>
+        <div className="frame-grid">
+          {frames.map((frame) => (
+            <figure key={frame.caption}>
+              <img src={frame.src} alt={frame.caption} />
+              <figcaption>{frame.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="studio-services">
+        <h2>What we do</h2>
+        <ul>
+          {services.map((service, index) => (
+            <li key={service}>
+              <b>0{index + 1}</b>
+              <span>{service}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="studio-stats">4 live projects · 2 languages · 1 desk · Still Theory Studio</p>
+      </section>
+
+      <section className="subpage-cta studio-together">
+        <div>
+          <p className="footer-label">TOGETHER</p>
+          <h2>there&apos;s room at the table</h2>
+          <p>open for new projects</p>
+        </div>
+        <a className="cta-mail" href="mailto:hello@stilltheory.studio">
+          hello@stilltheory.studio →
+        </a>
+        <p className="studio-location">Los Angeles · Everywhere · Instagram · LinkedIn</p>
+        <p className="studio-backstage-link">
+          This desk has a backstage, too. <a href="/backstage">go backstage →</a>
+        </p>
+      </section>
+
+      <SiteFooter />
+    </main>
+  );
+}
+```
+
+## FILE: app/globals.css
+```
+@import "tailwindcss";
+
+:root{
+  --ink:#16130f;
+  --cream:#f4f1ea;
+  --paper:#d5b78d;
+  --orange:#e86e18;
+  --rust:#9b3e19;
+  --kraft:#a86f39;
+  --font-display:"Bricolage Grotesque",Arial,sans-serif;
+  --font-body:"Hanken Grotesk",Arial,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  --font-hand:"Caveat",cursive;
+}
+*{box-sizing:border-box}
+/* no smooth scroll — film scrub must track wheel/touch 1:1 like the reference */
+html{scroll-behavior:auto}
+body{margin:0;background:var(--ink);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+main{overflow:clip}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+img{user-select:none;-webkit-user-drag:none}
+
+/* loader + exact unfolded-paper welcome */
+.intro{position:fixed;inset:0;z-index:40;display:grid;place-items:center;overflow:hidden;background:#c3a77e;transition:opacity .55s,visibility .55s}
+.intro:before,.film-stage:after,footer:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-radial-gradient(ellipse at 40% 30%,rgba(40,25,12,.055) 0 1px,transparent 1px 5px);mix-blend-mode:multiply}
+.intro.is-gone{opacity:0;visibility:hidden;pointer-events:none}
+.intro-unfold,.intro-unfold img{position:absolute;z-index:1;inset:0;width:100%;height:100%;display:block;object-fit:cover;transition:opacity .5s}
+.intro-pct{position:absolute;z-index:2;top:72%;font:clamp(24px,3vw,42px) var(--font-hand);transform:rotate(-4deg)}
+.intro-pct i{font-size:.5em}
+.intro-reveal{position:absolute;z-index:3;inset:0;opacity:0;transform:scale(.985);transition:opacity .55s .1s,transform .75s .1s;background:#eee9df}
+.intro-poster,.intro-poster img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.intro-copy{position:absolute;z-index:4;left:50%;top:51%;width:min(720px,80vw);transform:translate(-50%,-50%);text-align:center}
+.intro-copy>img{display:block;width:100%;height:auto;filter:drop-shadow(0 6px 10px rgba(22,19,15,.22));transform:rotate(-.4deg)}
+.intro-copy p{margin:clamp(8px,1.2vh,16px) auto 0;width:max-content;color:#a2440a;font:700 clamp(24px,3.6vw,37px)/1 var(--font-hand);transform:rotate(-2deg)}
+.intro-reveal button{position:absolute;z-index:6;left:50%;bottom:7vh;display:flex;flex-direction:column;align-items:center;gap:7px;transform:translateX(-50%);border:0;background:transparent;padding:8px 18px;color:#16130f;font:700 13px var(--font-mono);letter-spacing:.3em;cursor:pointer}
+.intro-reveal button span{display:block;font-size:21px;letter-spacing:0;animation:intro-arrow 1.2s steps(6) infinite}
+@keyframes intro-arrow{0%{transform:translateY(0)}50%{transform:translateY(12px)}100%{transform:translateY(0)}}
+.intro.is-ready .intro-unfold,.intro.is-ready .intro-pct{opacity:0}
+.intro.is-ready .intro-reveal{opacity:1;transform:scale(1)}
+
+.skip{position:fixed;left:28px;bottom:31px;z-index:90;padding:10px 20px;background:var(--cream);border:1.6px solid var(--ink);border-radius:46% 54% 52% 48%/58% 46% 54% 42%;box-shadow:2px 2px 0 rgba(22,19,15,.22);font:11px var(--font-mono);letter-spacing:.18em;text-transform:lowercase;transform:rotate(-1.2deg)}
+.skip:hover,.skip:focus{transform:rotate(1deg) scale(1.04)}.skip span{color:var(--orange)}
+.topbar{position:fixed;z-index:80;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 8px) clamp(14px,2.2vw,26px) 12px;padding-left:clamp(96px,10vw,118px);background:rgba(244,241,234,.88);clip-path:polygon(0 0,100% 0,100% calc(100% - 5px),96% 100%,91% calc(100% - 4px),85% calc(100% - 1px),78% calc(100% - 5px),71% calc(100% - 2px),63% calc(100% - 6px),55% calc(100% - 2px),47% calc(100% - 5px),39% calc(100% - 1px),31% calc(100% - 5px),23% calc(100% - 2px),16% calc(100% - 6px),9% calc(100% - 2px),4% calc(100% - 5px),0 calc(100% - 3px));transition:opacity .25s ease}
+.topbar.is-dim{opacity:.35}
+.topmark{display:flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:-.02em}
+.eclipse{position:relative;display:inline-block;width:22px;height:22px;border:6px solid var(--orange);border-radius:50%}
+.eclipse:after{content:"";position:absolute;left:-7px;right:-7px;top:4px;height:3px;background:var(--cream);transform:rotate(-4deg)}
+.topbar nav{display:flex;align-items:center;gap:11px;font:10px var(--font-mono);letter-spacing:.18em;text-transform:lowercase}
+.topbar nav a{padding:14px 1px;position:relative}
+.topbar nav a:after{content:"";position:absolute;left:-4px;right:-4px;bottom:6px;height:2px;background:var(--orange);transform:scaleX(0) rotate(-3deg);transition:.2s}
+.topbar nav a:hover:after,.topbar nav a.on:after{transform:scaleX(1) rotate(-3deg)}
+.topbar nav i{font-style:normal;color:var(--rust)}
+.langs{display:flex;align-items:center;gap:7px}.langs b{background:#ded3bd;padding:10px 8px 8px;border-bottom:2px solid var(--orange)}.langs em{font-style:normal}
+.sound-toggle{position:fixed;z-index:85;left:clamp(10px,2vw,28px);top:calc(env(safe-area-inset-top,0px) + 2px);width:76px;height:47px;color:var(--ink);background:transparent;border:0;cursor:pointer;display:grid;grid-template-columns:32px 1fr;align-items:center;padding:4px;transform:rotate(-2deg)}
+.speaker{font-size:31px;color:var(--orange)}.waves{display:flex;gap:3px;align-items:center}.waves i{display:block;border:1px solid var(--ink);border-left:0;border-top-color:transparent;border-bottom-color:transparent;border-radius:50%;width:4px;height:9px}.waves i:nth-child(2){height:15px}.waves i:nth-child(3){height:22px}.sound-toggle b{display:none}.sound-toggle.is-on .waves i{animation:pulse .8s infinite alternate}.waves i:nth-child(2){animation-delay:-.2s}.waves i:nth-child(3){animation-delay:-.4s}@keyframes pulse{to{transform:scaleX(1.8)}}
+
+/* scroll film — sticky stage, continuous frame scrub across whole film */
+.film{position:relative;height:1600vh;background:#16130f}
+.film-stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:#16130f;touch-action:pan-y}
+.film-stage:after{z-index:3;content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(13,10,7,.08),transparent 10%,transparent 90%,rgba(13,10,7,.06))}
+.film-canvas-el{position:absolute!important;inset:0!important;z-index:1;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;display:block!important;background:#16130f;image-rendering:auto;object-fit:cover}
+/* all-intra scrub videos — fully buffered as blobs; seek is free */
+.film-scrub-video{pointer-events:none;object-fit:cover;object-position:center;will-change:opacity;transition:opacity 40ms linear;background:#16130f}
+/* captions only fade — never lag the film frames */
+.scene{position:absolute;inset:0;z-index:4;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .1s linear,visibility .1s linear}
+.scene.is-on{opacity:1;visibility:visible;pointer-events:none}
+
+/* collage paper captions — match reference ripped-paper word tiles */
+.collage-caption{position:absolute;z-index:8;width:min(420px,42vw);filter:drop-shadow(8px 10px 0 rgba(0,0,0,.22));transform:translateY(calc((1 - var(--p))*22px)) rotate(-1deg);opacity:clamp(0,calc(1.5 - var(--p)*2.4),1)}
+.collage-caption.cap-0{left:50%;bottom:9%;transform:translateX(-50%) translateY(calc((1 - var(--p))*18px)) rotate(-.8deg);text-align:center;width:min(480px,70vw)}
+.collage-caption.cap-1,.collage-caption.cap-2{left:6%;top:26%}
+.collage-caption.cap-3{right:6%;top:26%;transform:translateY(calc((1 - var(--p))*22px)) rotate(.7deg)}
+.cap-eyebrow{margin:0 0 14px;font:10px var(--font-mono);letter-spacing:.18em;color:inherit}
+.cap-words{display:flex;flex-wrap:wrap;gap:8px 10px;justify-content:inherit}
+.cap-0 .cap-words{justify-content:center}
+.cap-words span{display:inline-block;padding:8px 12px 10px;background:#f4f1ea;color:#16130f;font:800 clamp(22px,3.2vw,40px)/1 var(--font-display);letter-spacing:-.04em;box-shadow:3px 4px 0 rgba(0,0,0,.18);transform:rotate(-1.2deg)}
+.cap-words span:nth-child(2n){transform:rotate(1.4deg);background:#fff8ee}
+.cap-words span:nth-child(3n){transform:rotate(-2deg)}
+.cap-body{display:block;margin-top:16px;font:500 15px/1.35 var(--font-body);max-width:34ch}
+.tone-ink{color:var(--cream)}.tone-ink .cap-eyebrow{color:#e8dcc6}
+.tone-ink .cap-body{color:#e8dcc6}
+.tone-ink{padding:22px 24px 26px;background:rgba(22,19,15,.92);clip-path:polygon(1% 4%,97% 0,100% 93%,92% 100%,80% 96%,68% 100%,55% 97%,42% 100%,28% 96%,14% 100%,0 97%,2% 10%)}
+.tone-cream,.tone-kraft{padding:22px 24px 26px;color:var(--ink);background:var(--cream);clip-path:polygon(0 5%,8% 0,18% 4%,30% 0,42% 5%,55% 0,68% 4%,80% 0,92% 5%,100% 1%,99% 94%,88% 100%,74% 96%,60% 100%,46% 96%,32% 100%,18% 96%,6% 100%,0 94%)}
+.tone-kraft{background:#e4c9a0}
+
+/* right scene rail like reference (orange progress) */
+.scene-rail{position:absolute;z-index:70;right:18px;top:50%;transform:translateY(-50%);width:28px;height:min(420px,58vh);display:flex;flex-direction:column;justify-content:space-between;align-items:center}
+.scene-rail-track{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:rgba(244,241,234,.22)}
+.scene-rail-fill{position:absolute;left:0;top:0;width:100%;background:var(--orange);box-shadow:0 0 8px rgba(232,110,24,.45)}
+.scene-rail button{position:relative;z-index:1;width:28px;height:28px;border:0;background:none;cursor:pointer;padding:0}
+.scene-rail button i{display:block;width:8px;height:2px;margin:0 auto;background:rgba(244,241,234,.55)}
+.scene-rail button.is-active i{width:14px;height:3px;background:var(--orange)}
+.scene-rail button span{position:absolute;right:30px;top:50%;transform:translateY(-50%) translateX(4px);padding:3px 7px;background:rgba(22,19,15,.9);color:var(--cream);font:8px var(--font-mono);letter-spacing:.1em;opacity:0;pointer-events:none;transition:.15s}
+.scene-rail button:hover span,.scene-rail button.is-active span{opacity:1;transform:translateY(-50%)}
+
+
+.scene-logo{background:#171410}
+.scene-logo>img{width:100%;height:100%;object-fit:cover;transform:scale(calc(1.01 + var(--p) * .055))}
+.scene-logo:after,.scene-identity:after,.scene-software:after,.scene-social:after{content:"";position:absolute;inset:auto -3% -2%;height:25%;background:#171410;clip-path:polygon(0 42%,7% 28%,14% 48%,23% 25%,31% 52%,39% 23%,47% 45%,57% 20%,66% 50%,74% 26%,83% 45%,91% 25%,100% 47%,100% 100%,0 100%)}
+.scene-scrap{position:absolute;z-index:5;padding:9px 14px;background:var(--cream);font:10px ui-monospace,monospace;letter-spacing:.17em;box-shadow:5px 6px 0 rgba(0,0,0,.23)}
+.scrap-one{left:8%;top:23%;transform:rotate(-7deg)}
+.scrap-two{right:7%;bottom:26%;transform:rotate(5deg);background:var(--orange)}
+.paper-caption{position:absolute;z-index:8;width:min(540px,70vw);filter:drop-shadow(8px 10px 0 rgba(38,23,11,.18));transform:translateY(calc((1 - var(--p)) * 30px)) rotate(-.7deg)}
+.paper-caption>div{position:relative;padding:34px 42px 40px;clip-path:polygon(1% 3%,97% 0,100% 92%,93% 100%,82% 96%,72% 100%,61% 97%,48% 100%,36% 96%,24% 100%,12% 96%,0 99%,2% 9%)}
+.paper-caption p{margin:0 0 20px;font:10px ui-monospace,monospace;letter-spacing:.18em}.paper-caption p i{font-style:normal;color:var(--orange)}
+.paper-caption h1{margin:0;font-size:clamp(48px,6.5vw,88px);line-height:.87;letter-spacing:-.072em}
+.paper-caption b{display:block;margin-top:22px;font-size:18px;line-height:1.35}
+.tone-ink>div{color:var(--cream);background:var(--ink)}.tone-cream>div{background:var(--cream)}.tone-kraft>div{background:var(--kraft)}
+.caption-0{left:50%;bottom:7%;transform:translateX(-50%) rotate(-.7deg);text-align:center}
+.caption-1,.caption-2{left:8%;top:30%}.caption-3{right:8%;top:30%;transform:rotate(.7deg)}
+.caption-5{left:50%;bottom:7%;transform:translateX(-50%) rotate(-.5deg);text-align:center}
+.caption-5>div{background:rgba(21,19,15,.9);backdrop-filter:blur(3px)}
+
+.scene-identity{background:#cdb183}
+.identity-board{position:absolute;inset:8% 5% 5%;background:#1a1713;box-shadow:0 20px 40px rgba(43,25,10,.25);transform:rotate(calc(-2deg + var(--p) * 3deg));overflow:hidden}
+.identity-board:before{content:"";position:absolute;left:-10%;top:-12%;width:70%;height:80%;border:14px solid var(--orange);border-radius:50%;opacity:.55}
+.identity-logo{position:absolute;right:6%;top:7%;color:var(--cream);display:flex;align-items:center;gap:28px}.eclipse.big{width:115px;height:115px;border-width:27px}.eclipse.big:after{top:24px;height:18px;left:-31px;right:-31px;background:var(--ink)}.identity-logo strong{font-size:58px;line-height:.72;letter-spacing:-.07em}
+.swatches{position:absolute;right:6%;bottom:8%;display:flex;gap:9px}.swatches i{display:block;width:68px;height:68px;background:var(--orange)}.swatches i:nth-child(2){background:#d59a56}.swatches i:nth-child(3){background:var(--cream)}.swatches i:nth-child(4){background:#8e3a1b}.swatches i:nth-child(5){background:#27231e}
+.type-sheet{position:absolute;right:34%;top:35%;width:250px;height:210px;padding:18px;background:var(--cream);transform:rotate(2deg)}.type-sheet b{display:block;font-size:90px;line-height:.8}.type-sheet span{font:9px ui-monospace,monospace;letter-spacing:.1em}.type-sheet em{display:block;margin-top:13px;font:16px/1.1 ui-monospace,monospace;font-style:normal}
+.business-card{position:absolute;right:7%;top:42%;width:280px;height:150px;padding:30px;color:var(--cream);background:var(--orange);transform:rotate(-5deg);box-shadow:7px 8px 0 rgba(0,0,0,.25)}.business-card b{display:block;font-size:24px;margin-top:8px}.business-card small{font:8px ui-monospace,monospace;letter-spacing:.16em}
+.roundel{position:absolute;left:6%;bottom:6%;width:130px;height:130px;border-radius:50%;display:grid;place-content:center;text-align:center;background:var(--cream);color:var(--ink);font-size:45px;font-weight:900;transform:rotate(-9deg)}.roundel small{font:9px ui-monospace,monospace;letter-spacing:.18em}
+
+.scene-software{background:var(--orange)}.paper-laptop{position:absolute;right:10%;top:14%;width:min(58vw,740px);transform:rotate(calc(3deg - var(--p)*4deg))}.laptop-screen{height:390px;padding:30px;display:grid;place-items:center;color:var(--cream);background:var(--ink);border:18px solid #dfcbaa;box-shadow:9px 13px 0 rgba(62,32,7,.26)}.laptop-screen span{font-size:80px;line-height:.7;letter-spacing:-.08em}.laptop-screen b{color:var(--orange)}.cursor-dot{position:absolute;right:20%;top:40%;width:28px;height:28px;background:var(--orange);border-radius:50%;box-shadow:0 0 0 12px rgba(232,110,24,.25)}.laptop-deck{width:110%;height:45px;margin-left:-5%;background:#e6d4b6;clip-path:polygon(4% 0,96% 0,100% 75%,94% 100%,6% 100%,0 75%)}
+.paper-phone{position:absolute;right:5%;bottom:7%;width:180px;height:340px;padding:12px;background:#e8d5b6;border-radius:22px;transform:rotate(8deg);box-shadow:8px 11px 0 rgba(52,25,6,.25)}.paper-phone>div{height:100%;display:grid;place-items:center;align-content:center;background:#201c17;color:var(--cream)}.paper-phone b,.paper-phone em{font-size:27px;font-style:normal}.code-strip{position:absolute;left:-4%;bottom:14%;padding:14px 35px;background:var(--ink);color:var(--cream);font:12px ui-monospace,monospace;letter-spacing:.13em;transform:rotate(-6deg)}
+
+.scene-social{background:#ccad7e}.social-post{position:absolute;left:50%;top:50%;width:380px;background:var(--cream);transform:translate(-50%,-48%) rotate(calc(-3deg + var(--p)*5deg));box-shadow:13px 15px 0 rgba(50,27,10,.2)}.social-head{height:55px;display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px}.social-head .eclipse{width:30px;height:30px;border-width:8px}.social-head i{margin-left:auto}.social-post>img{display:block;width:100%;aspect-ratio:1;object-fit:cover}.social-icons{padding:12px 15px;font-size:20px}.social-icons i{float:right}.social-post p{padding:0 15px 18px;margin:0;font-size:12px}.thumb{position:absolute;width:250px;height:290px;display:grid;place-items:center;font-size:60px;font-weight:900;color:var(--cream);box-shadow:9px 11px 0 rgba(40,22,9,.2)}.thumb-a{left:9%;top:13%;background:var(--ink);transform:rotate(-8deg)}.thumb-b{right:7%;bottom:8%;background:var(--orange);transform:rotate(7deg)}
+
+/* film collapses into live action */
+.scene-crumple{background:#171410}
+.room-reveal,.photo-sequence,.photo-sequence img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.room-reveal{transform:scale(calc(1.08 - var(--p) * .08))}
+.collapsing-board{position:absolute;inset:0;background:var(--ink);display:grid;place-items:center;clip-path:polygon(calc(var(--p)*50%) calc(var(--p)*50%),calc(100% - var(--p)*50%) calc(var(--p)*47%),calc(100% - var(--p)*49%) calc(100% - var(--p)*50%),calc(var(--p)*48%) calc(100% - var(--p)*49%));filter:drop-shadow(0 15px 15px rgba(0,0,0,.35));transform:rotate(calc(var(--p)*45deg))}
+.collapsing-board img{width:100%;height:100%;object-fit:cover;transform:scale(calc(1 - var(--p)*.82))}
+.crumple-word{position:absolute;left:7%;top:16%;font-size:clamp(55px,10vw,145px);line-height:.78;letter-spacing:-.08em;color:var(--cream);opacity:calc(1 - var(--p)*1.8);text-shadow:5px 7px 0 rgba(0,0,0,.3)}.crumple-word b{color:var(--orange)}
+
+.scene-child,.scene-basket{background:#171410}
+.photo-sequence img{opacity:0;transition:opacity .22s linear;transform:scale(1.015)}
+.photo-sequence img.is-current{opacity:1}
+.photo-vignette{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.25),transparent 25%,transparent 75%,rgba(0,0,0,.15))}
+.scene-basket .photo-sequence{filter:brightness(calc(1 - var(--p)*.52))}
+.final-words{position:absolute;left:7%;top:14%;display:flex;flex-direction:column;color:var(--cream);opacity:calc((var(--p) - .35)*2.6);transform:translateY(calc((1 - var(--p))*35px));text-shadow:4px 5px 0 rgba(0,0,0,.35)}
+.final-words span{font:14px ui-monospace,monospace;letter-spacing:.2em;margin-bottom:8px}.final-words i{font:28px cursive;color:var(--orange)}.final-words b{font-size:clamp(70px,11vw,160px);line-height:.78;letter-spacing:-.08em}
+.end-stamp{position:absolute;right:6%;bottom:8%;padding:17px 24px;background:var(--orange);font-size:22px;font-weight:900;transform:rotate(-4deg);opacity:calc((var(--p) - .55)*3)}.end-stamp small{font:8px ui-monospace,monospace;letter-spacing:.16em}
+
+.film-scroll{display:none}
+.scene-nav{position:absolute;z-index:70;right:15px;top:50%;width:54px;height:430px;padding:14px 10px;transform:translateY(-50%) rotate(-.4deg);display:flex;flex-direction:column;justify-content:space-between;background:rgba(28,27,25,.91);box-shadow:8px 8px 0 rgba(0,0,0,.18)}
+.scene-nav:before{content:"";position:absolute;left:50%;top:-27px;width:4px;height:470px;transform:translateX(-50%);background:rgba(245,238,224,.22)}
+.scene-nav button{position:relative;z-index:1;display:flex;flex-direction:row-reverse;align-items:center;justify-content:center;border:0;background:none;color:var(--cream);cursor:pointer}
+.scene-nav button i{display:block;width:12px;height:2px;background:currentColor}.scene-nav button span{position:absolute;right:39px;width:max-content;padding:4px 7px;color:var(--cream);background:rgba(28,27,25,.9);font:8px ui-monospace,monospace;letter-spacing:.1em;opacity:0;transform:translateX(5px);transition:.2s}.scene-nav button:hover span,.scene-nav button.is-active span{opacity:1;transform:none}.scene-nav button.is-active i{width:20px;height:3px;background:var(--orange)}
+
+/* torn black closing board */
+footer{position:relative;z-index:5;padding:120px clamp(20px,4vw,60px) 25px;background:#15130f;color:var(--cream);clip-path:polygon(0 .2%,7% 0,14% .27%,23% .06%,32% .22%,42% 0,53% .25%,64% .05%,75% .2%,86% 0,94% .24%,100% .08%,100% 100%,0 100%)}
+footer:after{z-index:-1;opacity:.8}
+.footer-hero{max-width:1250px;margin:0 auto 80px;position:relative}
+.footer-headline{position:relative;display:flex;flex-direction:column;align-items:flex-start;transform:rotate(-1deg)}
+.footer-headline span{padding:13px 20px;background:var(--orange);color:var(--ink);font:12px ui-monospace,monospace;letter-spacing:.18em;box-shadow:6px 8px 0 rgba(0,0,0,.35)}
+.footer-headline b{display:block;margin-top:-3px;padding:20px 28px 27px;background:var(--cream);color:var(--ink);font-size:clamp(64px,11.7vw,178px);line-height:.76;letter-spacing:-.085em;clip-path:polygon(0 6%,5% 1%,11% 5%,18% 0,25% 4%,33% 1%,41% 5%,49% 0,57% 4%,65% 1%,73% 5%,81% 0,89% 4%,96% 1%,100% 6%,99% 94%,93% 100%,85% 95%,77% 100%,68% 95%,59% 100%,50% 95%,41% 100%,32% 95%,23% 100%,14% 95%,6% 100%,0 94%)}
+.footer-hero p{margin:28px 0 0 55%;font:clamp(20px,2.2vw,32px)/1.1 var(--font-hand);transform:rotate(3deg)}
+.footer-headline span,.footer-label,.works-links,.legal,.workshop-card li,.contact-row{font-family:var(--font-mono)}
+.footer-headline b,.work-list b,.brand-lockup b,.contact-mail{font-family:var(--font-display)}
+.brand-lockup em,.workshop-card>p{font-family:var(--font-hand)}
+
+.project-board{max-width:1250px;margin:0 auto 90px;display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:230px;gap:18px}
+.project{position:relative;overflow:hidden;padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:8px 10px 0 rgba(0,0,0,.42);transition:transform .25s}
+.project:hover{transform:translateY(-8px) rotate(-1deg)}
+.project small{font:9px ui-monospace,monospace;letter-spacing:.16em}.project>b{font-size:clamp(38px,5vw,72px);line-height:.78;letter-spacing:-.07em}.project>span,.project>a{font:10px ui-monospace,monospace;letter-spacing:.12em}
+.project-orange{grid-column:span 5;grid-row:span 2;background:var(--orange);color:var(--ink);transform:rotate(-1deg)}
+.project-photo{grid-column:span 3;grid-row:span 2;background:linear-gradient(rgba(21,19,15,.15),rgba(21,19,15,.5)),url("/assets/still-theory-hero.png") center/cover;color:var(--cream);transform:rotate(1.2deg)}
+.project-cream{grid-column:span 4;background:var(--cream);color:var(--ink);transform:rotate(-.5deg)}
+.project-studio{grid-column:span 4;background:#9a3e1c;transform:rotate(.8deg)}.project-studio>b{font-size:52px}
+.project-note{grid-column:span 4;background:#d5b78d;color:var(--ink);transform:rotate(-1.3deg)}.project-note p{font:30px/1.05 cursive;margin:0}
+.project-contact{grid-column:span 8;background:var(--cream);color:var(--ink);transform:rotate(.5deg)}.project-contact>a{font-size:clamp(34px,5vw,70px);font-weight:900;line-height:.8;letter-spacing:-.06em}
+.legal{max-width:1250px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding-top:25px;border-top:1px solid rgba(255,255,255,.4);font:8px ui-monospace,monospace;letter-spacing:.12em}.legal button{border:1px solid var(--cream);background:var(--orange);padding:9px 14px;cursor:pointer;transform:rotate(-2deg)}
+footer.ritual .project{animation:crumple .65s ease}footer.ritual .project:nth-child(2n){animation-delay:.08s}@keyframes crumple{40%{transform:scale(.92) rotate(5deg);filter:contrast(1.2)}70%{transform:scale(1.03) rotate(-3deg)}}
+
+@media(max-width:760px){
+  .topbar{padding:0 12px 0 76px}.topmark b{display:none}.topbar nav{gap:7px;letter-spacing:.03em}.topbar nav i{display:none}.topbar nav a:first-child,.langs{display:none}
+  .sound-toggle{width:60px;height:47px;top:2px;left:8px}.sound-toggle b{display:none}
+  .intro-copy{width:86vw}.intro-copy p{font-size:24px}
+  .film{height:760vh}
+  .scene-logo>img{object-position:center}
+  .scene-scrap{font-size:8px}.scrap-one{top:18%}
+  .paper-caption{width:88vw;left:6%!important;right:auto!important;top:auto!important;bottom:7%!important;transform:rotate(-.7deg)!important}.paper-caption>div{padding:24px}.paper-caption h1{font-size:13vw}.paper-caption b{font-size:14px}
+  .identity-board{inset:8% 3%}.identity-logo{transform:scale(.62);transform-origin:right top}.type-sheet{display:none}.business-card{right:5%;top:29%;width:210px}.swatches i{width:43px;height:43px}.roundel{width:90px;height:90px;font-size:28px}
+  .paper-laptop{right:3%;top:11%;width:90vw}.laptop-screen{height:310px}.laptop-screen span{font-size:55px}.paper-phone{width:130px;height:255px}
+  .social-post{width:270px}.thumb{width:150px;height:180px;font-size:37px}.thumb-a{left:2%}.thumb-b{right:1%}
+  .room-reveal,.photo-sequence img{object-position:center center}.crumple-word{top:22%;font-size:17vw}
+  .caption-5{bottom:6%!important}.caption-5 h1{font-size:11vw}
+  .final-words{left:6%;top:18%}.final-words b{font-size:18vw}.end-stamp{right:4%;bottom:9%}
+  .scene-nav{display:none}
+  footer{padding-top:85px}.footer-headline b{font-size:17vw;padding:17px 15px 22px}.footer-hero p{margin:26px 5% 0 20%;font-size:22px}
+  .project-board{display:flex;flex-direction:column}.project{min-height:280px}.project-orange,.project-photo{min-height:430px}.project-contact>a{font-size:12vw}
+  .legal{flex-direction:column;gap:18px;text-align:center}
+}
+
+@media(max-width:420px){
+  .topbar nav a:nth-of-type(4),.topbar nav i:nth-of-type(3){display:none}
+  .paper-caption h1{font-size:12vw}.paper-caption p{margin-bottom:12px}
+  .social-post{top:41%}.thumb-b{bottom:19%}
+  .photo-sequence img{object-position:58% center}.scene-basket .photo-sequence img{object-position:48% center}
+}
+
+@media(max-width:768px) and (orientation:portrait){
+  .intro-copy{top:auto;bottom:21vh;transform:translateX(-50%)}
+  .intro-reveal button{bottom:4.5vh}
+}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* v9 — continuous film scrub + collage captions + rail */
+.film{height:1600vh;background:#16130f}
+.film-stage{background:#16130f}
+.scene-nav{display:none}
+
+.film-beat{background:transparent}
+.film-beat .paper-caption{z-index:8;opacity:clamp(0,calc(1.8 - var(--p)*2.6),1);transform:translateY(calc((1 - var(--p)) * 18px)) rotate(-.7deg);font-family:var(--font-display);will-change:opacity,transform}
+.paper-caption p{font-family:var(--font-mono)!important}
+.paper-caption b{font-family:var(--font-body);font-weight:500}
+.caption-0{transform:translateX(-50%) translateY(calc((1 - var(--p)) * 18px)) rotate(-.7deg)!important}
+.caption-3{transform:translateY(calc((1 - var(--p)) * 18px)) rotate(.7deg)!important}
+
+.beat-0 .paper-caption{bottom:8%;width:min(520px,70vw)}
+.beat-0 .paper-caption h1{font-size:clamp(48px,5.7vw,82px);font-family:var(--font-display);font-weight:800}
+.beat-1 .paper-caption,.beat-2 .paper-caption{top:28%;left:6%;width:min(470px,45vw)}
+.beat-3 .paper-caption{top:28%;right:6%;width:min(470px,45vw)}
+.beat-4 .crumple-word{z-index:5;opacity:clamp(0,calc(1.4 - var(--p)*2.5),1);font-family:var(--font-display)}
+.child-title{position:absolute;z-index:7;left:50%;bottom:7%;transform:translateX(-50%) rotate(-.6deg);width:min(780px,80vw);padding:25px 34px;text-align:center;color:var(--cream);background:rgba(21,19,15,.9);font-family:var(--font-display);font-size:clamp(44px,6.7vw,92px);font-weight:800;line-height:.84;letter-spacing:-.075em;clip-path:polygon(0 7%,8% 2%,17% 5%,27% 0,38% 5%,49% 1%,60% 5%,71% 0,82% 5%,92% 1%,100% 7%,98% 94%,89% 100%,79% 95%,68% 100%,57% 95%,47% 100%,36% 95%,25% 100%,13% 95%,2% 100%);opacity:clamp(0,calc(1.6 - var(--p)*2.2),1)}
+.beat-6 .final-words{z-index:7;opacity:clamp(0,calc((var(--p) - .32)*2.8),1);font-family:var(--font-display)}
+.final-words i{font-family:var(--font-hand)!important}
+
+/* burn "studio" into logo beat so brand reads Still Theory Studio over film wordmark */
+.brand-burn{position:absolute;z-index:9;left:50%;bottom:22%;transform:translateX(-50%) rotate(-1.5deg);pointer-events:none;opacity:clamp(0,calc(1.2 - var(--p)*2.4),1)}
+.brand-burn-mark{display:inline-block;padding:8px 16px 10px;background:var(--cream);color:var(--ink);font:700 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:lowercase;box-shadow:5px 6px 0 rgba(0,0,0,.28);border:1px solid rgba(22,19,15,.2)}
+
+
+/* original long-form paper footer rhythm */
+footer{padding-top:130px;background:#16130f;color:var(--cream)}
+.selected-work{max-width:1160px;margin:0 auto 95px;padding:55px 58px 45px;color:var(--ink);background:var(--cream);transform:rotate(-.25deg);clip-path:polygon(0 2%,7% 0,14% 2%,23% .5%,32% 2%,42% 0,53% 2%,64% .5%,75% 2%,86% 0,94% 2%,100% .5%,100% 98%,93% 100%,84% 98%,73% 100%,62% 98%,51% 100%,39% 98%,28% 100%,16% 98%,6% 100%,0 98%)}
+.footer-label{font:10px ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase}
+.work-list{margin-top:27px;border-top:1px solid var(--ink)}
+.work-list a{display:grid;grid-template-columns:140px 1fr 48px;align-items:center;padding:19px 8px;border-bottom:1px solid var(--ink);transition:padding .2s,background .2s}
+.work-list a:hover{padding-left:18px;background:#e4d8c3}.work-list small{font:9px ui-monospace,monospace;letter-spacing:.13em}.work-list b{font-size:clamp(34px,5vw,68px);letter-spacing:-.065em}.work-list span{text-align:right;color:var(--orange);font-size:27px}
+.works-links{display:flex;justify-content:space-between;margin-top:18px;font:10px ui-monospace,monospace;letter-spacing:.14em}
+.footer-cards{max-width:1160px;margin:0 auto 78px;display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
+.brand-card,.workshop-card,.connect-card{position:relative;padding:42px;box-shadow:10px 12px 0 rgba(0,0,0,.34)}
+.brand-card{min-height:530px;background:var(--orange);color:var(--ink);transform:rotate(-.7deg)}
+.brand-lockup{display:grid;grid-template-columns:150px 1fr;align-items:center;margin-top:28px}.eclipse.huge{width:130px;height:130px;border-width:31px}.eclipse.huge:after{top:28px;height:20px;left:-35px;right:-35px;background:var(--orange)}.brand-lockup b{font-size:clamp(44px,6.5vw,86px);line-height:.76;letter-spacing:-.085em}.brand-lockup em{grid-column:2;font:26px var(--font-hand);transform:rotate(-4deg)}.brand-card>p{position:absolute;left:42px;bottom:28px;font-size:22px}
+.topmark b{font-size:13px;letter-spacing:-.02em}
+.brand-card-photo{overflow:hidden}
+.brand-paper-shot{display:block;width:100%;height:220px;object-fit:cover;margin:18px 0 8px;border:2px solid rgba(22,19,15,.2);box-shadow:8px 10px 0 rgba(0,0,0,.2);transform:rotate(-1deg)}
+.work-grid-photo .work-card{padding-top:0;overflow:hidden}
+.work-card-photo{margin:0 -34px 18px;height:180px;overflow:hidden}
+.work-card-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.studio-hero-with-paper{position:relative}
+.studio-hero-paper{display:block;margin-top:36px;width:min(720px,100%);height:auto;border:2px solid rgba(241,231,212,.2);box-shadow:12px 14px 0 rgba(0,0,0,.35);transform:rotate(-.8deg)}
+.workshop-card{min-height:530px;background:var(--cream);color:var(--ink);transform:rotate(.7deg)}.workshop-card>p{margin:72px 0 45px;font:34px cursive}.workshop-card ol{list-style:none;padding:0;margin:0 0 45px}.workshop-card li{display:flex;gap:16px;padding:13px 0;border-bottom:1px solid rgba(21,19,15,.35);font:13px ui-monospace,monospace;letter-spacing:.15em}.workshop-card li b{color:var(--orange)}.workshop-card>a{display:block;margin-top:17px;font:10px ui-monospace,monospace;letter-spacing:.13em}
+.connect-card{max-width:1160px;min-height:420px;margin:0 auto 80px;background:#d7bd96;color:var(--ink);transform:rotate(-.35deg)}
+.contact-mail{display:block;margin:95px 0 78px;width:max-content;max-width:100%;font-size:clamp(43px,7.4vw,108px);line-height:.8;letter-spacing:-.078em;border-bottom:7px solid var(--orange)}
+.contact-row{display:grid;grid-template-columns:2fr 2fr 1fr 1fr;gap:25px;font:9px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}.contact-row b{color:var(--rust)}
+footer.ritual .brand-card,footer.ritual .workshop-card{animation:crumple .65s ease}
+
+@media(max-width:760px){
+  .film{height:1400vh}
+  .film-canvas-el{object-position:center}
+  .collage-caption{width:86vw!important;left:7%!important;right:auto!important;top:auto!important;bottom:8%!important}
+  .cap-words span{font-size:7.2vw}
+  .scene-rail{right:8px;height:min(360px,50vh)}
+
+  .film-beat .paper-caption{width:88vw!important;left:6%!important;right:auto!important;top:auto!important;bottom:7%!important}
+  .film-beat .paper-caption h1{font-size:12.6vw}
+  .child-title{width:88vw;font-size:11.5vw;bottom:7%}
+  .beat-6 .final-words{top:18%}
+  .brand-burn{bottom:28%}
+  .footer-cards{grid-template-columns:1fr}.selected-work{padding:42px 24px}.work-list a{grid-template-columns:70px 1fr 28px}.work-list b{font-size:10vw}
+  .brand-lockup{grid-template-columns:88px 1fr}.eclipse.huge{width:76px;height:76px;border-width:18px}.brand-lockup b{font-size:15vw}
+  .contact-row{grid-template-columns:1fr 1fr}.contact-mail{font-size:11vw}
+  .topbar{padding-left:clamp(72px,18vw,100px)}
+  .topmark b{font-size:11px;max-width:36vw;line-height:1.05}
+}
+
+
+/* ── multi-page chrome (work / studio / backstage / legal) ── */
+.subpage{min-height:100vh;background:#16130f;color:var(--cream)}
+.topbar-static{position:sticky;background:rgba(241,235,222,.97)}
+.skip-static{position:absolute;top:70px}
+.subpage-hero{max-width:1100px;margin:0 auto;padding:120px clamp(20px,4vw,48px) 48px}
+.subpage-hero h1{margin:18px 0 0;font-size:clamp(56px,11vw,132px);line-height:.82;letter-spacing:-.08em}
+.subpage-lede{max-width:520px;margin:28px 0 0;font:clamp(20px,2.4vw,30px)/1.25 cursive;color:#e8dcc6;transform:rotate(-.6deg)}
+
+.work-grid{max-width:1100px;margin:0 auto;padding:10px clamp(20px,4vw,48px) 80px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.work-card{min-height:320px;padding:34px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:10px 12px 0 rgba(0,0,0,.35);transform:rotate(-.5deg)}
+.work-card:nth-child(2n){transform:rotate(.6deg)}
+.work-card.tone-orange{background:var(--orange);color:var(--ink)}
+.work-card.tone-kraft{background:var(--kraft);color:var(--ink)}
+.work-card.tone-cream{background:var(--cream);color:var(--ink)}
+.work-card.tone-ink{background:#1f1b16;color:var(--cream);border:1px solid rgba(241,231,212,.2)}
+.work-card-meta{display:flex;justify-content:space-between;gap:12px;font:9px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+.work-card h2{margin:24px 0 12px;font-size:clamp(40px,5.5vw,72px);line-height:.82;letter-spacing:-.07em}
+.work-card p{margin:0 0 28px;font-size:16px;line-height:1.4;max-width:34ch}
+.work-card a{font:10px ui-monospace,monospace;letter-spacing:.14em}
+
+.subpage-cta{max-width:1100px;margin:0 auto 80px;padding:48px clamp(20px,4vw,48px);background:var(--cream);color:var(--ink);display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end;clip-path:polygon(0 3%,8% 0,16% 2%,28% 0,40% 2%,52% 0,64% 2%,76% 0,88% 2%,100% 0,100% 100%,0 100%)}
+.subpage-cta h2{margin:12px 0 10px;font-size:clamp(32px,4.5vw,54px);line-height:.9;letter-spacing:-.05em}
+.subpage-cta p{margin:0;font:22px cursive}
+.cta-mail{justify-self:end;font-size:clamp(22px,2.8vw,34px);font-weight:800;letter-spacing:-.04em;border-bottom:5px solid var(--orange);line-height:1.1}
+
+.studio-steps{max-width:1100px;margin:0 auto;padding:20px clamp(20px,4vw,48px) 60px;display:grid;gap:28px}
+.studio-step{padding:36px 40px;background:var(--cream);color:var(--ink);box-shadow:8px 10px 0 rgba(0,0,0,.28);transform:rotate(-.4deg)}
+.studio-step:nth-child(2n){transform:rotate(.5deg);background:#e8d8bc}
+.studio-step h2{margin:8px 0 16px;font-size:clamp(36px,5vw,64px);letter-spacing:-.06em;line-height:.9}
+.studio-step p:last-child{margin:0;font-size:17px;line-height:1.45;max-width:62ch}
+
+.studio-frames,.studio-services{max-width:1100px;margin:0 auto;padding:20px clamp(20px,4vw,48px) 70px}
+.studio-frames h2,.studio-services h2,.backstage-block h2{margin:0 0 28px;font-size:clamp(36px,5vw,60px);letter-spacing:-.06em;line-height:.9}
+.frame-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.frame-grid figure{margin:0;background:#1f1b16;box-shadow:7px 8px 0 rgba(0,0,0,.3);overflow:hidden}
+.frame-grid img{display:block;width:100%;aspect-ratio:1;object-fit:cover;filter:saturate(.9)}
+.frame-grid figcaption{padding:12px 14px;font:10px ui-monospace,monospace;letter-spacing:.12em;color:#e8dcc6}
+
+.studio-services ul{list-style:none;margin:0;padding:0;border-top:1px solid rgba(241,231,212,.25)}
+.studio-services li{display:grid;grid-template-columns:70px 1fr;gap:18px;align-items:center;padding:22px 4px;border-bottom:1px solid rgba(241,231,212,.25);font-size:clamp(28px,4vw,48px);letter-spacing:-.05em}
+.studio-services li b{font:12px ui-monospace,monospace;letter-spacing:.16em;color:var(--orange)}
+.studio-stats{margin:28px 0 0;font:11px ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:#c9b89a}
+.studio-together{grid-template-columns:1fr}
+.studio-location,.studio-backstage-link{margin-top:18px;font:11px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}
+.studio-backstage-link a{border-bottom:1px solid var(--orange)}
+
+.backstage-body{max-width:1100px;margin:0 auto;padding:0 clamp(20px,4vw,48px) 40px}
+.backstage-block{margin-bottom:90px}
+.backstage-block>p{max-width:70ch;font-size:17px;line-height:1.5;color:#e8dcc6}
+.dual-grid{display:grid;gap:28px;margin-top:32px}
+.dual-card{padding:22px;background:#1f1b16;box-shadow:8px 10px 0 rgba(0,0,0,.28)}
+.dual-pair{display:grid;grid-template-columns:1.4fr .7fr;gap:14px}
+.dual-pair figure{margin:0}
+.dual-pair span{display:block;margin-bottom:8px;font:9px ui-monospace,monospace;letter-spacing:.14em;color:var(--orange)}
+.dual-pair video{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#0d0b09;border:1px solid rgba(241,231,212,.12)}
+.dual-pair figure:last-child video{aspect-ratio:9/14;max-height:280px;margin-inline:auto}
+.dual-card>p{margin:16px 0 0;font:18px cursive;color:#e8dcc6}
+
+.chain-list{margin:28px 0 12px;display:grid;gap:10px}
+.chain-row{display:grid;grid-template-columns:90px 1fr 28px 1fr;gap:12px;align-items:center;padding:14px 16px;background:var(--cream);color:var(--ink);font:12px ui-monospace,monospace;letter-spacing:.08em}
+.chain-row b{color:var(--orange)}
+.chain-row code{font:inherit}
+.muted{font:11px ui-monospace,monospace;letter-spacing:.12em;color:#c9b89a!important}
+.backstage-plates{margin-top:24px}
+.engine-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.engine-grid article{padding:24px;background:#1f1b16;border:1px solid rgba(241,231,212,.12);min-height:150px}
+.engine-grid article p:last-child{margin:14px 0 0;font-size:15px;line-height:1.45;color:#e8dcc6}
+.back-to-film{display:inline-block;margin-top:22px;padding:14px 22px;background:var(--orange);color:var(--ink);font:12px ui-monospace,monospace;letter-spacing:.16em;box-shadow:5px 6px 0 rgba(0,0,0,.3)}
+
+.legal-page .legal-doc{max-width:760px;margin:0 auto;padding:110px clamp(20px,4vw,48px) 80px;color:#e8dcc6}
+.legal-doc h1{margin:0 0 12px;font-size:clamp(42px,7vw,72px);letter-spacing:-.06em;color:var(--cream)}
+.legal-updated{font:11px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#c9b89a}
+.legal-doc h2{margin:40px 0 12px;font-size:22px;letter-spacing:-.02em;color:var(--cream)}
+.legal-doc p{margin:0 0 14px;font-size:16px;line-height:1.55}
+.legal-doc a{border-bottom:1px solid var(--orange)}
+
+.page-footer{border-top:1px solid rgba(241,231,212,.18);padding:40px clamp(20px,4vw,48px) 32px;background:#12100d}
+.page-footer-inner{max-width:1100px;margin:0 auto;display:grid;gap:28px}
+.page-footer .topmark{color:var(--cream)}
+.page-footer .eclipse:after{background:#12100d}
+.page-footer-links{display:flex;flex-wrap:wrap;gap:18px 28px;font:11px ui-monospace,monospace;letter-spacing:.14em;text-transform:lowercase}
+.page-footer-links a:hover{color:var(--orange)}
+.legal-inline{border-top:1px solid rgba(241,231,212,.18);padding-top:18px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:8px ui-monospace,monospace;letter-spacing:.12em;color:#c9b89a}
+.legal-inline a{color:var(--cream)}
+
+@media(max-width:760px){
+  .work-grid,.engine-grid,.dual-pair,.frame-grid,.subpage-cta{grid-template-columns:1fr}
+  .chain-row{grid-template-columns:1fr;gap:6px}
+  .subpage-hero{padding-top:100px}
+  .cta-mail{justify-self:start}
+  .topbar-static .topmark b{display:inline;font-size:11px;max-width:42vw;line-height:1.05}
+}
+```
+
+## FILE: app/backstage/page.tsx
+```
+import type { Metadata } from "next";
+import { SiteFooter } from "../components/SiteFooter";
+import { SiteHeader } from "../components/SiteHeader";
+
+export const metadata: Metadata = {
+  title: "Backstage",
+  description:
+    "How the Still Theory Studio brand film was built — paper lockups, dual shoots, and the engine under the paper.",
+};
+
+const engine = [
+  {
+    label: "PAPER",
+    body: "Still Theory Studio is cut into the film frames themselves — logo, identity board, social desk — not stickers on top of another brand.",
+  },
+  {
+    label: "FRAMES",
+    body: "Seven scroll-scrubbed beats × landscape and portrait so the story never crops wrong on a phone.",
+  },
+  {
+    label: "SCRUB",
+    body: "Scroll drives frame index with double-buffered WebP layers — no janky video.currentTime seeking.",
+  },
+  {
+    label: "CHAIN",
+    body: "Seven scenes tied into one breath: logo → identity → software → social → crumple → desk → basket.",
+  },
+  {
+    label: "GATE",
+    body: "An intro loader unfolds the doodle page before the curtain rises.",
+  },
+  {
+    label: "BRAND",
+    body: "Wordmark in the paper: still theory / studio — same two-line lockup structure as a real identity board.",
+  },
+];
+
+export default function BackstagePage() {
+  return (
+    <main className="subpage">
+      <SiteHeader active="backstage" />
+      <a className="skip skip-static" href="#backstage-body">
+        skip to content <span>↓</span>
+      </a>
+
+      <div className="subpage-hero">
+        <p className="footer-label">BACKSTAGE · STILL THEORY STUDIO</p>
+        <h1>
+          How was this
+          <br />
+          film shot?
+        </h1>
+        <p className="subpage-lede">
+          No secrets: paper lockups with Still Theory Studio cut into the artwork, then frame-scrubbed into a
+          film.
+        </p>
+      </div>
+
+      <div id="backstage-body" className="backstage-body">
+        <section className="backstage-block">
+          <h2>The brand is in the paper</h2>
+          <p>
+            The logo beat, identity board and social desk were rebuilt so the letters spell Still Theory Studio
+            as physical paper cuts — cream and orange kraft — not a UI label covering another studio&apos;s name.
+          </p>
+          <div className="frame-grid backstage-plates" style={{ marginTop: 28 }}>
+            <figure>
+              <img src="/assets/brand/logo-lockup.jpg" alt="Still Theory Studio logo lockup in paper" />
+              <figcaption>logo lockup</figcaption>
+            </figure>
+            <figure>
+              <img src="/assets/brand/id-board.jpg" alt="Still Theory Studio identity board in paper" />
+              <figcaption>identity board</figcaption>
+            </figure>
+            <figure>
+              <img src="/assets/brand/social-scene.jpg" alt="Still Theory Studio social scene in paper" />
+              <figcaption>social desk</figcaption>
+            </figure>
+            <figure>
+              <img src="/assets/og.png" alt="Still Theory Studio open graph paper art" />
+              <figcaption>open graph</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section className="backstage-block">
+          <h2>The engine room</h2>
+          <p>Everything running under the paper — one-line specs from the build.</p>
+          <div className="engine-grid">
+            {engine.map((item) => (
+              <article key={item.label}>
+                <p className="footer-label">{item.label}</p>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+          <p className="studio-stats">it all began at a kid&apos;s desk — Still Theory Studio</p>
+          <a className="back-to-film" href="/">
+            back to the film →
+          </a>
+        </section>
+      </div>
+
+      <SiteFooter />
+    </main>
+  );
+}
+```
+
+## FILE: app/work/page.tsx
+```
+import type { Metadata } from "next";
+import { SiteFooter } from "../components/SiteFooter";
+import { SiteHeader } from "../components/SiteHeader";
+
+export const metadata: Metadata = {
+  title: "Work",
+  description: "Selected work from Still Theory Studio — brands, products and paper-born experiences.",
+};
+
+const projects = [
+  {
+    name: "Kali Beach",
+    year: "2025",
+    tags: "Beach Club · Entertainment",
+    note: "A sun-bleached identity and booking surface for a coastal club.",
+    tone: "orange",
+    image: "/assets/brand/social-scene.jpg",
+  },
+  {
+    name: "Beşantaş",
+    year: "2025",
+    tags: "Construction · Concrete & Roofing",
+    note: "Industrial weight, clean type — a builder brand that still feels hand-cut.",
+    tone: "kraft",
+    image: "/assets/brand/id-board.jpg",
+  },
+  {
+    name: "Mendel’s",
+    year: "2024",
+    tags: "Café · Chocolatier",
+    note: "Warm paper packaging and a storefront site that tastes like cocoa.",
+    tone: "cream",
+    image: "/assets/intro/paper-doodles.webp",
+  },
+  {
+    name: "Still Theory Studio",
+    year: "2026",
+    tags: "Group Brand · In-house",
+    note: "Our own mark: eclipse, kraft, and a film that starts on a kid’s desk.",
+    tone: "ink",
+    image: "/assets/brand/logo-lockup.jpg",
+  },
+];
+
+export default function WorkPage() {
+  return (
+    <main className="subpage">
+      <SiteHeader active="work" />
+      <a className="skip skip-static" href="#selected-work">
+        skip to content <span>↓</span>
+      </a>
+
+      <div className="subpage-hero">
+        <p className="footer-label">SELECTED WORK</p>
+        <h1>Work</h1>
+        <p className="subpage-lede">
+          Brands, products and interfaces cut from the same sheet of paper — each one drawn first at Still
+          Theory Studio, then made real.
+        </p>
+      </div>
+
+      <section id="selected-work" className="work-grid work-grid-photo">
+        {projects.map((project, index) => (
+          <article className={`work-card tone-${project.tone}`} key={project.name}>
+            <div className="work-card-photo">
+              <img src={project.image} alt={`${project.name} — Still Theory Studio`} />
+            </div>
+            <div className="work-card-meta">
+              <small>
+                {project.year} · {project.tags}
+              </small>
+              <span>0{index + 1}</span>
+            </div>
+            <h2>{project.name}</h2>
+            <p>{project.note}</p>
+            <a href={`mailto:hello@stilltheory.studio?subject=${encodeURIComponent(`About ${project.name}`)}`}>
+              view project →
+            </a>
+          </article>
+        ))}
+      </section>
+
+      <section className="subpage-cta">
+        <div>
+          <p className="footer-label">NEXT</p>
+          <h2>Got a brand that still lives on a napkin?</h2>
+          <p>Still Theory Studio turns paper ideas into living work.</p>
+        </div>
+        <a className="cta-mail" href="mailto:hello@stilltheory.studio">
+          hello@stilltheory.studio →
+        </a>
+      </section>
+
+      <SiteFooter />
+    </main>
+  );
+}
+```
+
+## FILE: app/sitemap.ts
+```
+import type { MetadataRoute } from "next";
+
+const BASE = "https://still-theory-studio.vercel.app";
+
+const paths = ["/", "/studio", "/work", "/backstage", "/legal/privacy", "/legal/terms"];
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+  return paths.map((path, i) => ({
+    url: `${BASE}${path === "/" ? "" : path}`,
+    lastModified: now,
+    changeFrequency: i === 0 ? "weekly" : "monthly",
+    priority: i === 0 ? 1 : path.startsWith("/legal") ? 0.3 : 0.7,
+  }));
+}
+```
+
+## FILE: vite.config.ts
+```
+import vinext from "vinext";
+import { defineConfig } from "vite";
+import hostingConfig from "./.openai/hosting.json";
+import { sites } from "./build/sites-vite-plugin";
+
+const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
+  "00000000-0000-4000-8000-000000000000";
+
+const { d1, r2 } = hostingConfig;
+
+// macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
+const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
+
+const localBindingConfig = {
+  main: "./worker/index.ts",
+  compatibility_flags: ["nodejs_compat"],
+  d1_databases: d1
+    ? [
+        {
+          binding: d1,
+          database_name: "site-creator-d1",
+          database_id: SITE_CREATOR_PLACEHOLDER_DATABASE_ID,
+        },
+      ]
+    : [],
+  r2_buckets: r2
+    ? [
+        {
+          binding: r2,
+          bucket_name: "site-creator-r2",
+        },
+      ]
+    : [],
+};
+
+export default defineConfig(async () => {
+  // Keep Wrangler and Miniflare state project-local. These are non-secret tool
+  // settings; application environment belongs in ignored `.env*` files.
+  process.env.WRANGLER_WRITE_LOGS ??= "false";
+  process.env.WRANGLER_LOG_PATH ??= ".wrangler/logs";
+  process.env.MINIFLARE_REGISTRY_PATH ??= ".wrangler/registry";
+
+  // Wrangler snapshots its log path while the Cloudflare plugin is imported.
+  const { cloudflare } = await import("@cloudflare/vite-plugin");
+
+  return {
+    server: isCodexSeatbeltSandbox
+      ? { watch: { useFsEvents: false, usePolling: true } }
+      : undefined,
+    plugins: [
+      vinext(),
+      sites(),
+      cloudflare({
+        viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
+        config: localBindingConfig,
+      }),
+    ],
+  };
+});
+```
+
+## FILE: tests/rendered-html.test.mjs
+```
+import assert from "node:assert/strict";
+import { readFile, access } from "node:fs/promises";
+import test from "node:test";
+
+const templateRoot = new URL("../", import.meta.url);
+
+async function render(path = "/") {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${path}`);
+  const { default: worker } = await import(workerUrl.href);
+
+  return worker.fetch(
+    new Request(`http://localhost${path}`, {
+      headers: { accept: "text/html" },
+    }),
+    {
+      ASSETS: {
+        fetch: async () => new Response("Not found", { status: 404 }),
+      },
+    },
+    {
+      waitUntil() {},
+      passThroughOnException() {},
+    },
+  );
+}
+
+test("homepage brands Still Theory Studio and serves the film shell", async () => {
+  const response = await render("/");
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+
+  const html = await response.text();
+  assert.match(html, /Still Theory Studio/i);
+  assert.doesNotMatch(html, /Ellusion Creative|Elusive Creative|ellusion\b/i);
+  assert.match(html, /still theory studio/i);
+  assert.match(html, /Ideas begin on paper/i);
+  assert.match(html, /hello@stilltheory\.studio/i);
+  assert.match(html, /film\/frames|film-layer|STILL THEORY STUDIO/i);
+});
+
+test("work, studio and backstage routes render with brand name", async () => {
+  for (const path of ["/work", "/studio", "/backstage"]) {
+    const response = await render(path);
+    assert.equal(response.status, 200, `${path} should return 200`);
+    const html = await response.text();
+    assert.match(html, /Still Theory Studio|still theory studio/i);
+    assert.doesNotMatch(html, /Ellusion Creative|Elusive Creative/i);
+  }
+});
+
+test("source keeps Still Theory Studio naming and multipage routes", async () => {
+  const [page, layout, work, studio, backstage, packageJson] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/work/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/studio/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/backstage/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(layout, /Still Theory Studio/);
+  assert.match(page, /still theory studio/i);
+  assert.match(page, /STILL THEORY STUDIO/);
+  assert.match(work, /Still Theory Studio/);
+  assert.match(studio, /Still Theory Studio/);
+  assert.match(backstage, /Still Theory Studio/);
+  assert.match(packageJson, /"name": "still-theory-studio"/);
+
+  await Promise.all([
+    access(new URL("app/legal/privacy/page.tsx", templateRoot)),
+    access(new URL("app/legal/terms/page.tsx", templateRoot)),
+    access(new URL("public/assets/film/frames/01-logo/0001.webp", templateRoot)),
+    access(new URL("public/assets/film/frames-portrait/01-logo/0001.webp", templateRoot)),
+    access(new URL("public/assets/film/manifest.json", templateRoot)),
+  ]);
+});
+```
+
+## FILE: eslint.config.mjs
+```
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;
+```
+
+## FILE: drizzle.config.ts
+```
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  out: "./drizzle",
+  schema: "./db/schema.ts",
+  dialect: "sqlite",
+});
+```
