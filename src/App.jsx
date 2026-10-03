@@ -268,19 +268,38 @@ function SearchOverlay({ open, onClose, onSelect }) {
 
 function PackCard({ pack, onOpen }) {
   const [loaded, setLoaded] = useState(false)
+  const [live, setLive] = useState(false)
+  const canLive = Boolean(pack.demo) && !pack.comingSoon
   return (
-    <article className="ms-card" onClick={() => onOpen(pack)} role="button" tabIndex={0}
-      onKeyDown={(e) => { if (e.key === 'Enter') onOpen(pack) }}>
+    <article
+      className="ms-card"
+      onClick={() => onOpen(pack)}
+      onMouseEnter={() => { if (canLive) setLive(true) }}
+      onMouseLeave={() => setLive(false)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === 'Enter') onOpen(pack) }}
+    >
       <div className="ms-card-media">
-        {!loaded && <div className="shimmer" />}
+        {!loaded && !live && <div className="shimmer" />}
         {pack.comingSoon && <span className="ms-card-soon">Coming soon</span>}
         <img
           src={pack.poster}
           alt={pack.title}
           loading="lazy"
           onLoad={() => setLoaded(true)}
-          style={{ opacity: loaded ? 1 : 0 }}
+          style={{ opacity: live ? 0 : loaded ? 1 : 0 }}
         />
+        {live && (
+          <iframe
+            className="ms-card-live"
+            title={`${pack.title} live preview`}
+            src={pack.demo}
+            tabIndex={-1}
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            allow="autoplay; fullscreen"
+          />
+        )}
       </div>
       <div className="ms-card-meta">
         <div className="min-w-0" style={{ minWidth: 0 }}>
@@ -308,7 +327,7 @@ function PackCard({ pack, onOpen }) {
 
 function PackModal({ pack, onClose }) {
   const navigate = useNavigate()
-  const [showLive, setShowLive] = useState(false)
+  const [showLive, setShowLive] = useState(() => Boolean(pack?.demo) && !pack?.comingSoon)
   useEffect(() => {
     if (!pack) return
     const onKey = (e) => { if (e.key === 'Escape') onClose() }
@@ -325,7 +344,7 @@ function PackModal({ pack, onClose }) {
         <div className="ms-modal-preview">
           <button className="ms-modal-close" type="button" onClick={onClose} aria-label="Close">×</button>
           {showLive && pack.demo && !isPlaceholder ? (
-            <iframe title={`${pack.title} preview`} src={pack.demo} loading="lazy" sandbox="allow-scripts allow-same-origin" />
+            <iframe title={`${pack.title} preview`} src={pack.demo} sandbox="allow-scripts allow-same-origin allow-forms allow-popups" allow="autoplay; fullscreen" />
           ) : (
             <img src={pack.poster} alt={pack.title} />
           )}
